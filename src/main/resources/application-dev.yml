@@ -1,0 +1,47 @@
+logging:
+  file:
+    max-history: 7
+  level:
+    root: info
+    #    com.zaxxer.hikari.HikariConfig: DEBUG
+    #    com.zaxxer.hikari: TRACE
+    org.hibernate:
+      #      SQL: DEBUG
+      orm.jdbc.bind: TRACE
+  path: logs
+
+spring:
+  autoconfigure:
+    excludd: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+  datasource:
+    url: l4oSu3Es7bivTu+Dh1pRMfAmaiIEgBiW67vy/orxmXBPq/gt2fVkQsQO2t3g8CZzHzgO1OwfMzdBHEHRQ+3Pb+5RAmPZFb7Dmu7QTX/QsgXxBMlhIuHO+nbk8eoABV46QIQSINJLinXH7JbrkyBi52gjUTh4/YByBGWe6WkCF/o=
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: hZqQ2BVOOunIO1U38O1ciw==
+    password: aKHpqzCLY+b3EE/oA7IENg==
+    hikari:
+      connection-timeout: 10000
+      idleTimeout: 10000
+      validation-timeout: 10000
+      maxLifetime: 1790000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties.hibernate:
+      default_batch_fetch_size: 100
+      format_sql: true
+      show_sql: true
+
+    hibernate:
+      ddl-auto: update
+
+  messages:
+    basename: i18n/exception
+    encoding: UTF-8
+  output:
+    ansi:
+      enabled: always
+  jwt:
+    secret: VyAHb65Ww8V1vj2FXHMS6g==
+
+photoism:
+  encrypt:
+    key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=
