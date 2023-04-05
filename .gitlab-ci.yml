@@ -1,0 +1,41 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+build:
+  stage: build
+  only:
+    - dev
+  before_script:
+    - echo 'build starts'
+    - chmod +x ./gradlew
+  script:
+    - ./gradlew clean
+    - ./gradlew bootJar
+  artifacts:
+    paths:
+      - build/libs/cms-0.0.1-SNAPSHOT.jar
+    expire_in: 1 week
+  tags:
+    - cms-dev-back
+  when: manual
+
+dev_deploy:
+  stage: deploy
+  only:
+    - dev
+  before_script:
+    - chmod 700 "$SSH_KEY_FILE_DEV"
+  script:
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_KEY_FILE_DEV" ubuntu@"$SERVER_DEV" 'mkdir -p ~/app/cms/build/libs'
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_KEY_FILE_DEV" ubuntu@"$SERVER_DEV" 'rm -f ~/app/cms/build/libs/cms-0.0.1-SNAPSHOT.jar'
+    - scp -o StrictHostKeyChecking=no -i "$SSH_KEY_FILE_DEV" build/libs/cms-0.0.1-SNAPSHOT.jar ubuntu@"$SERVER_DEV":~/app/cms/build/libs/cms-0.0.1-SNAPSHOT.jar
+    - ssh -o StrictHostKeyChecking=no -i "$SSH_KEY_FILE_DEV" ubuntu@"$SERVER_DEV" 'bash ~/app/cms/deploy.sh'
+  tags:
+    - cms-dev-back
+  when: manual
