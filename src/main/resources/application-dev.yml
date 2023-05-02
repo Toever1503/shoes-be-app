@@ -42,6 +42,28 @@ spring:
   jwt:
     secret: VyAHb65Ww8V1vj2FXHMS6g==
 
+  servlet:
+    multipart:
+      maxFileSize: 30MB
+      maxRequestSize: 50MB
+
+springdoc:
+  swagger-ui:
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: dT86SQtzNRCqfCtRIiA/TmIvQGotdTqExR2RKqw80Yw=
+    credentials:
+      access-key: COG9cbWGCwLg2h2iLmmOgaPMo5tU5yAN6k8JIZ/cfTw=
+      secret-key: JcHJHjF3vuy1ZznEcc+IT3F1i2xT3QwkThF12PsIsu7Md7EYh0tWyyr8cXuWMJJ/
+
 photoism:
   encrypt:
     key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=

@@ -5,38 +5,28 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class BaseResponse {
     @Autowired
     private MessageSource messageSource;
 
-    public <T> CommonSingleResult<T> getSingleResult(T data) {
-        CommonSingleResult<T> result = new CommonSingleResult<>();
+    public <T> CommonResult<T> getContentResult(T data) {
+        CommonResult<T> result = new CommonResult<>();
         result.setContent(data);
         result.setCode(0);
         result.setMessage("success");
         return result;
     }
 
-    public <T> CommonListResult<T> getListResult(List<T> list) {
-        CommonListResult<T> result = new CommonListResult<>();
-        result.setContent(list);
+    public CommonBaseResult getSuccessResult() {
+        CommonBaseResult result = new CommonBaseResult();
         result.setCode(0);
         result.setMessage("success");
         return result;
     }
 
-    public CommonResult getSuccessResult() {
-        CommonResult result = new CommonResult();
-        result.setCode(0);
-        result.setMessage("success");
-        return result;
-    }
-
-    public CommonResult getFailResult(int code, String message) {
-        CommonResult result = new CommonResult();
+    public CommonBaseResult getFailResult(int code, String message) {
+        CommonBaseResult result = new CommonBaseResult();
         result.setCode(code);
         result.setMessage(message);
         return result;

@@ -20,19 +20,19 @@ import org.hibernate.annotations.DynamicInsert;
 @Table(name = "tb_authentication")
 public class AuthenticationEntity extends BaseDateEntity {
     @Id
-    @Column(nullable = false, columnDefinition = "NVARCHAR(128) COMMENT '아이디'")
+    @Column(name = "id", nullable = false, columnDefinition = "NVARCHAR(128) COMMENT '아이디'")
     private String id;
 
-    @Column(nullable = false, columnDefinition = "BIGINT COMMENT '사용자 아이디'")
+    @Column(name = "user_id", nullable = false, columnDefinition = "BIGINT COMMENT '사용자 아이디'")
     private long userId;
 
-    @Column(nullable = false, columnDefinition = "NVARCHAR(256) COMMENT '발급 토큰'")
+    @Column(name = "access_token", nullable = false, columnDefinition = "NVARCHAR(256) COMMENT '발급 토큰'")
     private String accessToken;
 
-    @Column(nullable = false, columnDefinition = "NVARCHAR(256) COMMENT '리프레쉬 토큰'")
+    @Column(name = "refresh_token", nullable = false, columnDefinition = "NVARCHAR(256) COMMENT '리프레쉬 토큰'")
     private String refreshToken;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '로그아웃 여부'")
+    @Column(name = "logout", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '로그아웃 여부'")
     private Boolean logout;
 
     public void setLogout() {

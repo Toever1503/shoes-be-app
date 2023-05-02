@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface CodeRepository extends JpaRepository<CodeEntity, String> {
     Optional<CodeEntity> findByCode(String code);
-    List<CodeEntity> findByCodeGroupInOrderByPositionAsc(List<String> groups);
+    List<CodeEntity> findByCodeGroupAndDelOrderByPositionAsc(String codeGroup, Boolean del);
 }

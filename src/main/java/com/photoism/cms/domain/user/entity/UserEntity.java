@@ -2,6 +2,7 @@ package com.photoism.cms.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.photoism.cms.common.model.BaseDateEntity;
+import com.photoism.cms.domain.user.dto.UserReqDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -10,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,23 +24,41 @@ import java.util.List;
 public class UserEntity extends BaseDateEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "BIGINT COMMENT '사용자 아이디(SYSTEM)'")
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
     
-    @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(16) COMMENT '사용자 아이디'")
+    @Column(name = "user_id", nullable = false, unique = true, columnDefinition = "NVARCHAR(16) COMMENT '사용자 아이디'")
     private String userId;
+
+    @Column(name = "store_user", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '상점 계정 여부'")
+    private Boolean storeUser;
     
-    @Column(nullable = false, columnDefinition = "NVARCHAR(128) COMMENT '비밀번호'")
+    @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(30) COMMENT '이름'")
+    private String name;
+
+    @Column(name = "department", columnDefinition = "NVARCHAR(128) COMMENT '부서'")
+    private String department;
+
+    @Column(name = "phone", columnDefinition = "NVARCHAR(30) COMMENT '연락처'")
+    private String phone;
+
+    @Column(name = "email", columnDefinition = "NVARCHAR(64) COMMENT '이메일'")
+    private String email;
+
+    @Column(name = "password", columnDefinition = "NVARCHAR(128) COMMENT '비밀번호'")
     private String password;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '삭제여부'")
+    @Column(name = "tmp_password", columnDefinition = "NVARCHAR(128) COMMENT '임시 비밀번호'")
+    private String tmpPassword;
+
+    @Column(name = "del", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '삭제여부'")
     private Boolean del;
 
-    @Column(columnDefinition = "DATETIME(3) COMMENT '삭제일'")
+    @Column(name = "delete_date", columnDefinition = "DATETIME(3) COMMENT '삭제일'")
     private LocalDateTime deleteDate;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private final List<RoleEntity> roles = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<RoleEntity> roles;
 
     @Transient
     @Setter
@@ -81,7 +99,31 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password){
+    public void setTmpPassword(String password) {
+        this.tmpPassword = password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setStoreUser(Boolean storeUser) {
+        this.storeUser = storeUser;
+    }
+
+    public void setRoles(List<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public void update(UserReqDto reqDto) {
+        if (reqDto.getName() != null)       this.name = reqDto.getName();
+        if (reqDto.getDepartment() != null) this.department = reqDto.getDepartment();
+        if (reqDto.getPhone() != null)      this.phone = reqDto.getPhone();
+        if (reqDto.getEmail() != null)      this.email = reqDto.getEmail();
+    }
+
+    public void setDel() {
+        this.del = true;
+        this.deleteDate = LocalDateTime.now();
     }
 }

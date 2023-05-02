@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Schema(description = "사용자 로그인")
+@Schema(description = "인증 요청 정보")
 @Data
 @NoArgsConstructor
 public class SignInReqDto {

@@ -1,13 +1,10 @@
 package com.photoism.cms.common.model.response;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CommonResult {
-    @Schema(description = "응답 코드 번호 : >= 0 정상, < 0 비정상")
-    private int code;
-
-    @Schema(description = "응답 메시지")
-    private String message;
+@EqualsAndHashCode(callSuper=false)
+public class CommonResult<T> extends CommonBaseResult {
+    private T content;
 }

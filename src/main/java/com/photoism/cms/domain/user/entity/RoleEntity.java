@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class RoleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "BIGINT COMMENT '아이디'")
+    @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

@@ -18,8 +18,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         final String expired = (String) request.getAttribute("expired");
         if (expired == null) {
             response.sendRedirect("/v1/exception/entrypoint");
-        }
-        else
+        } else
             response.sendRedirect("/v1/exception/tokenexpired");
     }
 }

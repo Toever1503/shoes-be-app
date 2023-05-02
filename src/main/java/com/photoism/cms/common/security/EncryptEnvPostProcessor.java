@@ -28,6 +28,9 @@ public class EncryptEnvPostProcessor implements EnvironmentPostProcessor {
                     "spring.datasource.username",
                     "spring.datasource.password",
                     "spring.jwt.secret",
+                    "cloud.aws.s3.bucket",
+                    "cloud.aws.credentials.access-key",
+                    "cloud.aws.credentials.secret-key",
                     "photoism.encrypt.key"
             };
             for(String param : params) {

@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUserIdAndDel(String userId, Boolean del);
+    Optional<UserEntity> findByIdAndDel(Long userId, Boolean del);
 }

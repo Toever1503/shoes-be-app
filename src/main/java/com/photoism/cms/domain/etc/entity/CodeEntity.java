@@ -26,8 +26,11 @@ public class CodeEntity {
     @Column(name = "code_group", columnDefinition = "NVARCHAR(16) COMMENT '코드 그룹'")
     private String codeGroup;
 
-    @Column(name = "name", columnDefinition = "NVARCHAR(64) COMMENT '코드명'")
-    private String name;
+    @Column(name = "name_kr", columnDefinition = "NVARCHAR(64) COMMENT '코드명(한글)'")
+    private String nameKr;
+
+    @Column(name = "name_en", columnDefinition = "NVARCHAR(64) COMMENT '코드명(영문)'")
+    private String nameEn;
 
     @Column(name = "del", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '삭제여부'")
     private Boolean del;

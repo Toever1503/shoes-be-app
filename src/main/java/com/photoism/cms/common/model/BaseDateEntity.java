@@ -14,12 +14,11 @@ import java.time.LocalDateTime;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class BaseDateEntity {
-
     @CreationTimestamp
-    @Column(nullable = false, columnDefinition = "datetime(3) comment '생성일'")
+    @Column(name = "create_date", nullable = false, columnDefinition = "datetime(3) comment '생성일'")
     private LocalDateTime createDate;
 
     @UpdateTimestamp
-    @Column(nullable = false, columnDefinition = "datetime(3) comment '수정일'")
+    @Column(name = "update_date", nullable = false, columnDefinition = "datetime(3) comment '수정일'")
     private LocalDateTime updateDate;
 }

@@ -1,10 +1,12 @@
 package com.photoism.cms.common.config;
 
+import com.photoism.cms.common.enums.RoleEnum;
 import com.photoism.cms.common.security.CustomAccessDeniedHandler;
 import com.photoism.cms.common.security.CustomAuthenticationEntryPoint;
 import com.photoism.cms.common.security.JwtAuthenticationFilter;
 import com.photoism.cms.common.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,13 +18,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultHttpSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
-
     private final JwtTokenProvider jwtTokenProvider;
+    private final ApplicationContext applicationContext;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -46,26 +50,43 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                    .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                    .requestMatchers(PERMIT_ALL_LIST).permitAll()
-                    .requestMatchers(SUPER_ADMIN_ONLY_LIST).hasRole("SUPER_ADMIN")
-                    .anyRequest().authenticated()
+                .authorizeHttpRequests()
+                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers(PERMIT_ALL_LIST).permitAll()
+                .requestMatchers(OWNER_AND_ADMIN_LIST).access(getWebExpressionAuthorizationManager("@authorizationChecker.hasAdminOrCheckId(request, #id)"))
+                .requestMatchers(ADMIN_ONLY_LIST).hasAnyRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle(), RoleEnum.ROLE_ADMIN.getTitle())
+                .requestMatchers(SUPER_ADMIN_ONLY_LIST).hasRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle())
+                .anyRequest().authenticated()
+
                 .and()
-                    .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
-                    .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
-                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
     private static final String[] PERMIT_ALL_LIST = {
-            "/*/auth/sign-in"
+            "/*/auth/sign-in",
+            "/*/user/{id}/password",
+            "/*/file/**",
+            "/*/etc/code"
+    };
+
+    private static final String[] OWNER_AND_ADMIN_LIST = {
+            "/*/user/{id}"
+    };
+
+    private static final String[] ADMIN_ONLY_LIST = {
+            "/*/auth/refresh/{id}",
+            "/*/user/",
+            "/*/user/list/*",
+            "/*/user/resetPassword/{id}",
+            "/*/store/**"
     };
 
     private static final String[] SUPER_ADMIN_ONLY_LIST = {
-            "/*/user/admin",
             "/*/etc/test"
     };
 
@@ -83,4 +104,12 @@ public class SecurityConfig {
             "/actuator/health",
             "/*/exception/**"
     };
+
+    private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager(final String expression) {
+        final var expressionHandler = new DefaultHttpSecurityExpressionHandler();
+        expressionHandler.setApplicationContext(applicationContext);
+        final var authorizationManager = new WebExpressionAuthorizationManager(expression);
+        authorizationManager.setExpressionHandler(expressionHandler);
+        return authorizationManager;
+    }
 }
