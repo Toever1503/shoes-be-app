@@ -7,6 +7,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.servers.Server;
 import lombok.Getter;
 import lombok.Setter;
 import org.springdoc.core.utils.SpringDocUtils;
@@ -20,6 +21,10 @@ import java.util.List;
 public class SwaggerConfig {
     @Bean
     public OpenAPI swaggerApi() {
+        Server server = new Server()
+                .url("/")
+                .description("Default Server url");
+
         Info info = new Info()
                 .version("v1.0.0")
                 .title("photoism_CMS API Documentation")
@@ -35,6 +40,7 @@ public class SwaggerConfig {
         SpringDocUtils.getConfig().replaceWithClass(Pageable.class, Page.class);
 
         return new OpenAPI()
+                .addServersItem(server)
                 .info(info)
                 .components(components)
                 .security(List.of(securityRequirement));
