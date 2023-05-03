@@ -71,7 +71,8 @@ public class SecurityConfig {
             "/*/auth/sign-in",
             "/*/user/{id}/password",
             "/*/file/**",
-            "/*/etc/code"
+            "/*/etc/code",
+            "/*/etc/health-check"
     };
 
     private static final String[] OWNER_AND_ADMIN_LIST = {

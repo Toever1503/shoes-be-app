@@ -2,6 +2,7 @@ package com.photoism.cms.domain.etc;
 
 import com.photoism.cms.common.enums.CodeGroupEnum;
 import com.photoism.cms.common.model.response.BaseResponse;
+import com.photoism.cms.common.model.response.CommonBaseResult;
 import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.etc.dto.CodeResDto;
 import com.photoism.cms.domain.etc.dto.ExcelDownloadReqDto;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +40,12 @@ public class CommonController {
     public void excelDownload(@Parameter(required = true, description = "servlet") HttpServletResponse response,
                               @Parameter(required = true, name = "reqDto", description = "엑셀 다운로드 정보") @RequestBody @Valid ExcelDownloadReqDto reqDto) {
         commonService.excelDownload(response, reqDto);
+    }
+
+    @Operation(summary = "health check", description = "health check")
+    @RequestMapping(value = "/health-check")
+    @ResponseStatus(HttpStatus.OK)
+    public CommonBaseResult ok() {
+        return baseResponse.getSuccessResult();
     }
 }
