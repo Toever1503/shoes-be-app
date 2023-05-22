@@ -8,7 +8,7 @@ userNotFound:
   message: "This member not exist."
 signinFailed:
   code: "1001"
-  message: "Account dose not exist or ID/Password is incorrect."
+  message: "Account verification failed."
 objectAlreadyExist:
   code: "1002"
   message: "Already Exist Object."
@@ -36,15 +36,9 @@ tokenExpired:
 notSupportedMethod:
   code: "1010"
   message: "Method Not Allowed."
-loginProvider:
-  code: "1011"
-  message: "Login Provider Not Match."
 argValidationFailed:
   code: "2000"
   message: "invalid param."
 processFailed:
   code: "2001"
   message: "failed request."
-deleteFailed:
-  code: "2002"
-  message: "can't delete resource."

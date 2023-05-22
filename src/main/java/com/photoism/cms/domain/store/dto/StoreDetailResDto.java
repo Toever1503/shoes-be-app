@@ -1,35 +1,56 @@
 package com.photoism.cms.domain.store.dto;
 
-import com.photoism.cms.domain.store.entity.StoreEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Schema(description = "상점 등록/수정 요청 정보")
+@Schema(description = "상점 상세 조회 응답 정보")
 @Data
-@NoArgsConstructor
-public class StoreReqDto {
+@AllArgsConstructor
+public class StoreDetailResDto {
+    @Schema(description = "아이디", example = "1")
+    private Long id;
+
     @Schema(description = "브랜드 코드", example = "STUDIO")
-    @NotNull
     private String brandCd;
 
+    @Schema(description = "브랜드 명칭(한글)", example = "스튜디오")
+    private String brandNmKr;
+
+    @Schema(description = "브랜드 명칭(영문)", example = "Studio")
+    private String brandNmEn;
+
     @Schema(description = "상점 형태 코드", example = "DMS")
-    @NotNull
     private String storeTypeCd;
 
+    @Schema(description = "상점 형태 명칭(한글)", example = "직영점")
+    private String storeTypeNmKr;
+
+    @Schema(description = "상점 형태 명칭(영문)", example = "Directly managed store")
+    private String storeTypeNmEn;
+
     @Schema(description = "국가 코드", example = "KR")
-    @NotNull
     private String countryCd;
+
+    @Schema(description = "국가 명칭(한글)", example = "한국")
+    private String countryNmKr;
+
+    @Schema(description = "국가 명칭(영문)", example = "Korea")
+    private String countryNmEn;
 
     @Schema(description = "도시 코드", example = "11")
     private String cityCd;
 
+    @Schema(description = "도시 명칭(한글)", example = "서울특별시")
+    private String cityNmKr;
+
+    @Schema(description = "도시 명칭(영문)", example = "Seoul")
+    private String cityNmEn;
+
     @Schema(description = "상점명", example = "테스트 서울점")
-    @NotBlank
     private String name;
 
     @Schema(description = "계약자", example = "홍길동")
@@ -101,37 +122,6 @@ public class StoreReqDto {
     @Schema(description = "상권 특성", example = "text")
     private String bdc;
 
-    public StoreEntity toEntity(Long createUserId) {
-        return StoreEntity.builder()
-                .brandCd(brandCd)
-                .storeTypeCd(storeTypeCd)
-                .countryCd(countryCd)
-                .cityCd(cityCd)
-                .name(name)
-                .contractor(contractor)
-                .contractPeriod(contractPeriod)
-                .openDate(openDate)
-                .transferDate(transferDate)
-                .closureDate(closureDate)
-                .boothCount(boothCount)
-                .boothType(boothType)
-                .bizRegNo(bizRegNo)
-                .representative(representative)
-                .phone(phone)
-                .email(email)
-                .internet(internet)
-                .revenueShare(revenueShare)
-                .hqRoyalty(hqRoyalty)
-                .omCost(omCost)
-                .address(address)
-                .printer(printer)
-                .signageYn(signageYn)
-                .note(note)
-                .netArea(netArea)
-                .sdKmMr(sdKmMr)
-                .bdc(bdc)
-                .createUser(createUserId)
-                .updateUser(createUserId)
-                .build();
-    }
+    @Schema(description = "생성일자")
+    private LocalDateTime createDate;
 }

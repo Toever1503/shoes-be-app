@@ -32,9 +32,9 @@ public class CodeEntity {
     @Column(name = "name_en", columnDefinition = "NVARCHAR(64) COMMENT '코드명(영문)'")
     private String nameEn;
 
-    @Column(name = "del", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '삭제여부'")
-    private Boolean del;
-
     @Column(name = "position", columnDefinition = "INT(2) COMMENT '정렬순서'")
     private String position;
+
+    @Column(name = "hidden", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '숨김여부'")
+    private Boolean hidden;
 }

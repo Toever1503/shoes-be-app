@@ -35,7 +35,7 @@ public class CommonService {
 
     @Transactional(readOnly = true)
     public List<CodeResDto> getCode(CodeGroupEnum codeGroup) {
-        List<CodeEntity> codeEntityList = codeRepository.findByCodeGroupAndDelOrderByPositionAsc(codeGroup.name(), false);
+        List<CodeEntity> codeEntityList = codeRepository.findByCodeGroupAndHiddenOrderByPositionAsc(codeGroup.name(), false);
         List<CodeResDto> resDtoList = new ArrayList<>();
         for (CodeEntity codeEntity : codeEntityList) {
             resDtoList.add(new CodeResDto(codeEntity));

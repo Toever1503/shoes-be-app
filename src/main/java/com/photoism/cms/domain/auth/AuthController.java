@@ -8,7 +8,6 @@ import com.photoism.cms.common.model.response.CommonBaseResult;
 import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.auth.dto.SignInReqDto;
 import com.photoism.cms.domain.auth.dto.SignInResDto;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1")
-@Hidden
 public class AuthController {
     private final AuthService authService;
     private final BaseResponse baseResponse;

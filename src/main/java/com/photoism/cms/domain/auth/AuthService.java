@@ -8,7 +8,7 @@ import com.photoism.cms.domain.auth.dto.SignInReqDto;
 import com.photoism.cms.domain.auth.dto.SignInResDto;
 import com.photoism.cms.domain.auth.entity.AuthenticationEntity;
 import com.photoism.cms.domain.auth.repository.AuthenticationRepository;
-import com.photoism.cms.domain.user.entity.RoleEntity;
+import com.photoism.cms.domain.auth.entity.RoleEntity;
 import com.photoism.cms.domain.user.entity.UserEntity;
 import com.photoism.cms.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,18 +31,21 @@ public class AuthService {
 
     @Transactional
     public SignInResDto signIn(SignInReqDto reqDto) {
-        UserEntity userEntity = userRepository.findByUserIdAndDel(reqDto.getUserId(), false).orElseThrow(SigninFailedException::new);
+        UserEntity userEntity = userRepository.findByUserIdAndDel(reqDto.getUserId(), false).orElseThrow(() -> new SigninFailedException("ID/PW"));
+
+        if (userEntity.getApproved().equals(false))
+            throw new SigninFailedException("Not approved.");
 
         if (userEntity.getPassword() != null) {
             // check password
             if (!passwordEncoder.matches(reqDto.getPassword(), userEntity.getPassword()))
-                throw new SigninFailedException();
+                throw new SigninFailedException("ID/PW");
 
             // create token
             StringBuilder expire = new StringBuilder();
-            String accessToken = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()), expire);
+            String accessToken = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()), expire);
             StringBuilder refreshExpire = new StringBuilder();
-            String refreshToken = jwtTokenProvider.createRefreshToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()), refreshExpire);
+            String refreshToken = jwtTokenProvider.createRefreshToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()), refreshExpire);
 
             // save authentication information
             authenticationRepository.save(AuthenticationEntity.builder()
@@ -59,17 +62,17 @@ public class AuthService {
                     .refreshToken(refreshToken)
                     .accessExpireIn(expire.toString())
                     .refreshExpireIn(refreshExpire.toString())
-                    .roles(userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()))
+                    .roles(userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()))
                     .setPassword(true)
                     .build();
         } else {
             // check tmpPassword
             if (!passwordEncoder.matches(reqDto.getPassword(), userEntity.getTmpPassword()))
-                throw new SigninFailedException();
+                throw new SigninFailedException("ID/PW");
 
             return SignInResDto.builder()
                     .userId(userEntity.getUserId())
-                    .roles(userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()))
+                    .roles(userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()))
                     .setPassword(false)
                     .build();
         }
@@ -89,9 +92,9 @@ public class AuthService {
                 UserEntity userEntity = userRepository.findById(authenticationEntity.getUserId()).orElseThrow(UserNotFoundException::new);
                 if (userEntity.getId().equals(id) && authenticationEntity.getAccessToken().equals(accessToken)){
                     StringBuilder expire = new StringBuilder();
-                    String newAccessToken = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()), expire);
+                    String newAccessToken = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()), expire);
                     StringBuilder refreshExpire = new StringBuilder();
-                    String newRefreshToken = jwtTokenProvider.createRefreshToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()), refreshExpire);
+                    String newRefreshToken = jwtTokenProvider.createRefreshToken(String.valueOf(userEntity.getId()), userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()), refreshExpire);
 
                     // save authentication information
                     authenticationRepository.save(AuthenticationEntity.builder()
@@ -108,7 +111,7 @@ public class AuthService {
                             .refreshToken(newRefreshToken)
                             .accessExpireIn(expire.toString())
                             .refreshExpireIn(refreshExpire.toString())
-                            .roles(userEntity.getRoles().stream().map(RoleEntity::getRole).collect(Collectors.toList()))
+                            .roles(userEntity.getRoles().stream().map(RoleEntity::getRoleCd).collect(Collectors.toList()))
                             .build();
                 }
             }

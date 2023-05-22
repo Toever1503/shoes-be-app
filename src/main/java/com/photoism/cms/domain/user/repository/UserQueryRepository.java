@@ -1,11 +1,14 @@
 package com.photoism.cms.domain.user.repository;
 
 import com.photoism.cms.common.config.QueryDSLConfig;
+import com.photoism.cms.domain.user.dto.UserDetailResDto;
 import com.photoism.cms.domain.user.dto.UserResDto;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +20,10 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static com.photoism.cms.domain.auth.entity.QRoleEntity.roleEntity;
+import static com.photoism.cms.domain.etc.entity.QCodeEntity.codeEntity;
 import static com.photoism.cms.domain.user.entity.QUserEntity.userEntity;
 
 @Repository
@@ -26,14 +32,32 @@ public class UserQueryRepository {
     private final QueryDSLConfig queryDSLConfig;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Page<UserResDto> findStaffUserList(String userId, String name, String department, String phone, String email, Pageable pageable) {
+    public Optional<UserDetailResDto> getDetail(Long id) {
+        return Optional.ofNullable(jpaQueryFactory
+                .select(Projections.constructor(UserDetailResDto.class,
+                        userEntity.id,
+                        userEntity.userId,
+                        userEntity.name,
+                        userEntity.departmentCd.as("departmentCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmEn"),
+                        userEntity.phone,
+                        userEntity.email,
+                        userEntity.createDate
+                ))
+                .from(userEntity)
+                .where(userEntity.id.eq(id))
+                .fetchOne());
+    }
+
+    public Page<UserResDto> findStaffUserList(String userId, String name, String departmentCd, String phone, String email, Boolean approved, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)     builder.and(userEntity.userId.eq(userId));
-        if (name != null)       builder.and(userEntity.name.contains(name));
-        if (department != null) builder.and(userEntity.department.contains(department));
-        if (phone != null)      builder.and(userEntity.phone.contains(phone));
-        if (email != null)      builder.and(userEntity.email.contains(email));
-        builder.and(userEntity.storeUser.isFalse());
+        if (userId != null)         builder.and(userEntity.userId.eq(userId));
+        if (name != null)           builder.and(userEntity.name.contains(name));
+        if (departmentCd != null)   builder.and(userEntity.departmentCd.contains(departmentCd));
+        if (phone != null)          builder.and(userEntity.phone.contains(phone));
+        if (email != null)          builder.and(userEntity.email.contains(email));
+        if (approved != null)       builder.and(userEntity.approved.eq(approved));
         builder.and(userEntity.del.isFalse());
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
@@ -43,11 +67,17 @@ public class UserQueryRepository {
                         userEntity.id,
                         userEntity.userId,
                         userEntity.name,
-                        userEntity.department,
+                        userEntity.departmentCd.as("departmentCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmEn"),
                         userEntity.phone,
                         userEntity.email,
-                        userEntity.createDate))
+                        userEntity.approved,
+                        userEntity.createDate
+                ))
                 .from(userEntity)
+                .join(roleEntity)
+                    .on(roleEntity.roleCd.contains("ROLE_STORE").not(), roleEntity.user.eq(userEntity))
                 .where(builder)
                 .orderBy(orders.toArray(OrderSpecifier[]::new))
                 .offset(pageable.getOffset())
@@ -57,13 +87,13 @@ public class UserQueryRepository {
         return new PageImpl<>(content, pageable, content.size());
     }
 
-    public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
+    public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (userId != null)     builder.and(userEntity.userId.eq(userId));
         if (name != null)       builder.and(userEntity.name.contains(name));
         if (phone != null)      builder.and(userEntity.phone.contains(phone));
         if (email != null)      builder.and(userEntity.email.contains(email));
-        builder.and(userEntity.storeUser.isTrue());
+        if (approved != null)       builder.and(userEntity.approved.eq(approved));
         builder.and(userEntity.del.isFalse());
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
@@ -73,10 +103,50 @@ public class UserQueryRepository {
                         userEntity.id,
                         userEntity.userId,
                         userEntity.name,
-                        userEntity.department,
+                        userEntity.departmentCd.as("departmentCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmEn"),
                         userEntity.phone,
                         userEntity.email,
-                        userEntity.createDate))
+                        userEntity.approved,
+                        userEntity.createDate
+                ))
+                .from(userEntity)
+                .join(roleEntity)
+                    .on(roleEntity.roleCd.contains("ROLE_STORE"), roleEntity.user.eq(userEntity))
+                .where(builder)
+                .orderBy(orders.toArray(OrderSpecifier[]::new))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        return new PageImpl<>(content, pageable, content.size());
+    }
+
+    public Page<UserResDto> getUnapprovedUserList(String userId, String name, String departmentCd, String phone, String email, Pageable pageable) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (userId != null)         builder.and(userEntity.userId.eq(userId));
+        if (name != null)           builder.and(userEntity.name.contains(name));
+        if (departmentCd != null)   builder.and(userEntity.departmentCd.contains(departmentCd));
+        if (phone != null)          builder.and(userEntity.phone.contains(phone));
+        if (email != null)          builder.and(userEntity.email.contains(email));
+        builder.and(userEntity.del.isFalse());
+        builder.and(userEntity.approved.isFalse());
+
+        List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
+
+        List<UserResDto> content = jpaQueryFactory
+                .select(Projections.constructor(UserResDto.class,
+                        userEntity.id,
+                        userEntity.userId,
+                        userEntity.name,
+                        userEntity.departmentCd.as("departmentCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(userEntity.departmentCd)), "departmentNmEn"),
+                        userEntity.phone,
+                        userEntity.email,
+                        userEntity.createDate
+                ))
                 .from(userEntity)
                 .where(builder)
                 .orderBy(orders.toArray(OrderSpecifier[]::new))
@@ -93,6 +163,10 @@ public class UserQueryRepository {
             for (Sort.Order order : pageable.getSort()) {
                 Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
                 switch (order.getProperty()) {
+                    case "createDate" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, userEntity, "createDate");
+                        orders.add(orderUserId);
+                    }
                     case "userId" -> {
                         OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, userEntity, "userId");
                         orders.add(orderUserId);

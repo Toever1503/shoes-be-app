@@ -11,6 +11,8 @@ import org.hibernate.annotations.DynamicInsert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,17 +27,17 @@ public class StoreEntity extends BaseDateEntity {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
 
-    @Column(name = "brand", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '브랜드 코드'")
-    private String brand;
+    @Column(name = "brand_cd", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '브랜드 코드'")
+    private String brandCd;
 
-    @Column(name = "store_type", nullable = false, columnDefinition = "NVARCHAR(3) COMMENT '상점 형태 코드'")
-	private String storeType;
+    @Column(name = "store_type_cd", nullable = false, columnDefinition = "NVARCHAR(3) COMMENT '상점 형태 코드'")
+	private String storeTypeCd;
 
-	@Column(name = "country", nullable = false, columnDefinition = "NVARCHAR(2) COMMENT '국가 코드'")
-	private String country;
+	@Column(name = "country_cd", nullable = false, columnDefinition = "NVARCHAR(2) COMMENT '국가 코드'")
+	private String countryCd;
 
-	@Column(name = "city", columnDefinition = "NVARCHAR(2) COMMENT '도시 코드'")
-	private String city;
+	@Column(name = "city_cd", columnDefinition = "NVARCHAR(2) COMMENT '도시 코드'")
+	private String cityCd;
 
 	@Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(64) COMMENT '상점명'")
     private String name;
@@ -121,14 +123,14 @@ public class StoreEntity extends BaseDateEntity {
 	@Column(name = "delete_user", columnDefinition = "BIGINT COMMENT '삭제유저'")
 	private Long deleteUser;
 
-	@Column(name = "owner", columnDefinition = "BIGINT COMMENT '소유자'")
-	private Long owner;
+	@OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+	private final List<StoreMemberEntity> members = new ArrayList<>();
 
 	public void update(StoreReqDto reqDto, Long updateUserId) {
-		if (reqDto.getBrand() != null)			this.brand = reqDto.getBrand();
-		if (reqDto.getStoreType() != null)		this.storeType = reqDto.getStoreType();
-		if (reqDto.getCountry() != null)		this.country = reqDto.getCountry();
-		if (reqDto.getCity() != null)			this.city = reqDto.getCity();
+		if (reqDto.getBrandCd() != null)		this.brandCd = reqDto.getBrandCd();
+		if (reqDto.getStoreTypeCd() != null)	this.storeTypeCd = reqDto.getStoreTypeCd();
+		if (reqDto.getCountryCd() != null)		this.countryCd = reqDto.getCountryCd();
+		if (reqDto.getCityCd() != null)			this.cityCd = reqDto.getCityCd();
 		if (reqDto.getName() != null)			this.name = reqDto.getName();
 		if (reqDto.getContractor() != null)		this.contractor = reqDto.getContractor();
 		if (reqDto.getContractPeriod() != null)	this.contractPeriod = reqDto.getContractPeriod();
@@ -159,9 +161,5 @@ public class StoreEntity extends BaseDateEntity {
 		this.del = true;
 		this.deleteDate = LocalDateTime.now();
 		this.deleteUser = deleteUserId;
-	}
-
-	public void setOwner(Long userId) {
-		this.owner = userId;
 	}
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -24,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
     private final ApplicationContext applicationContext;
@@ -53,7 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers(PERMIT_ALL_LIST).permitAll()
-                .requestMatchers(OWNER_AND_ADMIN_LIST).access(getWebExpressionAuthorizationManager("@authorizationChecker.hasAdminOrCheckId(request, #id)"))
+                .requestMatchers(HttpMethod.PUT,"/*/user/{id}").access(getWebExpressionAuthorizationManager("@authorizationChecker.hasAuthorityOrOwner(request, #id, 'ACCOUNT_WRITE')"))
                 .requestMatchers(ADMIN_ONLY_LIST).hasAnyRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle(), RoleEnum.ROLE_ADMIN.getTitle())
                 .requestMatchers(SUPER_ADMIN_ONLY_LIST).hasRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle())
                 .anyRequest().authenticated()
@@ -68,27 +70,22 @@ public class SecurityConfig {
     }
 
     private static final String[] PERMIT_ALL_LIST = {
+            "/*/user/",
             "/*/auth/sign-in",
+            "/*/auth/refresh/{id}",
+            "/*/user/find-id",
             "/*/user/{id}/password",
             "/*/file/**",
             "/*/etc/code",
             "/*/etc/health-check"
     };
 
-    private static final String[] OWNER_AND_ADMIN_LIST = {
-            "/*/user/{id}"
-    };
-
     private static final String[] ADMIN_ONLY_LIST = {
-            "/*/auth/refresh/{id}",
-            "/*/user/",
-            "/*/user/list/*",
-            "/*/user/resetPassword/{id}",
-            "/*/store/**"
+            "/*/user/resetPassword/{id}"
     };
 
     private static final String[] SUPER_ADMIN_ONLY_LIST = {
-            "/*/etc/test"
+            "/*/admin/**"
     };
 
     @Bean

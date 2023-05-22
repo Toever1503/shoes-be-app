@@ -27,8 +27,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             if (jwtTokenProvider.validateToken(token)) {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            }
-            else {
+            } else {
                 request.setAttribute("expired", "exprired");
             }
         }

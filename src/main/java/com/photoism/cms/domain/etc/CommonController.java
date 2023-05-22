@@ -6,7 +6,6 @@ import com.photoism.cms.common.model.response.CommonBaseResult;
 import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.etc.dto.CodeResDto;
 import com.photoism.cms.domain.etc.dto.ExcelDownloadReqDto;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/v1/etc")
-@Hidden
 public class CommonController {
     private final BaseResponse baseResponse;
     private final CommonService commonService;
@@ -42,7 +40,7 @@ public class CommonController {
         commonService.excelDownload(response, reqDto);
     }
 
-    @Operation(summary = "health check", description = "health check")
+    @Operation(hidden = true)
     @RequestMapping(value = "/health-check")
     @ResponseStatus(HttpStatus.OK)
     public CommonBaseResult ok() {

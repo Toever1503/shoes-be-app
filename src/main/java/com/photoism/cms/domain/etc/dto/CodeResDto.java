@@ -10,10 +10,10 @@ public class CodeResDto {
     @Schema(description = "code", example = "JOI01")
     private String code;
 
-    @Schema(description = "name(kr)", example = "코드명(한글)")
+    @Schema(description = "name(kr)", example = "코드명칭(한글)")
     private String nameKr;
 
-    @Schema(description = "name(en)", example = "코드명(영문)")
+    @Schema(description = "name(en)", example = "코드명칭(영문)")
     private String nameEn;
 
     public CodeResDto(CodeEntity codeEntity) {

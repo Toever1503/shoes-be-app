@@ -9,6 +9,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -71,7 +72,17 @@ public class ExceptionAdvice {
     @ExceptionHandler(SigninFailedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     protected CommonBaseResult signInFailed(HttpServletRequest request, SigninFailedException e) {
-        return baseResponse.getFailResult(Integer.parseInt(getMessage("signinFailed.code")), getMessage("signinFailed.message"));
+        String message = getMessage("signinFailed.message");
+        if (e.getMessage() != null) {
+            message = message + "(" + e.getMessage() +")";
+        }
+        return baseResponse.getFailResult(Integer.parseInt(getMessage("signinFailed.code")), message);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public CommonBaseResult authAccessDeniedException(HttpServletRequest request, AccessDeniedException e) {
+        return baseResponse.getFailResult(Integer.parseInt(getMessage("accessDenied.code")), getMessage("accessDenied.message"));
     }
 
     @ExceptionHandler(AuthAccessDeniedException.class)
