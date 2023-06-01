@@ -23,7 +23,7 @@ public class FileEntity extends BaseDateEntity {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '파일아이디'")
     private Long id;
 
-    @Column(name = "division", nullable = false, columnDefinition = "NVARCHAR(3) COMMENT '파일 구분(tmp: 임시 파일)'")
+    @Column(name = "division", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '파일 구분(tmp: 임시 파일)'")
     private String division;
 
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(128) COMMENT '원본명'")

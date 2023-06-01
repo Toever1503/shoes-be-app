@@ -6,6 +6,7 @@ import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.file.dto.FileListResDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class AwsS3Controller {
 
     @Operation(summary = "s3 파일 업로드", description = "s3 파일 업로드")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public CommonResult<FileListResDto> upload(@Parameter(required = true, name = "prefix", description = "tmp: 임시 파일", example = "tmp") @RequestPart String prefix,
+    public CommonResult<FileListResDto> upload(@Parameter(schema = @Schema(allowableValues = {"tmp", "notice", "popup"}), required = true, name = "prefix", description = "파일구분", example = "tmp") @RequestPart String prefix,
                                                @Parameter(required = true, name = "files",  description = "파일 리스트") @RequestPart("file") MultipartFile[] files) {
         FileDivision fileDivision = FileDivision.valueOf(prefix);
         return baseResponse.getContentResult(awsS3Service.upload(fileDivision, List.of(files)));

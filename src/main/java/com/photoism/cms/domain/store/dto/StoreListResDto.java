@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 public class StoreListResDto {
     @Schema(description = "상점 리스트")
-    private List<StoreResDto> userList = new ArrayList<>();
+    private List<StoreResDto> storeList = new ArrayList<>();
 
     @Schema(description = "전체 레코드 수")
     private Long totalElements;
@@ -27,7 +27,7 @@ public class StoreListResDto {
 
     public StoreListResDto(Page<StoreResDto> resDtoPage) {
         for (StoreResDto storeResDto : resDtoPage) {
-            this.userList.add(storeResDto);
+            this.storeList.add(storeResDto);
         }
         this.totalElements = resDtoPage.getTotalElements();
         this.last = resDtoPage.isLast();

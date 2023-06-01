@@ -71,7 +71,7 @@ public class KioskController {
     @GetMapping(value = "/list")
     @PreAuthorize("hasAuthority('DEVICE_READ')")
     public CommonResult<KioskListResDto> getList(@Parameter(name = "storeId", description = "상점 아이디") @RequestParam(required = false) Long storeId,
-                                                 @PageableDefault(sort="createDaste", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
+                                                 @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return baseResponse.getContentResult(kioskService.getList(storeId, pageable));
     }
 

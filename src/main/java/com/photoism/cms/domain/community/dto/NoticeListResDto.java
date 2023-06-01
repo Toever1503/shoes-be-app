@@ -1,4 +1,4 @@
-package com.photoism.cms.domain.kiosk.dto;
+package com.photoism.cms.domain.community.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-@Schema(description = "장비 리스트 조회 응답 정보")
+@Schema(description = "공지 리스트 조회 응답 정보")
 @Data
-public class KioskListResDto {
-    @Schema(description = "장비 리스트")
-    private List<KioskResDto> kioskList = new ArrayList<>();
+public class NoticeListResDto {
+    @Schema(description = "공지 리스트")
+    private List<NoticeResDto> noticeList = new ArrayList<>();
 
     @Schema(description = "전체 레코드 수")
     private Long totalElements;
@@ -25,9 +25,9 @@ public class KioskListResDto {
     @Schema(description = "현재 페이지의 레코드 수")
     private Integer numberOfElements;
 
-    public KioskListResDto(Page<KioskResDto> resDtoPage) {
-        for (KioskResDto kioskResDto : resDtoPage) {
-            this.kioskList.add(kioskResDto);
+    public NoticeListResDto(Page<NoticeResDto> resDtoPage) {
+        for (NoticeResDto noticeResDto : resDtoPage) {
+            this.noticeList.add(noticeResDto);
         }
         this.totalElements = resDtoPage.getTotalElements();
         this.last = resDtoPage.isLast();

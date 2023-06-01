@@ -78,7 +78,7 @@ public class StoreController {
                                                  @Parameter(name = "country", description = "국가 코드") @RequestParam(required = false) String countryCd,
                                                  @Parameter(name = "city", description = "도시 코드") @RequestParam(required = false) String cityCd,
                                                  @Parameter(name = "name", description = "상점명") @RequestParam(required = false) String name,
-                                                 @PageableDefault(sort="createDaste", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable,
+                                                 @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable,
                                                  @Parameter(required = true, description = "servlet") HttpServletRequest request) {
         return baseResponse.getContentResult(storeService.getList(brandCd, storeTypeCd, countryCd, cityCd, name, pageable, request));
     }

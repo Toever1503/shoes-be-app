@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class KioskResDto {
-    @Schema(description = "상점 아이디", example = "1")
-    private Long storeId;
-
     @Schema(description = "아이디", example = "1")
     private Long id;
+
+    @Schema(description = "상점 아이디", example = "1")
+    private Long storeId;
 
     @Schema(description = "기기 번호", example = "BLK-KR-230425-1")
     private String deviceNo;
