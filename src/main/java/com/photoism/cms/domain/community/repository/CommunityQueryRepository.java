@@ -1,8 +1,8 @@
 package com.photoism.cms.domain.community.repository;
 
 import com.photoism.cms.common.config.QueryDSLConfig;
-import com.photoism.cms.domain.community.dto.NoticeDetailResDto;
-import com.photoism.cms.domain.community.dto.NoticeResDto;
+import com.photoism.cms.domain.community.dto.CommunityDetailResDto;
+import com.photoism.cms.domain.community.dto.CommunityResDto;
 import com.photoism.cms.domain.file.dto.FileResDto;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
@@ -23,32 +23,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.photoism.cms.domain.community.entity.QNoticeEntity.noticeEntity;
-import static com.photoism.cms.domain.community.entity.QNoticeFileEntity.noticeFileEntity;
+import static com.photoism.cms.domain.community.entity.QCommunityEntity.communityEntity;
+import static com.photoism.cms.domain.community.entity.QCommunityFileEntity.communityFileEntity;
 import static com.photoism.cms.domain.file.entity.QFileEntity.fileEntity;
 
 @Repository
 @RequiredArgsConstructor
-public class NoticeQueryRepository {
+public class CommunityQueryRepository {
     private final QueryDSLConfig queryDSLConfig;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public Page<NoticeResDto> findNoticeList(String title, Pageable pageable) {
+    public Page<CommunityResDto> findList(String div, String title, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (title != null)    builder.and(noticeEntity.title.contains(title));
-        builder.and(noticeEntity.del.isFalse());
+        if (div != null)    builder.and(communityEntity.div.eq(div));
+        if (title != null)    builder.and(communityEntity.title.contains(title));
+        builder.and(communityEntity.del.isFalse());
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 
-        List<NoticeResDto> content = jpaQueryFactory
-                .select(Projections.constructor(NoticeResDto.class,
-                        noticeEntity.id,
-                        noticeEntity.title,
-                        ExpressionUtils.as(JPAExpressions.select(noticeFileEntity.id).from(noticeFileEntity).where(noticeFileEntity.notice.eq(noticeEntity)).exists(), "fileYn"),
-                        noticeEntity.readCount,
-                        noticeEntity.createDate
+        List<CommunityResDto> content = jpaQueryFactory
+                .select(Projections.constructor(CommunityResDto.class,
+                        communityEntity.id,
+                        communityEntity.title,
+                        ExpressionUtils.as(JPAExpressions.select(communityFileEntity.id).from(communityFileEntity).where(communityFileEntity.community.eq(communityEntity)).exists(), "fileYn"),
+                        communityEntity.readCount,
+                        communityEntity.createDate
                 ))
-                .from(noticeEntity)
+                .from(communityEntity)
                 .where(builder)
                 .orderBy(orders.toArray(OrderSpecifier[]::new))
                 .offset(pageable.getOffset())
@@ -58,17 +59,17 @@ public class NoticeQueryRepository {
         return new PageImpl<>(content, pageable, content.size());
     }
 
-    public Optional<NoticeDetailResDto> getNoticeDetail(Long id) {
+    public Optional<CommunityDetailResDto> getDetail(Long id) {
         return Optional.ofNullable(jpaQueryFactory
-                .select(Projections.constructor(NoticeDetailResDto.class,
-                        noticeEntity.id,
-                        noticeEntity.title,
-                        noticeEntity.content,
-                        noticeEntity.readCount,
-                        noticeEntity.createDate
+                .select(Projections.constructor(CommunityDetailResDto.class,
+                        communityEntity.id,
+                        communityEntity.title,
+                        communityEntity.content,
+                        communityEntity.readCount,
+                        communityEntity.createDate
                 ))
-                .from(noticeEntity)
-                .where(noticeEntity.id.eq(id))
+                .from(communityEntity)
+                .where(communityEntity.id.eq(id))
                 .fetchOne());
     }
 
@@ -81,10 +82,11 @@ public class NoticeQueryRepository {
                         fileEntity.path,
                         fileEntity.del
                 ))
-                .from(noticeFileEntity)
+                .from(communityFileEntity)
                 .leftJoin(fileEntity)
-                    .on(fileEntity.id.eq(noticeFileEntity.fileId))
-                .where(noticeFileEntity.notice.id.eq(id))
+                    .on(fileEntity.id.eq(communityFileEntity.fileId))
+                .where(communityFileEntity.community.id.eq(id))
+                .orderBy(fileEntity.id.asc())
                 .fetch();
     }
 
@@ -95,11 +97,11 @@ public class NoticeQueryRepository {
                 Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
                 switch (order.getProperty()) {
                     case "createDate" -> {
-                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, noticeEntity, "createDate");
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, communityEntity, "createDate");
                         orders.add(orderUserId);
                     }
                     case "title" -> {
-                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, noticeEntity, "title");
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, communityEntity, "title");
                         orders.add(orderUserId);
                     }
                     default -> {

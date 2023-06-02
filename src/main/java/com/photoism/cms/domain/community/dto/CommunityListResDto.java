@@ -7,11 +7,11 @@ import org.springframework.data.domain.Page;
 import java.util.ArrayList;
 import java.util.List;
 
-@Schema(description = "공지 리스트 조회 응답 정보")
+@Schema(description = "게시물 리스트 조회 응답 정보")
 @Data
-public class NoticeListResDto {
-    @Schema(description = "공지 리스트")
-    private List<NoticeResDto> noticeList = new ArrayList<>();
+public class CommunityListResDto {
+    @Schema(description = "게시물 리스트")
+    private List<CommunityResDto> communityList = new ArrayList<>();
 
     @Schema(description = "전체 레코드 수")
     private Long totalElements;
@@ -25,9 +25,9 @@ public class NoticeListResDto {
     @Schema(description = "현재 페이지의 레코드 수")
     private Integer numberOfElements;
 
-    public NoticeListResDto(Page<NoticeResDto> resDtoPage) {
-        for (NoticeResDto noticeResDto : resDtoPage) {
-            this.noticeList.add(noticeResDto);
+    public CommunityListResDto(Page<CommunityResDto> resDtoPage) {
+        for (CommunityResDto communityResDto : resDtoPage) {
+            this.communityList.add(communityResDto);
         }
         this.totalElements = resDtoPage.getTotalElements();
         this.last = resDtoPage.isLast();

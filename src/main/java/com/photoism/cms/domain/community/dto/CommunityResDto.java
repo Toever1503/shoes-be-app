@@ -6,10 +6,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Schema(description = "공지 조회 응답 정보")
+@Schema(description = "게시물 조회 응답 정보")
 @Data
 @AllArgsConstructor
-public class NoticeResDto {
+public class CommunityResDto {
     @Schema(description = "아이디", example = "1")
     private Long id;
 

@@ -1,6 +1,6 @@
 package com.photoism.cms.domain.file;
 
-import com.photoism.cms.common.model.FileDivision;
+import com.photoism.cms.common.enums.FileDivisionEnum;
 import com.photoism.cms.common.model.response.BaseResponse;
 import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.file.dto.FileListResDto;
@@ -29,10 +29,10 @@ public class AwsS3Controller {
 
     @Operation(summary = "s3 파일 업로드", description = "s3 파일 업로드")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public CommonResult<FileListResDto> upload(@Parameter(schema = @Schema(allowableValues = {"tmp", "notice", "popup"}), required = true, name = "prefix", description = "파일구분", example = "tmp") @RequestPart String prefix,
+    public CommonResult<FileListResDto> upload(@Parameter(schema = @Schema(allowableValues = {"tmp", "community", "popup"}), required = true, name = "prefix", description = "파일구분", example = "tmp") @RequestPart String prefix,
                                                @Parameter(required = true, name = "files",  description = "파일 리스트") @RequestPart("file") MultipartFile[] files) {
-        FileDivision fileDivision = FileDivision.valueOf(prefix);
-        return baseResponse.getContentResult(awsS3Service.upload(fileDivision, List.of(files)));
+        FileDivisionEnum fileDivisionEnum = FileDivisionEnum.valueOf(prefix);
+        return baseResponse.getContentResult(awsS3Service.upload(fileDivisionEnum, List.of(files)));
     }
 
     @Operation(summary = "s3 파일 다운로드", description = "s3 파일 다운로드")

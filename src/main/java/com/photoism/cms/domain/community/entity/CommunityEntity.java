@@ -1,7 +1,7 @@
 package com.photoism.cms.domain.community.entity;
 
 import com.photoism.cms.common.model.BaseDateEntity;
-import com.photoism.cms.domain.community.dto.NoticeReqDto;
+import com.photoism.cms.domain.community.dto.CommunityReqDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,12 +19,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
-@Table(name = "tb_notice")
-public class NoticeEntity extends BaseDateEntity {
+@Table(name = "tb_community")
+public class CommunityEntity extends BaseDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
+
+    @Column(name = "division", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '구분'")
+    private String div;
 
     @Column(name = "title", nullable = false, columnDefinition = "NVARCHAR(128) COMMENT '제목'")
     private String title;
@@ -35,8 +38,8 @@ public class NoticeEntity extends BaseDateEntity {
     @Column(name = "read_count", nullable = false, columnDefinition = "INT(11) DEFAULT 0 COMMENT '조회수'")
     private Integer readCount;
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<NoticeFileEntity> files = new ArrayList<>();
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<CommunityFileEntity> files = new ArrayList<>();
 
     @Column(name = "del", columnDefinition = "BOOLEAN DEFAULT FALSE COMMENT '삭제여부'")
     private Boolean del;
@@ -53,7 +56,7 @@ public class NoticeEntity extends BaseDateEntity {
     @Column(name = "delete_user", columnDefinition = "BIGINT COMMENT '삭제유저'")
     private Long deleteUser;
 
-    public void update(NoticeReqDto reqDto, Long updateUserId) {
+    public void update(CommunityReqDto reqDto, Long updateUserId) {
         if (reqDto.getTitle() != null)      this.title = reqDto.getTitle();
         if (reqDto.getContent() != null)    this.content = reqDto.getContent();
         this.updateUser = updateUserId;

@@ -19,14 +19,14 @@ public class UserResDto {
     @Schema(description = "이름", example = "이름")
     private String name;
 
-    @Schema(description = "소속코드", example = "IT_BUSINESS")
-    private String departmentCd;
+    @Schema(description = "ROLE코드", example = "ROLE_MARKETING")
+    private String roleCd;
 
-    @Schema(description = "소속명칭(한글)", example = "IT사업")
-    private String departmentNmKr;
+    @Schema(description = "ROLE명칭(한글)", example = "마케팅팀")
+    private String roleNmKr;
 
-    @Schema(description = "소속명칭(영문", example = "IT business")
-    private String departmentNmEn;
+    @Schema(description = "ROLE명칭(영문)", example = "Marketing team")
+    private String roleNmEn;
 
     @Schema(description = "연락처", example = "010-1234-1234")
     private String phone;

@@ -34,9 +34,6 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(30) COMMENT '이름'")
     private String name;
 
-    @Column(name = "department_cd", columnDefinition = "NVARCHAR(128) COMMENT '소속 코드'")
-    private String departmentCd;
-
     @Column(name = "phone", columnDefinition = "NVARCHAR(30) COMMENT '연락처'")
     private String phone;
 
@@ -114,7 +111,6 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
 
     public void update(UserUpdateReqDto reqDto) {
         if (reqDto.getName() != null)           this.name = reqDto.getName();
-        if (reqDto.getDepartmentCd() != null)   this.departmentCd = reqDto.getDepartmentCd();
         if (reqDto.getPhone() != null)          this.phone = reqDto.getPhone();
         if (reqDto.getEmail() != null)          this.email = reqDto.getEmail();
     }

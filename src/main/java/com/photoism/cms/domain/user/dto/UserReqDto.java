@@ -27,9 +27,6 @@ public class UserReqDto {
     @Schema(description = "이름", example = "이름")
     @NotBlank
     private String name;
-
-    @Schema(description = "소속코드", example = "IT_BUSINESS")
-    private String departmentCd;
     
     @Schema(description = "연락처", example = "010-1234-1234")
     @NotBlank
@@ -42,7 +39,6 @@ public class UserReqDto {
         return UserEntity.builder()
                 .userId(userId)
                 .name(name)
-                .departmentCd(departmentCd)
                 .phone(phone)
                 .email(email)
                 .del(false)

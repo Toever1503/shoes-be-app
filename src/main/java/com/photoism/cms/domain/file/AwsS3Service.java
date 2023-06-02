@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.photoism.cms.common.config.AwsS3Config;
 import com.photoism.cms.common.exception.ObjectNotFoundException;
-import com.photoism.cms.common.model.FileDivision;
+import com.photoism.cms.common.enums.FileDivisionEnum;
 import com.photoism.cms.domain.file.dto.FileListResDto;
 import com.photoism.cms.domain.file.dto.FileResDto;
 import com.photoism.cms.domain.file.entity.FileEntity;
@@ -40,7 +40,7 @@ public class AwsS3Service {
     private final FileEntityRepository fileEntityRepository;
 
     @Transactional
-    public FileListResDto upload(FileDivision prefix, List<MultipartFile> fileList) {
+    public FileListResDto upload(FileDivisionEnum prefix, List<MultipartFile> fileList) {
         List<FileEntity> fileEntities = new ArrayList<>();
 
         try {

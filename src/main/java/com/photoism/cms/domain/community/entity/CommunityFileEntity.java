@@ -11,25 +11,25 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table( name = "tb_notice_file",
-        indexes = @Index(columnList = "notice_id"))
-public class NoticeFileEntity {
+@Table( name = "tb_community_file",
+        indexes = @Index(columnList = "community_id"))
+public class CommunityFileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notice_id", nullable = false, columnDefinition = "BIGINT COMMENT '공지 아이디'")
-    private NoticeEntity notice;
+    @JoinColumn(name = "community_id", nullable = false, columnDefinition = "BIGINT COMMENT '게시물 아이디'")
+    private CommunityEntity community;
 
     @Column(name = "file_id", columnDefinition = "BIGINT COMMENT '파일 아이디'")
     private Long fileId;
 
-    public void setNotice(NoticeEntity noticeEntity) {
-        if (this.notice != null)
-            this.notice.getFiles().remove(this);
-        this.notice = noticeEntity;
-        noticeEntity.getFiles().add(this);
+    public void setCommunity(CommunityEntity communityEntity) {
+        if (this.community != null)
+            this.community.getFiles().remove(this);
+        this.community = communityEntity;
+        communityEntity.getFiles().add(this);
     }
 }

@@ -87,12 +87,12 @@ public class UserController {
     @PreAuthorize("hasAuthority('ACCOUNT_READ')")
     public CommonResult<UserListResDto> getStaffUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
                                                          @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
-                                                         @Parameter(name = "department", description = "소속") @RequestParam(required = false) String departmentCd,
+                                                         @Parameter(name = "role", description = "ROLE") @RequestParam(required = false) String roleCd,
                                                          @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
                                                          @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
                                                          @Parameter(name = "approved", description = "승인여부") @RequestParam(required = false) Boolean approved,
                                                          @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return baseResponse.getContentResult(userService.getStaffUserList(userId, name, departmentCd, phone, email, approved, pageable));
+        return baseResponse.getContentResult(userService.getStaffUserList(userId, name, roleCd, phone, email, approved, pageable));
     }
 
     @Operation(summary = "사용자 목록 조회(상점)", description = "상점 계정 목록 조회")

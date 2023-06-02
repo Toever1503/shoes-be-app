@@ -38,9 +38,6 @@ public class UserService {
         if (userRepository.findByUserIdAndDel(reqDto.getUserId(), false).isPresent())
             throw new ObjectAlreadExistException("userId");
 
-        if (reqDto.getDepartmentCd() != null && codeRepository.findByCode(reqDto.getDepartmentCd()).isEmpty())
-            throw new ObjectNotFoundException("department code");
-
         UserEntity userEntity = reqDto.toEntity();
         userEntity.setPassword(passwordEncoder.encode(reqDto.getUserId()));
 
@@ -69,9 +66,6 @@ public class UserService {
     @Transactional
     public CommonIdResult updateUser(Long id, UserUpdateReqDto reqDto) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        if (reqDto.getDepartmentCd() != null && codeRepository.findByCode(reqDto.getDepartmentCd()).isEmpty())
-            throw new ObjectNotFoundException("department code");
-
         userEntity.update(reqDto);
 
         if (reqDto.getRole() != null) {
@@ -130,8 +124,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStaffUserList(String userId, String name, String departmentCd, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStaffUserList(userId, name, departmentCd, phone, email, approved, pageable));
+    public UserListResDto getStaffUserList(String userId, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
+        return new UserListResDto(userQueryRepository.findStaffUserList(userId, name, roleCd, phone, email, approved, pageable));
     }
 
     @Transactional(readOnly = true)

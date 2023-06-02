@@ -1,9 +1,9 @@
 package com.photoism.cms.domain.community.repository;
 
-import com.photoism.cms.domain.community.entity.NoticeEntity;
+import com.photoism.cms.domain.community.entity.CommunityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NoticeRepository extends JpaRepository<NoticeEntity, Long> {
+public interface CommunityRepository extends JpaRepository<CommunityEntity, Long> {
 }

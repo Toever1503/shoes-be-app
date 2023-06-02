@@ -1,15 +1,16 @@
 package com.photoism.cms.domain.community;
 
+import com.photoism.cms.common.enums.CommunityDivEnum;
 import com.photoism.cms.common.exception.ObjectNotFoundException;
-import com.photoism.cms.common.model.FileDivision;
+import com.photoism.cms.common.enums.FileDivisionEnum;
 import com.photoism.cms.common.model.response.CommonIdResult;
-import com.photoism.cms.domain.community.dto.NoticeDetailResDto;
-import com.photoism.cms.domain.community.dto.NoticeListResDto;
-import com.photoism.cms.domain.community.dto.NoticeReqDto;
-import com.photoism.cms.domain.community.entity.NoticeEntity;
-import com.photoism.cms.domain.community.entity.NoticeFileEntity;
-import com.photoism.cms.domain.community.repository.NoticeQueryRepository;
-import com.photoism.cms.domain.community.repository.NoticeRepository;
+import com.photoism.cms.domain.community.dto.CommunityDetailResDto;
+import com.photoism.cms.domain.community.dto.CommunityListResDto;
+import com.photoism.cms.domain.community.dto.CommunityReqDto;
+import com.photoism.cms.domain.community.entity.CommunityEntity;
+import com.photoism.cms.domain.community.entity.CommunityFileEntity;
+import com.photoism.cms.domain.community.repository.CommunityQueryRepository;
+import com.photoism.cms.domain.community.repository.CommunityRepository;
 import com.photoism.cms.domain.file.dto.FileResDto;
 import com.photoism.cms.domain.file.repository.FileEntityRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,31 +26,31 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CommunityService {
-    private final NoticeRepository noticeRepository;
-    private final NoticeQueryRepository noticeQueryRepository;
+    private final CommunityRepository communityRepository;
+    private final CommunityQueryRepository communityQueryRepository;
     private final FileEntityRepository fileEntityRepository;
 
     @Transactional
-    public CommonIdResult addNotice(NoticeReqDto reqDto, Long createUserId) {
-        NoticeEntity noticeEntity = reqDto.toEntity(createUserId);
+    public CommonIdResult add(CommunityDivEnum div, CommunityReqDto reqDto, Long createUserId) {
+        CommunityEntity communityEntity = reqDto.toEntity(div.name(), createUserId);
         // 첨부파일
         for (Long fileId : reqDto.getFiles()) {
-            fileEntityRepository.findByIdAndDivision(fileId, FileDivision.notice.name()).orElseThrow(() -> new ObjectNotFoundException("file or div"));
-            NoticeFileEntity noticeFileEntity = NoticeFileEntity.builder().fileId(fileId).build();
-            noticeFileEntity.setNotice(noticeEntity);
+            fileEntityRepository.findByIdAndDivision(fileId, FileDivisionEnum.community.name()).orElseThrow(() -> new ObjectNotFoundException("file or div"));
+            CommunityFileEntity communityFileEntity = CommunityFileEntity.builder().fileId(fileId).build();
+            communityFileEntity.setCommunity(communityEntity);
         }
-        noticeRepository.save(noticeEntity);
-        return new CommonIdResult(noticeEntity.getId());
+        communityRepository.save(communityEntity);
+        return new CommonIdResult(communityEntity.getId());
     }
 
     @Transactional
-    public CommonIdResult updateNotice(Long id, NoticeReqDto reqDto, Long updateUserId) {
-        NoticeEntity noticeEntity = noticeRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("notice"));
-        noticeEntity.update(reqDto, updateUserId);
+    public CommonIdResult update(Long id, CommunityReqDto reqDto, Long updateUserId) {
+        CommunityEntity communityEntity = communityRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("community"));
+        communityEntity.update(reqDto, updateUserId);
 
         // 첨부파일
-        List<NoticeFileEntity> oldFileList = new ArrayList<>(noticeEntity.getFiles());
-        List<Long> oldFileIds = new ArrayList<>(oldFileList.stream().map(NoticeFileEntity::getFileId).toList());
+        List<CommunityFileEntity> oldFileList = new ArrayList<>(communityEntity.getFiles());
+        List<Long> oldFileIds = new ArrayList<>(oldFileList.stream().map(CommunityFileEntity::getFileId).toList());
         List<Long> newFileIds = new ArrayList<>();
         for (Long fileId : reqDto.getFiles()) {
             if (oldFileIds.contains(fileId))
@@ -58,37 +59,37 @@ public class CommunityService {
                 newFileIds.add(fileId);
         }
         // 없어진 파일 삭제
-        for (NoticeFileEntity fileEntity : oldFileList) {
+        for (CommunityFileEntity fileEntity : oldFileList) {
             if (oldFileIds.contains(fileEntity.getFileId())) {
-                noticeEntity.getFiles().remove(fileEntity);
+                communityEntity.getFiles().remove(fileEntity);
             }
         }
         // 새로운 파일 매핑
         for (Long newFileId : newFileIds) {
-            fileEntityRepository.findByIdAndDivision(newFileId, FileDivision.notice.name()).orElseThrow(() -> new ObjectNotFoundException("file or div"));
-            NoticeFileEntity noticeFileEntity = NoticeFileEntity.builder().fileId(newFileId).build();
-            noticeFileEntity.setNotice(noticeEntity);
+            fileEntityRepository.findByIdAndDivision(newFileId, FileDivisionEnum.community.name()).orElseThrow(() -> new ObjectNotFoundException("file or div"));
+            CommunityFileEntity communityFileEntity = CommunityFileEntity.builder().fileId(newFileId).build();
+            communityFileEntity.setCommunity(communityEntity);
         }
 
-        return new CommonIdResult(noticeEntity.getId());
+        return new CommonIdResult(communityEntity.getId());
     }
 
     @Transactional
-    public CommonIdResult deleteNotice(Long id, Long deleteUserId) {
-        NoticeEntity noticeEntity = noticeRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("notice"));
-        noticeEntity.setDel(deleteUserId);
+    public CommonIdResult delete(Long id, Long deleteUserId) {
+        CommunityEntity communityEntity = communityRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("community"));
+        communityEntity.setDel(deleteUserId);
         return new CommonIdResult(id);
     }
 
     @Transactional(readOnly = true)
-    public NoticeListResDto getNoticeList(String title, Pageable pageable) {
-        return new NoticeListResDto(noticeQueryRepository.findNoticeList(title, pageable));
+    public CommunityListResDto getList(CommunityDivEnum div, String title, Pageable pageable) {
+        return new CommunityListResDto(communityQueryRepository.findList(div.name(), title, pageable));
     }
 
     @Transactional(readOnly = true)
-    public NoticeDetailResDto getNoticeDetail(Long id) {
-        NoticeDetailResDto resDto =  noticeQueryRepository.getNoticeDetail(id).orElseThrow(() -> new ObjectNotFoundException("notice"));
-        List<FileResDto> fileList = noticeQueryRepository.getFiles(id);
+    public CommunityDetailResDto getDetail(Long id) {
+        CommunityDetailResDto resDto =  communityQueryRepository.getDetail(id).orElseThrow(() -> new ObjectNotFoundException("community"));
+        List<FileResDto> fileList = communityQueryRepository.getFiles(id);
         resDto.setFiles(fileList);
         return resDto;
     }
