@@ -30,7 +30,7 @@ public class UserController {
     private final BaseResponse baseResponse;
 
     @Operation(summary = "회원 가입", description = "사용자 등록")
-    @PostMapping(value = "/")
+    @PostMapping(value = "/sign-up")
     public CommonResult<CommonIdResult> addUser(@Parameter(required = true, name = "reqDto", description = "사용자 등록 정보") @RequestBody @Valid UserReqDto reqDto) {
         return baseResponse.getContentResult(userService.addUser(reqDto));
     }

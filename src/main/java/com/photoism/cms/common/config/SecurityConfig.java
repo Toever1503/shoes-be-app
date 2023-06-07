@@ -76,7 +76,7 @@ public class SecurityConfig {
     }
 
     private static final String[] PERMIT_ALL_LIST = {
-            "/*/user/",
+            "/*/user/sign-up",
             "/*/auth/sign-in",
             "/*/auth/refresh/{id}",
             "/*/user/find-id",
@@ -121,6 +121,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         final var configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("http://*:*");
+
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("*"));
