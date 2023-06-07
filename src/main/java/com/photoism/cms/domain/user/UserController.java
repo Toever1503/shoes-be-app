@@ -106,4 +106,12 @@ public class UserController {
                                                          @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return baseResponse.getContentResult(userService.getStoreUserList(userId, name, phone, email, approved, pageable));
     }
+
+    @Operation(summary = "사용자 검색(상점관리)", description = "사용자 검색(상점관리)")
+    @GetMapping(value = "/find")
+    @PreAuthorize("hasAuthority('STORE_WRITE')")
+    public CommonResult<List<UserResDto>> getUserForStoreMapping(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
+                                                                 @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name) {
+        return baseResponse.getContentResult(userService.getUserForStoreMapping(userId, name));
+    }
 }

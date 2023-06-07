@@ -123,6 +123,31 @@ public class UserQueryRepository {
         return new PageImpl<>(content, pageable, content.size());
     }
 
+    public List<UserResDto> getUserForStoreMapping(String userId, String name) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (userId != null)     builder.or(userEntity.userId.contains(userId));
+        if (name != null)       builder.or(userEntity.name.contains(name));
+
+        return jpaQueryFactory
+                .select(Projections.constructor(UserResDto.class,
+                        userEntity.id,
+                        userEntity.userId,
+                        userEntity.name,
+                        roleEntity.roleCd.as("roleCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmEn"),
+                        userEntity.phone,
+                        userEntity.email,
+                        userEntity.approved,
+                        userEntity.createDate
+                ))
+                .from(userEntity)
+                .join(roleEntity)
+                .on(roleEntity.user.eq(userEntity))
+                .where(builder)
+                .fetch();
+    }
+
     private List<OrderSpecifier<?>> getOrderSpecifiers(Pageable pageable) {
         List<OrderSpecifier<?>> orders = new ArrayList<>();
         if (!ObjectUtils.isEmpty(pageable.getSort())) {

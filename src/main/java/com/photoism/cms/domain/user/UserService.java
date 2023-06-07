@@ -132,4 +132,9 @@ public class UserService {
     public UserListResDto getStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
         return new UserListResDto(userQueryRepository.findStoreUserList(userId, name, phone, email, approved, pageable));
     }
+
+    @Transactional(readOnly = true)
+    public List<UserResDto> getUserForStoreMapping(String userId, String name) {
+        return userQueryRepository.getUserForStoreMapping(userId, name);
+    }
 }
