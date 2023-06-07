@@ -1,6 +1,7 @@
 package com.photoism.cms.domain.user;
 
 import com.photoism.cms.common.model.response.BaseResponse;
+import com.photoism.cms.common.model.response.CommonBaseResult;
 import com.photoism.cms.common.model.response.CommonIdResult;
 import com.photoism.cms.common.model.response.CommonResult;
 import com.photoism.cms.domain.user.dto.*;
@@ -69,6 +70,15 @@ public class UserController {
         return baseResponse.getContentResult(userService.findId(name, phone));
     }
 
+    @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
+    @PostMapping(value = "/find-pw")
+    public CommonBaseResult findPassword(@Parameter(required = true, name = "userId", description = "아이디") @RequestParam String userId,
+                                         @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
+                                         @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
+        userService.findPassword(userId, name, email);
+        return baseResponse.getSuccessResult();
+    }
+
     @Operation(summary = "패스워드 변경", description = "패스워드 변경")
     @PatchMapping(value = "/{id}/password")
     public CommonResult<CommonIdResult> changePassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
@@ -76,6 +86,7 @@ public class UserController {
         return baseResponse.getContentResult(userService.changePassword(id, reqDto));
     }
 
+    @Deprecated
     @Operation(summary = "패스워드 초기화", description = "패스워드 초기화")
     @PatchMapping(value = "/resetPassword/{id}")
     public CommonResult<CommonIdResult> resetPassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {

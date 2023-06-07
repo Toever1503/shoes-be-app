@@ -75,6 +75,7 @@ public class SecurityConfig {
             "/*/auth/sign-in",
             "/*/auth/refresh/{id}",
             "/*/user/find-id",
+            "/*/user/find-pw",
             "/*/user/{id}/password",
             "/*/file/**",
             "/*/etc/code",

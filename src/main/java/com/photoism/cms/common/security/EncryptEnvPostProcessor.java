@@ -31,7 +31,8 @@ public class EncryptEnvPostProcessor implements EnvironmentPostProcessor {
                     "cloud.aws.s3.bucket",
                     "cloud.aws.credentials.access-key",
                     "cloud.aws.credentials.secret-key",
-                    "photoism.encrypt.key"
+                    "photoism.encrypt.key",
+                    "photoism.mail.smtp.pass"
             };
             for(String param : params) {
                 String sData = environment.getProperty(param);

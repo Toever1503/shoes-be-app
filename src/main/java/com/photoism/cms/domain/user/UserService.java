@@ -1,10 +1,11 @@
 package com.photoism.cms.domain.user;
 
-import com.photoism.cms.common.exception.ObjectAlreadExistException;
-import com.photoism.cms.common.exception.ObjectNotFoundException;
-import com.photoism.cms.common.exception.SigninFailedException;
-import com.photoism.cms.common.exception.UserNotFoundException;
+import com.google.gson.Gson;
+import com.photoism.cms.common.config.CommonConfig;
+import com.photoism.cms.common.exception.*;
 import com.photoism.cms.common.model.response.CommonIdResult;
+import com.photoism.cms.common.security.EncryptProvider;
+import com.photoism.cms.common.service.MailService;
 import com.photoism.cms.domain.auth.entity.RoleEntity;
 import com.photoism.cms.domain.auth.repository.RoleRepository;
 import com.photoism.cms.domain.etc.entity.CodeEntity;
@@ -15,13 +16,21 @@ import com.photoism.cms.domain.user.repository.UserQueryRepository;
 import com.photoism.cms.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -32,6 +41,9 @@ public class UserService {
     private final UserQueryRepository userQueryRepository;
     private final CodeRepository codeRepository;
     private final RoleRepository roleRepository;
+    private final EncryptProvider encryptProvider;
+    private final CommonConfig config;
+    private final MailService mailService;
 
     @Transactional
     public CommonIdResult addUser(UserReqDto reqDto) {
@@ -100,6 +112,41 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<String> findId(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUserId).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public void findPassword(String userId, String name, String email) throws Exception {
+        UserEntity userEntity = userRepository.findByUserIdAndNameAndEmail(userId, name, email).orElseThrow(UserNotFoundException::new);
+
+        // make expire time
+        LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
+        String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Gson gson = new Gson();
+        UserPasswordCodeDto dto = new UserPasswordCodeDto();
+        dto.setId(userEntity.getId());
+        dto.setExpire(expire);
+        String param = gson.toJson(dto);
+
+        // encrypt info
+        String encParam = encryptProvider.encAES(param);
+        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
+        if (resource.exists()) {
+            try {
+                log.info("start send mail");
+                InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
+                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
+                String content = streamOfString.collect(Collectors.joining());
+                content = content.replaceAll("__enc_param", encParam);
+                content = content.replaceAll("__password_change_url", config.getChgPasswordUrl());
+                log.info(content);
+                if (!mailService.sendMail(userEntity.getEmail(), "포토이즘 비밀번호 변경", content))
+                    throw new AuthFailedException();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new ObjectNotFoundException("mail-body.html");
+        }
     }
 
     @Transactional
