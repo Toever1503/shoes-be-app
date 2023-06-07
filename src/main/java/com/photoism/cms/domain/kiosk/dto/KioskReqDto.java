@@ -28,6 +28,9 @@ public class KioskReqDto {
     @NotNull
     private String anydesk;
 
+    @Schema(description = "색상", example = "WHITE")
+    private String colorCd;
+
     @Schema(description = "카메라", example = "850D")
     @NotNull
     private String camera;
@@ -66,7 +69,7 @@ public class KioskReqDto {
 
     @Schema(description = "프린터", example = "RX1")
     @NotNull
-    private String printer;
+    private String printerCd;
 
     @Schema(description = "프린터 수", example = "1")
     @NotNull
@@ -97,6 +100,7 @@ public class KioskReqDto {
                 .deviceId(deviceId)
                 .license(license)
                 .anydesk(anydesk)
+                .colorCd(colorCd)
                 .camera(camera)
                 .cameraSerial(cameraSerial)
                 .cameraLensZoom(cameraLensZoom)
@@ -106,7 +110,7 @@ public class KioskReqDto {
                 .cameraColorTemp(cameraColorTemp)
                 .cameraWbCal(cameraWbCal)
                 .strobeIntensity(strobeIntensity)
-                .printer(printer)
+                .printerCd(printerCd)
                 .printerCnt(printerCnt)
                 .monitor(monitor)
                 .pc(pc)

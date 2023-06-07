@@ -40,6 +40,9 @@ public class KioskEntity extends BaseDateEntity {
     @Column(name = "anydesk", columnDefinition = "NVARCHAR(15) COMMENT '애니데스크'")
     private String anydesk;
 
+    @Column(name = "color_cd", columnDefinition = "NVARCHAR(16) COMMENT '색상 코드'")
+    private String colorCd;
+
     @Column(name = "camera", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '카메라'")
     private String camera;
 
@@ -67,8 +70,8 @@ public class KioskEntity extends BaseDateEntity {
     @Column(name = "strobe_intensity", nullable = false, columnDefinition = "NVARCHAR(8) COMMENT '스트로브 세기'")
     private String strobeIntensity;
 
-    @Column(name = "printer", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '프린터'")
-    private String printer;
+    @Column(name = "printer_cd", nullable = false, columnDefinition = "NVARCHAR(16) COMMENT '프린터 코드'")
+    private String printerCd;
 
     @Column(name = "printerCnt", nullable = false, columnDefinition = "INT(2) COMMENT '프린터 수'")
     private Integer printerCnt;
@@ -117,7 +120,7 @@ public class KioskEntity extends BaseDateEntity {
         if (reqDto.getCameraColorTemp() != null)    this.cameraColorTemp = reqDto.getCameraColorTemp();
         if (reqDto.getCameraWbCal() != null)        this.cameraWbCal = reqDto.getCameraWbCal();
         if (reqDto.getStrobeIntensity() != null)    this.strobeIntensity = reqDto.getStrobeIntensity();
-        if (reqDto.getPrinter() != null)            this.printer = reqDto.getPrinter();
+        if (reqDto.getPrinterCd() != null)          this.printerCd = reqDto.getPrinterCd();
         if (reqDto.getPrinterCnt() != null)         this.printerCnt = reqDto.getPrinterCnt();
         if (reqDto.getMonitor() != null)            this.monitor = reqDto.getMonitor();
         if (reqDto.getPc() != null)                 this.pc = reqDto.getPc();

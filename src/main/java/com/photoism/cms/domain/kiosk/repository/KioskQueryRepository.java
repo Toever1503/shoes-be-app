@@ -4,9 +4,11 @@ import com.photoism.cms.common.config.QueryDSLConfig;
 import com.photoism.cms.domain.kiosk.dto.KioskDetailResDto;
 import com.photoism.cms.domain.kiosk.dto.KioskResDto;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.photoism.cms.domain.etc.entity.QCodeEntity.codeEntity;
 import static com.photoism.cms.domain.kiosk.entity.QKioskEntity.kioskEntity;
+import static com.photoism.cms.domain.store.entity.QStoreEntity.storeEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -62,6 +66,8 @@ public class KioskQueryRepository {
                         kioskEntity.deviceId,
                         kioskEntity.license,
                         kioskEntity.anydesk,
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(kioskEntity.colorCd)), "colorNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(kioskEntity.colorCd)), "colorNmEn"),
                         kioskEntity.camera,
                         kioskEntity.cameraSerial,
                         kioskEntity.cameraLensZoom,
@@ -71,7 +77,8 @@ public class KioskQueryRepository {
                         kioskEntity.cameraColorTemp,
                         kioskEntity.cameraWbCal,
                         kioskEntity.strobeIntensity,
-                        kioskEntity.printer,
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(kioskEntity.printerCd)), "printerNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(kioskEntity.printerCd)), "printerNmEn"),
                         kioskEntity.printerCnt,
                         kioskEntity.monitor,
                         kioskEntity.pc,

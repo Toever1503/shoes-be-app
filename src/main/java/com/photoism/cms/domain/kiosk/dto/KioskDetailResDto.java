@@ -28,6 +28,12 @@ public class KioskDetailResDto {
     @Schema(description = "애니데스크", example = "PTS-1343209")
     private String anydesk;
 
+    @Schema(description = "색상 명칭(한글)", example = "WHITE")
+    private String colorNmKr;
+
+    @Schema(description = "색상 명칭(영문)", example = "WHITE")
+    private String colorNmEn;
+
     @Schema(description = "카메라", example = "850D")
     private String camera;
 
@@ -55,8 +61,11 @@ public class KioskDetailResDto {
     @Schema(description = "스트로브 세기", example = "2.0")
     private String strobeIntensity;
 
-    @Schema(description = "프린터", example = "RX1")
-    private String printer;
+    @Schema(description = "프린터 명칭(한글)", example = "RX1")
+    private String printerNmKr;
+
+    @Schema(description = "프린터 명칭(영문)", example = "RX1")
+    private String printerNmEn;
 
     @Schema(description = "프린터 수", example = "1")
     private Integer printerCnt;
