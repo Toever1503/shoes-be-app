@@ -19,12 +19,10 @@ import java.util.ResourceBundle;
 
 @Configuration
 public class MessageConfig implements WebMvcConfigurer {
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*")
-                .allowedOrigins("*")
-                .allowedOrigins("http://localhost:3000");
-    }
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**").allowedMethods("*").allowedOrigins("*");
+//    }
 
     @Bean
     public LocaleResolver localeResolver() {
