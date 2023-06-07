@@ -22,6 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.expression.DefaultHttpSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 @RequiredArgsConstructor
 @Configuration
@@ -43,7 +44,7 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
-//                .cors().disable()
+                .cors().and()
                 .csrf().disable()
                 .formLogin().disable()
                 .headers().frameOptions().disable()
@@ -53,7 +54,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers(PERMIT_ALL_LIST).permitAll()
                 .requestMatchers(HttpMethod.PUT,"/*/user/{id}").access(getWebExpressionAuthorizationManager("@authorizationChecker.hasAuthorityOrOwner(request, #id, 'ACCOUNT_WRITE')"))
                 .requestMatchers(ADMIN_ONLY_LIST).hasAnyRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle(), RoleEnum.ROLE_ADMIN.getTitle())
