@@ -68,7 +68,7 @@ photoism:
   encrypt:
     key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=
   mail:
-    chgpassurl: https://dev.cms.seobuk.kr/resetpassword
+    chgpassurl: http://localhost:5173/#/confirm-password
     smtp:
       host: smtp.gmail.com
       port: 587
