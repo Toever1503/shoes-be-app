@@ -28,10 +28,10 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
     
-    @Column(name = "user_id", nullable = false, unique = true, columnDefinition = "NVARCHAR(16) COMMENT '사용자 아이디'")
+    @Column(name = "user_id", nullable = false, unique = true, columnDefinition = "NVARCHAR(20) COMMENT '사용자 아이디'")
     private String userId;
     
-    @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(30) COMMENT '이름'")
+    @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(20) COMMENT '이름'")
     private String name;
 
     @Column(name = "phone", columnDefinition = "NVARCHAR(30) COMMENT '연락처'")
