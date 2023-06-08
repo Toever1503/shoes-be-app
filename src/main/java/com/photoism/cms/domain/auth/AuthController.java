@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     @Operation(summary = "패스워드 변경(메일)", description = "패스워드 변경(메일)")
-    @PostMapping(value = "/reset-pw")
+    @PostMapping(value = "/auth/reset-pw")
     public CommonResult<CommonIdResult> resetPw(@Parameter(required = true, description = "param code") @RequestBody AuthChangePassDto dto) throws Exception{
         return baseResponse.getContentResult(authService.resetPw(dto));
     }
