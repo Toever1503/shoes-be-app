@@ -15,6 +15,7 @@ import java.io.IOException;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
+        authenticationException.printStackTrace();
         final String expired = (String) request.getAttribute("expired");
         if (expired == null) {
             response.sendRedirect("/v1/exception/entrypoint");
