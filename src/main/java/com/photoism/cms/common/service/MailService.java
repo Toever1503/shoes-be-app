@@ -24,7 +24,7 @@ public class MailService {
         MimeMessagePreparator preparator = mimeMessage -> {
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             mimeMessage.setFrom(new InternetAddress(from));
-            mimeMessage.setSubject(subject);
+            mimeMessage.setSubject(subject, "utf-8");
             mimeMessage.setText(content, "utf-8", "html");
         };
 
