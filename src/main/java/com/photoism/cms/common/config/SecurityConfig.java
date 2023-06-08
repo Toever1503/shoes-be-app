@@ -119,10 +119,9 @@ public class SecurityConfig {
 
     CorsConfigurationSource corsConfigurationSource() {
         final var configuration = new CorsConfiguration();
-        configuration.addAllowedOriginPattern("http://*:*"); // for ip
-        configuration.addAllowedOriginPattern("http://*"); // for domain
-        configuration.addAllowedOriginPattern("https://*:*"); // for ip
-        configuration.addAllowedOriginPattern("https://*"); // for domain
+        configuration.addAllowedOriginPattern("https://*");
+        configuration.addAllowedOriginPattern("http://*:*");
+        configuration.addAllowedOriginPattern("https://*:*");
         configuration.addAllowedOriginPattern("*");
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
