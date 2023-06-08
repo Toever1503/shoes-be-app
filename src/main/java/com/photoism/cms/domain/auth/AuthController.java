@@ -5,7 +5,9 @@ import com.photoism.cms.common.exception.AuthEntryPointException;
 import com.photoism.cms.common.exception.AuthTokenExpiredException;
 import com.photoism.cms.common.model.response.BaseResponse;
 import com.photoism.cms.common.model.response.CommonBaseResult;
+import com.photoism.cms.common.model.response.CommonIdResult;
 import com.photoism.cms.common.model.response.CommonResult;
+import com.photoism.cms.domain.auth.dto.AuthChangePassDto;
 import com.photoism.cms.domain.auth.dto.SignInReqDto;
 import com.photoism.cms.domain.auth.dto.SignInResDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -62,5 +64,11 @@ public class AuthController {
                                               @RequestHeader(value = "x-api-token") String accessToken,
                                               @RequestHeader(value = "x-refresh-token") String refreshToken) {
         return baseResponse.getContentResult(authService.refreshToken(id, accessToken, refreshToken));
+    }
+
+    @Operation(summary = "패스워드 변경(메일)", description = "패스워드 변경(메일)")
+    @PostMapping(value = "/reset-pw")
+    public CommonResult<CommonIdResult> resetPw(@Parameter(required = true, description = "param code") @RequestBody AuthChangePassDto dto) throws Exception{
+        return baseResponse.getContentResult(authService.resetPw(dto));
     }
 }

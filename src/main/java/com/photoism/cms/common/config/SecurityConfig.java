@@ -76,9 +76,8 @@ public class SecurityConfig {
     }
 
     private static final String[] PERMIT_ALL_LIST = {
+            "/*/auth/**",
             "/*/user/sign-up",
-            "/*/auth/sign-in",
-            "/*/auth/refresh/{id}",
             "/*/user/find-id",
             "/*/user/find-pw",
             "/*/user/{id}/password",

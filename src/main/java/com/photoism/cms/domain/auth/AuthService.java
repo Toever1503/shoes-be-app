@@ -1,14 +1,17 @@
 package com.photoism.cms.domain.auth;
 
-import com.photoism.cms.common.exception.ObjectNotFoundException;
-import com.photoism.cms.common.exception.SigninFailedException;
-import com.photoism.cms.common.exception.UserNotFoundException;
+import com.google.gson.Gson;
+import com.photoism.cms.common.exception.*;
+import com.photoism.cms.common.model.response.CommonIdResult;
+import com.photoism.cms.common.security.EncryptProvider;
 import com.photoism.cms.common.security.JwtTokenProvider;
+import com.photoism.cms.domain.auth.dto.AuthChangePassDto;
+import com.photoism.cms.domain.auth.dto.AuthPasswordCodeDto;
 import com.photoism.cms.domain.auth.dto.SignInReqDto;
 import com.photoism.cms.domain.auth.dto.SignInResDto;
 import com.photoism.cms.domain.auth.entity.AuthenticationEntity;
-import com.photoism.cms.domain.auth.repository.AuthenticationRepository;
 import com.photoism.cms.domain.auth.entity.RoleEntity;
+import com.photoism.cms.domain.auth.repository.AuthenticationRepository;
 import com.photoism.cms.domain.user.entity.UserEntity;
 import com.photoism.cms.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,6 +33,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationRepository authenticationRepository;
+    private final EncryptProvider encryptProvider;
 
     @Transactional
     public SignInResDto signIn(SignInReqDto reqDto) {
@@ -117,5 +123,33 @@ public class AuthService {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    @Transactional
+    public CommonIdResult resetPw(AuthChangePassDto dto) {
+        // code check (id, time), base64 decoding and decript
+        // {"id":1,"expire":"2021060101"}
+
+        String decCode;
+        try {
+            decCode = encryptProvider.decAES(dto.getCode());
+        } catch (Exception e) {
+            throw new InvalidRequstException();
+        }
+
+        Gson gson = new Gson();
+        AuthPasswordCodeDto codedto = gson.fromJson(decCode, AuthPasswordCodeDto.class);
+
+        // check expire time
+        LocalDateTime dateTime = LocalDateTime.parse(codedto.getExpire(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        if (LocalDateTime.now().isAfter(dateTime)) {
+            throw new AuthExpireException();
+        }
+
+        // check user
+        UserEntity userEntity = userRepository.findById(codedto.getId()).orElseThrow(UserNotFoundException::new);
+        // encryption password and save password
+        userEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        return new CommonIdResult(userEntity.getId());
     }
 }

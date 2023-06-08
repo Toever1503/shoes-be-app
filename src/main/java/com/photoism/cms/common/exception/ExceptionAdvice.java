@@ -49,6 +49,22 @@ public class ExceptionAdvice {
         return baseResponse.getFailResult(Integer.parseInt(getMessage("argValidationFailed.code")), message);
     }
 
+    @ExceptionHandler(AuthExpireException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    protected CommonBaseResult authExpire(HttpServletRequest request, AuthExpireException e) {
+        return baseResponse.getFailResult(Integer.parseInt(getMessage("authExpire.code")), getMessage("authExpire.message"));
+    }
+
+    @ExceptionHandler(InvalidRequstException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    protected CommonBaseResult invalidRequest(HttpServletRequest request, InvalidRequstException e) {
+        String message = getMessage("invalidRequest.message");
+        if (e.getMessage() != null) {
+            message = message + "(" + e.getMessage() +")";
+        }
+        return baseResponse.getFailResult(Integer.parseInt(getMessage("invalidRequest.code")), message);
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonBaseResult userNotFountException(HttpServletRequest request, Exception e) {
