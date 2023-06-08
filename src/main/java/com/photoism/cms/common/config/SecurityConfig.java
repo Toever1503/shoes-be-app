@@ -121,6 +121,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         final var configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("http://*:*");
+        configuration.addAllowedOriginPattern("*");
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("*"));
