@@ -10,6 +10,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -133,7 +134,7 @@ public class UserQueryRepository {
                 .select(Wildcard.count)
                 .from(userEntity)
                 .join(roleEntity)
-                .on(roleEntity.roleCd.contains("ROLE_STORE").not(), roleEntity.user.eq(userEntity))
+                .on(roleEntity.roleCd.contains("ROLE_STORE"), roleEntity.user.eq(userEntity))
                 .where(builder)
                 .fetch().get(0);
 
