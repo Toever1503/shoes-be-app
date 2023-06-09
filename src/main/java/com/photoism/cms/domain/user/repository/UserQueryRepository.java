@@ -3,6 +3,7 @@ package com.photoism.cms.domain.user.repository;
 import com.photoism.cms.common.config.QueryDSLConfig;
 import com.photoism.cms.domain.user.dto.UserDetailResDto;
 import com.photoism.cms.domain.user.dto.UserResDto;
+import com.photoism.cms.domain.user.entity.UserEntity;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
@@ -121,6 +122,50 @@ public class UserQueryRepository {
                 .fetch();
 
         return new PageImpl<>(content, pageable, content.size());
+    }
+
+    public List<UserResDto> exportStaffUserList(String string) {
+        return jpaQueryFactory
+                .select(Projections.constructor(UserResDto.class,
+                        userEntity.id,
+                        userEntity.userId,
+                        userEntity.name,
+                        roleEntity.roleCd.as("roleCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmEn"),
+                        userEntity.phone,
+                        userEntity.email,
+                        userEntity.approved,
+                        userEntity.createDate
+                ))
+                .from(userEntity)
+                .join(roleEntity)
+                .on(roleEntity.roleCd.contains("ROLE_STORE").not(), roleEntity.user.eq(userEntity))
+                .where(userEntity.del.isFalse())
+                .orderBy(userEntity.createDate.desc())
+                .fetch();
+    }
+
+    public List<UserResDto> exportStoreUserList(String string) {
+        return jpaQueryFactory
+                .select(Projections.constructor(UserResDto.class,
+                        userEntity.id,
+                        userEntity.userId,
+                        userEntity.name,
+                        roleEntity.roleCd.as("roleCd"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameKr).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmKr"),
+                        ExpressionUtils.as(JPAExpressions.select(codeEntity.nameEn).from(codeEntity).where(codeEntity.code.eq(roleEntity.roleCd)), "roleNmEn"),
+                        userEntity.phone,
+                        userEntity.email,
+                        userEntity.approved,
+                        userEntity.createDate
+                ))
+                .from(userEntity)
+                .join(roleEntity)
+                .on(roleEntity.roleCd.contains("ROLE_STORE"), roleEntity.user.eq(userEntity))
+                .where(userEntity.del.isFalse())
+                .orderBy(userEntity.createDate.desc())
+                .fetch();
     }
 
     public List<UserResDto> getUserForStoreMapping(String userId, String name) {
