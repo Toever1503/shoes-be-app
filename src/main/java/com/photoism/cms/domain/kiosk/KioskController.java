@@ -81,4 +81,10 @@ public class KioskController {
     public CommonResult<KioskDetailResDto> getDetail(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
         return baseResponse.getContentResult(kioskService.getDetail(id));
     }
+
+//    @Operation(summary = "시퀀스 발생", description = "시퀀스 발생")
+//    @PostMapping(value = "/seq")
+//    public CommonResult<String> addSeq(@Parameter(required = true, name = "reqDto", description = "시퀀스 등록 정보") @RequestBody @Valid KioskSeqReqDto reqDto) {
+//        return baseResponse.getContentResult(kioskService.addSeq(reqDto));
+//    }
 }

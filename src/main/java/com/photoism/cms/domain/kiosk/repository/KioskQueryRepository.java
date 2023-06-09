@@ -8,6 +8,7 @@ import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +55,13 @@ public class KioskQueryRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return new PageImpl<>(content, pageable, content.size());
+        long total = jpaQueryFactory
+                .select(Wildcard.count)
+                .from(kioskEntity)
+                .where(builder)
+                .fetch().get(0);
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     public Optional<KioskDetailResDto> getDetail(Long id) {

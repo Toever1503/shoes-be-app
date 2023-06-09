@@ -81,6 +81,7 @@ public class SecurityConfig {
             "/*/user/find-id",
             "/*/user/find-pw",
             "/*/user/{id}/password",
+            "/*/kiosk/seq",
             "/*/file/**",
             "/*/etc/code",
             "/*/etc/health-check"
