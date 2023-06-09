@@ -1,5 +1,7 @@
 package com.photoism.cms.common.security;
 
+import com.photoism.cms.common.exception.AuthEntryPointException;
+import com.photoism.cms.common.exception.AuthTokenExpiredException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,9 +19,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
         authenticationException.printStackTrace();
         final String expired = (String) request.getAttribute("expired");
-        if (expired == null) {
-            response.sendRedirect("/v1/exception/entrypoint");
-        } else
-            response.sendRedirect("/v1/exception/tokenexpired");
+        if (expired == null)
+            request.getRequestDispatcher("/v1/exception/entrypoint").forward(request, response);
+        else
+            request.getRequestDispatcher("/v1/exception/tokenexpired").forward(request, response);
     }
 }
