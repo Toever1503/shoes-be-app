@@ -3,12 +3,12 @@ package com.photoism.cms.domain.user.repository;
 import com.photoism.cms.common.config.QueryDSLConfig;
 import com.photoism.cms.domain.user.dto.UserDetailResDto;
 import com.photoism.cms.domain.user.dto.UserResDto;
-import com.photoism.cms.domain.user.entity.UserEntity;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +85,15 @@ public class UserQueryRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return new PageImpl<>(content, pageable, content.size());
+        long total = jpaQueryFactory
+                .select(Wildcard.count)
+                .from(userEntity)
+                .join(roleEntity)
+                .on(roleEntity.roleCd.contains("ROLE_STORE").not(), roleEntity.user.eq(userEntity))
+                .where(builder)
+                .fetch().get(0);
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
@@ -121,7 +129,15 @@ public class UserQueryRepository {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return new PageImpl<>(content, pageable, content.size());
+        long total = jpaQueryFactory
+                .select(Wildcard.count)
+                .from(userEntity)
+                .join(roleEntity)
+                .on(roleEntity.roleCd.contains("ROLE_STORE").not(), roleEntity.user.eq(userEntity))
+                .where(builder)
+                .fetch().get(0);
+
+        return new PageImpl<>(content, pageable, total);
     }
 
     public List<UserResDto> exportStaffUserList(String string) {
