@@ -1,6 +1,6 @@
 logging:
   file:
-    max-history: 7
+    path: logs
   level:
     root: info
     #    com.zaxxer.hikari.HikariConfig: DEBUG
@@ -8,16 +8,18 @@ logging:
     org.hibernate:
       #      SQL: DEBUG
       orm.jdbc.bind: TRACE
-  path: logs
+  logback:
+    rollingpolicy:
+      max-history: 7
 
 spring:
   autoconfigure:
     excludd: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
   datasource:
-    url: l4oSu3Es7bivTu+Dh1pRMfAmaiIEgBiW67vy/orxmXBPq/gt2fVkQsQO2t3g8CZzHzgO1OwfMzdBHEHRQ+3Pb+5RAmPZFb7Dmu7QTX/QsgXxBMlhIuHO+nbk8eoABV46QIQSINJLinXH7JbrkyBi52gjUTh4/YByBGWe6WkCF/o=
+    url: jdbc:mysql://localhost:3306/shoescms
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: hZqQ2BVOOunIO1U38O1ciw==
-    password: aKHpqzCLY+b3EE/oA7IENg==
+    username: shoescms
+    password: 1234
     hikari:
       connection-timeout: 10000
       idleTimeout: 10000
