@@ -84,7 +84,8 @@ public class SecurityConfig {
             "/*/kiosk/seq",
             "/*/file/**",
             "/*/etc/code",
-            "/*/etc/health-check"
+            "/*/etc/health-check",
+            "/api/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {
