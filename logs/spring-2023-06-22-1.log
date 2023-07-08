@@ -1,0 +1,49 @@
+22:59:11.467+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+22:59:11.513+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.7 with PID 6364 (E:\shoes-be-app\build\classes\java\main started by Vu Ngoc Thang in E:\shoes-be-app)
+22:59:11.517+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+22:59:11.561+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+22:59:11.561+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+22:59:13.027+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22:59:13.115+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 3 JPA repository interfaces.
+22:59:14.001+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+22:59:14.011+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+22:59:14.013+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+22:59:14.013+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+22:59:14.108+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+22:59:14.109+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2547 ms
+22:59:14.419+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+22:59:14.479+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+22:59:14.780+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+22:59:14.781+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+22:59:14.938+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@e97af9b
+22:59:14.939+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+22:59:14.956+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+22:59:14.957+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+22:59:16.648+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22:59:16.657+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22:59:17.312+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:59:17.421+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+22:59:17.421+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+22:59:17.426+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:59:17.504+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+22:59:17.514+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:59:18.993+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+22:59:19.062+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@633aaa9c, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@25cf6e85, org.springframework.security.web.context.SecurityContextHolderFilter@5117ad65, org.springframework.security.web.header.HeaderWriterFilter@7a8f9db4, org.springframework.web.filter.CorsFilter@6cd8c6e2, org.springframework.security.web.authentication.logout.LogoutFilter@21d05409, com.shoescms.common.security.JwtAuthenticationFilter@35e9fa48, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1f8051b3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@fc1efc9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3b1d823, org.springframework.security.web.session.SessionManagementFilter@2a1a05d0, org.springframework.security.web.access.ExceptionTranslationFilter@d37ae19, org.springframework.security.web.access.intercept.AuthorizationFilter@15cb82bc]
+22:59:19.467+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.467+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+22:59:19.468+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.468+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+22:59:19.468+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.468+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+22:59:19.468+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.468+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+22:59:19.468+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.468+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+22:59:19.469+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.469+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+22:59:19.469+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:59:19.469+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+22:59:19.526+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+22:59:19.593+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+22:59:19.617+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+22:59:19.630+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 8.504 seconds (process running for 10.032)
