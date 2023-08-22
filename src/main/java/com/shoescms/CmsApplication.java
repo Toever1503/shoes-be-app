@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CmsApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("cusTomEnv.hello_work", "124");
 		SpringApplication.run(CmsApplication.class, args);
 	}
 

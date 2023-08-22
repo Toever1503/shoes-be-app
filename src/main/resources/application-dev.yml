@@ -61,7 +61,7 @@ cloud:
     region:
       static: ap-northeast-2
     s3:
-      bucket: dT86SQtzNRCqfCtRIiA/TmIvQGotdTqExR2RKqw80Yw=
+
     credentials:
       access-key: COG9cbWGCwLg2h2iLmmOgaPMo5tU5yAN6k8JIZ/cfTw=
       secret-key: JcHJHjF3vuy1ZznEcc+IT3F1i2xT3QwkThF12PsIsu7Md7EYh0tWyyr8cXuWMJJ/

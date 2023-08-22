@@ -59,8 +59,6 @@ dependencies {
 	// message
 	implementation 'net.rakugakibox.util:yaml-resource-bundle:1.1'
 
-	// aws
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
 	// util
 	implementation 'commons-io:commons-io:2.11.0'
@@ -79,6 +77,11 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// google
+	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
+	implementation("com.google.firebase:firebase-admin:9.2.0")
+
 }
 
 tasks.named('test') {
@@ -91,15 +94,15 @@ configurations {
 	}
 }
 
-def generated="$projectDir/src/main/generated"
-
-tasks.withType(JavaCompile) {
-	options.annotationProcessorGeneratedSourcesDirectory = file(generated)
-}
-
-clean.doLast {
-	file(generated).deleteDir()
-}
+//def generated="$projectDir/src/main/generated"
+//
+//tasks.withType(JavaCompile) {
+//	options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+//}
+//
+//clean.doLast {
+//	file(generated).deleteDir()
+//}
 
 sourceSets {
 	main {
