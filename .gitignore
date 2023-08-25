@@ -38,3 +38,5 @@ out/
 
 /src/main/generated
 .env
+credentials/
+logs/
