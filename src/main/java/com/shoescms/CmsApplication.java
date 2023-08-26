@@ -17,30 +17,24 @@ import java.nio.charset.StandardCharsets;
 @SpringBootApplication
 public class CmsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CmsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CmsApplication.class, args);
+    }
 
-	@EventListener(ApplicationStartedEvent.class)
-	public void onStartApplication() throws IOException {
-		FileInputStream serviceAccount =
-				new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
-		FirebaseOptions options = FirebaseOptions.builder()
-				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
-				.setStorageBucket("springboot-analysis.appspot.com")
-				.build();
-		FirebaseApp.initializeApp(options);
-		testUploadFile();
-	}
+    @EventListener(ApplicationStartedEvent.class)
+    public void onStartApplication() throws IOException {
+        initFirebaseInstance();
+    }
 
-	public void testUploadFile(){
-		Bucket bucket = StorageClient.getInstance().bucket();
-
-		String blobName = "my_blob_name";
-		InputStream content = new ByteArrayInputStream("Hello, World!".getBytes(StandardCharsets.UTF_8));
-		Blob blob = bucket.create(blobName, content, "text/plain");
-	}
-
+    private void initFirebaseInstance() throws IOException {
+        FileInputStream serviceAccount =
+                new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setStorageBucket("springboot-analysis.appspot.com")
+                .build();
+        FirebaseApp.initializeApp(options);
+    }
 
 
 }
