@@ -4,11 +4,14 @@ import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Date;
 
 @Component
 public class FileUploadService {
@@ -30,9 +33,20 @@ public class FileUploadService {
             return path + "/" + fileName;
     }
 
-    public FileEntity uploadFile(String path, String fileName, MultipartFile file) throws IOException {
-        String filePath = generatePath(path, fileName);
+    private String generateUniqueFileName(String ext) {
+        String filename = "";
+        long millis = System.currentTimeMillis();
+        String datetime = new Date().toString();
+        datetime = datetime.replace(" ", "");
+        datetime = datetime.replace(":", "");
+        String rndchars = RandomStringUtils.randomAlphanumeric(16);
+        filename = rndchars + "_" + datetime + "_" + millis + "." + ext;
+        return filename;
+    }
+
+    public FileEntity uploadFile(String path, MultipartFile file) throws IOException {
+        String filePath = generatePath(path, generateUniqueFileName(FilenameUtils.getExtension(file.getOriginalFilename())));
         DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
-        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath));
+        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath + "?alt=media"));
     }
 }

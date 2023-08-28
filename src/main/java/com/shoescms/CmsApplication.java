@@ -8,6 +8,7 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationPreparedEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.event.EventListener;
 
@@ -17,16 +18,14 @@ import java.nio.charset.StandardCharsets;
 @SpringBootApplication
 public class CmsApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        initFirebaseInstance();
         SpringApplication.run(CmsApplication.class, args);
     }
 
-    @EventListener(ApplicationStartedEvent.class)
-    public void onStartApplication() throws IOException {
-        initFirebaseInstance();
-    }
+    private static void initFirebaseInstance() throws IOException {
+        if (FirebaseApp.getApps().isEmpty()){
 
-    private void initFirebaseInstance() throws IOException {
         FileInputStream serviceAccount =
                 new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
         FirebaseOptions options = FirebaseOptions.builder()
@@ -34,6 +33,8 @@ public class CmsApplication {
                 .setStorageBucket("springboot-analysis.appspot.com")
                 .build();
         FirebaseApp.initializeApp(options);
+        }
+
     }
 
 

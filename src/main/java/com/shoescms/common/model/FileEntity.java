@@ -9,7 +9,7 @@ import org.hibernate.type.SqlTypes;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_user")
+@Table(name = "tb_file")
 public class FileEntity {
 
     @Id
