@@ -22,10 +22,14 @@ public class FileEntity {
     private String url;
 
     @Column(nullable = false)
+    private String path;
+
+    @Column(nullable = false)
     private Boolean isVerified;
 
-    public FileEntity(String url) {
+    public FileEntity(String url, String path) {
         this.url = url;
+        this.path = path;
         isVerified = false;
     }
 

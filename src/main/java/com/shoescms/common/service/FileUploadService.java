@@ -1,5 +1,8 @@
 package com.shoescms.common.service;
 
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
 import com.shoescms.common.model.FileEntity;
@@ -23,8 +26,8 @@ public class FileUploadService {
 
     public FileUploadService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
-//        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
-        this.DEFAULT_BUCKET = null;
+        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
+//        this.DEFAULT_BUCKET = null;
     }
 
     private String generatePath(String path, String fileName) {
@@ -48,6 +51,6 @@ public class FileUploadService {
     public FileEntity uploadFile(String path, MultipartFile file) throws IOException {
         String filePath = generatePath(path, generateUniqueFileName(FilenameUtils.getExtension(file.getOriginalFilename())));
         DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
-        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath + "?alt=media"));
+        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath.replaceAll("/", "%2F") + "?alt=media", filePath));
     }
 }
