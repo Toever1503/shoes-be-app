@@ -63,7 +63,7 @@ dependencies {
 	// util
 	implementation 'commons-io:commons-io:2.11.0'
 	implementation 'org.apache.httpcomponents:httpcore:4.4.14'
-	implementation 'com.google.code.gson:gson:2.7'
+	implementation 'com.google.code.gson:gson:2.8.9'
 	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
 	// excel download
@@ -81,6 +81,13 @@ dependencies {
 	// google
 	// https://mvnrepository.com/artifact/com.google.firebase/firebase-admin
 	implementation("com.google.firebase:firebase-admin:9.2.0")
+
+	// elasticsearch
+//	implementation 'co.elastic.clients:elasticsearch-java:8.9.1'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-elasticsearch
+	implementation("org.springframework.data:spring-data-elasticsearch:5.1.3")
+
 
 }
 
