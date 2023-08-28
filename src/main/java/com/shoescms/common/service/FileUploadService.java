@@ -23,7 +23,8 @@ public class FileUploadService {
 
     public FileUploadService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
-        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
+//        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
+        this.DEFAULT_BUCKET = null;
     }
 
     private String generatePath(String path, String fileName) {
