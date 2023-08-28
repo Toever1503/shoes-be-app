@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RequiredArgsConstructor
-@RestControllerAdvice(basePackages = "com.photoism.cms")
+@RestControllerAdvice(basePackages = "com.shoescms")
 public class ExceptionAdvice {
     private final BaseResponse baseResponse;
     private final MessageSource messageSource;

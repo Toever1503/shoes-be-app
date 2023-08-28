@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping(value = "/v1/etc")
 public class CommonController {
-
     private final FileUploadService fileUploadService;
 
     @ResponseStatus(HttpStatus.CREATED)

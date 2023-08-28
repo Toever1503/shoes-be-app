@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.support.HttpHeaders;
 
 import java.io.*;
 
-@Configuration
+//@Configuration
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
 
     @Autowired
