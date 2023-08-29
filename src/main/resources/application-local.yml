@@ -15,6 +15,12 @@ logging:
 spring:
   autoconfigure:
     excludd: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+    exclude:
+      - org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticsearchRestHealthContributorAutoConfiguration
   datasource:
     url: jdbc:mysql://localhost:3306/shoescms
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -48,7 +54,8 @@ spring:
     multipart:
       maxFileSize: 30MB
       maxRequestSize: 50MB
-
+  config:
+    import: optional:file:.env[.properties]
 springdoc:
   swagger-ui:
     tags-sorter: alpha
@@ -61,7 +68,7 @@ cloud:
     region:
       static: ap-northeast-2
     s3:
-      bucket: dT86SQtzNRCqfCtRIiA/TmIvQGotdTqExR2RKqw80Yw=
+
     credentials:
       access-key: COG9cbWGCwLg2h2iLmmOgaPMo5tU5yAN6k8JIZ/cfTw=
       secret-key: JcHJHjF3vuy1ZznEcc+IT3F1i2xT3QwkThF12PsIsu7Md7EYh0tWyyr8cXuWMJJ/

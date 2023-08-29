@@ -3,14 +3,12 @@ package com.shoescms.domain.auth;
 import com.google.gson.Gson;
 import com.shoescms.common.exception.*;
 import com.shoescms.common.model.response.CommonIdResult;
-import com.shoescms.common.security.EncryptProvider;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.auth.dto.AuthChangePassDto;
 import com.shoescms.domain.auth.dto.AuthPasswordCodeDto;
 import com.shoescms.domain.auth.dto.SignInReqDto;
 import com.shoescms.domain.auth.dto.SignInResDto;
 import com.shoescms.domain.auth.entity.AuthenticationEntity;
-import com.shoescms.domain.auth.entity.RoleEntity;
 import com.shoescms.domain.auth.repository.AuthenticationRepository;
 import com.shoescms.domain.user.entity.UserEntity;
 import com.shoescms.domain.user.repository.UserRepository;
@@ -24,7 +22,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,7 +31,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationRepository authenticationRepository;
-    private final EncryptProvider encryptProvider;
 
     @Transactional
     public SignInResDto signIn(SignInReqDto reqDto) {
@@ -133,24 +129,25 @@ public class AuthService {
 
         String decCode;
         try {
-            decCode = encryptProvider.decAES(dto.getCode());
+//            decCode = encryptProvider.decAES(dto.getCode());
         } catch (Exception e) {
             throw new InvalidRequstException();
         }
 
         Gson gson = new Gson();
-        AuthPasswordCodeDto codedto = gson.fromJson(decCode, AuthPasswordCodeDto.class);
+//        AuthPasswordCodeDto codedto = gson.fromJson(decCode, AuthPasswordCodeDto.class);
 
         // check expire time
-        LocalDateTime dateTime = LocalDateTime.parse(codedto.getExpire(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        if (LocalDateTime.now().isAfter(dateTime)) {
-            throw new AuthExpireException();
-        }
+//        LocalDateTime dateTime = LocalDateTime.parse(codedto.getExpire(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//        if (LocalDateTime.now().isAfter(dateTime)) {
+//            throw new AuthExpireException();
+//        }
 
-        // check user
-        UserEntity userEntity = userRepository.findById(codedto.getId()).orElseThrow(UserNotFoundException::new);
-        // encryption password and save password
-        userEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
-        return new CommonIdResult(userEntity.getId());
+//        // check user
+//        UserEntity userEntity = userRepository.findById(codedto.getId()).orElseThrow(UserNotFoundException::new);
+//        // encryption password and save password
+//        userEntity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+//        return new CommonIdResult(userEntity.getId());
+        return null;
     }
 }

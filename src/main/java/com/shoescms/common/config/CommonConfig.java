@@ -15,4 +15,8 @@ public class CommonConfig {
 
     @Value("${photoism.mail.chgpassurl}")
     private String chgPasswordUrl;
+
+    public CommonConfig(@Value("HELLO_WORLD")String test){
+        System.out.println("my HELLO_WORLD: " + test);
+    }
 }

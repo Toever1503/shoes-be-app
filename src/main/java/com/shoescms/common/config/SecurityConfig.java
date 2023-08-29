@@ -85,7 +85,7 @@ public class SecurityConfig {
             "/*/file/**",
             "/*/etc/code",
             "/*/etc/health-check",
-            "/api/**"
+            "/v1/etc/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {
