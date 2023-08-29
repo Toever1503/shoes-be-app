@@ -111,11 +111,11 @@ configurations {
 //	file(generated).deleteDir()
 //}
 
-sourceSets {
-	main {
-		java {
-			srcDirs = ["$projectDir/src/main/java", "$projectDir/src/main/generated"]
-		}
-	}
-}
+//sourceSets {
+//	main {
+//		java {
+//			srcDirs = ["$projectDir/src/main/java", "$projectDir/src/main/generated"]
+//		}
+//	}
+//}
 
