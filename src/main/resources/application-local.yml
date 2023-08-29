@@ -15,6 +15,12 @@ logging:
 spring:
   autoconfigure:
     excludd: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
+    exclude:
+      - org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
+      - org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchRestClientAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticsearchRestHealthContributorAutoConfiguration
   datasource:
     url: jdbc:mysql://localhost:3306/shoescms
     driver-class-name: com.mysql.cj.jdbc.Driver
