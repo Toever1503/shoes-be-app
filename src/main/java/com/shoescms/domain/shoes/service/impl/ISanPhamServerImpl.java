@@ -3,7 +3,9 @@ package com.shoescms.domain.shoes.service.impl;
 import com.shoescms.domain.shoes.dto.SanPhamDto;
 import com.shoescms.domain.shoes.entitis.SanPham;
 import com.shoescms.domain.shoes.models.SanPhamModel;
+import com.shoescms.domain.shoes.repository.DanhMucRepository;
 import com.shoescms.domain.shoes.repository.ISanPhamRepository;
+import com.shoescms.domain.shoes.repository.ThuogHieuRepository;
 import com.shoescms.domain.shoes.service.ISanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -12,39 +14,53 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
 @Service
 public class ISanPhamServerImpl implements ISanPhamService {
    @Autowired
     @Lazy
     private ISanPhamRepository sanPhamRepository;
-
+   @Autowired
+   private ThuogHieuRepository thuogHieuRepository;
+   @Autowired
+   private DanhMucRepository danhMucRepository;
    @Override
    public Page<SanPham> filterEntities(Pageable pageable, Specification<SanPham> specification){
 
        return this.sanPhamRepository.findAll(specification,pageable);
    }
 
-
-
    @Override
    public SanPhamDto add(SanPhamModel model){
-       SanPham entity = SanPham.builder()
-               .anhBia(model.getAnhBia())
-               .maSP(model.getMaSP())
-               .moTa(model.getMoTa())
-               .dmGiay(model.getDmGiay())
-               .giaCu(model.getGiaCu())
-               .giaMoi(model.getGiaMoi())
-               .gioiTinh(model.getGioiTinh())
-               .slug(model.getSlug())
-               .thuongHieu(model.getThuongHieu())
-               .tieuDe(model.getTieuDe())
-               .nguoiTao(model.getNguoiTao())
-               .ngayTao(model.getNgayTao())
-               .ngayXoa(model.getNgayXoa())
-               .build();
-       this.sanPhamRepository.saveAndFlush(entity);
-       return SanPhamDto.toDto(entity);
+       if(model.getThuongHieu().getId()!=null || model.getDmGiay().getId()!=null) {
+           if (thuogHieuRepository.findById(model.getThuongHieu().getId()).orElse(null) != null
+                ||danhMucRepository.findById(model.getDmGiay().getId()).orElse(null)!=null) {
+               SanPham entity = SanPham.builder()
+                       .anhBia(model.getAnhBia())
+                       .maSP(model.getMaSP())
+                       .moTa(model.getMoTa())
+                       .dmGiay(model.getDmGiay())
+                       .giaCu(model.getGiaCu())
+                       .giaMoi(model.getGiaMoi())
+                       .gioiTinh(model.getGioiTinh())
+                       .slug(model.getSlug())
+                       .thuongHieu(model.getThuongHieu())
+                       .tieuDe(model.getTieuDe())
+                       .nguoiTao(model.getNguoiTao())
+                       .ngayTao(LocalDateTime.now())
+                       .nguoiCapNhat(model.getNguoiCapNhat())
+                       .ngayCapNhat(model.getNgayCapNhat())
+                       .ngayXoa(model.getNgayXoa())
+                       .build();
+               this.sanPhamRepository.saveAndFlush(entity);
+
+               return SanPhamDto.toDto(entity);
+           }
+       }
+       return null;
    }
    @Override
    public SanPhamDto update(SanPhamModel model){
@@ -67,7 +83,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
    public boolean deleteById(Long id){
        try {
            SanPham entity  = this.getById(id);
-           this.sanPhamRepository.saveAndFlush(entity);
+           // chua hieu sao khoong phari laf delete
+           this.sanPhamRepository.delete(entity);
            return true;
        }catch (Exception e){
            return false;
@@ -78,4 +95,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
        return this.sanPhamRepository.findById(id).orElseThrow(() -> new RuntimeException("22"));
    }
 
+   public List<SanPham> getAll(){
+       return sanPhamRepository.findAll();
+   }
 }

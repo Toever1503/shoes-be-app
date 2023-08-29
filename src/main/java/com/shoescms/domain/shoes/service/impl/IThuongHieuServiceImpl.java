@@ -1,0 +1,60 @@
+package com.shoescms.domain.shoes.service.impl;
+
+import com.shoescms.domain.shoes.dto.ThuongHieuDTO;
+import com.shoescms.domain.shoes.entitis.DMGiay;
+import com.shoescms.domain.shoes.entitis.ThuongHieu;
+import com.shoescms.domain.shoes.models.ThuongHieuModel;
+import com.shoescms.domain.shoes.repository.ThuogHieuRepository;
+import com.shoescms.domain.shoes.service.IThuongHieuService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+
+
+@Service
+public class IThuongHieuServiceImpl implements IThuongHieuService {
+    @Autowired
+    ThuogHieuRepository thuogHieuRepository;
+    @Override
+    public Page<ThuongHieu> filterEntities(Pageable pageable, Specification<ThuongHieu> specification) {
+        return thuogHieuRepository.findAll(specification,pageable);
+    }
+
+    @Override
+    public ThuongHieuDTO add(ThuongHieuModel thuongHieuModel) {
+       ThuongHieu thuongHieu = ThuongHieu.builder()
+               .tenThuongHieu(thuongHieuModel.getTenThuongHieu())
+               .slug(thuongHieuModel.getSlug())
+               .build();
+                thuogHieuRepository.save(thuongHieu);
+       return ThuongHieuDTO.toDTO(thuongHieu);
+    }
+
+    @Override
+    public ThuongHieuDTO update(ThuongHieuModel thuongHieuModel) {
+       ThuongHieu th = thuogHieuRepository.findById(thuongHieuModel.getId()).orElse(null);
+       if(th!=null){
+           th.setTenThuongHieu(thuongHieuModel.getTenThuongHieu());
+           th.setSlug(thuongHieuModel.getSlug());
+           thuogHieuRepository.save(th);
+       }
+       return ThuongHieuDTO.toDTO(th);
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        try {
+            ThuongHieu entity= this.getById(id);
+            this.thuogHieuRepository.delete(entity);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public ThuongHieu getById(Long id){
+        return thuogHieuRepository.findById(id).orElseThrow(()-> new RuntimeException("22"));
+    }
+}
