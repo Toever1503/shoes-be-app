@@ -5,7 +5,6 @@ import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.enums.RoleEnum;
 import com.shoescms.common.exception.*;
 import com.shoescms.common.model.response.CommonIdResult;
-import com.shoescms.common.security.EncryptProvider;
 import com.shoescms.common.service.MailService;
 import com.shoescms.domain.auth.entity.RoleEntity;
 import com.shoescms.domain.auth.repository.RoleRepository;
@@ -25,7 +24,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -37,16 +35,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserQueryRepository userQueryRepository;
     private final RoleRepository roleRepository;
-    private final EncryptProvider encryptProvider;
     private final CommonConfig config;
     private final MailService mailService;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, EncryptProvider encryptProvider, CommonConfig config, MailService mailService) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userQueryRepository = userQueryRepository;
         this.roleRepository = roleRepository;
-        this.encryptProvider = encryptProvider;
         this.config = config;
         this.mailService = mailService;
         initRole();
@@ -131,7 +127,7 @@ public class UserService {
         String param = gson.toJson(dto);
 
         // encrypt info
-        String encParam = encryptProvider.encAES(param);
+        String encParam = "www";
         ClassPathResource resource = new ClassPathResource("html/mail-body.html");
         if (resource.exists()) {
             try {

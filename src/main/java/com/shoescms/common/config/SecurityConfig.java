@@ -73,7 +73,6 @@ public class SecurityConfig {
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .build();
-
     }
 
     private static final String[] PERMIT_ALL_LIST = {
@@ -86,7 +85,7 @@ public class SecurityConfig {
             "/*/file/**",
             "/*/etc/code",
             "/*/etc/health-check",
-            "/*/sanPham/**"
+            "/v1/etc/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {
