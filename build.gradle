@@ -10,7 +10,7 @@ ext {
 	springBootVersion = '3.0.4'
 }
 
-group = 'com.photoism'
+group = 'com.shoescms'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
