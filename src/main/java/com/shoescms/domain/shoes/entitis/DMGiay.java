@@ -4,6 +4,9 @@ package com.shoescms.domain.shoes.entitis;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "tbl_danh_muc_giay")
 @AllArgsConstructor
@@ -24,4 +27,6 @@ public class DMGiay {
 
     @Column(name = "slug")
     private String slug;
+
+
 }

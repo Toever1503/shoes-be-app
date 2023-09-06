@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
+
 public interface IThuongHieuService{
 
     Page<ThuongHieu> filterEntities(Pageable pageable, Specification<ThuongHieu> specification);
@@ -19,4 +21,6 @@ public interface IThuongHieuService{
     ThuongHieuDTO update(ThuongHieuModel thuongHieuModel);
 
     boolean deleteById(Long id);
+
+    List<ThuongHieuDTO> getThuongHieus(String tenThuongHieu, String slug,Pageable pageable);
 }

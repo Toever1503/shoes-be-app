@@ -1,16 +1,21 @@
 package com.shoescms.domain.shoes.service.impl;
 
+import com.shoescms.domain.shoes.dto.DanhMucDTO;
 import com.shoescms.domain.shoes.dto.ThuongHieuDTO;
 import com.shoescms.domain.shoes.entitis.DMGiay;
 import com.shoescms.domain.shoes.entitis.ThuongHieu;
 import com.shoescms.domain.shoes.models.ThuongHieuModel;
 import com.shoescms.domain.shoes.repository.ThuogHieuRepository;
 import com.shoescms.domain.shoes.service.IThuongHieuService;
+import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 
 @Service
@@ -54,7 +59,24 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
         }
     }
 
+    @Override
+    public List<ThuongHieuDTO> getThuongHieus(String tenThuongHieu,String slug, Pageable pageable) {
+        List<ThuongHieu> thuongHieu = thuogHieuRepository.findAll((Specification<ThuongHieu>) (root, query, criteriaBuilder) -> {
+            Predicate p = criteriaBuilder.conjunction();
+            if (!StringUtils.isEmpty(tenThuongHieu)) {
+                p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("tenThuongHieu"), "%" + tenThuongHieu + "%"));
+            }
+            if (!StringUtils.isEmpty(tenThuongHieu)) {
+                p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("slug"), "%" + slug + "%"));
+            }
+            query.orderBy(criteriaBuilder.desc(root.get("tenThuongHieu")), criteriaBuilder.asc(root.get("id")));
+            return p;
+        }, pageable).getContent();
+        return ThuongHieuDTO.convertToTDO(thuongHieu);
+    }
+
     public ThuongHieu getById(Long id){
         return thuogHieuRepository.findById(id).orElseThrow(()-> new RuntimeException("22"));
     }
+
 }

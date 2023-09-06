@@ -33,7 +33,29 @@ public class ISanPhamServerImpl implements ISanPhamService {
        return this.sanPhamRepository.findAll(specification,pageable);
    }
 
-   @Override
+    @Override
+    public Page<SanPham> getAll(Pageable pageable) {
+       return sanPhamRepository.findAll(pageable);
+    }
+
+    // Tìm Kiem theo thuong Hieu
+    @Override
+    public  Page<SanPham> findByThuongHieu(Long id , Pageable pageable){
+       return  sanPhamRepository.findByThuongHieuId(id, pageable);
+    }
+
+    @Override
+    public Page<SanPham> findByDmGiay(Long id, Pageable pageable) {
+        return  sanPhamRepository.findByDmGiayId(id,pageable);
+    }
+
+
+    @Override
+    public Page<SanPham> findByThuongHieuIdAndDmGiayId(Long idThuongHieu, Long idDanhMucGiay, Pageable pageable) {
+        return  sanPhamRepository.findByThuongHieuIdAndDmGiayId(idThuongHieu,idDanhMucGiay,pageable);
+    }
+
+    @Override
    public SanPhamDto add(SanPhamModel model){
        if(model.getThuongHieu().getId()!=null || model.getDmGiay().getId()!=null) {
            if (thuogHieuRepository.findById(model.getThuongHieu().getId()).orElse(null) != null

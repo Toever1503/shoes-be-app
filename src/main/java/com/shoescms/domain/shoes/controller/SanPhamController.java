@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -30,16 +31,47 @@ public class SanPhamController {
         model.setId(null);
         return ResponseDto.of(this.iSanPhamService.add(model));
     }
+    // Lay tat ca Danh Sach San Pham
+    @GetMapping("/searchall")
+    public  ResponseDto getAllsanPham(@RequestParam (defaultValue = "0") int offset,
+                                      @RequestParam(defaultValue = "4") int limit){
+        Pageable pageable = PageRequest.of(offset, limit);
+        return ResponseDto.of(iSanPhamService.getAll(pageable));
+    }
 
-//    @GetMapping("/index")
-//    public ResponseEntity<Object> index(@RequestParam(defaultValue = "0") int offset,
-//                                        @RequestParam(defaultValue = "2") int limit){
-//
-//        Pageable pageable = PageRequest.of(offset, limit);
-//  //      Page<DanhMucDTO> danhMucDTOS = iSanPhamService.filterEntities(pageable,);
-//
-//        return  null;
-//    }
+    //Tìm theo thuong hieu
+    @GetMapping("/search")
+    public ResponseDto findByThuongHieu(@RequestParam Long id,
+                                        @RequestParam(defaultValue = "0")int offset,
+                                        @RequestParam(defaultValue = "1")int limit
+                                       ){
+        Pageable pageable = PageRequest.of(offset,limit);
+        return  ResponseDto.of(iSanPhamService.findByThuongHieu(id , pageable));
+    }
+    // Tìm Theo Danh Muc Giay
+
+    @GetMapping("/search1")
+    public ResponseDto findByDanhMuc(@RequestParam Long id,
+                                        @RequestParam(defaultValue = "0")int offset,
+                                        @RequestParam(defaultValue = "1")int limit
+    ){
+        Pageable pageable = PageRequest.of(offset,limit);
+        return  ResponseDto.of(iSanPhamService.findByDmGiay(id , pageable));
+    }
+
+    // tim theo ca thuong hieu va danh muc
+
+    @GetMapping("/search2")
+
+    public  ResponseDto findByThuongHieuAndDanhMuc(@RequestParam Long idth,
+                                                   @RequestParam Long iddm,
+                                                   @RequestParam(defaultValue = "0") int offset,
+                                                   @RequestParam(defaultValue = "1") int limit){
+        Pageable pageable = PageRequest.of(offset,limit);
+
+        return ResponseDto.of(iSanPhamService.findByThuongHieuIdAndDmGiayId(idth,iddm,pageable));
+    }
+
     @PutMapping("/update/{id}")
     public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
            return ResponseDto.of(iSanPhamService.update(model));

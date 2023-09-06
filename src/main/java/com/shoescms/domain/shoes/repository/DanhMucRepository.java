@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DanhMucRepository extends JpaRepository<DMGiay, Long> , JpaSpecificationExecutor<DMGiay>{
 
+
 }

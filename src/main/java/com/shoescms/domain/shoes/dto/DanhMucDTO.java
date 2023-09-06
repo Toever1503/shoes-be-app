@@ -3,6 +3,10 @@ package com.shoescms.domain.shoes.dto;
 
 import com.shoescms.domain.shoes.entitis.DMGiay;
 import lombok.*;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -28,4 +32,12 @@ public class DanhMucDTO {
                         .slug(dm.getSlug())
                         .build();
     }
+    public static List<DanhMucDTO> convertToTDO(List<DMGiay> dmGiay){
+        return dmGiay.stream().map(s -> DanhMucDTO.builder()
+                .id(s.getId())
+                .tenDanhMuc(s.getTenDanhMuc())
+                .slug(s.getSlug())
+                .build()).collect(Collectors.toList());
+    }
+
 }
