@@ -1,5 +1,6 @@
 package com.shoescms.domain.shoes.controller;
 
+import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.shoes.dto.DanhMucDTO;
 import com.shoescms.domain.shoes.dto.ResponseDto;
 import com.shoescms.domain.shoes.dto.SanPhamDto;
@@ -7,6 +8,7 @@ import com.shoescms.domain.shoes.entitis.SanPham;
 import com.shoescms.domain.shoes.models.SanPhamModel;
 import com.shoescms.domain.shoes.repository.ISanPhamRepository;
 import com.shoescms.domain.shoes.service.ISanPhamService;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,11 +28,21 @@ public class SanPhamController {
     private ISanPhamService iSanPhamService;
     @Autowired
     ISanPhamRepository iSanPhamRepository;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @PostMapping(value = "/add")
-    public ResponseDto addSanPham(@RequestBody SanPhamModel model){
+    public ResponseDto addSanPham(@RequestBody SanPhamModel model, @RequestHeader("x-api-token") String token){
         model.setId(null);
+        model.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(token)));
         return ResponseDto.of(this.iSanPhamService.add(model));
     }
+
+    @PostMapping(value = "/add/{id}/variant")
+    public Object luuPhanLoaiSP(@Parameter(required = true, description = "san pham id") @PathVariable Long id){
+        throw new RuntimeException("Func missed body");
+    }
+
     // Lay tat ca Danh Sach San Pham
     @GetMapping("/searchall")
     public  ResponseDto getAllsanPham(@RequestParam (defaultValue = "0") int offset,
@@ -73,7 +85,8 @@ public class SanPhamController {
     }
 
     @PutMapping("/update/{id}")
-    public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
+    public  ResponseDto updateSanPham(@RequestBody SanPhamModel model, @RequestHeader("x-api-token") String token){
+        model.setNguoiCapNhat(Long.parseLong(jwtTokenProvider.getUserPk(token)));
            return ResponseDto.of(iSanPhamService.update(model));
         }
     @DeleteMapping("/delete/{id}")

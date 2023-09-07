@@ -83,7 +83,7 @@ public class AuthService {
 
     @Transactional
     public void logout(Long id) {
-        AuthenticationEntity authenticationEntity = authenticationRepository.findFirstByUserIdAndHasRevokedOrderByCreateDateDesc(id, false).orElseThrow(ObjectNotFoundException::new);
+        AuthenticationEntity authenticationEntity = authenticationRepository.findFirstByUserIdAndHasRevokedOrderByCreateDateDesc(id, false).orElseThrow(() -> new ObjectNotFoundException(0));
 //        authenticationEntity.setLogout(); // task: need update
     }
 

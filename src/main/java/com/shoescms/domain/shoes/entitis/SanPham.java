@@ -57,10 +57,10 @@ public class SanPham extends BaseDateEntity {
     private DMGiay dmGiay;
 
     @Column(name = "nguoi_tao")
-    private String nguoiTao;
+    private Long nguoiTao;
 
     @Column(name = "nguoi_cap_nhat")
-    private String nguoiCapNhat;
+    private Long nguoiCapNhat;
 
     @Column(name = "ngay_tao")
     private LocalDateTime ngayTao;
@@ -71,4 +71,9 @@ public class SanPham extends BaseDateEntity {
     @Column(name = "ngay_xoa")
     private LocalDateTime ngayXoa;
 
+    @Column(name = "anh_chinh")
+    private Long anhChinh;
+
+    @Column(name = "anh_phu")
+    private String anhPhu;
 }
