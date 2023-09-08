@@ -36,12 +36,18 @@ public class GioHangChiTietController {
             @RequestHeader("x-api-token") String token
             ) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        GioHang gioHang = gioHangService.findByUserEntity(userId);
 
-
-        GioHang optionalCart = gioHangService.findById(cartId);
-            GioHang cart = optionalCart;
-            model.setGioHang(cart.getId());
+        if(gioHang == null){
+            gioHang = new GioHang();
+            gioHang.setUserEntity(userId);
+            gioHangService.add(gioHang);
+            model.setGioHang(gioHang.getId());
+        }else {
+            model.setGioHang(gioHang.getId());
             return ResponseDto.of(gioHangChiTietService.add(model));
+        }
+        return ResponseDto.of(gioHangChiTietService.add(model));
     }
 
     @GetMapping("my-cart")
@@ -49,9 +55,11 @@ public class GioHangChiTietController {
             @RequestHeader("x-api-token") String token)
     {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
-        GioHang optionalCart = gioHangService.findById(cartId);
-            GioHang cart = optionalCart;
-            return ResponseEntity.ok(cart.toString());
+        GioHang gioHang = gioHangService.findByUserEntity(userId);
+        if(gioHang == null){
+            return ResponseEntity.ok("Không có sản phẩm nào trong giỏ hàng");
+        }
+        return ResponseEntity.ok(gioHangService.findByUserEntity(userId).toString());
     }
 
     @DeleteMapping("remove-item/{itemId}")
@@ -59,7 +67,7 @@ public class GioHangChiTietController {
             @PathVariable Long itemId) {
 
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
-            GioHang optionalCart = gioHangService.findById(cartId);
+            GioHang optionalCart = gioHangService.findByUserEntity(userId);
             gioHangChiTietService.remove(itemId);
             return ResponseDto.of(gioHangChiTietService.remove(itemId));
         }

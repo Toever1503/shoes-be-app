@@ -7,4 +7,8 @@ import com.shoescms.domain.cart.model.GioHangModel;
 public interface GioHangService {
     GioHangResDto findById(Long id);
 
+    GioHang findByUserEntity(Long userEntity);
+
+    GioHang add(GioHang gioHang);
+
 }

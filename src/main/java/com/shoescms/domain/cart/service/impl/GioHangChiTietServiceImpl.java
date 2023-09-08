@@ -19,14 +19,26 @@ public class GioHangChiTietServiceImpl implements GioHangChiTietService {
 
     @Override
     public GioHangChiTietDto add(GioHangChiTietModel gioHangChiTiet) {
-       GioHangChiTiet entity = GioHangChiTiet.builder()
-               .gioHang(gioHangChiTiet.getGioHang())
-               .sanPham(gioHangChiTiet.getSanPham())
-               .sanPhamBienThe(gioHangChiTiet.getSanPhamBienThe())
-               .soLuong(gioHangChiTiet.getSoLuong())
-               .build();
-       this.gioHangChiTietRepository.saveAndFlush(entity);
-       return GioHangChiTietDto.toDto(entity);
+        // Kiểm tra xem có sản phẩm biến thể đã tồn tại trong giỏ hàng chưa
+        GioHangChiTiet existingEntity = this.gioHangChiTietRepository.findByGioHangAndSanPhamAndSanPhamBienThe(
+                gioHangChiTiet.getGioHang(),gioHangChiTiet.getSanPham(), gioHangChiTiet.getSanPhamBienThe());
+
+        if (existingEntity != null) {
+            // Nếu sản phẩm biến thể đã tồn tại, thì tăng số lượng lên
+            existingEntity.setSoLuong(existingEntity.getSoLuong() + gioHangChiTiet.getSoLuong());
+            this.gioHangChiTietRepository.saveAndFlush(existingEntity);
+            return GioHangChiTietDto.toDto(existingEntity);
+        } else {
+            // Nếu sản phẩm biến thể chưa tồn tại, thì tạo mới
+            GioHangChiTiet entity = GioHangChiTiet.builder()
+                    .gioHang(gioHangChiTiet.getGioHang())
+                    .sanPham(gioHangChiTiet.getSanPham())
+                    .sanPhamBienThe(gioHangChiTiet.getSanPhamBienThe())
+                    .soLuong(gioHangChiTiet.getSoLuong())
+                    .build();
+            this.gioHangChiTietRepository.saveAndFlush(entity);
+            return GioHangChiTietDto.toDto(entity);
+        }
     }
 
     public GioHangChiTiet getById(Long id){
