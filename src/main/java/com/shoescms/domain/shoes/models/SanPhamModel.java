@@ -10,12 +10,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class SanPhamModel {
-
+    private  Long  id;
     private String maSP;
 
     private String tieuDe;
@@ -36,13 +38,17 @@ public class SanPhamModel {
 
     private DMGiay dmGiay;
 
-    private String nguoiTao;
+    private Long nguoiTao;
 
-    private String nguoiCapNhat;
+    private Long nguoiCapNhat;
 
     private LocalDateTime ngayTao;
 
     private LocalDateTime ngayCapNhat;
 
     private LocalDateTime ngayXoa;
+
+    private Long anhChinh;
+
+    private List<Long> anhPhu;
 }

@@ -8,11 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 public interface ISanPhamService {
-    Page<SanPham> filterEntities(Pageable pageable, Specification<SanPham> specification);
+    Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification);
 
     Page<SanPham> getAll(Pageable pageable);
 
-    Page<SanPhamDto> findByThuongHieuIdAndDmGiayId(Long idThuongHieu, Long idDanhMucGiay, Pageable pageable);
+
     SanPhamDto add(SanPhamModel model);
 
     SanPhamDto update(SanPhamModel model);

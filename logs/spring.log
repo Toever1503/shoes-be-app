@@ -416,3 +416,624 @@ org.springframework.web.bind.MissingServletRequestParameterException: Required r
 20:47:33.881+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
 20:47:33.952+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
 20:47:33.981+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 30.342 seconds (process running for 33.678)
+21:27:29.697+0700 [File Watcher] INFO  org.springframework.boot.devtools.autoconfigure.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 147 class path changes (0 additions, 147 deletions, 0 modifications)
+21:27:30.190+0700 [Thread-5] INFO  org.apache.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8082"]
+21:27:30.193+0700 [Thread-5] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+21:27:30.290+0700 [Thread-5] INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8082"]
+21:27:30.301+0700 [Thread-5] INFO  org.apache.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8082"]
+21:27:30.413+0700 [Thread-5] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:27:30.518+0700 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+21:27:30.537+0700 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+21:27:31.638+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:27:31.642+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:27:33.817+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:27:33.818+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:27:33.824+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:27:33.837+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:27:33.838+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:27:33.845+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 JPA repository interfaces.
+21:27:34.446+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+21:27:34.446+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+21:27:34.447+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+21:27:34.447+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+21:27:35.007+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+21:27:35.008+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3320 ms
+21:27:35.611+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:27:35.668+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-2 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+21:27:35.669+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+21:27:35.854+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4cf14372
+21:27:35.855+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+21:27:35.856+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+21:27:35.856+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+21:27:35.893+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+21:27:35.894+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:27:47.340+0700 [restartedMain] WARN  org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 8abd760d-d482-4b69-8f70-24732d924942
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+21:27:47.457+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+21:27:47.500+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2db89b3b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4628577b, org.springframework.security.web.context.SecurityContextHolderFilter@6312a56b, org.springframework.security.web.header.HeaderWriterFilter@4abf96da, org.springframework.web.filter.CorsFilter@de689c6, org.springframework.security.web.csrf.CsrfFilter@5f17f894, org.springframework.security.web.authentication.logout.LogoutFilter@5bf038b7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@9f26011, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@283c6273, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5c9a02d7, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7e95f70a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@32122c5, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e033e2f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35122b3c, org.springframework.security.web.access.ExceptionTranslationFilter@be2dbbd, org.springframework.security.web.access.intercept.AuthorizationFilter@71d880e1]
+21:27:47.644+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+21:27:47.716+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+21:27:47.876+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+21:27:48.082+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 16.873 seconds (process running for 2447.78)
+21:27:48.127+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   ManagementWebSecurityAutoConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   UserDetailsServiceAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+      - @ConditionalOnBean (types: org.springframework.security.config.annotation.ObjectPostProcessor; SearchStrategy: all) found bean 'objectPostProcessor'; @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector,org.springframework.security.oauth2.client.registration.ClientRegistrationRepository,org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver matched:
+      - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+21:27:59.776+0700 [File Watcher] INFO  org.springframework.boot.devtools.autoconfigure.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 93 class path changes (93 additions, 0 deletions, 0 modifications)
+21:28:00.587+0700 [Thread-7] INFO  org.apache.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8082"]
+21:28:00.589+0700 [Thread-7] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+21:28:00.593+0700 [Thread-7] INFO  org.apache.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8082"]
+21:28:00.596+0700 [Thread-7] INFO  org.apache.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-8082"]
+21:28:00.605+0700 [Thread-7] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:28:00.607+0700 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+21:28:00.629+0700 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+21:28:00.937+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:28:00.939+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:28:06.255+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:28:06.256+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:28:06.322+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.327+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.330+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.509+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.637+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.741+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.779+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.811+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:28:06.812+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 554 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:28:06.837+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:28:06.837+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:28:08.418+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1580 ms. Found 8 JPA repository interfaces.
+21:28:10.640+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+21:28:10.643+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+21:28:10.647+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+21:28:10.649+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+21:28:10.908+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+21:28:10.909+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9956 ms
+21:28:14.916+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:28:14.966+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-3 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+21:28:14.967+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+21:28:14.974+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3d678ddb
+21:28:14.974+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+21:28:14.975+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+21:28:14.975+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+21:28:17.610+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+21:28:17.610+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:28:19.678+0700 [restartedMain] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'danhMucGiayController': Unsatisfied dependency expressed through field 'iDanhMucGiayService': No qualifying bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+21:28:19.679+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:28:19.680+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+21:28:19.692+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+21:28:19.693+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+21:28:19.752+0700 [restartedMain] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+21:28:19.975+0700 [restartedMain] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field iDanhMucGiayService in com.shoescms.domain.shoes.controller.DanhMucGiayController required a bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' in your configuration.
+
+21:28:37.494+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:28:37.496+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:28:40.427+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:28:40.431+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:28:40.437+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:28:40.475+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:28:40.476+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:28:40.485+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+21:28:40.803+0700 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.NullPointerException: Cannot read field "generatedClass" because "data" is null
+	at org.springframework.cglib.proxy.Enhancer.nextInstance(Enhancer.java:783) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:317) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:562) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:407) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:138) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:109) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:514) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:304) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:358) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:150) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:747) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.4.jar:3.0.4]
+	at com.shoescms.CmsApplication.main(CmsApplication.java:23) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.4.jar:3.0.4]
+21:29:12.660+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:29:12.662+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:29:12.676+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:29:12.677+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:29:17.275+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:29:17.276+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:29:17.332+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.346+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.660+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.718+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.720+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.724+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.728+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.731+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:29:17.731+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 455 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:29:17.741+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:29:17.742+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:29:17.812+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 69 ms. Found 8 JPA repository interfaces.
+21:29:18.911+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+21:29:18.923+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+21:29:18.926+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+21:29:18.927+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+21:29:19.119+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+21:29:19.119+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 6438 ms
+21:29:21.779+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:29:21.802+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-4 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+21:29:21.803+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+21:29:21.809+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26fb1910
+21:29:21.809+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+21:29:21.810+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+21:29:21.810+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+21:29:22.227+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+21:29:22.228+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:29:22.999+0700 [restartedMain] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'danhMucGiayController': Unsatisfied dependency expressed through field 'iDanhMucGiayService': No qualifying bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+21:29:23.000+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:29:23.001+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+21:29:23.008+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+21:29:23.009+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+21:29:23.037+0700 [restartedMain] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+21:29:23.070+0700 [restartedMain] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field iDanhMucGiayService in com.shoescms.domain.shoes.controller.DanhMucGiayController required a bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.shoescms.domain.shoes.service.IDanhMucGiayService' in your configuration.
+
+21:30:10.751+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:30:10.753+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:30:12.231+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:30:12.232+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:30:12.234+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:30:12.248+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:30:12.251+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:30:12.256+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 5 ms. Found 0 JPA repository interfaces.
+21:30:12.425+0700 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.NullPointerException: Cannot read field "generatedClass" because "data" is null
+	at org.springframework.cglib.proxy.Enhancer.nextInstance(Enhancer.java:783) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:317) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:562) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:407) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:138) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:109) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:514) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:304) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:358) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:150) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:747) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.4.jar:3.0.4]
+	at com.shoescms.CmsApplication.main(CmsApplication.java:23) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.4.jar:3.0.4]
+21:30:28.268+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:30:28.268+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:30:28.280+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:30:28.281+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:30:36.563+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:30:36.563+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:30:36.594+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.597+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.599+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.602+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.604+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.606+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.610+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.613+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.616+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.619+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:30:36.620+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:30:36.628+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:30:36.629+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:30:36.691+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 62 ms. Found 10 JPA repository interfaces.
+21:30:37.068+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+21:30:37.068+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+21:30:37.069+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+21:30:37.070+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+21:30:37.170+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat-2].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+21:30:37.171+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 8883 ms
+21:30:37.471+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:30:37.482+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-5 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+21:30:37.483+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+21:30:37.487+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b895aca
+21:30:37.488+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+21:30:37.489+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+21:30:37.489+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+21:30:38.070+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+21:30:38.071+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:30:38.764+0700 [restartedMain] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sanPhamController': Unsatisfied dependency expressed through field 'iSanPhamService': No qualifying bean of type 'com.shoescms.domain.shoes.service.ISanPhamService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+21:30:38.765+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+21:30:38.765+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+21:30:38.769+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+21:30:38.770+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Stopping service [Tomcat]
+21:30:38.788+0700 [restartedMain] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+21:30:38.834+0700 [restartedMain] ERROR org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field iSanPhamService in com.shoescms.domain.shoes.controller.SanPhamController required a bean of type 'com.shoescms.domain.shoes.service.ISanPhamService' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+
+
+Action:
+
+Consider defining a bean of type 'com.shoescms.domain.shoes.service.ISanPhamService' in your configuration.
+
+21:31:19.141+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:31:19.142+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:31:20.289+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:31:20.289+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:31:20.291+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 2 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:31:20.301+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:31:20.301+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:31:20.304+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+21:31:20.434+0700 [restartedMain] ERROR org.springframework.boot.SpringApplication - Application run failed
+java.lang.NullPointerException: Cannot read field "generatedClass" because "data" is null
+	at org.springframework.cglib.proxy.Enhancer.nextInstance(Enhancer.java:783) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.core.AbstractClassGenerator.create(AbstractClassGenerator.java:317) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createHelper(Enhancer.java:562) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.cglib.proxy.Enhancer.createClass(Enhancer.java:407) ~[spring-core-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.createClass(ConfigurationClassEnhancer.java:138) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer.enhance(ConfigurationClassEnhancer.java:109) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.enhanceConfigurationClasses(ConfigurationClassPostProcessor.java:514) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanFactory(ConfigurationClassPostProcessor.java:304) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:358) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:150) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:747) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:565) ~[spring-context-6.0.6.jar:6.0.6]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304) ~[spring-boot-3.0.4.jar:3.0.4]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293) ~[spring-boot-3.0.4.jar:3.0.4]
+	at com.shoescms.CmsApplication.main(CmsApplication.java:23) ~[main/:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:?]
+	at java.lang.reflect.Method.invoke(Method.java:568) ~[?:?]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-3.0.4.jar:3.0.4]
+21:31:33.972+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+21:31:34.012+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+21:31:34.028+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+21:31:34.029+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+21:31:38.496+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:31:38.496+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+21:31:38.656+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:38.784+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:38.832+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.050+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.086+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.188+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.475+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.563+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.607+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.689+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+21:31:39.690+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 1193 ms. Found 0 Reactive Elasticsearch repository interfaces.
+21:31:39.705+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+21:31:39.706+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+21:31:40.393+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 686 ms. Found 10 JPA repository interfaces.
+21:31:41.746+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+21:31:41.747+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+21:31:41.748+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+21:31:41.748+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+21:31:41.930+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat-3].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+21:31:41.930+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7892 ms
+21:31:44.009+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+21:31:45.094+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-6 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+21:31:45.094+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+21:31:45.099+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection com.mysql.cj.jdbc.ConnectionImpl@21a1d5cf
+21:31:45.099+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+21:31:45.100+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+21:31:45.100+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+21:31:46.681+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+21:31:46.681+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+21:31:48.068+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+21:31:48.114+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+21:31:48.114+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+21:31:48.119+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+21:31:48.235+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+21:31:48.239+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+21:31:52.585+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+21:31:52.702+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@70f2aa00, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b258453, org.springframework.security.web.context.SecurityContextHolderFilter@5eb04bd3, org.springframework.security.web.header.HeaderWriterFilter@34c9327a, org.springframework.web.filter.CorsFilter@3e5e1c27, org.springframework.security.web.authentication.logout.LogoutFilter@36bfb471, com.shoescms.common.security.JwtAuthenticationFilter@853c467, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@44ff09be, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3958b9b9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d14ddc7, org.springframework.security.web.session.SessionManagementFilter@65e6cc0e, org.springframework.security.web.access.ExceptionTranslationFilter@1b7024a7, org.springframework.security.web.access.intercept.AuthorizationFilter@76580c7f]
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+21:31:53.681+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+21:31:53.681+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+21:31:53.708+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+21:31:53.745+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+21:31:53.750+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+21:31:53.766+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 19.93 seconds (process running for 2693.464)
+21:31:53.772+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   ManagementWebSecurityAutoConfiguration:
+      Did not match:
+         - AllNestedConditions 1 matched 1 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) found beans of type 'org.springframework.security.web.SecurityFilterChain' config; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+      Matched:
+         - found 'session' scope (OnWebApplicationCondition)
+
+   UserDetailsServiceAutoConfiguration:
+      Did not match:
+         - @ConditionalOnMissingBean (types: org.springframework.security.authentication.AuthenticationManager,org.springframework.security.authentication.AuthenticationProvider,org.springframework.security.core.userdetails.UserDetailsService,org.springframework.security.authentication.AuthenticationManagerResolver,org.springframework.security.oauth2.jwt.JwtDecoder,org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector,org.springframework.security.oauth2.client.registration.ClientRegistrationRepository,org.springframework.security.saml2.provider.service.registration.RelyingPartyRegistrationRepository; SearchStrategy: all) found beans of type 'org.springframework.security.authentication.AuthenticationManager' authenticationManager and found beans of type 'org.springframework.security.core.userdetails.UserDetailsService' userDetailService (OnBeanCondition)
+      Matched:
+         - @ConditionalOnClass found required class 'org.springframework.security.authentication.AuthenticationManager' (OnClassCondition)
+
+   WebMvcAutoConfiguration.EnableWebMvcConfiguration#localeResolver:
+      Did not match:
+         - @ConditionalOnMissingBean (names: localeResolver; SearchStrategy: all) found beans named localeResolver (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+22:18:24.109+0700 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+22:18:24.132+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+22:18:24.139+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+22:21:20.707+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+22:21:20.818+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 4136 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+22:21:20.827+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+22:21:20.942+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+22:21:20.943+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+22:21:23.607+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+22:21:23.617+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+22:21:23.752+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.761+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.766+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.770+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.775+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.780+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.786+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.795+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.798+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.802+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+22:21:23.804+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 173 ms. Found 0 Reactive Elasticsearch repository interfaces.
+22:21:23.827+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+22:21:23.830+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+22:21:23.997+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 151 ms. Found 10 JPA repository interfaces.
+22:21:26.037+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+22:21:26.058+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+22:21:26.060+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+22:21:26.061+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+22:21:26.243+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+22:21:26.247+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5303 ms
+22:21:27.193+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+22:21:27.322+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+22:21:27.998+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+22:21:27.998+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+22:21:28.354+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@364234a4
+22:21:28.357+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+22:21:28.399+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+22:21:28.403+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+22:21:30.978+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+22:21:30.999+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+22:21:32.977+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:21:33.309+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+22:21:33.309+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+22:21:33.320+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:21:33.483+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+22:21:33.491+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:21:38.728+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+22:21:38.898+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b12ca4b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@15a7dc9f, org.springframework.security.web.context.SecurityContextHolderFilter@37d9bc7b, org.springframework.security.web.header.HeaderWriterFilter@cb663c2, org.springframework.web.filter.CorsFilter@4cf2d3e4, org.springframework.security.web.authentication.logout.LogoutFilter@3ebfeb74, com.shoescms.common.security.JwtAuthenticationFilter@5f9470e6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4aeb15ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@50a86cd1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@22a9a9cd, org.springframework.security.web.session.SessionManagementFilter@379a3d0f, org.springframework.security.web.access.ExceptionTranslationFilter@165a68c, org.springframework.security.web.access.intercept.AuthorizationFilter@4e02e1de]
+22:21:39.927+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.927+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+22:21:39.928+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.930+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+22:21:39.930+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.931+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+22:21:39.932+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.940+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+22:21:39.943+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.944+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+22:21:39.944+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.944+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+22:21:39.944+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+22:21:39.944+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+22:21:40.029+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+22:21:40.373+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+22:21:40.472+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+22:21:40.516+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 20.625 seconds (process running for 23.426)
+22:21:41.070+0700 [RMI TCP Connection(4)-192.168.1.10] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+22:21:41.070+0700 [RMI TCP Connection(4)-192.168.1.10] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+22:21:41.073+0700 [RMI TCP Connection(4)-192.168.1.10] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+22:22:42.909+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:22:43.123+0700 [http-nio-8082-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `long` from String "Nguyen anh Dung": not a valid `long` value]
+22:22:44.969+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:22:44.985+0700 [http-nio-8082-exec-4] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `long` from String "Nguyen anh Dung": not a valid `long` value]
+22:22:56.847+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:22:56.857+0700 [http-nio-8082-exec-6] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `long` from String "Nguyen anh Dung": not a valid `long` value]
+22:23:31.852+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:23:31.886+0700 [http-nio-8082-exec-8] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=search, params={nguoiCapNhat=1, maSP=Sp100, dmGiay={\"id\":1}, ngayXoa=2023-08-25T00:00:00, ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, thuongHieu={\"id\":1}, giaCu=400, tieuDe=ABC, giaMoi=500, nguoiTao=1, moTa=abc, slug=abc}, log_time=2023-09-08T22:23:31.886+0700, request_uri=/v1/san-pham/search}
+22:23:31.910+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:23:31.910+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BIGINT] - [1]
+22:23:31.911+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [0]
+22:23:31.911+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [4] as [INTEGER] - [20]
+22:25:00.692+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:25:00.702+0700 [http-nio-8082-exec-1] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=search, params={}, log_time=2023-09-08T22:25:00.702+0700, request_uri=/v1/san-pham/search}
+22:25:00.708+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [INTEGER] - [0]
+22:25:00.708+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [20]
+22:28:04.003+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:28:04.016+0700 [http-nio-8082-exec-3] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `long` from String "Nguyen anh Dung": not a valid `long` value]
+22:28:24.318+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:28:24.324+0700 [http-nio-8082-exec-5] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=addSanPham, params={giaMoi=500, nguoiCapNhat=2, maSP=Sp101, dmGiay={\"id\":1}, ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, nguoiTao=1, thuongHieu={\"id\":1}, moTa=abc, giaCu=400, slug=abc, tieuDe=ABC}, log_time=2023-09-08T22:28:24.324+0700, request_uri=/v1/san-pham/add}
+22:28:24.329+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:28:24.333+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:28:24.337+0700 [http-nio-8082-exec-5] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.shoescms.common.exception.ObjectNotFoundException]
+22:34:17.030+0700 [http-nio-8082-exec-9] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:17.037+0700 [http-nio-8082-exec-9] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=addSanPham, params={nguoiCapNhat=2, maSP=Sp101, dmGiay={\"id\":1}, ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, thuongHieu={\"id\":1}, giaCu=400, tieuDe=ABC, giaMoi=500, anhBia=1, nguoiTao=1, moTa=abc, slug=abc}, log_time=2023-09-08T22:34:17.037+0700, request_uri=/v1/san-pham/add}
+22:34:17.039+0700 [http-nio-8082-exec-9] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:17.042+0700 [http-nio-8082-exec-9] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:17.046+0700 [http-nio-8082-exec-9] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.shoescms.common.exception.ObjectNotFoundException]
+22:34:21.140+0700 [http-nio-8082-exec-10] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:21.148+0700 [http-nio-8082-exec-10] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=addSanPham, params={nguoiCapNhat=2, maSP=Sp101, dmGiay={\"id\":1}, ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, thuongHieu={\"id\":1}, giaCu=400, tieuDe=ABC, giaMoi=500, anhBia=1, nguoiTao=1, moTa=abc, slug=abc}, log_time=2023-09-08T22:34:21.148+0700, request_uri=/v1/san-pham/add}
+22:34:21.152+0700 [http-nio-8082-exec-10] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:21.155+0700 [http-nio-8082-exec-10] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:34:21.158+0700 [http-nio-8082-exec-10] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.shoescms.common.exception.ObjectNotFoundException]
+22:35:01.890+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:35:01.903+0700 [http-nio-8082-exec-1] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=addSanPham, params={nguoiCapNhat=2, maSP=Sp101, dmGiay={\"id\":1}, ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, thuongHieu={\"id\":1}, giaCu=400, tieuDe=ABC, giaMoi=500, anhChinh=1, nguoiTao=1, moTa=abc, slug=abc}, log_time=2023-09-08T22:35:01.903+0700, request_uri=/v1/san-pham/add}
+22:35:01.906+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:35:01.913+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:35:01.922+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:35:01.931+0700 [http-nio-8082-exec-1] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.shoescms.common.exception.ObjectNotFoundException]
+22:35:41.313+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:35:41.320+0700 [http-nio-8082-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.util.ArrayList<java.lang.Long>` from Integer value (token `JsonToken.VALUE_NUMBER_INT`)]
+22:36:38.390+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:36:38.397+0700 [http-nio-8082-exec-3] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=addSanPham, params={nguoiCapNhat=2, maSP=Sp101, dmGiay={\"id\":1}, anhPhu=[1], ngayCapNhat=2023-08-23T00:00:00, gioiTinh=0, thuongHieu={\"id\":1}, giaCu=400, tieuDe=ABC, giaMoi=500, anhChinh=1, nguoiTao=1, moTa=abc, slug=abc}, log_time=2023-09-08T22:36:38.397+0700, request_uri=/v1/san-pham/add}
+22:36:38.399+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:36:38.406+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:36:38.409+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:36:38.422+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:36:38.461+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [null]
+22:36:38.462+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BIGINT] - [1]
+22:36:38.462+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [VARCHAR] - [1]
+22:36:38.463+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [4] as [TIMESTAMP] - [2023-09-08T22:36:38.458565900]
+22:36:38.463+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [5] as [BIGINT] - [1]
+22:36:38.463+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [6] as [NUMERIC] - [400]
+22:36:38.463+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [7] as [NUMERIC] - [500]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [8] as [VARCHAR] - [MALE]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [9] as [VARCHAR] - [Sp101]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [10] as [VARCHAR] - [abc]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [11] as [TIMESTAMP] - [2023-08-23T00:00]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [12] as [TIMESTAMP] - [2023-09-08T22:36:38.434825300]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [13] as [TIMESTAMP] - [null]
+22:36:38.464+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [14] as [BIGINT] - [1]
+22:36:38.465+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [15] as [BIGINT] - [1]
+22:36:38.465+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [16] as [VARCHAR] - [abc]
+22:36:38.465+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [17] as [BIGINT] - [1]
+22:36:38.465+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [18] as [VARCHAR] - [ABC]
+22:36:38.465+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [19] as [TIMESTAMP] - [2023-09-08T22:36:38.458565900]
+22:37:04.774+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:37:04.793+0700 [http-nio-8082-exec-6] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=POST, method=search, params={}, log_time=2023-09-08T22:37:04.793+0700, request_uri=/v1/san-pham/search}
+22:37:04.799+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [INTEGER] - [0]
+22:37:04.799+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [20]
+22:37:04.805+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+22:37:04.807+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]

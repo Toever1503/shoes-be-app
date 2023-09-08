@@ -77,8 +77,8 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    protected CommonBaseResult objectNotFoundSuccessException(HttpServletRequest request, Exception e) {
-        String message = getMessage("objectNotFound.message");
+    protected CommonBaseResult objectNotFoundSuccessException(HttpServletRequest request, ObjectNotFoundException e) {
+        String message = getMessage("validate.code" + e.getCode());
         if (e.getMessage() != null) {
             message = message + "(" + e.getMessage() +")";
         }

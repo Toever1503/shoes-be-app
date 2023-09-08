@@ -5,12 +5,12 @@ import com.shoescms.domain.shoes.entitis.SanPham;
 import com.shoescms.domain.shoes.entitis.ThuongHieu;
 import com.shoescms.domain.shoes.enums.ESex;
 import lombok.*;
-import org.springframework.data.domain.Page;
+import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Data
@@ -40,15 +40,17 @@ public class SanPhamDto {
 
     private DMGiay dmGiay;
 
-    private String nguoiTao;
+    private Long nguoiTao;
 
-    private String nguoiCapNhat;
+    private Long nguoiCapNhat;
 
     private LocalDateTime ngayTao;
 
     private LocalDateTime ngayCapNhat;
 
     private LocalDateTime ngayXoa;
+    private Long anhChinh;
+    private List<Long> anhPhu;
 
     public static SanPhamDto toDto(SanPham sanPham){
         if(sanPham == null) return null;
@@ -69,7 +71,8 @@ public class SanPhamDto {
                 .ngayTao(sanPham.getNgayTao())
                 .ngayCapNhat(sanPham.getNgayCapNhat())
                 .ngayXoa(sanPham.getNgayXoa())
+                .anhChinh(sanPham.getAnhChinh())
+                .anhPhu(ObjectUtils.isEmpty(sanPham.getAnhPhu()) ? null : Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList())
                 .build();
     }
-
 }

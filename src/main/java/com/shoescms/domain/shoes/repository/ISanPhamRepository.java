@@ -11,5 +11,9 @@ public interface ISanPhamRepository extends JpaRepository<SanPham,Long>, JpaSpec
 
     Page<SanPham> findAll(Pageable pageable);
 
+    Page<SanPham> findByThuongHieuId(Long id, Pageable pageable);
+
+    Page<SanPham> findByDmGiayId(Long id, Pageable pageable);
+
     Page<SanPham> findByThuongHieuIdAndDmGiayId(Long idThuongHieu, Long idDanhMucGiay, Pageable pageable);
 }

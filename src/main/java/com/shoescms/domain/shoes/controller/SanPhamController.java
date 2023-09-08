@@ -4,6 +4,7 @@ import com.shoescms.domain.shoes.dto.DanhMucDTO;
 import com.shoescms.domain.shoes.dto.ResponseDto;
 import com.shoescms.domain.shoes.dto.SanPhamDto;
 import com.shoescms.domain.shoes.entitis.SanPham;
+import com.shoescms.domain.shoes.entitis.SanPham_;
 import com.shoescms.domain.shoes.models.SanPhamModel;
 import com.shoescms.domain.shoes.repository.ISanPhamRepository;
 import com.shoescms.domain.shoes.service.ISanPhamService;
@@ -40,15 +41,28 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamService.getAll(pageable));
     }
 
+    @PostMapping("/search")
+    public  ResponseDto search(@RequestBody SanPhamModel model, Pageable pageable){
+        List<Specification<SanPham>> listSpect = new ArrayList<>();
 
-    @GetMapping("/search")
-
-    public  ResponseDto findByThuongHieuAndDanhMuc(@RequestParam(required = false) Long idth,
-                                                   @RequestParam(required = false) Long iddm,
-                                                   Pageable pageable){
-       return ResponseDto.of(iSanPhamService.findByThuongHieuIdAndDmGiayId(idth,iddm,pageable));
-
+        if(model.getThuongHieu()!=null){
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.THUONG_HIEU),model.getThuongHieu()));
+        }
+        if(model.getDmGiay()!= null){
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.DM_GIAY),model.getDmGiay()));
+        }
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPham_.NGAY_XOA)));
+        Specification<SanPham> finalSpec = null;
+        for (Specification spec : listSpect) {
+            if (finalSpec == null) {
+                finalSpec = Specification.where(spec);
+            } else {
+                finalSpec = finalSpec.and(spec);
+            }
+        }
+        return ResponseDto.of(iSanPhamService.filterEntities(pageable,finalSpec));
     }
+
 
     @PutMapping("/update/{id}")
     public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
