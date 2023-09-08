@@ -5,9 +5,13 @@ import com.shoescms.domain.shoes.entitis.SanPham;
 import com.shoescms.domain.shoes.entitis.ThuongHieu;
 import com.shoescms.domain.shoes.enums.ESex;
 import lombok.*;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Getter
 @Data
 @AllArgsConstructor
@@ -67,4 +71,5 @@ public class SanPhamDto {
                 .ngayXoa(sanPham.getNgayXoa())
                 .build();
     }
+
 }

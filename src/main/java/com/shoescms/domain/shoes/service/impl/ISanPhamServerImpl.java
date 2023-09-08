@@ -38,21 +38,18 @@ public class ISanPhamServerImpl implements ISanPhamService {
        return sanPhamRepository.findAll(pageable);
     }
 
-    // Tìm Kiem theo thuong Hieu
     @Override
-    public  Page<SanPham> findByThuongHieu(Long id , Pageable pageable){
-       return  sanPhamRepository.findByThuongHieuId(id, pageable);
-    }
+    public Page<SanPhamDto> findByThuongHieuIdAndDmGiayId(Long idThuongHieu, Long idDanhMucGiay, Pageable pageable) {
+        Page<SanPham> sanPhams;
+        if(idThuongHieu!=null && idDanhMucGiay == null){
+            sanPhams = sanPhamRepository.findByThuongHieuId(idThuongHieu,pageable);
+        } else if (idThuongHieu== null && idDanhMucGiay !=null) {
+            sanPhams = sanPhamRepository.findByDmGiayId(idDanhMucGiay ,pageable);
+        }else {
+            sanPhams = sanPhamRepository.findByThuongHieuIdAndDmGiayId(idThuongHieu, idDanhMucGiay,pageable);
+        }
+        return sanPhams.map(this::toDto1);
 
-    @Override
-    public Page<SanPham> findByDmGiay(Long id, Pageable pageable) {
-        return  sanPhamRepository.findByDmGiayId(id,pageable);
-    }
-
-
-    @Override
-    public Page<SanPham> findByThuongHieuIdAndDmGiayId(Long idThuongHieu, Long idDanhMucGiay, Pageable pageable) {
-        return  sanPhamRepository.findByThuongHieuIdAndDmGiayId(idThuongHieu,idDanhMucGiay,pageable);
     }
 
     @Override
@@ -105,7 +102,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
    public boolean deleteById(Long id){
        try {
            SanPham entity  = this.getById(id);
-           // chua hieu sao khoong phari laf delete
+
            this.sanPhamRepository.delete(entity);
            return true;
        }catch (Exception e){
@@ -120,4 +117,24 @@ public class ISanPhamServerImpl implements ISanPhamService {
    public List<SanPham> getAll(){
        return sanPhamRepository.findAll();
    }
+    public SanPhamDto toDto1(SanPham sanPham){
+       SanPhamDto sanPhamDto = new SanPhamDto();
+             sanPhamDto.setId(sanPham.getId());
+             sanPhamDto.setMaSP(sanPham.getMaSP());
+             sanPhamDto.setTieuDe(sanPham.getTieuDe());
+             sanPhamDto.setMoTa(sanPham.getMoTa());
+             sanPhamDto.setSlug(sanPham.getSlug());
+             sanPhamDto.setGiaCu(sanPham.getGiaCu());
+             sanPhamDto.setGiaMoi(sanPham.getGiaMoi());
+             sanPhamDto.setGioiTinh(sanPham.getGioiTinh());
+             sanPhamDto.setAnhBia(sanPham.getAnhBia());
+             sanPhamDto.setThuongHieu(sanPham.getThuongHieu());
+             sanPhamDto.setDmGiay(sanPham.getDmGiay());
+             sanPhamDto.setNguoiTao(sanPham.getNguoiTao());
+             sanPhamDto.setNguoiCapNhat(sanPham.getNguoiCapNhat());
+             sanPhamDto.setNgayTao(sanPham.getNgayTao());
+             sanPhamDto.setNgayCapNhat(sanPham.getNgayCapNhat());
+             sanPhamDto.setNgayXoa(sanPham.getNgayXoa());
+               return sanPhamDto;
+    }
 }

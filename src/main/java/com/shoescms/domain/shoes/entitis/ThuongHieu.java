@@ -7,10 +7,10 @@ import lombok.*;
 @Table(name = "tbl_thuong_hieu")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
 @Getter
 @Setter
+@Data
+@Builder
 public class ThuongHieu {
 
     @Id

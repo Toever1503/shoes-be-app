@@ -1,84 +1,87 @@
-08:03:24.283+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
-08:03:24.648+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 11296 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
-08:03:24.670+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
-08:03:24.951+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-08:03:24.952+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-08:03:29.088+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-08:03:29.095+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
-08:03:29.207+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.216+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.219+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.225+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.230+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.234+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.239+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.245+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.249+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.256+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:03:29.259+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 154 ms. Found 0 Reactive Elasticsearch repository interfaces.
-08:03:29.286+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-08:03:29.288+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-08:03:29.600+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 300 ms. Found 10 JPA repository interfaces.
-08:03:32.413+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
-08:03:32.438+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
-08:03:32.441+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
-08:03:32.442+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
-08:03:32.743+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-08:03:32.747+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7786 ms
-08:03:33.662+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-08:03:33.865+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
-08:03:34.881+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
-08:03:34.882+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-08:03:35.300+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@20712845
-08:03:35.304+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-08:03:35.361+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-08:03:35.367+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-08:03:40.341+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-08:03:40.397+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-08:03:45.603+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:03:46.317+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
-08:03:46.318+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
-08:03:46.336+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:03:46.959+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
-08:03:46.980+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:04:04.353+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
-08:04:04.636+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2e0649c1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@62c7e923, org.springframework.security.web.context.SecurityContextHolderFilter@5534fdf8, org.springframework.security.web.header.HeaderWriterFilter@755a32f7, org.springframework.web.filter.CorsFilter@1b77a1d7, org.springframework.security.web.authentication.logout.LogoutFilter@5bf7845a, com.shoescms.common.security.JwtAuthenticationFilter@d43c6ec, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@302282f3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3190b423, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1117dec4, org.springframework.security.web.session.SessionManagementFilter@639d2c62, org.springframework.security.web.access.ExceptionTranslationFilter@34f43020, org.springframework.security.web.access.intercept.AuthorizationFilter@7de08521]
-08:04:06.605+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.605+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
-08:04:06.606+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.607+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
-08:04:06.607+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.607+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
-08:04:06.607+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.607+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
-08:04:06.607+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.608+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
-08:04:06.608+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.608+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
-08:04:06.608+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:04:06.608+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
-08:04:07.011+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
-08:04:07.385+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
-08:04:07.542+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
-08:04:07.686+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 44.629 seconds (process running for 56.98)
-08:04:07.845+0700 [http-nio-8082-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-08:04:07.846+0700 [http-nio-8082-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-08:04:07.854+0700 [http-nio-8082-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 7 ms
-08:04:11.557+0700 [http-nio-8082-exec-4] INFO  org.springdoc.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 2545 ms
-08:04:38.005+0700 [http-nio-8082-exec-2] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=AuthController, http_method=POST, method=signIn, params={password=*****, userId=admin}, log_time=2023-09-06T08:04:38.005+0700, request_uri=/v1/auth/sign-in}
-08:04:38.016+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
-08:04:38.017+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
-08:04:38.023+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:04:38.467+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [3bc9542f-bfdb-4cb3-9b72-a6f6cdd79d16]
-08:04:38.553+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNjkzOTYyMjc4LCJleHAiOjE2OTQwNDg2Nzh9.mN03bCS2oRRWNqfRtHgkW9G2_x6tFHMh7HZagjdWFEA]
-08:04:38.553+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [TIMESTAMP] - [2023-09-06T08:04:38.540760300]
-08:04:38.554+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [BOOLEAN] - [false]
-08:04:38.556+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [4] as [VARCHAR] - [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNjkzOTYyMjc4LCJleHAiOjE2OTY1NTQyNzh9.W0DIuRuXUGwWTP723-q1D202ZhmHdcURaqcPaskLDvQ]
-08:04:38.558+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [5] as [TIMESTAMP] - [2023-09-06T08:04:38.540760300]
-08:04:38.558+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [6] as [BIGINT] - [1]
-08:04:38.558+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [7] as [VARCHAR] - [3bc9542f-bfdb-4cb3-9b72-a6f6cdd79d16]
-08:06:42.803+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:06:42.830+0700 [http-nio-8082-exec-8] ERROR com.shoescms.common.exception.ExceptionAdvice - [Internel Exception] 
+19:01:52.929+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+19:01:53.167+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 10612 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+19:01:53.208+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+19:01:53.679+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+19:01:53.680+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+19:02:04.090+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+19:02:04.129+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+19:02:04.518+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.543+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.549+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.556+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.564+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.571+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.577+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.639+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.798+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.991+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:02:04.993+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 838 ms. Found 0 Reactive Elasticsearch repository interfaces.
+19:02:05.063+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+19:02:05.077+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:02:05.542+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 443 ms. Found 10 JPA repository interfaces.
+19:02:14.096+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+19:02:14.183+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+19:02:14.191+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+19:02:14.192+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+19:02:15.182+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:02:15.189+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 21344 ms
+19:02:31.140+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:02:31.711+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+19:02:35.688+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+19:02:35.693+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:02:37.154+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@29b458ab
+19:02:37.160+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:02:37.244+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19:02:37.251+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+19:02:52.853+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:02:53.083+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:02:59.441+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:03:00.095+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+19:03:00.096+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+19:03:00.114+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:03:00.609+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+19:03:00.626+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:03:11.272+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+19:03:11.768+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5877e166, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f3a491c, org.springframework.security.web.context.SecurityContextHolderFilter@1273795b, org.springframework.security.web.header.HeaderWriterFilter@2d3a1bd7, org.springframework.web.filter.CorsFilter@7b140a5f, org.springframework.security.web.authentication.logout.LogoutFilter@193a4836, com.shoescms.common.security.JwtAuthenticationFilter@3e1fc5c8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e056010, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@98ec4c3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59847fbc, org.springframework.security.web.session.SessionManagementFilter@34730bce, org.springframework.security.web.access.ExceptionTranslationFilter@318e045b, org.springframework.security.web.access.intercept.AuthorizationFilter@5398e440]
+19:03:15.808+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.808+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+19:03:15.809+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.810+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+19:03:15.810+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.814+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+19:03:15.816+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.816+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+19:03:15.816+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.817+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+19:03:15.820+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.822+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+19:03:15.822+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:03:15.823+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+19:03:16.253+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+19:03:16.582+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+19:03:16.743+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+19:03:16.935+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 87.906 seconds (process running for 99.638)
+19:03:24.958+0700 [http-nio-8082-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:03:24.959+0700 [http-nio-8082-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+19:03:24.967+0700 [http-nio-8082-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+19:03:31.942+0700 [http-nio-8082-exec-5] INFO  org.springdoc.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 4185 ms
+19:04:02.681+0700 [http-nio-8082-exec-7] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=AuthController, http_method=POST, method=signIn, params={password=*****, userId=admin}, log_time=2023-09-08T19:04:02.681+0700, request_uri=/v1/auth/sign-in}
+19:04:02.697+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+19:04:02.698+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+19:04:02.703+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:04:03.397+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [a922912d-b661-4054-b3b0-29b3b5e7be16]
+19:04:03.501+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNjk0MTc0NjQzLCJleHAiOjE2OTQyNjEwNDN9.-0cdw_UGwSfE02E3iTv4zshtXHPy_sjglraHf_OsH8w]
+19:04:03.501+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [TIMESTAMP] - [2023-09-08T19:04:03.483036200]
+19:04:03.502+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [BOOLEAN] - [false]
+19:04:03.503+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [4] as [VARCHAR] - [eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiQURNSU4iXSwiaWF0IjoxNjk0MTc0NjQzLCJleHAiOjE2OTY3NjY2NDN9.4YgUawz010KTChTru87rfdI8wb8Z-SQQ8-zNLwpG75c]
+19:04:03.503+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [5] as [TIMESTAMP] - [2023-09-08T19:04:03.484034500]
+19:04:03.503+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [6] as [BIGINT] - [1]
+19:04:03.504+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [7] as [VARCHAR] - [a922912d-b661-4054-b3b0-29b3b5e7be16]
+19:06:37.984+0700 [http-nio-8082-exec-10] INFO  com.shoescms.common.security.JwtTokenProvider - 만료된 JWT 토큰입니다. : eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9TVVBFUl9BRE1JTiJdLCJpYXQiOjE2ODAxNzI0MDQsImV4cCI6MTY4MDI1ODgwNH0.gTech9LAvdaeaxFDiN6B8xnW1VdGNi4A_Ha17Rjquvc(JWT expired at 2023-03-31T17:33:24Z. Current time: 2023-09-08T19:06:37Z, a difference of 13915993982 milliseconds.  Allowed clock skew: 0 milliseconds.)
+19:06:38.051+0700 [http-nio-8082-exec-10] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=AuthController, http_method=GET, method=tokenExpired, params={idth=1}, log_time=2023-09-08T19:06:38.051+0700, request_uri=/v1/exception/tokenexpired}
+19:06:38.069+0700 [http-nio-8082-exec-10] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [com.shoescms.common.exception.AuthTokenExpiredException]
+19:07:21.190+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:07:21.249+0700 [http-nio-8082-exec-2] ERROR com.shoescms.common.exception.ExceptionAdvice - [Internel Exception] 
 org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present
 	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:218) ~[spring-web-6.0.6.jar:6.0.6]
 	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193) ~[spring-web-6.0.6.jar:6.0.6]
@@ -210,478 +213,206 @@ org.springframework.web.bind.MissingServletRequestParameterException: Required r
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
 	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-08:06:42.864+0700 [http-nio-8082-exec-8] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present]
-08:12:32.557+0700 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-08:12:32.568+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-08:12:32.590+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-08:12:52.972+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
-08:12:53.071+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 7088 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
-08:12:53.089+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
-08:12:53.221+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-08:12:53.222+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-08:12:55.542+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-08:12:55.546+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
-08:12:55.664+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.673+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.676+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.680+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.683+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.688+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.692+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.695+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.698+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.702+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
-08:12:55.703+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 149 ms. Found 0 Reactive Elasticsearch repository interfaces.
-08:12:55.719+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
-08:12:55.721+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-08:12:55.912+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 176 ms. Found 10 JPA repository interfaces.
-08:12:58.478+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
-08:12:58.500+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
-08:12:58.502+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
-08:12:58.502+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
-08:12:58.656+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-08:12:58.659+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5434 ms
-08:12:59.402+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-08:12:59.566+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
-08:13:00.299+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
-08:13:00.299+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-08:13:00.753+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3cdfd725
-08:13:00.759+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-08:13:00.830+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
-08:13:00.835+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-08:13:03.811+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-08:13:03.858+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-08:13:06.355+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:06.704+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
-08:13:06.705+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
-08:13:06.716+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:06.902+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
-08:13:06.918+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:12.570+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
-08:13:12.859+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@177d57ff, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e4cc7ef, org.springframework.security.web.context.SecurityContextHolderFilter@16e24c9, org.springframework.security.web.header.HeaderWriterFilter@9b72108, org.springframework.web.filter.CorsFilter@2af5136c, org.springframework.security.web.authentication.logout.LogoutFilter@34252568, com.shoescms.common.security.JwtAuthenticationFilter@6253f4db, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@190b6c34, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2842be15, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fec85c1, org.springframework.security.web.session.SessionManagementFilter@174e13bd, org.springframework.security.web.access.ExceptionTranslationFilter@404e10eb, org.springframework.security.web.access.intercept.AuthorizationFilter@7ed95a90]
-08:13:14.575+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.576+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
-08:13:14.576+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.577+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
-08:13:14.577+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.577+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
-08:13:14.577+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.577+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
-08:13:14.578+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.578+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
-08:13:14.578+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.578+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
-08:13:14.579+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
-08:13:14.579+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
-08:13:14.695+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
-08:13:14.881+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
-08:13:14.952+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
-08:13:15.011+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 23.143 seconds (process running for 26.606)
-08:13:16.887+0700 [http-nio-8082-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-08:13:16.888+0700 [http-nio-8082-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-08:13:16.896+0700 [http-nio-8082-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 7 ms
-08:13:17.198+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:17.360+0700 [http-nio-8082-exec-2] ERROR com.shoescms.common.exception.ExceptionAdvice - [Internel Exception] 
-org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:218) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:181) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:148) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:705) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at com.shoescms.common.filter.ReadableRequestWrapperFilter.doFilter(ReadableRequestWrapperFilter.java:20) ~[main/:?]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:399) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:297) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:79) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:125) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at com.shoescms.common.security.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:34) ~[main/:?]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:280) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:170) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-08:13:17.618+0700 [http-nio-8082-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present]
-08:13:21.000+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:21.015+0700 [http-nio-8082-exec-4] ERROR com.shoescms.common.exception.ExceptionAdvice - [Internel Exception] 
-org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:218) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:181) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:148) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:705) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at com.shoescms.common.filter.ReadableRequestWrapperFilter.doFilter(ReadableRequestWrapperFilter.java:20) ~[main/:?]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:399) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:297) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:79) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:125) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at com.shoescms.common.security.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:34) ~[main/:?]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:280) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:170) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-08:13:21.024+0700 [http-nio-8082-exec-4] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present]
-08:13:39.045+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
-08:13:39.060+0700 [http-nio-8082-exec-6] ERROR com.shoescms.common.exception.ExceptionAdvice - [Internel Exception] 
-org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValueInternal(RequestParamMethodArgumentResolver.java:218) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.RequestParamMethodArgumentResolver.handleMissingValue(RequestParamMethodArgumentResolver.java:193) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:114) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:181) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:148) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:705) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.0.6.jar:6.0.6]
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:814) ~[tomcat-embed-core-10.1.5.jar:6.0]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at com.shoescms.common.filter.ReadableRequestWrapperFilter.doFilter(ReadableRequestWrapperFilter.java:20) ~[main/:?]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:399) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:297) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:79) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:125) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at com.shoescms.common.security.JwtAuthenticationFilter.doFilter(JwtAuthenticationFilter.java:34) ~[main/:?]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:173) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:186) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:280) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:170) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:134) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191) ~[spring-security-web-6.0.2.jar:6.0.2]
-	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:109) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.0.6.jar:6.0.6]
-	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:177) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:119) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:400) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:859) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1734) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-10.1.5.jar:10.1.5]
-	at java.lang.Thread.run(Thread.java:833) ~[?:?]
-08:13:39.065+0700 [http-nio-8082-exec-6] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present]
-08:18:25.293+0700 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-08:18:25.299+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-08:18:25.311+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:07:21.306+0700 [http-nio-8082-exec-2] WARN  org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MissingServletRequestParameterException: Required request parameter 'iddm' for method parameter type Long is not present]
+19:08:32.457+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:08:32.484+0700 [http-nio-8082-exec-3] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={iddm=3, idth=1}, log_time=2023-09-08T19:08:32.484+0700, request_uri=/v1/san-pham/search2}
+19:08:32.519+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:08:32.520+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BIGINT] - [3]
+19:08:32.520+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [0]
+19:08:32.521+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [4] as [INTEGER] - [1]
+19:08:32.540+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:08:32.545+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:08:32.577+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:08:32.578+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BIGINT] - [3]
+19:09:13.228+0700 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+19:09:13.240+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+19:09:13.271+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+19:09:52.402+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+19:09:52.492+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 1296 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+19:09:52.503+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+19:09:52.699+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+19:09:52.700+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+19:09:56.518+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+19:09:56.524+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+19:09:56.702+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.719+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.724+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.762+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.771+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.777+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.780+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.786+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.790+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.798+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+19:09:56.810+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 265 ms. Found 0 Reactive Elasticsearch repository interfaces.
+19:09:56.869+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+19:09:56.876+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+19:09:57.162+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 277 ms. Found 10 JPA repository interfaces.
+19:09:59.990+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+19:10:00.026+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+19:10:00.029+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+19:10:00.031+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+19:10:00.390+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+19:10:00.395+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 7689 ms
+19:10:01.383+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+19:10:01.569+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+19:10:02.664+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+19:10:02.665+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+19:10:03.210+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@69c6a72e
+19:10:03.215+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+19:10:03.269+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+19:10:03.273+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+19:10:07.584+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+19:10:07.617+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+19:10:11.260+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:11.923+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+19:10:11.924+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+19:10:11.946+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:12.135+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+19:10:12.162+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:19.702+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+19:10:20.228+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@35ea1feb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31b50d42, org.springframework.security.web.context.SecurityContextHolderFilter@4276f601, org.springframework.security.web.header.HeaderWriterFilter@5f511e8e, org.springframework.web.filter.CorsFilter@2ca67079, org.springframework.security.web.authentication.logout.LogoutFilter@6ed649b0, com.shoescms.common.security.JwtAuthenticationFilter@41d3f0e4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@65903436, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3fef4560, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2423ba72, org.springframework.security.web.session.SessionManagementFilter@2d7222e6, org.springframework.security.web.access.ExceptionTranslationFilter@3f0f505a, org.springframework.security.web.access.intercept.AuthorizationFilter@34252568]
+19:10:23.364+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.398+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+19:10:23.399+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.403+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+19:10:23.403+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.403+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+19:10:23.404+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.404+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+19:10:23.405+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.406+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+19:10:23.407+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.407+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+19:10:23.408+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+19:10:23.408+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+19:10:23.582+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+19:10:23.920+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+19:10:24.040+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+19:10:24.118+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 32.91 seconds (process running for 37.212)
+19:10:45.289+0700 [http-nio-8082-exec-2] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+19:10:45.290+0700 [http-nio-8082-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+19:10:45.297+0700 [http-nio-8082-exec-2] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+19:10:45.752+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:45.918+0700 [http-nio-8082-exec-2] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={idth=1}, log_time=2023-09-08T19:10:45.917+0700, request_uri=/v1/san-pham/search2}
+19:10:45.974+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:45.977+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [0]
+19:10:45.980+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:10:45.991+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:10:46.004+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:10:46.050+0700 [http-nio-8082-exec-2] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:21.716+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:21.743+0700 [http-nio-8082-exec-3] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={offset=1, idth=1}, log_time=2023-09-08T19:11:21.743+0700, request_uri=/v1/san-pham/search2}
+19:11:21.752+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:21.752+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [1]
+19:11:21.752+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:11:21.768+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:11:21.774+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:21.784+0700 [http-nio-8082-exec-3] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:29.119+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:29.142+0700 [http-nio-8082-exec-5] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={offset=0, idth=1}, log_time=2023-09-08T19:11:29.142+0700, request_uri=/v1/san-pham/search2}
+19:11:29.150+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:29.152+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [0]
+19:11:29.152+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:11:29.159+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:11:29.161+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:29.168+0700 [http-nio-8082-exec-5] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:40.795+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:40.822+0700 [http-nio-8082-exec-4] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={offset=2, idth=1}, log_time=2023-09-08T19:11:40.822+0700, request_uri=/v1/san-pham/search2}
+19:11:40.832+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:40.832+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [2]
+19:11:40.832+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:11:40.847+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:40.854+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:11:40.862+0700 [http-nio-8082-exec-4] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:12:12.074+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:12:12.092+0700 [http-nio-8082-exec-6] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={idm=3, offset=1}, log_time=2023-09-08T19:12:12.092+0700, request_uri=/v1/san-pham/search2}
+19:12:12.109+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [INTEGER] - [1]
+19:12:12.110+0700 [http-nio-8082-exec-6] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [1]
+19:12:24.980+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:12:25.010+0700 [http-nio-8082-exec-7] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={idm=3}, log_time=2023-09-08T19:12:25.010+0700, request_uri=/v1/san-pham/search2}
+19:12:25.019+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [INTEGER] - [0]
+19:12:25.020+0700 [http-nio-8082-exec-7] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [1]
+19:12:41.071+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:12:41.092+0700 [http-nio-8082-exec-8] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={iddm=3}, log_time=2023-09-08T19:12:41.092+0700, request_uri=/v1/san-pham/search2}
+19:12:41.102+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:12:41.102+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [0]
+19:12:41.103+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:12:41.113+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:12:41.124+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [2]
+19:12:41.136+0700 [http-nio-8082-exec-8] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:23:23.881+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+19:23:23.900+0700 [http-nio-8082-exec-1] INFO  com.shoescms.common.filter.RequestLoggerAspect - params : {controller=SanPhamController, http_method=GET, method=findByThuongHieuAndDanhMuc, params={iddm=3}, log_time=2023-09-08T19:23:23.900+0700, request_uri=/v1/san-pham/search2}
+19:23:23.926+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:23:23.926+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [INTEGER] - [0]
+19:23:23.926+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [3] as [INTEGER] - [1]
+19:23:23.936+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+19:23:23.939+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [2]
+19:23:23.945+0700 [http-nio-8082-exec-1] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [3]
+20:27:06.266+0700 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m29s715ms769µs900ns).
+20:46:35.879+0700 [SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+20:46:35.982+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+20:46:36.010+0700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+20:47:04.519+0700 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.0.Final
+20:47:04.621+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Starting CmsApplication using Java 17.0.1 with PID 12480 (D:\DUATOTNGHIEP\shoes-be-app\build\classes\java\main started by T460 in D:\DUATOTNGHIEP\shoes-be-app)
+20:47:04.628+0700 [restartedMain] INFO  com.shoescms.CmsApplication - The following 1 profile is active: "local"
+20:47:04.792+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+20:47:04.793+0700 [restartedMain] INFO  org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+20:47:07.501+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+20:47:07.506+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Reactive Elasticsearch repositories in DEFAULT mode.
+20:47:07.605+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.common.model.repositories.FileRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.612+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.AuthenticationRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.615+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.auth.repository.RoleRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.618+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IChiTietDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.621+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDiaChiRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.624+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.payment.repositories.IDonHangRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.629+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.DanhMucRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.632+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ISanPhamRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.636+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.shoes.repository.ThuogHieuRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.641+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Reactive Elasticsearch - Could not safely identify store assignment for repository candidate interface com.shoescms.domain.user.repository.UserRepository; If you want this repository to be a Reactive Elasticsearch repository, consider annotating your entities with one of these annotations: org.springframework.data.elasticsearch.annotations.Document (preferred), or consider extending one of the following types with your repository: org.springframework.data.elasticsearch.repository.ReactiveElasticsearchRepository
+20:47:07.644+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 126 ms. Found 0 Reactive Elasticsearch repository interfaces.
+20:47:07.664+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+20:47:07.666+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+20:47:07.852+0700 [restartedMain] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 178 ms. Found 10 JPA repository interfaces.
+20:47:10.172+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8082 (http)
+20:47:10.192+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8082"]
+20:47:10.195+0700 [restartedMain] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+20:47:10.196+0700 [restartedMain] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.5]
+20:47:10.422+0700 [restartedMain] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+20:47:10.426+0700 [restartedMain] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5627 ms
+20:47:11.342+0700 [restartedMain] INFO  org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+20:47:11.668+0700 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.1.7.Final
+20:47:12.530+0700 [restartedMain] WARN  com.zaxxer.hikari.HikariConfig - HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+20:47:12.531+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+20:47:13.024+0700 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@428716c2
+20:47:13.030+0700 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+20:47:13.070+0700 [restartedMain] INFO  SQL dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+20:47:13.073+0700 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+20:47:18.284+0700 [restartedMain] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+20:47:18.310+0700 [restartedMain] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+20:47:20.509+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+20:47:20.857+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [admin]
+20:47:20.858+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [2] as [BOOLEAN] - [false]
+20:47:20.870+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+20:47:21.029+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [VARCHAR] - [ADMIN]
+20:47:21.038+0700 [restartedMain] TRACE org.hibernate.orm.jdbc.bind - binding parameter [1] as [BIGINT] - [1]
+20:47:31.520+0700 [restartedMain] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+20:47:31.669+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@549b4f5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@177d57ff, org.springframework.security.web.context.SecurityContextHolderFilter@1af571b9, org.springframework.security.web.header.HeaderWriterFilter@6e5a6a79, org.springframework.web.filter.CorsFilter@1e4cc7ef, org.springframework.security.web.authentication.logout.LogoutFilter@c61074b, com.shoescms.common.security.JwtAuthenticationFilter@2af5136c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@665a1ca2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@190b6c34, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6253f4db, org.springframework.security.web.session.SessionManagementFilter@27b786e8, org.springframework.security.web.access.ExceptionTranslationFilter@6968f8de, org.springframework.security.web.access.intercept.AuthorizationFilter@792e12c5]
+20:47:33.513+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/v3/api-docs/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.514+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/v3/api-docs/**']
+20:47:33.515+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-resources/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.515+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-resources/**']
+20:47:33.516+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger-ui/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.516+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger-ui/**']
+20:47:33.517+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/webjars/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.518+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/webjars/**']
+20:47:33.518+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/swagger/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.518+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/swagger/**']
+20:47:33.518+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/actuator/health']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.519+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/actuator/health']
+20:47:33.519+0700 [restartedMain] WARN  org.springframework.security.config.annotation.web.builders.WebSecurity - You are asking Spring Security to ignore Mvc [pattern='/*/exception/**']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+20:47:33.519+0700 [restartedMain] INFO  org.springframework.security.web.DefaultSecurityFilterChain - Will not secure Mvc [pattern='/*/exception/**']
+20:47:33.721+0700 [restartedMain] INFO  org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+20:47:33.881+0700 [restartedMain] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8082"]
+20:47:33.952+0700 [restartedMain] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8082 (http) with context path ''
+20:47:33.981+0700 [restartedMain] INFO  com.shoescms.CmsApplication - Started CmsApplication in 30.342 seconds (process running for 33.678)
