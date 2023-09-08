@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class SanPhamModel {
-    private Long id;
 
     private String maSP;
 
