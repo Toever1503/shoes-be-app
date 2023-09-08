@@ -40,9 +40,9 @@ public class SanPhamDto {
 
     private DMGiay dmGiay;
 
-    private String nguoiTao;
+    private Long nguoiTao;
 
-    private String nguoiCapNhat;
+    private Long nguoiCapNhat;
 
     private LocalDateTime ngayTao;
 
