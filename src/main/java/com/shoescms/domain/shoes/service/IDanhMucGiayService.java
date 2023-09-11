@@ -20,4 +20,6 @@ public interface IDanhMucGiayService {
     boolean deleteById(Long id);
 
     List<DanhMucDTO> getDanhMucs(String tenDanhMuc, String slug, Pageable pageable);
+
+    Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, Pageable pageable);
 }
