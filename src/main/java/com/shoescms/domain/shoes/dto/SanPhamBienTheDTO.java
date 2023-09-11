@@ -19,7 +19,7 @@ public class SanPhamBienTheDTO {
 
     private SanPham sanPham;
 
-    private BienThe bienThe;
+    private Long bienThe;
 
     private BienTheGiaTri bienTheGiaTri;
 
@@ -33,9 +33,9 @@ public class SanPhamBienTheDTO {
         if (sanPhamBienThe==null) return  null;
         return
                 SanPhamBienTheDTO.builder().id(sanPhamBienThe.getId())
-                        .bienThe(sanPhamBienThe.getBienThe())
-                        .sanPham(sanPhamBienThe.getSanPham())
-                        .bienTheGiaTri(sanPhamBienThe.getBienTheGiaTri())
+                        .bienThe(sanPhamBienThe.getBienThe().getId())
+                 //       .sanPham(sanPhamBienThe.getSanPham())
+                //        .bienTheGiaTri(sanPhamBienThe.getBienTheGiaTri())
                         .anh(sanPhamBienThe.getAnh())
                         .soLuong(sanPhamBienThe.getSoLuong())
                         .ngayXoa(sanPhamBienThe.getNgayXoa())

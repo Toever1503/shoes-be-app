@@ -11,6 +11,9 @@ import com.shoescms.domain.shoes.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.shoes.service.SanPhamBienTheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +28,14 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     SanPhamBienTheRepository sanPhamBienTheRepository;
     @Autowired
     ISanPhamRepository sanPhamRepository;
+
+    @Override
+    public Page<SanPhamBienTheDTO> filterEntities(Pageable pageable, Specification<SanPhamBienThe> specification) {
+        Page<SanPhamBienThe> sanPhamBienThes = sanPhamBienTheRepository.findAll(specification,pageable);
+        return sanPhamBienThes.map(SanPhamBienTheDTO::toDTO);
+
+    }
+
     @Override
     public SanPhamBienTheDTO add(SanPhamBienTheModel sanPhamBienTheModel) {
             checkValue(sanPhamBienTheModel);
