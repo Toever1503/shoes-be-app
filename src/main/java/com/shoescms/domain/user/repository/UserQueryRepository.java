@@ -41,10 +41,10 @@ public class UserQueryRepository {
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
                         userEntity.email,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
-                .where(userEntity.id.eq(id))
+//                .where(userEntity.id.eq(id))
                 .fetchOne());
     }
 
@@ -69,7 +69,7 @@ public class UserQueryRepository {
                         userEntity.phone,
                         userEntity.email,
                         userEntity.approved,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
                 .join(roleEntity)
@@ -111,7 +111,7 @@ public class UserQueryRepository {
                         userEntity.phone,
                         userEntity.email,
                         userEntity.approved,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
                 .join(roleEntity)
@@ -143,13 +143,13 @@ public class UserQueryRepository {
                         userEntity.phone,
                         userEntity.email,
                         userEntity.approved,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
                 .join(roleEntity)
                 .on(roleEntity.roleCd.contains("ROLE_STORE").not())
                 .where(userEntity.del.isFalse())
-                .orderBy(userEntity.createDate.desc())
+                .orderBy(userEntity._super.ngayTao.desc())
                 .fetch();
     }
 
@@ -163,13 +163,13 @@ public class UserQueryRepository {
                         userEntity.phone,
                         userEntity.email,
                         userEntity.approved,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
                 .join(roleEntity)
                 .on(roleEntity.roleCd.contains("ROLE_STORE"))
                 .where(userEntity.del.isFalse())
-                .orderBy(userEntity.createDate.desc())
+                .orderBy(userEntity._super.ngayTao.desc())
                 .fetch();
     }
 
@@ -187,7 +187,7 @@ public class UserQueryRepository {
                         userEntity.phone,
                         userEntity.email,
                         userEntity.approved,
-                        userEntity.createDate
+                        userEntity._super.ngayTao
                 ))
                 .from(userEntity)
 //                .join(roleEntity) // task
