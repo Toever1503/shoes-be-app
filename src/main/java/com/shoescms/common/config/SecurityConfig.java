@@ -87,7 +87,8 @@ public class SecurityConfig {
             "/*/etc/health-check",
             "/v1/etc/**",
             "/api/cart/**",
-            "/cart/**"
+            "/cart/**",
+            "/v1/coupon/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {
