@@ -66,8 +66,8 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
             if (!StringUtils.isEmpty(tenThuongHieu)) {
                 p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("tenThuongHieu"), "%" + tenThuongHieu + "%"));
             }
-            if (!StringUtils.isEmpty(tenThuongHieu)) {
-                p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("slug"), "%" + slug + "%"));
+            if (!StringUtils.isEmpty(slug)) {
+                p = criteriaBuilder.and(p,criteriaBuilder.like(root.get("slug"),"%" + slug +"%"));
             }
             query.orderBy(criteriaBuilder.desc(root.get("tenThuongHieu")), criteriaBuilder.asc(root.get("id")));
             return p;

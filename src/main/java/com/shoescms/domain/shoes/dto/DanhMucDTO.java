@@ -21,6 +21,8 @@ public class DanhMucDTO {
 
     private  String slug;
 
+    private Integer soSp;
+
 
     public static DanhMucDTO toDTO(DMGiay dm){
         if(dm ==null) return null;
@@ -32,6 +34,12 @@ public class DanhMucDTO {
                         .slug(dm.getSlug())
                         .build();
     }
+
+    public DanhMucDTO setSoSp(Integer soSp) {
+        this.soSp = soSp;
+        return this;
+    }
+
     public static List<DanhMucDTO> convertToTDO(List<DMGiay> dmGiay){
         return dmGiay.stream().map(s -> DanhMucDTO.builder()
                 .id(s.getId())

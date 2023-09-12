@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseDateEntity {
     @CreationTimestamp
-    @Column(name = "create_date", nullable = false, columnDefinition = "datetime(3) comment '생성일'")
-    private LocalDateTime createDate;
+    @Column(name = "ngay_tao", nullable = false, columnDefinition = "datetime(3) comment '생성일'")
+    private LocalDateTime ngayTao;
 
     @UpdateTimestamp
-    @Column(name = "update_date", nullable = false, columnDefinition = "datetime(3) comment '수정일'")
-    private LocalDateTime updateDate;
+    @Column(name = "ngay_cap_nhat", nullable = false, columnDefinition = "datetime(3) comment '수정일'")
+    private LocalDateTime ngayCapNhat;
 }
