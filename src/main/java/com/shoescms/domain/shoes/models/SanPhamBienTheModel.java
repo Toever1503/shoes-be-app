@@ -19,9 +19,13 @@ public class SanPhamBienTheModel {
 
     private SanPham sanPham;
 
-    private BienThe bienThe;
+    private BienThe bienThe1;
 
-    private BienTheGiaTri bienTheGiaTri;
+    private BienThe bienThe2;
+
+    private BienTheGiaTri bienTheGiaTri1;
+
+    private BienTheGiaTri bienTheGiaTri2;
 
     private String anh;
 

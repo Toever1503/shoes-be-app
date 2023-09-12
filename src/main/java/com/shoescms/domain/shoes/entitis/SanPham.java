@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-public class SanPham extends BaseDateEntity {
+public class SanPham  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -63,12 +63,15 @@ public class SanPham extends BaseDateEntity {
     private Long nguoiCapNhat;
 
     @Column(name = "ngay_tao")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ngayTao;
 
     @Column(name = "ngay_cap_nhat")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngay_xoa")
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime ngayXoa;
 
     @Column(name = "anh_chinh")

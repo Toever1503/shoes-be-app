@@ -40,9 +40,11 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     public SanPhamBienTheDTO add(SanPhamBienTheModel sanPhamBienTheModel) {
             checkValue(sanPhamBienTheModel);
         SanPhamBienThe sanPhamBienThe = SanPhamBienThe.builder()
-                .bienThe(sanPhamBienTheModel.getBienThe())
+                .bienThe1(sanPhamBienTheModel.getBienThe1())
+                .bienThe2(sanPhamBienTheModel.getBienThe2())
                 .sanPham(sanPhamBienTheModel.getSanPham())
-                .bienTheGiaTri(sanPhamBienTheModel.getBienTheGiaTri())
+                .bienTheGiaTri1(sanPhamBienTheModel.getBienTheGiaTri1())
+                .bienTheGiaTri2(sanPhamBienTheModel.getBienTheGiaTri2())
                 .anh(sanPhamBienTheModel.getAnh())
                 .ngayXoa(sanPhamBienTheModel.getNgayXoa())
                 .soLuong(sanPhamBienTheModel.getSoLuong())
@@ -52,14 +54,20 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     }
 
     public void checkValue(SanPhamBienTheModel model){
-        if(model.getBienThe().getId()==null || bienTheRepository.findById(model.getBienThe().getId()).isEmpty()) {
-            throw new ObjectNotFoundException(1);
+        if(model.getBienThe1().getId()==null || bienTheRepository.findById(model.getBienThe1().getId()).isEmpty()) {
+            throw new ObjectNotFoundException(6);
         }
-        if(model.getBienTheGiaTri().getId()==null || bienTheGiaTriRepository.findById(model.getBienTheGiaTri().getId()).isEmpty()) {
-            throw new ObjectNotFoundException(2);
+        if(model.getBienThe2().getId()==null || bienTheRepository.findById(model.getBienThe2().getId()).isEmpty()) {
+            throw new ObjectNotFoundException(6);
+        }
+        if(model.getBienTheGiaTri1().getId()==null || bienTheGiaTriRepository.findById(model.getBienTheGiaTri1().getId()).isEmpty()) {
+            throw new ObjectNotFoundException(7);
+        }
+        if(model.getBienTheGiaTri2().getId()==null || bienTheGiaTriRepository.findById(model.getBienTheGiaTri2().getId()).isEmpty()) {
+            throw new ObjectNotFoundException(7);
         }
         if(model.getSanPham().getId()==null || sanPhamRepository.findById(model.getSanPham().getId()).isEmpty()) {
-            throw new ObjectNotFoundException(3);
+            throw new ObjectNotFoundException(8);
         }
     }
 
@@ -70,8 +78,10 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         SanPhamBienThe sp = sanPhamBienTheRepository.findById(sanPhamBienTheModel.getId()).orElse(null);
        if(sp!=null){
            sp.setSanPham(sanPhamBienTheModel.getSanPham());
-           sp.setBienTheGiaTri(sanPhamBienTheModel.getBienTheGiaTri());
-           sp.setBienThe(sanPhamBienTheModel.getBienThe());
+           sp.setBienTheGiaTri1(sanPhamBienTheModel.getBienTheGiaTri1());
+           sp.setBienTheGiaTri2(sanPhamBienTheModel.getBienTheGiaTri2());
+           sp.setBienThe1(sanPhamBienTheModel.getBienThe1());
+           sp.setBienThe2(sanPhamBienTheModel.getBienThe2());
            sp.setAnh(sanPhamBienTheModel.getAnh());
            sp.setSoLuong(sanPhamBienTheModel.getSoLuong());
            sp.setNgayXoa(sanPhamBienTheModel.getNgayXoa());

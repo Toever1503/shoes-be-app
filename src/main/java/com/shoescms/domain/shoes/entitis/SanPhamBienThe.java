@@ -24,13 +24,20 @@ public class SanPhamBienThe {
     private SanPham sanPham;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "bien_the_id", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the '")
-    private BienThe bienThe;
+    @JoinColumn(name = "bien_the_id1", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the '")
+    private BienThe bienThe1;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "gia_tri_bt_id", nullable = false, columnDefinition = "BIGINT COMMENT 'gia tri bien the '")
-    private BienTheGiaTri bienTheGiaTri;
+    @JoinColumn(name = "bien_the_id2",  columnDefinition = "BIGINT COMMENT 'bien the '")
+    private BienThe bienThe2;
 
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "gia_tri_bt_id1", nullable = false, columnDefinition = "BIGINT COMMENT 'gia tri bien the '")
+    private BienTheGiaTri bienTheGiaTri1;
+
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JoinColumn(name = "gia_tri_bt_id2", columnDefinition = "BIGINT COMMENT 'gia tri bien the '")
+    private BienTheGiaTri bienTheGiaTri2;
 
     @Column(name = "anh")
     private String anh;

@@ -2,10 +2,7 @@ package com.shoescms.domain.shoes.controller;
 
 
 import com.shoescms.domain.shoes.dto.ResponseDto;
-import com.shoescms.domain.shoes.entitis.BienThe;
-import com.shoescms.domain.shoes.entitis.BienThe_;
-import com.shoescms.domain.shoes.entitis.SanPhamBienThe;
-import com.shoescms.domain.shoes.entitis.SanPhamBienThe_;
+import com.shoescms.domain.shoes.entitis.*;
 import com.shoescms.domain.shoes.models.SanPhamBienTheModel;
 import com.shoescms.domain.shoes.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.shoes.service.impl.ISanPhamBienTheServiceImpl;
@@ -29,45 +26,62 @@ public class SanPhamBienTheController {
     ISanPhamBienTheServiceImpl iSanPhamBienTheService;
 
     @PostMapping("/search")
-    public  ResponseDto search(@RequestBody SanPhamBienTheModel model, Pageable  pageable){
-        List<Specification<SanPhamBienThe>> listSpect= new ArrayList<>();
-        if(model.getBienThe()!=null){
-
-            listSpect.add((root, query, criteriaBuilder) ->
-            {
-                Join<SanPhamBienThe, BienThe> join = root.join(SanPhamBienThe_.BIEN_THE);
-                return criteriaBuilder.equal(join.get(BienThe_.ID),model.getBienThe());
-            }
+    public ResponseDto search(@RequestBody SanPhamBienTheModel model, Pageable pageable) {
+        List<Specification<SanPhamBienThe>> listSpect = new ArrayList<>();
+        if (model.getSanPham() != null) {
+            listSpect.add((root, query, criteriaBuilder) -> {
+                        Join<SanPhamBienThe, SanPham> join = root.join(SanPhamBienThe_.SAN_PHAM);
+                        return criteriaBuilder.equal(join.get(SanPham_.ID), model.getSanPham());
+                    }
             );
 
         }
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPhamBienThe_.NGAY_XOA)));
+        if (model.getBienThe1() != null) {
+
+            listSpect.add((root, query, criteriaBuilder) ->
+                    {
+                        Join<SanPhamBienThe, BienThe> join = root.join(SanPhamBienThe_.BIEN_THE1);
+                        return criteriaBuilder.equal(join.get(BienThe_.ID), model.getBienThe1());
+                    }
+            );
+
+        }
+        if (model.getBienThe2() != null) {
+            listSpect.add((root, query, criteriaBuilder) -> {
+                        Join<SanPhamBienThe, BienThe> join = root.join(SanPhamBienThe_.BIEN_THE2);
+
+                        return criteriaBuilder.equal(join.get(BienThe_.ID), model.getBienThe2());
+                    }
+            );
+        }
+
+        listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPhamBienThe_.NGAY_XOA)));
         Specification<SanPhamBienThe> finalSpect = null;
-        for (Specification spec : listSpect){
-            if(finalSpect == null){
+        for (Specification spec : listSpect) {
+            if (finalSpect == null) {
                 finalSpect = Specification.where(spec);
-            }else {
+            } else {
                 finalSpect = finalSpect.and(spec);
             }
         }
-        return ResponseDto.of(iSanPhamBienTheService.filterEntities(pageable,finalSpect));
+        return ResponseDto.of(iSanPhamBienTheService.filterEntities(pageable, finalSpect));
     }
 
     @PostMapping("/add")
 
-    public ResponseDto add(SanPhamBienTheModel model){
+    public ResponseDto add(SanPhamBienTheModel model) {
         model.setId(null);
         return ResponseDto.of(iSanPhamBienTheService.add(model));
     }
 
     @PutMapping("/update/{id}")
-    public  ResponseDto update(@RequestBody SanPhamBienTheModel sanPhamBienTheModel){
+    public ResponseDto update(@RequestBody SanPhamBienTheModel sanPhamBienTheModel) {
         return ResponseDto.of(iSanPhamBienTheService.update(sanPhamBienTheModel));
     }
 
     @DeleteMapping("/delete/{id}")
 
-    public  ResponseDto delete(@PathVariable Long id){
+    public ResponseDto delete(@PathVariable Long id) {
         return ResponseDto.of(iSanPhamBienTheService.deleteById(id));
     }
 }
