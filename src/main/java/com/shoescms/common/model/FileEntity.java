@@ -21,15 +21,19 @@ public class FileEntity {
     @Column(length = 500, nullable = false)
     private String url;
 
+    @Column(length = 500, nullable = false)
+    private String name;
+
     @Column(nullable = false)
     private String path;
 
     @Column(nullable = false)
     private Boolean isVerified;
 
-    public FileEntity(String url, String path) {
+    public FileEntity(String url, String name, String path) {
         this.url = url;
         this.path = path;
+        this.name = name;
         isVerified = false;
     }
 
