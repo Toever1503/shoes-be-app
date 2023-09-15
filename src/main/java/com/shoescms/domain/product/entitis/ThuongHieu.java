@@ -1,7 +1,10 @@
 package com.shoescms.domain.product.entitis;
 
+import com.shoescms.common.model.BaseDateEntity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tbl_thuong_hieu")
@@ -11,7 +14,7 @@ import lombok.*;
 @Setter
 @Data
 @Builder
-public class ThuongHieu {
+public class ThuongHieu extends BaseDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,4 +26,8 @@ public class ThuongHieu {
 
     @Column(name = "slug")
     private String slug;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "ngay_xoa")
+    private LocalDateTime ngayXoa;
 }

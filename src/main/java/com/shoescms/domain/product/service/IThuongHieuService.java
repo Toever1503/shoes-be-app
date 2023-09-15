@@ -1,5 +1,6 @@
 package com.shoescms.domain.product.service;
 
+import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.models.ThuongHieuModel;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
 import com.shoescms.domain.product.entitis.ThuongHieu;
@@ -20,4 +21,6 @@ public interface IThuongHieuService{
     boolean deleteById(Long id);
 
     List<ThuongHieuDTO> getThuongHieus(String tenThuongHieu, String slug,Pageable pageable);
+
+    Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, Pageable pageable);
 }
