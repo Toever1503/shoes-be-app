@@ -17,14 +17,13 @@ public class ThuongHieuController {
 
     @Autowired
     IThuongHieuService iThuongHieuService;
-    @GetMapping("/search")
-    public List<ThuongHieuDTO> getThuogHieu(@RequestParam(required = false) String tenThuongHieu,
-                                          @RequestParam(required = false) String slug,
-                                          Pageable pageable) {
-        return iThuongHieuService.getThuongHieus(tenThuongHieu,slug, pageable);
-    }
+//    @GetMapping("/search")
+//    public List<ThuongHieuDTO> getThuogHieu(@RequestParam(required = false) String tenThuongHieu,
+//                                          @RequestParam(required = false) String slug,
+//                                          Pageable pageable) {
+//        return iThuongHieuService.getThuongHieus(tenThuongHieu,slug, pageable);
+//    }
     @PostMapping("/add")
-
     public ResponseDto addThuongHieu(@RequestBody ThuongHieuModel thuongHieuModel){
         return ResponseDto.of(iThuongHieuService.add(thuongHieuModel));
 
