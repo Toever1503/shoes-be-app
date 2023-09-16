@@ -15,11 +15,11 @@ public interface SanPhamBienTheService {
     Page<SanPhamBienTheDTO> filterEntities(Pageable pageable, Specification<SanPhamBienThe> specification);
     SanPhamBienTheDTO add(SanPhamBienTheModel sanPhamBienTheModel);
 
-    SanPhamBienTheDTO update(SanPhamBienTheModel sanPhamBienTheModel);
-
     boolean deleteById(Long id);
 
-    SanPhamBienTheDTO saveAllStep2(List<SanPhamBienTheModel> models);
+    List<SanPhamBienTheDTO> saveAllStep2(List<SanPhamBienTheModel> models);
 
     List<BienTheGiaTriDTO> getListBienTheGiaTriByBienTheId(Long bienTheId);
+
+    List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(Long id);
 }

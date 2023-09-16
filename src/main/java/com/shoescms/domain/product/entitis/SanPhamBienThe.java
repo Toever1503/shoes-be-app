@@ -26,7 +26,7 @@ public class SanPhamBienThe {
     @JoinColumn(name = "san_pham_id", nullable = false, columnDefinition = "BIGINT COMMENT 'san pham '")
     private SanPham sanPham;
 
-    @Column(name = "bien_the_id1", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the '")
+    @Column(name = "bien_the_id1", columnDefinition = "BIGINT COMMENT 'bien the '")
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long bienThe1;
 
@@ -34,7 +34,7 @@ public class SanPhamBienThe {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long bienThe2;
 
-    @Column(name = "gia_tri_bt_id1", nullable = false, columnDefinition = "BIGINT COMMENT 'gia tri bien the '")
+    @Column(name = "gia_tri_bt_id1", columnDefinition = "BIGINT COMMENT 'gia tri bien the '")
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long bienTheGiaTri1;
 
@@ -50,4 +50,10 @@ public class SanPhamBienThe {
 
     @Column(name = "ngay_xoa")
     private LocalDateTime ngayXoa;
+
+
+    public SanPhamBienThe delete(){
+        this.ngayXoa = LocalDateTime.now();
+        return this;
+    }
 }

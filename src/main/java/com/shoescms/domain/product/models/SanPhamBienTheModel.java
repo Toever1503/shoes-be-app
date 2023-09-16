@@ -31,10 +31,6 @@ public class SanPhamBienTheModel {
 
     private Long anh;
 
-    private int soLuong;
-
-    private LocalDateTime ngayXoa;
-
     @NotNull
     private ELoaiBienThe loaiBienThe;
 }

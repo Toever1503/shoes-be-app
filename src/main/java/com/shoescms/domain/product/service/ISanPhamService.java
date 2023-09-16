@@ -2,6 +2,7 @@ package com.shoescms.domain.product.service;
 
 import com.shoescms.domain.product.dto.SanPhamDto;
 import com.shoescms.domain.product.entitis.SanPham;
+import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,9 @@ public interface ISanPhamService {
 
     SanPhamDto add(SanPhamModel model);
 
-    SanPhamDto update(SanPhamModel model);
-
     boolean deleteById(Long id);
+
+    void thayDoiPhanLoai(Long id, ELoaiBienThe type);
+
+    ELoaiBienThe getPhanLoai(Long id);
 }

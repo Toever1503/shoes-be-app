@@ -1,5 +1,6 @@
 package com.shoescms.domain.product.service.impl;
 
+import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
 import com.shoescms.domain.product.entitis.ThuongHieu;
 import com.shoescms.domain.product.models.ThuongHieuModel;
@@ -29,7 +30,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     public ThuongHieuDTO add(ThuongHieuModel thuongHieuModel) {
        ThuongHieu thuongHieu = ThuongHieu.builder()
                .tenThuongHieu(thuongHieuModel.getTenThuongHieu())
-               .slug(thuongHieuModel.getSlug())
+               .slug(ASCIIConverter.utf8ToAscii(thuongHieuModel.getTenThuongHieu()))
                .build();
                 thuogHieuRepository.save(thuongHieu);
        return ThuongHieuDTO.toDTO(thuongHieu);

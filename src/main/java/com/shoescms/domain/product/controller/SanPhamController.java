@@ -4,6 +4,7 @@ import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.product.dto.BienTheGiaTriDTO;
 import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
 import com.shoescms.domain.product.dto.SanPhamDto;
+import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamBienTheModel;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.dto.ResponseDto;
@@ -41,9 +42,29 @@ public class SanPhamController {
         return this.iSanPhamService.add(model);
     }
 
+    @PatchMapping("/thay-doi-phan-loai/{id}")
+    public void thayDoiPhanLoai(@PathVariable Long id, @RequestParam ELoaiBienThe type){
+        iSanPhamService.thayDoiPhanLoai(id, type);
+    }
     @PostMapping("/save-step2")
-    synchronized public SanPhamBienTheDTO save(@RequestBody SanPhamBienTheModel model) {
+    public SanPhamBienTheDTO save(@RequestBody SanPhamBienTheModel model) {
+//        return iSanPhamBienTheService.saveAllStep2(model);
         return iSanPhamBienTheService.add(model);
+    }
+
+    @GetMapping("/phan-loai/{id}")
+    public ELoaiBienThe getPhanLoai(@PathVariable Long id){
+        return iSanPhamService.getPhanLoai(id);
+    }
+    @DeleteMapping("/phan-loai/{id}")
+    public ResponseDto delete(@PathVariable Long id) {
+        return ResponseDto.of(iSanPhamBienTheService.deleteById(id));
+    }
+
+
+    @GetMapping("{id}/phan-loai")
+    public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(@PathVariable Long id){
+        return iSanPhamBienTheService.findAllPhanLoaiTheoSanPham(id);
     }
 
     // Lay tat ca Danh Sach San Pham
@@ -77,10 +98,10 @@ public class SanPhamController {
     }
 
 
-    @PutMapping("/update-step1/{id}")
-    public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
-           return ResponseDto.of(iSanPhamService.update(model));
-        }
+//    @PutMapping("/update-step1/{id}")
+//    public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
+//           return ResponseDto.of(iSanPhamService.update(model));
+//        }
     @DeleteMapping("/delete/{id}")
     public ResponseDto deleteSanPham(@PathVariable Long id){
         return ResponseDto.of(iSanPhamService.deleteById(id));

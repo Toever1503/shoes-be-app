@@ -51,4 +51,6 @@ public class SanPhamModel {
     private Long anhChinh;
 
     private List<Long> anhPhu;
+
+    private Boolean hienThiWeb;
 }

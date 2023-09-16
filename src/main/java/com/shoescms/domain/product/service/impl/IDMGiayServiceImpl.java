@@ -3,6 +3,7 @@ package com.shoescms.domain.product.service.impl;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.entitis.DMGiay;
 import com.shoescms.domain.product.models.DanhMucGiayModel;
@@ -43,7 +44,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     public DanhMucDTO add(DanhMucGiayModel danhMucGiayModel) {
         DMGiay dmGiay = DMGiay.builder()
                 .tenDanhMuc(danhMucGiayModel.getTenDanhMuc())
-                .slug(danhMucGiayModel.getSlug())
+                .slug(ASCIIConverter.utf8ToAscii(danhMucGiayModel.getTenDanhMuc()))
                 .build();
         danhMucRepository.saveAndFlush(dmGiay);
         return DanhMucDTO.toDTO(dmGiay);

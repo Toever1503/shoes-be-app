@@ -3,8 +3,12 @@ package com.shoescms.domain.product.service.impl;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
+import com.shoescms.common.utils.ASCIIConverter;
+import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.DanhMucRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
+import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.dto.SanPhamDto;
@@ -35,6 +39,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
    @Autowired
    private FileRepository fileRepository;
+
+   @Autowired
+   private SanPhamBienTheRepository sanPhamBienTheRepository;
    @Override
    public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification){
             Page<SanPham> sanPhamPage = sanPhamRepository.findAll(specification,pageable);
@@ -51,21 +58,21 @@ public class ISanPhamServerImpl implements ISanPhamService {
    public SanPhamDto add(SanPhamModel model){
        checkProduct(model);
        SanPham entity = SanPham.builder()
-                       .anhBia(model.getAnhBia())
                        .maSP(model.getMaSP())
                        .moTa(model.getMoTa())
                        .dmGiay(danhMucRepository.findById(model.getDmGiay().getId()).get())
                        .giaCu(model.getGiaCu())
                        .giaMoi(model.getGiaMoi())
                        .gioiTinh(model.getGioiTinh())
-                       .slug(model.getSlug())
+                       .slug(ASCIIConverter.utf8ToAscii(model.getTieuDe()))
                        .thuongHieu(thuogHieuRepository.findById(model.getThuongHieu().getId()).get())
                        .tieuDe(model.getTieuDe())
                        .nguoiCapNhat(model.getNguoiCapNhat())
                        .ngayXoa(model.getNgayXoa())
                        .anhChinh(model.getAnhChinh())
                        .anhPhu(String.join(",", model.getAnhPhu().stream().map(Object::toString).toList()))
-                       .build();
+               .hienThiWeb(model.getHienThiWeb())
+               .build();
 
        if(model.getId() == null)
            entity.setNguoiTao(model.getNguoiCapNhat());
@@ -115,26 +122,6 @@ public class ISanPhamServerImpl implements ISanPhamService {
    }
 
    @Override
-   public SanPhamDto update(SanPhamModel model){
-       checkProduct(model);
-       SanPham entity = this.getById(model.getId());
-       entity.setAnhBia(model.getAnhBia());
-       entity.setGiaMoi(model.getGiaMoi());
-       entity.setNgayCapNhat(model.getNgayCapNhat());
-       entity.setDmGiay(model.getDmGiay());
-       entity.setGioiTinh(model.getGioiTinh());
-       entity.setMaSP(model.getMaSP());
-       entity.setGiaCu(model.getGiaCu());
-       entity.setThuongHieu(model.getThuongHieu());
-       entity.setTieuDe(model.getTieuDe());
-       entity.setNguoiCapNhat(model.getNguoiCapNhat());
-       entity.setAnhChinh(model.getAnhChinh());
-       entity.setAnhPhu(String.join(",", model.getAnhPhu().stream().map(Object::toString).toList()));
-       this.sanPhamRepository.saveAndFlush(entity);
-       return SanPhamDto.toDto(entity);
-   }
-
-   @Override
    public boolean deleteById(Long id){
        try {
            SanPham entity  = this.getById(id);
@@ -145,7 +132,33 @@ public class ISanPhamServerImpl implements ISanPhamService {
        }
    }
 
-   public SanPham getById(Long id){
+    @Override
+    @Transactional
+    public void thayDoiPhanLoai(Long id, ELoaiBienThe type) {
+        SanPham sanPham = sanPhamRepository.findById(id).orElse(null);
+        if(sanPham.getLoaiBienThe() == null){
+            sanPham.setLoaiBienThe(type);
+            sanPhamRepository.saveAndFlush(sanPham);
+        }
+        else if(!sanPham.getLoaiBienThe().equals(type)){
+            sanPhamBienTheRepository
+                    .saveAllAndFlush(sanPhamBienTheRepository
+                            .findAllAllBySanPhamIdAndNgayXoaIsNull(sanPham.getId())
+                            .stream()
+                            .map(SanPhamBienThe::delete)
+                            .toList());
+            sanPham.setLoaiBienThe(type);
+            sanPhamRepository.saveAndFlush(sanPham);
+        }
+
+    }
+
+    @Override
+    public ELoaiBienThe getPhanLoai(Long id) {
+        return getById(id).getLoaiBienThe();
+    }
+
+    public SanPham getById(Long id){
        return this.sanPhamRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(0));
    }
 

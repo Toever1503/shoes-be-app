@@ -1,10 +1,8 @@
 package com.shoescms.domain.product.dto;
 
-import com.shoescms.domain.product.entitis.SanPham;
+import com.shoescms.common.model.FileEntity;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
@@ -19,28 +17,25 @@ public class SanPhamBienTheDTO {
 
     private Long bienThe2;
 
-    private Long bienTheGiaTri1;
+    private Long giatri1;
 
-    private Long bienTheGiaTri2;
+    private Long giatri2;
 
-    private Long anh;
-
-    private int soLuong;
-
-    private LocalDateTime ngayXoa;
+    private FileEntity anh;
 
     public  static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe){
-        if (sanPhamBienThe==null) return  null;
         return
-                SanPhamBienTheDTO.builder().id(sanPhamBienThe.getId())
+                SanPhamBienTheDTO.builder()
+                        .id(sanPhamBienThe.getId())
                         .bienThe1(sanPhamBienThe.getBienThe1())
                         .bienThe2(sanPhamBienThe.getBienThe2())
-                        .bienTheGiaTri1(sanPhamBienThe.getBienTheGiaTri1())
-                        .bienTheGiaTri2(sanPhamBienThe.getBienTheGiaTri2())
-                        .anh(sanPhamBienThe.getAnh())
-                        .soLuong(sanPhamBienThe.getSoLuong())
-                        .ngayXoa(sanPhamBienThe.getNgayXoa())
+                        .giatri1(sanPhamBienThe.getBienTheGiaTri1())
+                        .giatri2(sanPhamBienThe.getBienTheGiaTri2())
                         .build();
     }
 
+    public SanPhamBienTheDTO setAnh(FileEntity anh) {
+        this.anh = anh;
+        return this;
+    }
 }

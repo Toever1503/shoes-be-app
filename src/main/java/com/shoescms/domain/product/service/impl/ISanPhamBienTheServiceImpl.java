@@ -1,6 +1,7 @@
 package com.shoescms.domain.product.service.impl;
 
 import com.shoescms.common.exception.ObjectNotFoundException;
+import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.domain.product.dto.BienTheGiaTriDTO;
 import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
 import com.shoescms.domain.product.entitis.*;
@@ -25,12 +26,14 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     private final BienTheGiaTriRepository bienTheGiaTriRepository;
     private final SanPhamBienTheRepository sanPhamBienTheRepository;
     private final ISanPhamRepository sanPhamRepository;
+    private final FileRepository fileRepository;
 
-    public ISanPhamBienTheServiceImpl(BienTheRepository bienTheRepository, BienTheGiaTriRepository bienTheGiaTriRepository, SanPhamBienTheRepository sanPhamBienTheRepository, ISanPhamRepository sanPhamRepository) {
+    public ISanPhamBienTheServiceImpl(BienTheRepository bienTheRepository, BienTheGiaTriRepository bienTheGiaTriRepository, SanPhamBienTheRepository sanPhamBienTheRepository, ISanPhamRepository sanPhamRepository, FileRepository fileRepository) {
         this.bienTheRepository = bienTheRepository;
         this.bienTheGiaTriRepository = bienTheGiaTriRepository;
         this.sanPhamBienTheRepository = sanPhamBienTheRepository;
         this.sanPhamRepository = sanPhamRepository;
+        this.fileRepository = fileRepository;
 
         initBienThe();
     }
@@ -108,19 +111,10 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     @Override
     @Transactional
     synchronized public SanPhamBienTheDTO add(SanPhamBienTheModel model) {
-            checkValue(model);
+        checkValue(model);
         SanPham sanPham = sanPhamRepository.findById(model.getSanPham()).orElse(null);
         if(sanPham == null)
             throw new ObjectNotFoundException(8);
-
-        if(sanPham.getLoaiBienThe() == null){
-            sanPham.setLoaiBienThe(model.getLoaiBienThe());
-            sanPhamRepository.saveAndFlush(sanPham);
-        }
-        else if(!sanPham.getLoaiBienThe().equals(model.getLoaiBienThe())){
-            sanPhamBienTheRepository.deleteAllBySanPhamId(sanPham.getId());
-            model.setId(null);
-        }
 
         SanPhamBienThe sanPhamBienThe = SanPhamBienThe.builder()
                 .id(model.getId())
@@ -132,7 +126,9 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .anh(model.getAnh())
                 .build();
                 this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
-        return SanPhamBienTheDTO.toDTO(sanPhamBienThe);
+        return SanPhamBienTheDTO
+                .toDTO(sanPhamBienThe)
+                .setAnh(fileRepository.findById(sanPhamBienThe.getAnh()).get());
     }
 
     public void checkValue(SanPhamBienTheModel model){
@@ -150,31 +146,12 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         }
     }
 
-
-    @Override
-    public SanPhamBienTheDTO update(SanPhamBienTheModel sanPhamBienTheModel) {
-        checkValue(sanPhamBienTheModel);
-        SanPhamBienThe sp = sanPhamBienTheRepository.findById(sanPhamBienTheModel.getId()).orElse(null);
-       if(sp!=null){
-//           sp.setSanPham(sanPhamBienTheModel.getSanPham());
-           sp.setBienTheGiaTri1(sanPhamBienTheModel.getBienTheGiaTri1());
-           sp.setBienTheGiaTri2(sanPhamBienTheModel.getBienTheGiaTri2());
-           sp.setBienThe1(sanPhamBienTheModel.getBienThe1());
-           sp.setBienThe2(sanPhamBienTheModel.getBienThe2());
-           sp.setAnh(sanPhamBienTheModel.getAnh());
-           sp.setSoLuong(sanPhamBienTheModel.getSoLuong());
-           sp.setNgayXoa(sanPhamBienTheModel.getNgayXoa());
-           sanPhamBienTheRepository.saveAndFlush(sp);
-       }
-        return SanPhamBienTheDTO.toDTO(sp);
-
-    }
-
     @Override
     public boolean deleteById(Long id) {
         try {
             SanPhamBienThe sanPhamBienThe = this.getByiD(id);
-            this.sanPhamBienTheRepository.delete(sanPhamBienThe);
+            sanPhamBienThe.delete();
+            this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
             return true;
         }catch (Exception e){
             return false;
@@ -183,8 +160,8 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
 
     @Override
     @Transactional
-    public SanPhamBienTheDTO saveAllStep2(List<SanPhamBienTheModel> models) {
-        return null;
+    public List<SanPhamBienTheDTO> saveAllStep2(List<SanPhamBienTheModel> models) {
+        return models.stream().map(this::add).toList();
     }
 
     @Override
@@ -192,6 +169,14 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         return bienTheGiaTriRepository
                 .findAll(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(BienTheGiaTri_.BIEN_THE), bienTheId)))
                 .stream().map(BienTheGiaTriDTO::toDto).toList();
+    }
+
+    @Override
+    public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(Long id) {
+        return sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(id)
+                .stream()
+                .map(item -> SanPhamBienTheDTO.toDTO(item).setAnh(fileRepository.findById(item.getAnh()).get()))
+                .toList();
     }
 
     public  SanPhamBienThe getByiD(Long id){

@@ -1,6 +1,7 @@
 package com.shoescms.domain.product.dto;
 
 import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import com.shoescms.domain.product.entitis.DMGiay;
 import com.shoescms.domain.product.entitis.SanPham;
@@ -52,6 +53,8 @@ public class SanPhamDto {
     private Long anhChinh;
     private List<Long> anhPhu;
 
+    private ELoaiBienThe loaiBienThe;
+    private Boolean hienThiWeb;
     public static SanPhamDto toDto(SanPham sanPham){
         if(sanPham == null) return null;
         return SanPhamDto.builder()
@@ -63,7 +66,6 @@ public class SanPhamDto {
                 .giaCu(sanPham.getGiaCu())
                 .giaMoi(sanPham.getGiaMoi())
                 .gioiTinh(sanPham.getGioiTinh())
-                .anhBia(sanPham.getAnhBia())
                 .thuongHieu(sanPham.getThuongHieu())
                 .dmGiay(sanPham.getDmGiay())
                 .nguoiTao(sanPham.getNguoiTao())
@@ -73,6 +75,8 @@ public class SanPhamDto {
                 .ngayXoa(sanPham.getNgayXoa())
                 .anhChinh(sanPham.getAnhChinh())
                 .anhPhu(ObjectUtils.isEmpty(sanPham.getAnhPhu()) ? null : Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList())
+                .loaiBienThe(sanPham.getLoaiBienThe())
+                .hienThiWeb(sanPham.getHienThiWeb())
                 .build();
     }
 }

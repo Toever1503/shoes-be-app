@@ -71,14 +71,4 @@ public class SanPhamBienTheController {
     }
 
 
-    @PutMapping("/update/{id}")
-    public ResponseDto update(@RequestBody SanPhamBienTheModel sanPhamBienTheModel) {
-        return ResponseDto.of(iSanPhamBienTheService.update(sanPhamBienTheModel));
-    }
-
-    @DeleteMapping("/delete/{id}")
-
-    public ResponseDto delete(@PathVariable Long id) {
-        return ResponseDto.of(iSanPhamBienTheService.deleteById(id));
-    }
 }

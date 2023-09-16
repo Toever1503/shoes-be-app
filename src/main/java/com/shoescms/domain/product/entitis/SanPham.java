@@ -46,9 +46,6 @@ public class SanPham  {
     @Enumerated(EnumType.STRING)
     private ESex gioiTinh;
 
-    @Column(name = "anh_bia")
-    private String  anhBia;
-
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "thuong_hieu_id",nullable = false, columnDefinition = "BIGINT COMMENT 'Shoes thuong hieu'")
     private ThuongHieu thuongHieu;
@@ -86,4 +83,7 @@ public class SanPham  {
     @Column(name = "loaiBienThe")
     @Enumerated(EnumType.STRING)
     private ELoaiBienThe loaiBienThe;
+
+    @Column(name = "hien_thi_web")
+    private Boolean hienThiWeb;
 }
