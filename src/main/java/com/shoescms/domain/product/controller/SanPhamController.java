@@ -1,13 +1,10 @@
 package com.shoescms.domain.product.controller;
 
 import com.shoescms.common.security.JwtTokenProvider;
-import com.shoescms.domain.product.dto.BienTheGiaTriDTO;
-import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
-import com.shoescms.domain.product.dto.SanPhamDto;
+import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamBienTheModel;
 import com.shoescms.domain.product.service.ISanPhamService;
-import com.shoescms.domain.product.dto.ResponseDto;
 import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.entitis.SanPham_;
 import com.shoescms.domain.product.models.SanPhamModel;
@@ -15,6 +12,7 @@ import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -67,6 +65,13 @@ public class SanPhamController {
         return iSanPhamBienTheService.findAllPhanLoaiTheoSanPham(id);
     }
 
+    @GetMapping("get-all-gia-tri-bien-the/{id}")
+    public List<BienTheGiaTriDTO> getAllBienTheGiaTri(@Parameter(required = true, description = "bien the id", example = "1") @PathVariable Long id)
+    {
+        return iSanPhamBienTheService.getListBienTheGiaTriByBienTheId(id);
+    }
+
+
     // Lay tat ca Danh Sach San Pham
     @GetMapping("/searchall")
     public  ResponseDto getAllsanPham(@RequestParam (defaultValue = "0") int offset,
@@ -75,8 +80,8 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamService.getAll(pageable));
     }
 
-    @PostMapping("/search")
-    public  ResponseDto search(@RequestBody SanPhamModel model, Pageable pageable){
+    @PostMapping("/filter")
+    public Page<SanPhamDto> search(@RequestBody SanPhamFilterReqDto model, Pageable pageable){
         List<Specification<SanPham>> listSpect = new ArrayList<>();
 
         if(model.getThuongHieu()!=null){
@@ -94,7 +99,7 @@ public class SanPhamController {
                 finalSpec = finalSpec.and(spec);
             }
         }
-        return ResponseDto.of(iSanPhamService.filterEntities(pageable,finalSpec));
+        return iSanPhamService.filterEntities(pageable,finalSpec);
     }
 
 
@@ -107,10 +112,4 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamService.deleteById(id));
     }
 
-
-    @GetMapping("get-all-gia-tri-bien-the/{id}")
-    public List<BienTheGiaTriDTO> getAllBienTheGiaTri(@Parameter(required = true, description = "bien the id", example = "1") @PathVariable Long id)
-    {
-     return iSanPhamBienTheService.getListBienTheGiaTriByBienTheId(id);
-    }
 }

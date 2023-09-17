@@ -45,7 +45,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
    @Override
    public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification){
             Page<SanPham> sanPhamPage = sanPhamRepository.findAll(specification,pageable);
-            return sanPhamPage.map(SanPhamDto::toDto);
+            return sanPhamPage.map(item -> SanPhamDto.toDto(item).setAnhChinh(fileRepository.findById(item.getAnhChinh()).get()));
    }
 
     @Override

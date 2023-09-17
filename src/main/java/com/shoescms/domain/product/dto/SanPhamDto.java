@@ -1,5 +1,6 @@
 package com.shoescms.domain.product.dto;
 
+import com.shoescms.common.model.FileEntity;
 import com.shoescms.domain.product.entitis.ThuongHieu;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
@@ -50,7 +51,7 @@ public class SanPhamDto {
     private LocalDateTime ngayCapNhat;
 
     private LocalDateTime ngayXoa;
-    private Long anhChinh;
+    private FileEntity anhChinh;
     private List<Long> anhPhu;
 
     private ELoaiBienThe loaiBienThe;
@@ -73,10 +74,14 @@ public class SanPhamDto {
                 .ngayTao(sanPham.getNgayTao())
                 .ngayCapNhat(sanPham.getNgayCapNhat())
                 .ngayXoa(sanPham.getNgayXoa())
-                .anhChinh(sanPham.getAnhChinh())
                 .anhPhu(ObjectUtils.isEmpty(sanPham.getAnhPhu()) ? null : Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList())
                 .loaiBienThe(sanPham.getLoaiBienThe())
                 .hienThiWeb(sanPham.getHienThiWeb())
                 .build();
+    }
+
+    public SanPhamDto setAnhChinh(FileEntity anhChinh) {
+        this.anhChinh = anhChinh;
+        return this;
     }
 }
