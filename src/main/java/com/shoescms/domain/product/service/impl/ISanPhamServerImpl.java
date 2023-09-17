@@ -158,6 +158,12 @@ public class ISanPhamServerImpl implements ISanPhamService {
         return getById(id).getLoaiBienThe();
     }
 
+    @Override
+    public SanPhamDto findBydId(Long id) {
+        return SanPhamDto
+                .toDto(getById(id));
+    }
+
     public SanPham getById(Long id){
        return this.sanPhamRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(0));
    }

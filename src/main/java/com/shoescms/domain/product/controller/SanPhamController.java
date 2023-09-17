@@ -72,12 +72,10 @@ public class SanPhamController {
     }
 
 
-    // Lay tat ca Danh Sach San Pham
-    @GetMapping("/searchall")
-    public  ResponseDto getAllsanPham(@RequestParam (defaultValue = "0") int offset,
-                                      @RequestParam(defaultValue = "4") int limit){
-        Pageable pageable = PageRequest.of(offset, limit);
-        return ResponseDto.of(iSanPhamService.getAll(pageable));
+    // Lay chi tiet San Pham theo id
+    @GetMapping("{id}")
+    public  SanPhamDto getAllsanPham(@PathVariable Long id){
+        return iSanPhamService.findBydId(id);
     }
 
     @PostMapping("/filter")

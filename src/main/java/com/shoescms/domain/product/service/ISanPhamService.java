@@ -21,4 +21,6 @@ public interface ISanPhamService {
     void thayDoiPhanLoai(Long id, ELoaiBienThe type);
 
     ELoaiBienThe getPhanLoai(Long id);
+
+    SanPhamDto findBydId(Long id);
 }
