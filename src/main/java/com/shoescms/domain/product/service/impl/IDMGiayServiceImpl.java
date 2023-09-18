@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.entitis.DMGiay;
+import com.shoescms.domain.product.entitis.QThuongHieu;
 import com.shoescms.domain.product.models.DanhMucGiayModel;
 import com.shoescms.domain.product.repository.DanhMucRepository;
 import com.shoescms.domain.product.service.IDanhMucGiayService;
@@ -92,6 +93,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
 
     @Override
     public Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, Pageable pageable) {
+
         BooleanBuilder builder = new BooleanBuilder();
         if(!ObjectUtils.isEmpty(tenDanhMuc))
             builder.and(QDMGiay.dMGiay.tenDanhMuc.contains(tenDanhMuc));

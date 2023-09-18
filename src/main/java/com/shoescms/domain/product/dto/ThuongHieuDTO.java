@@ -14,14 +14,16 @@ import java.util.stream.Collectors;
 @Builder
 public class ThuongHieuDTO {
 
-    private  Long id;
+    private Long id;
 
     private String tenThuongHieu;
 
-    private  String slug;
+    private String slug;
 
-    public static  ThuongHieuDTO toDTO(ThuongHieu th){
-        if(th==null) return  null;
+    private Integer soSp;
+
+    public static ThuongHieuDTO toDTO(ThuongHieu th) {
+        if (th == null) return null;
         return ThuongHieuDTO.builder()
                 .id(th.getId())
                 .tenThuongHieu(th.getTenThuongHieu())
@@ -30,12 +32,17 @@ public class ThuongHieuDTO {
     }
     // convert 1 list ve DTo
 
+    public ThuongHieuDTO setSoSp(Integer soSp) {
+        this.soSp = soSp;
+        return this;
+    }
+
     public static List<ThuongHieuDTO> convertToTDO(List<ThuongHieu> thuongHieu) {
-        return thuongHieu.stream().map(s-> ThuongHieuDTO.builder()
+        return thuongHieu.stream().map(s -> ThuongHieuDTO.builder()
                         .id(s.getId())
                         .tenThuongHieu(s.getTenThuongHieu())
                         .slug(s.getSlug())
                         .build())
-                        .collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 }
