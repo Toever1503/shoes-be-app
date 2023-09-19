@@ -15,5 +15,5 @@ public class DanhMucGiayModel {
 
     private String tenDanhMuc;
 
-    private String slug;
+//    private String slug;
 }

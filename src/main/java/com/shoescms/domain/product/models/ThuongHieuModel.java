@@ -15,5 +15,5 @@ public class ThuongHieuModel {
 
     private String tenThuongHieu;
 
-    private  String slug;
+//    private  String slug;
 }

@@ -5,12 +5,11 @@ import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.entitis.DMGiay;
-import com.shoescms.domain.product.entitis.QThuongHieu;
+import com.shoescms.domain.product.entitis.QDMGiay;
+import com.shoescms.domain.product.entitis.QSanPham;
 import com.shoescms.domain.product.models.DanhMucGiayModel;
 import com.shoescms.domain.product.repository.DanhMucRepository;
 import com.shoescms.domain.product.service.IDanhMucGiayService;
-import com.shoescms.domain.product.entitis.QDMGiay;
-import com.shoescms.domain.product.entitis.QSanPham;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -22,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +56,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
         DMGiay dmGiay = danhMucRepository.findById(danhMucGiayModel.getId()).orElse(null);
         if (dmGiay != null) {
             dmGiay.setTenDanhMuc(danhMucGiayModel.getTenDanhMuc());
-            dmGiay.setSlug(danhMucGiayModel.getSlug());
+            dmGiay.setSlug(ASCIIConverter.utf8ToAscii(danhMucGiayModel.getTenDanhMuc()));
             danhMucRepository.saveAndFlush(dmGiay);
 
         }
@@ -67,7 +67,8 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     public boolean deleteById(Long id) {
         try {
             DMGiay entity = this.getById(id);
-            this.danhMucRepository.delete(entity);
+            entity.setNgayXoa(LocalDateTime.now());
+            this.danhMucRepository.saveAndFlush(entity);
             return true;
         } catch (Exception e) {
             return false;
@@ -103,6 +104,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
                         QDMGiay.dMGiay.id,
                         QDMGiay.dMGiay.tenDanhMuc,
                         QDMGiay.dMGiay.slug,
+                        QDMGiay.dMGiay.ngayTao,
                         ExpressionUtils.as(jpaQueryFactory.select(QSanPham.sanPham.id.countDistinct().castToNum(Integer.class)).from(QSanPham.sanPham).where(QSanPham.sanPham.dmGiay.id.eq(QDMGiay.dMGiay.id)), "soSp")
                 )
                 .from(QDMGiay.dMGiay)
@@ -117,7 +119,8 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
                         .id(tuple.get(QDMGiay.dMGiay.id))
                         .tenDanhMuc(tuple.get(QDMGiay.dMGiay.tenDanhMuc))
                         .slug(tuple.get(QDMGiay.dMGiay.slug))
-                        .soSp(tuple.get(3, Integer.class))
+                        .ngayTao(tuple.get(QDMGiay.dMGiay.ngayTao))
+                        .soSp(tuple.get(4, Integer.class))
                         .build())
                 .toList();
 
