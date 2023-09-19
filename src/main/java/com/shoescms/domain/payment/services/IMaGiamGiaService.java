@@ -22,4 +22,6 @@ public interface IMaGiamGiaService {
     MaGiamGiaEntity getById(Long id);
 
     MaGiamGiaEntity findByMaCode(String maCode);
+
+    MaGiamGiaEntity findByActiveInActive();
 }

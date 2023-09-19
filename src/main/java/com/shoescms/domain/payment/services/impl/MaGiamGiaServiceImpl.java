@@ -75,6 +75,17 @@ public class MaGiamGiaServiceImpl implements IMaGiamGiaService {
 
     @Override
     public MaGiamGiaEntity findByMaCode(String maCode) {
-        return this.maGiamGiaRepository.findByMaCode(maCode).orElseThrow(() -> new ObjectNotFoundException("2"));
+        return this.maGiamGiaRepository.findByMaCode(maCode).orElseThrow(() -> new ObjectNotFoundException(55));
+    }
+
+    @Override
+    public MaGiamGiaEntity findByActiveInActive() {
+        // lấy ra những mã giảm giá đang hoạt động
+        Optional<MaGiamGiaEntity> maGiamGiaEntity = this.maGiamGiaRepository.findByActiveInActive();
+        if (maGiamGiaEntity.isPresent()) {
+            return maGiamGiaEntity.get();
+        } else {
+            return null;
+        }
     }
 }
