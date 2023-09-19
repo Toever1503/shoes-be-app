@@ -4,6 +4,7 @@ package com.shoescms.domain.product.dto;
 import com.shoescms.domain.product.entitis.ThuongHieu;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,11 +16,9 @@ import java.util.stream.Collectors;
 public class ThuongHieuDTO {
 
     private Long id;
-
     private String tenThuongHieu;
-
     private String slug;
-
+    private LocalDateTime ngayTao;
     private Integer soSp;
 
     public static ThuongHieuDTO toDTO(ThuongHieu th) {
@@ -28,6 +27,7 @@ public class ThuongHieuDTO {
                 .id(th.getId())
                 .tenThuongHieu(th.getTenThuongHieu())
                 .slug(th.getSlug())
+                .ngayTao(th.getNgayTao())
                 .build();
     }
     // convert 1 list ve DTo
@@ -42,6 +42,7 @@ public class ThuongHieuDTO {
                         .id(s.getId())
                         .tenThuongHieu(s.getTenThuongHieu())
                         .slug(s.getSlug())
+                        .ngayTao(s.getNgayTao())
                         .build())
                 .collect(Collectors.toList());
     }

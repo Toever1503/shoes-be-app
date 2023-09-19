@@ -4,8 +4,8 @@ import com.shoescms.common.utils.ASCIIConverter;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
-import com.shoescms.domain.product.entitis.QDMGiay;
 import com.shoescms.domain.product.entitis.QSanPham;
 import com.shoescms.domain.product.entitis.QThuongHieu;
 import com.shoescms.domain.product.entitis.ThuongHieu;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
         ThuongHieu th = thuogHieuRepository.findById(thuongHieuModel.getId()).orElse(null);
         if (th != null) {
             th.setTenThuongHieu(thuongHieuModel.getTenThuongHieu());
-            th.setSlug(thuongHieuModel.getSlug());
+            th.setSlug(ASCIIConverter.utf8ToAscii(thuongHieuModel.getTenThuongHieu()));
             thuogHieuRepository.save(th);
         }
         return ThuongHieuDTO.toDTO(th);
@@ -63,7 +64,8 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     public boolean deleteById(Long id) {
         try {
             ThuongHieu entity = this.getById(id);
-            this.thuogHieuRepository.delete(entity);
+            entity.setNgayXoa(LocalDateTime.now());
+            this.thuogHieuRepository.saveAndFlush(entity);
             return true;
         } catch (Exception e) {
             return false;
@@ -97,6 +99,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
                         QThuongHieu.thuongHieu.id,
                         QThuongHieu.thuongHieu.tenThuongHieu,
                         QThuongHieu.thuongHieu.slug,
+                        QThuongHieu.thuongHieu.ngayTao,
                         ExpressionUtils.as(jpaQueryFactory.select(QSanPham.sanPham.id.countDistinct().castToNum(Integer.class)).from(QSanPham.sanPham).where(QSanPham.sanPham.thuongHieu.id.eq(QThuongHieu.thuongHieu.id)), "soSp")
                 )
                 .from(QThuongHieu.thuongHieu)
@@ -111,7 +114,8 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
                         .id(tuple.get(QThuongHieu.thuongHieu.id))
                         .tenThuongHieu(tuple.get(QThuongHieu.thuongHieu.tenThuongHieu))
                         .slug(tuple.get(QThuongHieu.thuongHieu.slug))
-                        .soSp(tuple.get(3, Integer.class))
+                        .ngayTao(tuple.get(QThuongHieu.thuongHieu.ngayTao))
+                        .soSp(tuple.get(4, Integer.class))
                         .build())
                 .toList();
 

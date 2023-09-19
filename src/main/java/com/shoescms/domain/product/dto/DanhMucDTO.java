@@ -4,6 +4,7 @@ package com.shoescms.domain.product.dto;
 import com.shoescms.domain.product.entitis.DMGiay;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,11 +16,9 @@ import java.util.stream.Collectors;
 public class DanhMucDTO {
 
     private  Long id;
-
     private String tenDanhMuc;
-
     private  String slug;
-
+    private LocalDateTime ngayTao;
     private Integer soSp;
 
 
@@ -31,6 +30,7 @@ public class DanhMucDTO {
                         .id(dm.getId())
                         .tenDanhMuc(dm.getTenDanhMuc())
                         .slug(dm.getSlug())
+                        .ngayTao(dm.getNgayTao())
                         .build();
     }
 
@@ -44,6 +44,7 @@ public class DanhMucDTO {
                 .id(s.getId())
                 .tenDanhMuc(s.getTenDanhMuc())
                 .slug(s.getSlug())
+                .ngayTao(s.getNgayTao())
                 .build()).collect(Collectors.toList());
     }
 

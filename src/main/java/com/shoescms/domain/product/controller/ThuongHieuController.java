@@ -1,12 +1,12 @@
 package com.shoescms.domain.product.controller;
 
 
-import com.shoescms.domain.product.dto.DanhMucDTO;
-import com.shoescms.domain.product.models.ThuongHieuModel;
-import com.shoescms.domain.product.service.IThuongHieuService;
 import com.shoescms.domain.product.dto.ResponseDto;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
+import com.shoescms.domain.product.models.ThuongHieuModel;
+import com.shoescms.domain.product.service.IThuongHieuService;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,8 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
+@Tag(name = "05. Thuong hieu")
 @RestController
 @RequestMapping("/v1/thuong-hieu")
 public class ThuongHieuController {

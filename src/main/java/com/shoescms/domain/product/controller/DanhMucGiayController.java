@@ -6,6 +6,7 @@ import com.shoescms.domain.product.service.IDanhMucGiayService;
 import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.dto.ResponseDto;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "05. Danh muc")
 @RequestMapping("/v1/danh-muc-giay")
 @RestController
 public class DanhMucGiayController {
