@@ -222,15 +222,29 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     public List<BienTheGiaTriDTO> getListBienTheGiaTriByBienTheId(Long bienTheId) {
         return bienTheGiaTriRepository
                 .findAll(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(BienTheGiaTri_.BIEN_THE), bienTheId)))
-                .stream().map(BienTheGiaTriDTO::toDto).toList();
+                .stream()
+                .map(BienTheGiaTriDTO::toDto)
+                .toList();
     }
 
     @Override
     public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(Long id) {
         return sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(id)
                 .stream()
-                .map(item -> SanPhamBienTheDTO.toDTO(item).setAnh(fileRepository.findById(item.getAnh()).get()))
+                .map(item ->
+                        SanPhamBienTheDTO.toDTO(item)
+                        .setAnh(fileRepository.findById(item.getAnh()).get())
+                                .setGiaTriObj1(bienTheGiaTriRepository.findById( item.getBienTheGiaTri1() == null ? 0 : item.getBienTheGiaTri1()).orElse(null))
+                                .setGiaTriObj2(bienTheGiaTriRepository.findById(item.getBienTheGiaTri2() == null ? 0 : item.getBienTheGiaTri2()).orElse(null))
+                )
                 .toList();
+    }
+
+    @Override
+    public void capNhatSoLuongSanPhamChoBienThe(Long id, int soLuong) {
+        SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));
+        sanPhamBienThe.setSoLuong(soLuong);
+        sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
     }
 
     public  SanPhamBienThe getByiD(Long id){

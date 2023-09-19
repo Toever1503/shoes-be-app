@@ -59,6 +59,11 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamBienTheService.deleteById(id));
     }
 
+    @PatchMapping("/phan-loai/{id}/so-luong")
+    public void capNhatSoLuongSanPhamChoBienThe(@PathVariable Long id, @RequestParam int soLuong) {
+        iSanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(id,soLuong);
+    }
+
 
     @GetMapping("{id}/phan-loai")
     public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(@PathVariable Long id){

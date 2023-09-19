@@ -17,6 +17,7 @@ public class BienTheGiaTriDTO {
     private String giaTri;
 
     public static BienTheGiaTriDTO toDto(BienTheGiaTri bienTheGiaTri) {
+        if(bienTheGiaTri == null) return null;
         return BienTheGiaTriDTO
                 .builder()
                 .id(bienTheGiaTri.getId())

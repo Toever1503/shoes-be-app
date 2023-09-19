@@ -22,4 +22,6 @@ public interface SanPhamBienTheService {
     List<BienTheGiaTriDTO> getListBienTheGiaTriByBienTheId(Long bienTheId);
 
     List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(Long id);
+
+    void capNhatSoLuongSanPhamChoBienThe(Long id, int soLuong);
 }
