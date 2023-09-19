@@ -61,24 +61,66 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             .builder()
                             .id(1L)
                             .bienThe(bienThe.getId())
-                            .giaTri("RED")
+                            .giaTri("Đỏ")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(2L)
                             .bienThe(bienThe.getId())
-                            .giaTri("BLUE")
+                            .giaTri("Xanh")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(3L)
                             .bienThe(bienThe.getId())
-                            .giaTri("YELLOW")
+                            .giaTri("Vàng")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(4L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("Trắng")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(5L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("Xám")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(6L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("Nâu")
                             .build()
             ));
         }
         else{
             bienTheGiaTriRepository.saveAllAndFlush(List.of(
+                    BienTheGiaTri
+                            .builder()
+                            .id(46L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("36")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(47L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("37")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(48L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("38")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(49L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("39")
+                            .build(),
                     BienTheGiaTri
                             .builder()
                             .id(50L)
@@ -96,6 +138,18 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             .id(52L)
                             .bienThe(bienThe.getId())
                             .giaTri("42")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(53L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("43")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(54L)
+                            .bienThe(bienThe.getId())
+                            .giaTri("44")
                             .build()
             ));
         }
