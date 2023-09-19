@@ -49,3 +49,7 @@ validate:
   code4: "Ảnh phụ không tồn tại. Vui lòng chọn lại!"
   code5: "Tối đa chỉ dc 5 ảnh phụ!"
   code55: "Dữ liệu hiện không có!"
+  code6: "Biến Thể Không tồn tại . Vui Lòng chọn Lại!"
+  code7: "Biến Thể Giá Trị Không tồn tại . Vui Lòng chọn Lại!"
+  code8 : "Sản Phẩm Không Tồn Tại . Vui Lòng Chọn Lại"
+

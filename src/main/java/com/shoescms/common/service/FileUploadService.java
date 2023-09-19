@@ -51,6 +51,6 @@ public class FileUploadService {
     public FileEntity uploadFile(String path, MultipartFile file) throws IOException {
         String filePath = generatePath(path, generateUniqueFileName(FilenameUtils.getExtension(file.getOriginalFilename())));
         DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
-        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath.replaceAll("/", "%2F") + "?alt=media", filePath));
+        return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath.replaceAll("/", "%2F") + "?alt=media", file.getOriginalFilename(), filePath));
     }
 }
