@@ -1,5 +1,6 @@
 package com.shoescms.domain.product.service;
 
+import com.shoescms.domain.product.dto.ChiTietSanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamDto;
 import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
@@ -23,4 +24,6 @@ public interface ISanPhamService {
     ELoaiBienThe getPhanLoai(Long id);
 
     SanPhamDto findBydId(Long id);
+
+    ChiTietSanPhamDto chiTietSanPhamResDto(Long id);
 }

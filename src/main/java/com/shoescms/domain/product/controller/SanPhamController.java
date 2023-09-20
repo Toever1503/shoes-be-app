@@ -13,7 +13,6 @@ import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +45,6 @@ public class SanPhamController {
     }
     @PostMapping("/save-step2")
     public SanPhamBienTheDTO save(@RequestBody SanPhamBienTheModel model) {
-//        return iSanPhamBienTheService.saveAllStep2(model);
         return iSanPhamBienTheService.add(model);
     }
 
@@ -79,7 +77,7 @@ public class SanPhamController {
 
     // Lay chi tiet San Pham theo id
     @GetMapping("{id}")
-    public  SanPhamDto getAllsanPham(@PathVariable Long id){
+    public  SanPhamDto chiTietSanPham(@PathVariable Long id){
         return iSanPhamService.findBydId(id);
     }
 
@@ -115,4 +113,9 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamService.deleteById(id));
     }
 
+
+    @GetMapping("public/{id}")
+    public ChiTietSanPhamDto chiTietSanPhamResDto(@PathVariable Long id){
+        return iSanPhamService.chiTietSanPhamResDto(id);
+    }
 }

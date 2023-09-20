@@ -25,10 +25,12 @@ public class SanPhamBienTheDTO {
     private FileEntity anh;
     private Integer soLuong;
 
+    private BienTheDTO bienTheObj1;
+    private BienTheDTO bienTheObj2;
     private BienTheGiaTriDTO giaTriObj1;
     private BienTheGiaTriDTO giaTriObj2;
 
-    public  static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe){
+    public static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe) {
         return
                 SanPhamBienTheDTO.builder()
                         .id(sanPhamBienThe.getId())
@@ -47,11 +49,15 @@ public class SanPhamBienTheDTO {
 
     public SanPhamBienTheDTO setGiaTriObj1(BienTheGiaTri giaTriObj1) {
         this.giaTriObj1 = BienTheGiaTriDTO.toDto(giaTriObj1);
+        if (giaTriObj1 != null)
+            this.bienTheObj1 = BienTheDTO.toDto(giaTriObj1.getBienThe());
         return this;
     }
 
     public SanPhamBienTheDTO setGiaTriObj2(BienTheGiaTri giaTriObj2) {
-        this.giaTriObj2 = BienTheGiaTriDTO.toDto(giaTriObj2);;
+        this.giaTriObj2 = BienTheGiaTriDTO.toDto(giaTriObj2);
+        if (giaTriObj2 != null)
+            this.bienTheObj2 = BienTheDTO.toDto(giaTriObj2.getBienThe());
         return this;
     }
 
