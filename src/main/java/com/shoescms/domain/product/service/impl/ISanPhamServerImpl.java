@@ -7,7 +7,6 @@ import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.*;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.DanhMucRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
@@ -24,16 +23,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
-import static com.shoescms.domain.product.entitis.QSanPham.sanPham;
 import static com.shoescms.domain.product.entitis.QSanPhamBienThe.sanPhamBienThe;
 
 @Service
@@ -183,11 +178,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
     }
 
     @Override
-    public ChiTietSanPhamDto chiTietSanPhamResDto(Long id) {
+    public WebChiTietSanPhamDto chiTietSanPhamResDto(Long id) {
         SanPham sanPham = getById(id);
         if (sanPham.getNgayXoa() != null)
             throw new ObjectNotFoundException(1);
-        ChiTietSanPhamDto dto = ChiTietSanPhamDto.toDto(sanPham);
+        WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPham);
         dto.setAnhChinh(fileRepository.findById(sanPham.getAnhChinh()).get());
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
@@ -203,7 +198,14 @@ public class ISanPhamServerImpl implements ISanPhamService {
         return dto;
     }
 
-    private void setListBienThe1ChoSP(ChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
+    @Override
+    public Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable) {
+        // task: need filter
+        Page<SanPham> pageSp = sanPhamRepository.findAll(pageable);
+        return pageSp.map(sp -> chiTietSanPhamResDto(sp.getId()));
+    }
+
+    private void setListBienThe1ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
         List<SanPhamBienTheDTO> ds = dto.getBienTheDTOS().stream().filter(item -> item.getBienThe1().equals(1L)).toList();
         dto.setGiaTri1List(ds.stream()
                 .map(item -> {
@@ -232,7 +234,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .collect(Collectors.toList()));
     }
 
-    private void setListBienThe2ChoSP(ChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
+    private void setListBienThe2ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
         dto.setGiaTri2List(dto.getBienTheDTOS()
                 .stream()
                 .map(item -> {

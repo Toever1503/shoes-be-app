@@ -1,7 +1,8 @@
 package com.shoescms.domain.product.service;
 
-import com.shoescms.domain.product.dto.ChiTietSanPhamDto;
+import com.shoescms.domain.product.dto.WebChiTietSanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamDto;
+import com.shoescms.domain.product.dto.SanPhamFilterReqDto;
 import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamModel;
@@ -25,5 +26,7 @@ public interface ISanPhamService {
 
     SanPhamDto findBydId(Long id);
 
-    ChiTietSanPhamDto chiTietSanPhamResDto(Long id);
+    WebChiTietSanPhamDto chiTietSanPhamResDto(Long id);
+
+    Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable);
 }

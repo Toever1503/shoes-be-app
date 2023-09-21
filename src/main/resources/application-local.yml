@@ -60,6 +60,8 @@ springdoc:
   swagger-ui:
     tags-sorter: alpha
     operations-sorter: alpha
+    doc-expansion: none
+    default-model-expand-depth: 99
 
 cloud:
   aws:

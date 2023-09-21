@@ -10,16 +10,22 @@ import com.shoescms.domain.product.entitis.SanPham_;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "03.1. San pham giay")
 @RestController
 @RequestMapping("/v1/san-pham")
 public class SanPhamController {
@@ -114,8 +120,16 @@ public class SanPhamController {
     }
 
 
+    // public API for user web
+    @Operation(summary = "lấy chi tiết sp(user web)")
     @GetMapping("public/{id}")
-    public ChiTietSanPhamDto chiTietSanPhamResDto(@PathVariable Long id){
+    public WebChiTietSanPhamDto chiTietSanPhamResDto(@PathVariable Long id){
         return iSanPhamService.chiTietSanPhamResDto(id);
+    }
+
+    @Operation(summary = "Lọc sản phẩm(user web)")
+    @PostMapping("public")
+    public Page<WebChiTietSanPhamDto> locSPChoWeb(@RequestBody SanPhamFilterReqDto reqDto, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable){
+        return iSanPhamService.locSPChoWeb(reqDto, pageable);
     }
 }

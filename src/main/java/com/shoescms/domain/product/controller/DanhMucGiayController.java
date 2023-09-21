@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "05. Danh muc")
+@Tag(name = "03.3. Danh muc")
 @RequestMapping("/v1/danh-muc-giay")
 @RestController
 public class DanhMucGiayController {

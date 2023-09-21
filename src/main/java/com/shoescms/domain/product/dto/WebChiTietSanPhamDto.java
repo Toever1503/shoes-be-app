@@ -1,17 +1,13 @@
 package com.shoescms.domain.product.dto;
 
 import com.shoescms.common.model.FileEntity;
-import com.shoescms.domain.product.entitis.DMGiay;
 import com.shoescms.domain.product.entitis.SanPham;
-import com.shoescms.domain.product.entitis.ThuongHieu;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import lombok.*;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,7 +16,7 @@ import java.util.List;
 @Setter
 @Builder
 @Data
-public class ChiTietSanPhamDto {
+public class WebChiTietSanPhamDto {
     private Long id;
 
     private String maSP;
@@ -55,9 +51,9 @@ public class ChiTietSanPhamDto {
     private List<BienTheGiaTriDTO> giaTri1List;
     private List<BienTheGiaTriDTO> giaTri2List;
 
-    public static ChiTietSanPhamDto toDto(SanPham sanPham) {
+    public static WebChiTietSanPhamDto toDto(SanPham sanPham) {
         if (sanPham == null) return null;
-        return ChiTietSanPhamDto.builder()
+        return WebChiTietSanPhamDto.builder()
                 .id(sanPham.getId())
                 .maSP(sanPham.getMaSP())
                 .tieuDe(sanPham.getTieuDe())
