@@ -52,6 +52,8 @@ public class ChiTietSanPhamDto {
     private Boolean hienThiWeb;
 
     private List<SanPhamBienTheDTO> bienTheDTOS;
+    private List<BienTheGiaTriDTO> giaTri1List;
+    private List<BienTheGiaTriDTO> giaTri2List;
 
     public static ChiTietSanPhamDto toDto(SanPham sanPham) {
         if (sanPham == null) return null;
@@ -72,4 +74,6 @@ public class ChiTietSanPhamDto {
                 .hienThiWeb(sanPham.getHienThiWeb())
                 .build();
     }
+
+
 }

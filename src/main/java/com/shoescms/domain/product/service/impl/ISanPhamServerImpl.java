@@ -6,8 +6,7 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
-import com.shoescms.domain.product.dto.ChiTietSanPhamDto;
-import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
+import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.DanhMucRepository;
@@ -15,7 +14,6 @@ import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
-import com.shoescms.domain.product.dto.SanPhamDto;
 import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
@@ -32,8 +30,11 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
 import static com.shoescms.domain.product.entitis.QSanPham.sanPham;
+import static com.shoescms.domain.product.entitis.QSanPhamBienThe.sanPhamBienThe;
 
 @Service
 public class ISanPhamServerImpl implements ISanPhamService {
@@ -53,6 +54,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Autowired
     private SanPhamBienTheService sanPhamBienTheService;
+
+    @Autowired
+    private JPAQueryFactory jpaQueryFactory;
 
     @Override
     public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification) {
@@ -181,11 +185,80 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Override
     public ChiTietSanPhamDto chiTietSanPhamResDto(Long id) {
         SanPham sanPham = getById(id);
+        if (sanPham.getNgayXoa() != null)
+            throw new ObjectNotFoundException(1);
         ChiTietSanPhamDto dto = ChiTietSanPhamDto.toDto(sanPham);
         dto.setAnhChinh(fileRepository.findById(sanPham.getAnhChinh()).get());
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
+
+        if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.COLOR)) {
+            setListBienThe1ChoSP(dto, id, false);
+        } else if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.SIZE)) {
+            setListBienThe2ChoSP(dto, id, false);
+        } else {
+            setListBienThe1ChoSP(dto, id, true);
+            setListBienThe2ChoSP(dto, id, true);
+        }
         return dto;
+    }
+
+    private void setListBienThe1ChoSP(ChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
+        List<SanPhamBienTheDTO> ds = dto.getBienTheDTOS().stream().filter(item -> item.getBienThe1().equals(1L)).toList();
+        dto.setGiaTri1List(ds.stream()
+                .map(item -> {
+                    BienTheGiaTriDTO giaTriDTO = BienTheGiaTriDTO
+                            .builder()
+                            .id(item.getGiaTriObj1().getId())
+                            .giaTri(item.getGiaTriObj1().getGiaTri())
+                            .build();
+
+                    if (is2BienThe)
+                        jpaQueryFactory.selectDistinct(Projections.constructor(BienTheGiaTriDTO.class,
+                                        bienTheGiaTri.id,
+                                        bienTheGiaTri.giaTri))
+                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(
+                                                sanPhamBienThe.bienTheGiaTri2
+                                        )
+                                        .from(sanPhamBienThe)
+                                        .where(sanPhamBienThe.ngayXoa.isNull(),
+                                                sanPhamBienThe.sanPham.id.eq(spId),
+                                                sanPhamBienThe.bienTheGiaTri1.eq(giaTriDTO.getId())
+                                        )
+                                        .fetch()));
+                    return giaTriDTO;
+                })
+                .distinct()
+                .collect(Collectors.toList()));
+    }
+
+    private void setListBienThe2ChoSP(ChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
+        dto.setGiaTri2List(dto.getBienTheDTOS()
+                .stream()
+                .map(item -> {
+                    BienTheGiaTriDTO giaTriDTO = BienTheGiaTriDTO
+                            .builder()
+                            .id(item.getGiaTriObj2().getId())
+                            .giaTri(item.getGiaTriObj2().getGiaTri())
+                            .build();
+                    if (is2BienThe)
+                        giaTriDTO.setBienThe2(jpaQueryFactory.selectDistinct(
+                                        Projections.constructor(BienTheGiaTriDTO.class,
+                                                bienTheGiaTri.id,
+                                                bienTheGiaTri.giaTri
+                                        )
+                                )
+                                .from(bienTheGiaTri)
+                                .join(sanPhamBienThe)
+                                .on(sanPhamBienThe.bienThe2.eq(bienTheGiaTri.id))
+                                .where(sanPhamBienThe.ngayXoa.isNull(),
+                                        sanPhamBienThe.sanPham.id.eq(spId),
+                                        sanPhamBienThe.bienTheGiaTri2.eq(giaTriDTO.getId()))
+                                .fetch());
+                    return giaTriDTO;
+                })
+                .distinct()
+                .collect(Collectors.toList()));
     }
 
     public SanPham getById(Long id) {
