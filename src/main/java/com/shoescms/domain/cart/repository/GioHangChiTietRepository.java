@@ -2,8 +2,6 @@ package com.shoescms.domain.cart.repository;
 
 import com.shoescms.domain.cart.entity.GioHang;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
-import com.shoescms.domain.shoes.entitis.SanPham;
-import com.shoescms.domain.shoes.entitis.SanPhamBienThe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

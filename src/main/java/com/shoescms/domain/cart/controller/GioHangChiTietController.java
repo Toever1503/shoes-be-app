@@ -3,11 +3,12 @@ package com.shoescms.domain.cart.controller;
 
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.cart.entity.GioHang;
-import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.model.GioHangChiTietModel;
 import com.shoescms.domain.cart.service.GioHangChiTietService;
 import com.shoescms.domain.cart.service.GioHangService;
-import com.shoescms.domain.shoes.dto.ResponseDto;
+import com.shoescms.domain.product.dto.ResponseDto;
+import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.service.SanPhamBienTheService;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,15 +38,21 @@ public class GioHangChiTietController {
             ) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
         GioHang gioHang = gioHangService.findByUserEntity(userId);
-
+        SanPhamBienThe sanPhamBienThe = gioHangChiTietService.getBienTheBySanPhamId(model.getSanPhamBienThe());
         if(gioHang == null){
             gioHang = new GioHang();
             gioHang.setUserEntity(userId);
             gioHangService.add(gioHang);
             model.setGioHang(gioHang.getId());
         }else {
-            model.setGioHang(gioHang.getId());
-            return ResponseDto.of(gioHangChiTietService.add(model));
+            if(sanPhamBienThe.getSoLuong() > 0) {
+                sanPhamBienThe.setSoLuong(sanPhamBienThe.getSoLuong() - 1);
+                model.setGioHang(gioHang.getId());
+                return ResponseDto.of(gioHangChiTietService.add(model));
+            }
+            else if(sanPhamBienThe.getSoLuong() == 0){
+                return ResponseDto.of("Sản phẩm đã hết hàng");
+            }
         }
         return ResponseDto.of(gioHangChiTietService.add(model));
     }

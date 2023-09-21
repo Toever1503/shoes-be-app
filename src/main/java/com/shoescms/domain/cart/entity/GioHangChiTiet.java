@@ -1,8 +1,6 @@
 package com.shoescms.domain.cart.entity;
 
 
-import com.shoescms.domain.shoes.entitis.SanPham;
-import com.shoescms.domain.shoes.entitis.SanPhamBienThe;
 import jakarta.persistence.*;
 import lombok.*;
 

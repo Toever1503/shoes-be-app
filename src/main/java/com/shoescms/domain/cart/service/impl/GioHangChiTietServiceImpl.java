@@ -7,14 +7,21 @@ import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.model.GioHangChiTietModel;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.service.GioHangChiTietService;
+import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class GioHangChiTietServiceImpl implements GioHangChiTietService {
 
     @Autowired
     private GioHangChiTietRepository gioHangChiTietRepository;
+
+    @Autowired
+    private SanPhamBienTheRepository sanPhamBienTheRepository;
 
 
     @Override
@@ -54,5 +61,10 @@ public class GioHangChiTietServiceImpl implements GioHangChiTietService {
         }catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public SanPhamBienThe getBienTheBySanPhamId(Long id) {
+        return this.sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Không tìm thấy sản phẩm biến thể với id: " + id));
     }
 }

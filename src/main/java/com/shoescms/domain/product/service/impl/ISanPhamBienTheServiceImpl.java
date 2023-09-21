@@ -11,6 +11,7 @@ import com.shoescms.domain.product.repository.BienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
+import com.shoescms.domain.shoes.entitis.BienTheGiaTri_;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

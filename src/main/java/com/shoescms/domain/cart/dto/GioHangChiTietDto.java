@@ -3,8 +3,6 @@ package com.shoescms.domain.cart.dto;
 
 import com.shoescms.domain.cart.entity.GioHang;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
-import com.shoescms.domain.shoes.entitis.SanPham;
-import com.shoescms.domain.shoes.entitis.SanPhamBienThe;
 import lombok.*;
 
 @Getter
