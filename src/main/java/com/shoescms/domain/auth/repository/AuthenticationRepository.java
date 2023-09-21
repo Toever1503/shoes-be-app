@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface AuthenticationRepository extends JpaRepository<AuthenticationEntity, String> {
     Optional<AuthenticationEntity> findById(String s);
     Optional<AuthenticationEntity> findByRefreshToken(String token);
-    Optional<AuthenticationEntity> findFirstByUserIdAndHasRevokedOrderByCreateDateDesc(Long id, Boolean logout);
+    Optional<AuthenticationEntity> findFirstByUserIdAndHasRevokedOrderByNgayTaoDesc(Long id, Boolean logout);
     Optional<AuthenticationEntity> findByUserId(Long userId);
 }
