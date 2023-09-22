@@ -2,11 +2,13 @@ package com.shoescms.domain.payment.entities;
 
 import com.shoescms.domain.payment.dtos.EPhuongThucTT;
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -36,10 +38,10 @@ public class DonHangEntity {
     private EPhuongThucTT phuongThucTT;
 
     @Column(name = "tong_gia_tien", nullable = false)
-    private Double tongGiaTien;
+    private BigDecimal tongGiaTien;
 
     @Column(name = "tong_gia_cuoi_cung", nullable = false)
-    private Double tongGiaCuoiCung;
+    private BigDecimal tongGiaCuoiCung;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dia_chi_id")
@@ -68,7 +70,7 @@ public class DonHangEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayXoa;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Where(clause = "ngayXoa is null")
     private List<ChiTietDonHangEntity> chiTietDonHangs;
 }

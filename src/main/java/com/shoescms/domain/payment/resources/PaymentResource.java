@@ -35,7 +35,7 @@ public class PaymentResource {
                                         @RequestHeader("x-api-token") String xApiToken,
                                         UriComponentsBuilder ucb, HttpSession session) throws UnsupportedEncodingException {
         Long nguoiDungId = Long.parseLong(jwtTokenProvider.getUserPk(xApiToken));
-        paymentService.datHang(reqDto, nguoiDungId);
+        paymentService.datHang(reqDto);
 
         //luu don hang vao session
         session.setAttribute("donHang",reqDto);
@@ -141,5 +141,13 @@ public class PaymentResource {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(paymentService.getDonHang(id));
+    }
+
+    @PostMapping("dat-hang")
+    public void datHang(@RequestBody DatHangReqDto reqDto, @RequestHeader(name = "x-api-token", required = false) String xApiToken){
+        if(xApiToken != null) // luu thong tin nguoi dat hang neu ho dang nhap
+            reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
+
+        paymentService.datHang(reqDto);
     }
 }
