@@ -4,7 +4,7 @@ package com.shoescms.domain.payment.resources;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.model.MaGiamGiaModel;
 import com.shoescms.domain.payment.services.IMaGiamGiaService;
-import com.shoescms.domain.shoes.dto.ResponseDto;
+import com.shoescms.domain.product.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
