@@ -2,6 +2,7 @@ package com.shoescms.domain.payment.resources;
 
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.dtos.DatHangReqDto;
+import com.shoescms.domain.payment.dtos.DonHangDto;
 import com.shoescms.domain.payment.services.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -144,10 +145,10 @@ public class PaymentResource {
     }
 
     @PostMapping("dat-hang")
-    public void datHang(@RequestBody DatHangReqDto reqDto, @RequestHeader(name = "x-api-token", required = false) String xApiToken){
+    public DonHangDto datHang(@RequestBody DatHangReqDto reqDto, @RequestHeader(name = "x-api-token", required = false) String xApiToken){
         if(xApiToken != null) // luu thong tin nguoi dat hang neu ho dang nhap
             reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
 
-        paymentService.datHang(reqDto);
+       return paymentService.datHang(reqDto);
     }
 }

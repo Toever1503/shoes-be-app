@@ -43,14 +43,10 @@ public class DonHangEntity {
     @Column(name = "tong_gia_cuoi_cung", nullable = false)
     private BigDecimal tongGiaCuoiCung;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dia_chi_id")
-    private DiaChiEntity diaChi;
-
-    @Column(name = "nguoi_mua_id", nullable = false)
+    @Column(name = "nguoi_mua_id")
     private Long nguoiMuaId;
 
-    @Column(name = "nguoi_cap_nhat", nullable = false)
+    @Column(name = "nguoi_cap_nhat")
     private Long nguoiCapNhat;
 
     @Column(name = "trang_thai", nullable = false)
@@ -73,4 +69,9 @@ public class DonHangEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Where(clause = "ngayXoa is null")
     private List<ChiTietDonHangEntity> chiTietDonHangs;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "dia_chi_id", nullable = false)
+    private DiaChiEntity diaChiEntity;
+
 }
