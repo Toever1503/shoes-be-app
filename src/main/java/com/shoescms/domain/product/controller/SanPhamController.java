@@ -9,7 +9,7 @@ import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
-import com.shoescms.domain.shoes.entitis.SanPham_;
+import com.shoescms.domain.product.entitis.SanPham_;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
