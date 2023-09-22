@@ -19,8 +19,9 @@ public class BienTheGiaTri {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @Column(name = "bien_the_id", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the gia tri'")
-    private Long bienThe;
+    @ManyToOne
+    @JoinColumn(name = "bien_the_id", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the gia tri'")
+    private BienThe bienThe;
 
     @Column(name = "gia_tri")
     private String giaTri;

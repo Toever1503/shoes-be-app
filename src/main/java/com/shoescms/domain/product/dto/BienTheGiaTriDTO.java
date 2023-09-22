@@ -5,6 +5,8 @@ import com.shoescms.domain.product.entitis.BienThe;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import lombok.*;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -16,7 +18,15 @@ public class BienTheGiaTriDTO {
 
     private String giaTri;
 
+    private List<BienTheGiaTriDTO> bienThe2;
+
+    public BienTheGiaTriDTO(Long id, String giaTri) {
+        this.id = id;
+        this.giaTri = giaTri;
+    }
+
     public static BienTheGiaTriDTO toDto(BienTheGiaTri bienTheGiaTri) {
+        if(bienTheGiaTri == null) return null;
         return BienTheGiaTriDTO
                 .builder()
                 .id(bienTheGiaTri.getId())

@@ -9,6 +9,7 @@ import com.shoescms.domain.product.models.SanPhamBienTheModel;
 import com.shoescms.domain.product.entitis.*;
 import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "03.2. Phan loai SP giay")
 @RestController
 @RequestMapping("/v1/san-pham-bien-the")
 

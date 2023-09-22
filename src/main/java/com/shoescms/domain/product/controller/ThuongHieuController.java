@@ -15,7 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "05. Thuong hieu")
+@Tag(name = "03.4. Thuong hieu")
 @RestController
 @RequestMapping("/v1/thuong-hieu")
 public class ThuongHieuController {

@@ -10,17 +10,22 @@ import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import com.shoescms.domain.shoes.entitis.SanPham_;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag(name = "03.1. San pham giay")
 @RestController
 @RequestMapping("/v1/san-pham")
 public class SanPhamController {
@@ -46,7 +51,6 @@ public class SanPhamController {
     }
     @PostMapping("/save-step2")
     public SanPhamBienTheDTO save(@RequestBody SanPhamBienTheModel model) {
-//        return iSanPhamBienTheService.saveAllStep2(model);
         return iSanPhamBienTheService.add(model);
     }
 
@@ -57,6 +61,11 @@ public class SanPhamController {
     @DeleteMapping("/phan-loai/{id}")
     public ResponseDto delete(@PathVariable Long id) {
         return ResponseDto.of(iSanPhamBienTheService.deleteById(id));
+    }
+
+    @PatchMapping("/phan-loai/{id}/so-luong")
+    public void capNhatSoLuongSanPhamChoBienThe(@PathVariable Long id, @RequestParam int soLuong) {
+        iSanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(id,soLuong);
     }
 
 
@@ -74,7 +83,7 @@ public class SanPhamController {
 
     // Lay chi tiet San Pham theo id
     @GetMapping("{id}")
-    public  SanPhamDto getAllsanPham(@PathVariable Long id){
+    public  SanPhamDto chiTietSanPham(@PathVariable Long id){
         return iSanPhamService.findBydId(id);
     }
 
@@ -82,6 +91,17 @@ public class SanPhamController {
     public Page<SanPhamDto> search(@RequestBody SanPhamFilterReqDto model, Pageable pageable){
         List<Specification<SanPham>> listSpect = new ArrayList<>();
 
+        if(model.getTieuDe()!=null){
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe()+"%"));
+        }
+        if(model.getMaSp()!=null){
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp()+"%"));
+        }
+        if(model.getQ() != null)
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.or(
+                    criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe().trim()+"%"),
+                    criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp().trim()+"%")
+            ));
         if(model.getThuongHieu()!=null){
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.THUONG_HIEU),model.getThuongHieu()));
         }
@@ -110,4 +130,17 @@ public class SanPhamController {
         return ResponseDto.of(iSanPhamService.deleteById(id));
     }
 
+
+    // public API for user web
+    @Operation(summary = "lấy chi tiết sp(user web)")
+    @GetMapping("public/{id}")
+    public WebChiTietSanPhamDto chiTietSanPhamResDto(@PathVariable Long id){
+        return iSanPhamService.chiTietSanPhamResDto(id);
+    }
+
+    @Operation(summary = "Lọc sản phẩm(user web)")
+    @PostMapping("public")
+    public Page<WebChiTietSanPhamDto> locSPChoWeb(@RequestBody SanPhamFilterReqDto reqDto, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable){
+        return iSanPhamService.locSPChoWeb(reqDto, pageable);
+    }
 }

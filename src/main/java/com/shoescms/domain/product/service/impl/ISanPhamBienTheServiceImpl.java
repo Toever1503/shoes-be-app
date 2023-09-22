@@ -1,6 +1,7 @@
 package com.shoescms.domain.product.service.impl;
 
 import com.shoescms.common.exception.ObjectNotFoundException;
+import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.domain.product.dto.BienTheGiaTriDTO;
 import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
@@ -42,8 +43,8 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     private void initBienThe() {
         BienThe bienTheMau = bienTheRepository.saveAndFlush(BienThe
                 .builder()
-                        .id(1L)
-                        .tenBienThe("COLOR")
+                .id(1L)
+                .tenBienThe("COLOR")
                 .build());
         BienThe bienTheSize = bienTheRepository.saveAndFlush(BienThe
                 .builder()
@@ -55,101 +56,99 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     }
 
     private void initGiaTriBienThe(BienThe bienThe) {
-        if(bienThe.getTenBienThe().equals("COLOR"))
-        {
+        if (bienThe.getTenBienThe().equals("COLOR")) {
             bienTheGiaTriRepository.saveAllAndFlush(List.of(
                     BienTheGiaTri
                             .builder()
                             .id(1L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Đỏ")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(2L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Xanh")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(3L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Vàng")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(4L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Trắng")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(5L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Xám")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(6L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("Nâu")
                             .build()
             ));
-        }
-        else{
+        } else {
             bienTheGiaTriRepository.saveAllAndFlush(List.of(
                     BienTheGiaTri
                             .builder()
                             .id(46L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("36")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(47L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("37")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(48L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("38")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(49L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("39")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(50L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("40")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(51L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("41")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(52L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("42")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(53L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("43")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(54L)
-                            .bienThe(bienThe.getId())
+                            .bienThe(bienThe)
                             .giaTri("44")
                             .build()
             ));
@@ -158,7 +157,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
 
     @Override
     public Page<SanPhamBienTheDTO> filterEntities(Pageable pageable, Specification<SanPhamBienThe> specification) {
-        Page<SanPhamBienThe> sanPhamBienThes = sanPhamBienTheRepository.findAll(specification,pageable);
+        Page<SanPhamBienThe> sanPhamBienThes = sanPhamBienTheRepository.findAll(specification, pageable);
         return sanPhamBienThes.map(SanPhamBienTheDTO::toDTO);
 
     }
@@ -168,8 +167,14 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     synchronized public SanPhamBienTheDTO add(SanPhamBienTheModel model) {
         checkValue(model);
         SanPham sanPham = sanPhamRepository.findById(model.getSanPham()).orElse(null);
-        if(sanPham == null)
+        if (sanPham == null)
             throw new ObjectNotFoundException(8);
+
+        FileEntity file = fileRepository.findById(model.getAnh()).orElse(null);
+        if (file != null) {
+            file.setIsVerified(true);
+            fileRepository.saveAndFlush(file);
+        }
 
         SanPhamBienThe sanPhamBienThe = SanPhamBienThe.builder()
                 .id(model.getId())
@@ -180,23 +185,23 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .bienTheGiaTri2(model.getBienTheGiaTri2())
                 .anh(model.getAnh())
                 .build();
-                this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+        this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
         return SanPhamBienTheDTO
                 .toDTO(sanPhamBienThe)
                 .setAnh(fileRepository.findById(sanPhamBienThe.getAnh()).get());
     }
 
-    public void checkValue(SanPhamBienTheModel model){
-        if(model.getBienThe1() !=null && bienTheRepository.findById(model.getBienThe1()).isEmpty()) {
+    public void checkValue(SanPhamBienTheModel model) {
+        if (model.getBienThe1() != null && bienTheRepository.findById(model.getBienThe1()).isEmpty()) {
             throw new ObjectNotFoundException(6);
         }
-        if(model.getBienThe2() !=null && bienTheRepository.findById(model.getBienThe2()).isEmpty()) {
+        if (model.getBienThe2() != null && bienTheRepository.findById(model.getBienThe2()).isEmpty()) {
             throw new ObjectNotFoundException(6);
         }
-        if(model.getBienTheGiaTri1() !=null && bienTheGiaTriRepository.findById(model.getBienTheGiaTri1()).isEmpty()) {
+        if (model.getBienTheGiaTri1() != null && bienTheGiaTriRepository.findById(model.getBienTheGiaTri1()).isEmpty()) {
             throw new ObjectNotFoundException(7);
         }
-        if(model.getBienTheGiaTri2() !=null && bienTheGiaTriRepository.findById(model.getBienTheGiaTri2()).isEmpty()) {
+        if (model.getBienTheGiaTri2() != null && bienTheGiaTriRepository.findById(model.getBienTheGiaTri2()).isEmpty()) {
             throw new ObjectNotFoundException(7);
         }
     }
@@ -208,7 +213,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
             sanPhamBienThe.delete();
             this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -223,18 +228,32 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     public List<BienTheGiaTriDTO> getListBienTheGiaTriByBienTheId(Long bienTheId) {
         return bienTheGiaTriRepository
                 .findAll(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(BienTheGiaTri_.BIEN_THE), bienTheId)))
-                .stream().map(BienTheGiaTriDTO::toDto).toList();
+                .stream()
+                .map(BienTheGiaTriDTO::toDto)
+                .toList();
     }
 
     @Override
     public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(Long id) {
         return sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(id)
                 .stream()
-                .map(item -> SanPhamBienTheDTO.toDTO(item).setAnh(fileRepository.findById(item.getAnh()).get()))
+                .map(item ->
+                        SanPhamBienTheDTO.toDTO(item)
+                                .setAnh(fileRepository.findById(item.getAnh()).get())
+                                .setGiaTriObj1(bienTheGiaTriRepository.findById(item.getBienTheGiaTri1() == null ? 0 : item.getBienTheGiaTri1()).orElse(null))
+                                .setGiaTriObj2(bienTheGiaTriRepository.findById(item.getBienTheGiaTri2() == null ? 0 : item.getBienTheGiaTri2()).orElse(null))
+                )
                 .toList();
     }
 
-    public  SanPhamBienThe getByiD(Long id){
+    @Override
+    public void capNhatSoLuongSanPhamChoBienThe(Long id, int soLuong) {
+        SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));
+        sanPhamBienThe.setSoLuong(soLuong);
+        sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+    }
+
+    public SanPhamBienThe getByiD(Long id) {
         return sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(0));
     }
 }
