@@ -89,35 +89,35 @@ public class SanPhamController {
 
     @PostMapping("/filter")
     public Page<SanPhamDto> search(@RequestBody SanPhamFilterReqDto model, Pageable pageable){
-        List<Specification<SanPham>> listSpect = new ArrayList<>();
-
-        if(model.getTieuDe()!=null){
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe()+"%"));
-        }
-        if(model.getMaSp()!=null){
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp()+"%"));
-        }
-        if(model.getQ() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.or(
-                    criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe().trim()+"%"),
-                    criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp().trim()+"%")
-            ));
-        if(model.getThuongHieu()!=null){
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.THUONG_HIEU),model.getThuongHieu()));
-        }
-        if(model.getDmGiay()!= null){
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.DM_GIAY),model.getDmGiay()));
-        }
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPham_.NGAY_XOA)));
-        Specification<SanPham> finalSpec = null;
-        for (Specification spec : listSpect) {
-            if (finalSpec == null) {
-                finalSpec = Specification.where(spec);
-            } else {
-                finalSpec = finalSpec.and(spec);
-            }
-        }
-        return iSanPhamService.filterEntities(pageable,finalSpec);
+//        List<Specification<SanPham>> listSpect = new ArrayList<>();
+//
+//        if(model.getTieuDe()!=null){
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe()+"%"));
+//        }
+//        if(model.getMaSp()!=null){
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp()+"%"));
+//        }
+//        if(model.getQ() != null)
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.or(
+//                    criteriaBuilder.like(root.get(SanPham_.TIEU_DE),"%"+model.getTieuDe().trim()+"%"),
+//                    criteriaBuilder.like(root.get(SanPham_.MA_SP), "%"+model.getMaSp().trim()+"%")
+//            ));
+//        if(model.getThuongHieu()!=null){
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.THUONG_HIEU),model.getThuongHieu()));
+//        }
+//        if(model.getDmGiay()!= null){
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.DM_GIAY),model.getDmGiay()));
+//        }
+//            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPham_.NGAY_XOA)));
+//        Specification<SanPham> finalSpec = null;
+//        for (Specification spec : listSpect) {
+//            if (finalSpec == null) {
+//                finalSpec = Specification.where(spec);
+//            } else {
+//                finalSpec = finalSpec.and(spec);
+//            }
+//        }
+        return iSanPhamService.filterEntities(pageable,null);
     }
 
 
