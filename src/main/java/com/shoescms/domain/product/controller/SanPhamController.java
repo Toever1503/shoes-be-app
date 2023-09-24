@@ -68,7 +68,6 @@ public class SanPhamController {
         iSanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(id,soLuong);
     }
 
-
     @GetMapping("{id}/phan-loai")
     public List<SanPhamBienTheDTO> findAllPhanLoaiTheoSanPham(@PathVariable Long id){
         return iSanPhamBienTheService.findAllPhanLoaiTheoSanPham(id);

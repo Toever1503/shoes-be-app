@@ -51,6 +51,8 @@ public class WebChiTietSanPhamDto {
     private List<BienTheGiaTriDTO> giaTri1List;
     private List<BienTheGiaTriDTO> giaTri2List;
 
+    private Float soSaoDanhGia;
+
     public static WebChiTietSanPhamDto toDto(SanPham sanPham) {
         if (sanPham == null) return null;
         return WebChiTietSanPhamDto.builder()

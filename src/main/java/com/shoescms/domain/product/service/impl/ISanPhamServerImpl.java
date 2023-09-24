@@ -182,16 +182,17 @@ public class ISanPhamServerImpl implements ISanPhamService {
         SanPham sanPham = getById(id);
         if (sanPham.getNgayXoa() != null)
             throw new ObjectNotFoundException(1);
+
         WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPham);
         dto.setAnhChinh(fileRepository.findById(sanPham.getAnhChinh()).get());
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 
-        if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.COLOR)) {
+        if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
             setListBienThe1ChoSP(dto, id, false);
-        } else if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.SIZE)) {
+         else if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
             setListBienThe2ChoSP(dto, id, false);
-        } else {
+        else {
             setListBienThe1ChoSP(dto, id, true);
             setListBienThe2ChoSP(dto, id, true);
         }
@@ -206,8 +207,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
     }
 
     private void setListBienThe1ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
-        List<SanPhamBienTheDTO> ds = dto.getBienTheDTOS().stream().filter(item -> item.getBienThe1().equals(1L)).toList();
-        dto.setGiaTri1List(ds.stream()
+        dto.setGiaTri1List(dto.getBienTheDTOS()
+                .stream()
+                .filter(item -> item.getBienThe1().equals(1L))
                 .map(item -> {
                     BienTheGiaTriDTO giaTriDTO = BienTheGiaTriDTO
                             .builder()
@@ -216,18 +218,22 @@ public class ISanPhamServerImpl implements ISanPhamService {
                             .build();
 
                     if (is2BienThe)
-                        jpaQueryFactory.selectDistinct(Projections.constructor(BienTheGiaTriDTO.class,
+                    {
+                      List<BienTheGiaTriDTO> ls =   jpaQueryFactory
+                              .selectDistinct(Projections.constructor(BienTheGiaTriDTO.class,
                                         bienTheGiaTri.id,
                                         bienTheGiaTri.giaTri))
-                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(
-                                                sanPhamBienThe.bienTheGiaTri2
-                                        )
+                              .from(bienTheGiaTri)
+                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienThe.bienTheGiaTri2)
                                         .from(sanPhamBienThe)
                                         .where(sanPhamBienThe.ngayXoa.isNull(),
                                                 sanPhamBienThe.sanPham.id.eq(spId),
                                                 sanPhamBienThe.bienTheGiaTri1.eq(giaTriDTO.getId())
                                         )
-                                        .fetch()));
+                                        .fetch()))
+                              .fetch();
+                      giaTriDTO.setBienThe2(ls);
+                    }
                     return giaTriDTO;
                 })
                 .distinct()
@@ -237,13 +243,14 @@ public class ISanPhamServerImpl implements ISanPhamService {
     private void setListBienThe2ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
         dto.setGiaTri2List(dto.getBienTheDTOS()
                 .stream()
+                .filter(item -> item.getBienThe2().equals(2L))
                 .map(item -> {
                     BienTheGiaTriDTO giaTriDTO = BienTheGiaTriDTO
                             .builder()
                             .id(item.getGiaTriObj2().getId())
                             .giaTri(item.getGiaTriObj2().getGiaTri())
                             .build();
-                    if (is2BienThe)
+                    if (is2BienThe) {
                         giaTriDTO.setBienThe2(jpaQueryFactory.selectDistinct(
                                         Projections.constructor(BienTheGiaTriDTO.class,
                                                 bienTheGiaTri.id,
@@ -251,12 +258,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                         )
                                 )
                                 .from(bienTheGiaTri)
-                                .join(sanPhamBienThe)
-                                .on(sanPhamBienThe.bienThe2.eq(bienTheGiaTri.id))
-                                .where(sanPhamBienThe.ngayXoa.isNull(),
-                                        sanPhamBienThe.sanPham.id.eq(spId),
-                                        sanPhamBienThe.bienTheGiaTri2.eq(giaTriDTO.getId()))
+                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienThe.bienTheGiaTri1)
+                                        .from(sanPhamBienThe)
+                                        .where(sanPhamBienThe.ngayXoa.isNull(),
+                                                sanPhamBienThe.sanPham.id.eq(spId),
+                                                sanPhamBienThe.bienTheGiaTri2.eq(giaTriDTO.getId())
+                                        )
+                                        .fetch()))
                                 .fetch());
+                    }
                     return giaTriDTO;
                 })
                 .distinct()

@@ -16,8 +16,6 @@ public class GioHangChiTietModel {
 
     private Long gioHang;
 
-    private Long sanPham;
-
     private Long sanPhamBienThe;
 
     private Integer soLuong;

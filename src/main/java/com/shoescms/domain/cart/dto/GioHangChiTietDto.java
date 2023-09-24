@@ -3,7 +3,11 @@ package com.shoescms.domain.cart.dto;
 
 import com.shoescms.domain.cart.entity.GioHang;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
+import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
+import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Data
@@ -13,22 +17,23 @@ import lombok.*;
 public class GioHangChiTietDto {
     private Long id;
 
-    private Long gioHang;
-
-    private Long sanPham;
-
-    private Long sanPhamBienThe;
+    private SanPhamBienTheDTO sanPhamBienThe;
 
     private Integer soLuong;
 
-    public static GioHangChiTietDto toDto(GioHangChiTiet gioHangChiTietDto){
-        if(gioHangChiTietDto == null) return null;
+    private LocalDateTime ngayCapNhat;
+
+    public static GioHangChiTietDto toDto(GioHangChiTiet gioHangChiTiet){
+        if(gioHangChiTiet == null) return null;
         return GioHangChiTietDto.builder()
-                .id(gioHangChiTietDto.getId())
-                .gioHang(gioHangChiTietDto.getGioHang())
-                .sanPham(gioHangChiTietDto.getSanPham())
-                .sanPhamBienThe(gioHangChiTietDto.getSanPhamBienThe())
-                .soLuong(gioHangChiTietDto.getSoLuong())
+                .id(gioHangChiTiet.getId())
+                .soLuong(gioHangChiTiet.getSoLuong())
+                .ngayCapNhat(gioHangChiTiet.getNgayCapNhat())
                 .build();
+    }
+
+    public GioHangChiTietDto setSanPhamBienThe(SanPhamBienThe sanPhamBienThe) {
+        this.sanPhamBienThe = SanPhamBienTheDTO.toDTO(sanPhamBienThe);
+        return this;
     }
 }

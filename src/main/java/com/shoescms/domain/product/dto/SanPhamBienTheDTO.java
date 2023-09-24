@@ -5,6 +5,8 @@ import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +31,8 @@ public class SanPhamBienTheDTO {
     private BienTheDTO bienTheObj2;
     private BienTheGiaTriDTO giaTriObj1;
     private BienTheGiaTriDTO giaTriObj2;
+    private SanPhamMetadataResDto sanPhamMetadata;
+    private LocalDateTime ngayXoa;
 
     public static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe) {
         return
@@ -39,6 +43,8 @@ public class SanPhamBienTheDTO {
                         .giatri1(sanPhamBienThe.getBienTheGiaTri1())
                         .giatri2(sanPhamBienThe.getBienTheGiaTri2())
                         .soLuong(sanPhamBienThe.getSoLuong())
+                        .sanPhamMetadata(new SanPhamMetadataResDto(sanPhamBienThe.getSanPham()))
+                        .ngayXoa(sanPhamBienThe.getNgayXoa())
                         .build();
     }
 
