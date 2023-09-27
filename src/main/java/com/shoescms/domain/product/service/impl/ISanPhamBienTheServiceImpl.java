@@ -188,7 +188,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
         return SanPhamBienTheDTO
                 .toDTO(sanPhamBienThe)
-                .setAnh(fileRepository.findById(sanPhamBienThe.getAnh()).get());
+                .setAnh(fileRepository.findById(sanPhamBienThe.getAnh()).orElse(null), null);
     }
 
     public void checkValue(SanPhamBienTheModel model) {
@@ -239,7 +239,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .stream()
                 .map(item ->
                         SanPhamBienTheDTO.toDTO(item)
-                                .setAnh(fileRepository.findById(item.getAnh()).get())
+                                .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).get())
                                 .setGiaTriObj1(bienTheGiaTriRepository.findById(item.getBienTheGiaTri1() == null ? 0 : item.getBienTheGiaTri1()).orElse(null))
                                 .setGiaTriObj2(bienTheGiaTriRepository.findById(item.getBienTheGiaTri2() == null ? 0 : item.getBienTheGiaTri2()).orElse(null))
                 )

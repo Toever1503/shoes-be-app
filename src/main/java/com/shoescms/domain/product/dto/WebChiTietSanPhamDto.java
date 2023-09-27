@@ -52,6 +52,7 @@ public class WebChiTietSanPhamDto {
     private List<BienTheGiaTriDTO> giaTri2List;
 
     private Float soSaoDanhGia;
+    private Integer soLuongKho;
 
     public static WebChiTietSanPhamDto toDto(SanPham sanPham) {
         if (sanPham == null) return null;

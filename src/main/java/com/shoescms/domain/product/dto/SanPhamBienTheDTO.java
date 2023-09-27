@@ -33,6 +33,7 @@ public class SanPhamBienTheDTO {
     private BienTheGiaTriDTO giaTriObj2;
     private SanPhamMetadataResDto sanPhamMetadata;
     private LocalDateTime ngayXoa;
+    private FileEntity anhSpChinh;
 
     public static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe) {
         return
@@ -48,8 +49,9 @@ public class SanPhamBienTheDTO {
                         .build();
     }
 
-    public SanPhamBienTheDTO setAnh(FileEntity anh) {
+    public SanPhamBienTheDTO setAnh(FileEntity anh, FileEntity anhSpChinh) {
         this.anh = anh;
+        this.anhSpChinh = anhSpChinh;
         return this;
     }
 

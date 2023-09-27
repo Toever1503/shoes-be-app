@@ -196,6 +196,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
             setListBienThe1ChoSP(dto, id, true);
             setListBienThe2ChoSP(dto, id, true);
         }
+
+        dto.setSoLuongKho(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
         return dto;
     }
 
