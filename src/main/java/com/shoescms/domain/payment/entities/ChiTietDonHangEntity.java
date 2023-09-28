@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -38,12 +39,12 @@ public class ChiTietDonHangEntity {
     private Integer soLuong;
 
     @Column(name = "gia_tien", nullable = false)
-    private Double giaTien;
+    private BigDecimal giaTien;
 
     @Column(name = "ngay_xoa")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayXoa;
 
-    @Column(name = "nguoi_cap_nhat", nullable = false)
+    @Column(name = "nguoi_cap_nhat")
     private Long nguoiCapNhat;
 }

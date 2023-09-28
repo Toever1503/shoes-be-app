@@ -22,7 +22,7 @@ spring:
       - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
       - org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticsearchRestHealthContributorAutoConfiguration
   datasource:
-    url: jdbc:mysql://localhost:3306/shoescms
+    url: jdbc:mysql://192.168.1.240:3306/shoescms
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: shoescms
     password: 1234

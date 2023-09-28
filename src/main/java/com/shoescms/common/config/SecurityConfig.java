@@ -89,6 +89,7 @@ public class SecurityConfig {
             "/api/cart/**",
             "/cart/**",
             "/v1/coupon/**",
+            "/v1/payment/dat-hang",
             "/v1/san-pham/public/**"
     };
 
