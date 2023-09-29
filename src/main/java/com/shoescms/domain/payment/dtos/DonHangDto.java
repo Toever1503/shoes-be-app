@@ -21,9 +21,10 @@ public class DonHangDto {
     private Integer tongSp;
     private EPhuongThucTT phuongThucTT;
     private BigDecimal tongGiaTien;
+    private BigDecimal tongTienSp;
     private BigDecimal tongGiaCuoiCung;
     private Long nguoiMuaId;
-    private String trangThai;
+    private ETrangThaiDonHang trangThai;
     private Date ngayTao;
     private DiaChiDto diaChi;
     private List<ChiTietDonHangDto> chiTietDonHang;
@@ -36,12 +37,13 @@ public class DonHangDto {
                 .tongSp(donHangEntity.getTongSp())
                 .phuongThucTT(donHangEntity.getPhuongThucTT())
                 .tongGiaTien(donHangEntity.getTongGiaTien())
+                .tongTienSp(donHangEntity.getTongTienSP())
                 .tongGiaCuoiCung(donHangEntity.getTongGiaCuoiCung())
                 .nguoiMuaId(donHangEntity.getNguoiMuaId())
                 .trangThai(donHangEntity.getTrangThai())
                 .ngayTao(donHangEntity.getNgayTao())
                 .diaChi(DiaChiDto.toDto(donHangEntity.getDiaChiEntity()))
-                .chiTietDonHang(donHangEntity.getChiTietDonHangs().stream().map(entity -> ChiTietDonHangDto.toDto(entity)).collect(Collectors.toList()))
+                .chiTietDonHang(donHangEntity.getChiTietDonHangs().stream().map(ChiTietDonHangDto::toDto).collect(Collectors.toList()))
                 .build();
     }
 }

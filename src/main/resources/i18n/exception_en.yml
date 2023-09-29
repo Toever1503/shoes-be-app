@@ -53,4 +53,5 @@ validate:
   code7: "Biến Thể Giá Trị Không tồn tại . Vui Lòng chọn Lại!"
   code8 : "Sản Phẩm Không Tồn Tại . Vui Lòng Chọn Lại"
   code50: "Sản phẩm đã hết hàng"
+  code51: "Đơn hàng không tồn tại!"
 

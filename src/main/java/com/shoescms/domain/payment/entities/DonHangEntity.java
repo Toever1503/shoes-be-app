@@ -1,6 +1,7 @@
 package com.shoescms.domain.payment.entities;
 
 import com.shoescms.domain.payment.dtos.EPhuongThucTT;
+import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
@@ -37,6 +38,10 @@ public class DonHangEntity {
     @Enumerated(EnumType.STRING)
     private EPhuongThucTT phuongThucTT;
 
+    @Column(name = "tong_tien_sp", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal tongTienSP;
+
     @Column(name = "tong_gia_tien", nullable = false)
     private BigDecimal tongGiaTien;
 
@@ -49,8 +54,9 @@ public class DonHangEntity {
     @Column(name = "nguoi_cap_nhat")
     private Long nguoiCapNhat;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "trang_thai", nullable = false)
-    private String trangThai;
+    private ETrangThaiDonHang trangThai;
 
     @Column(name = "ngay_tao", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

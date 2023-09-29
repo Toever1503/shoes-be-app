@@ -4,13 +4,12 @@ import com.shoescms.common.utils.ASCIIConverter;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
 import com.shoescms.domain.product.entitis.QSanPham;
 import com.shoescms.domain.product.entitis.QThuongHieu;
 import com.shoescms.domain.product.entitis.ThuongHieu;
 import com.shoescms.domain.product.models.ThuongHieuModel;
-import com.shoescms.domain.product.repository.ThuogHieuRepository;
+import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.IThuongHieuService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ import java.util.Optional;
 @Service
 public class IThuongHieuServiceImpl implements IThuongHieuService {
     @Autowired
-    ThuogHieuRepository thuogHieuRepository;
+    IThuogHieuRepository thuogHieuRepository;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 

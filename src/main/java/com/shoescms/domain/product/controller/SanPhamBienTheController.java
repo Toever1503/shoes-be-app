@@ -7,7 +7,7 @@ import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
 import com.shoescms.domain.product.models.SanPhamBienTheModel;
 import com.shoescms.domain.product.entitis.*;
-import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
+import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.criteria.Join;
@@ -26,7 +26,7 @@ import java.util.List;
 public class SanPhamBienTheController {
 
     @Autowired
-    SanPhamBienTheRepository sanPhamBienTheRepository;
+    ISanPhamBienTheRepository sanPhamBienTheRepository;
     @Autowired
     ISanPhamBienTheServiceImpl iSanPhamBienTheService;
 

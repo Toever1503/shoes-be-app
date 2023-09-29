@@ -33,9 +33,6 @@ public class DiaChiEntity {
     @Column(name = "dia_chi", length = 500, nullable = false)
     private String diaChi;
 
-    @Column(name = "nguoi_mua_id")
-    private Long nguoiMuaId;
-
     @Column(name = "ngay_xoa")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayXoa;

@@ -45,6 +45,4 @@ public class ChiTietDonHangEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayXoa;
 
-    @Column(name = "nguoi_cap_nhat")
-    private Long nguoiCapNhat;
 }

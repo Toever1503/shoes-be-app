@@ -4,9 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum ETrangThaiDonHang {
-    WAITING_CONFIRM("cho xac nhan"),
-    ;
-
-    ETrangThaiDonHang(String s) {
-    }
+    WAITING_CONFIRM
 }

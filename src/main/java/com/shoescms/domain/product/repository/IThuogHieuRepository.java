@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ThuogHieuRepository extends JpaRepository<ThuongHieu , Long>, JpaSpecificationExecutor<ThuongHieu> {
+public interface IThuogHieuRepository extends JpaRepository<ThuongHieu , Long>, JpaSpecificationExecutor<ThuongHieu> {
 }

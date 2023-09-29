@@ -20,4 +20,13 @@ public class SanPhamMetadataResDto {
         this.id = sanPham.getId();
         this.tieuDe = sanPham.getTieuDe();
     }
+
+    public static SanPhamMetadataResDto toDto(SanPham sanPham) {
+        if (sanPham == null) return null;
+        return SanPhamMetadataResDto
+                .builder()
+                .id(sanPham.getId())
+                .tieuDe(sanPham.getTieuDe())
+                .build();
+    }
 }

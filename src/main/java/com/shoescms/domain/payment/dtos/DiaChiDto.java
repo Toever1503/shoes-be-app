@@ -15,7 +15,6 @@ public class DiaChiDto {
     private String tenNguoiNhan;
     private String sdt;
     private String diaChi;
-    private Long nguoiMuaId;
 
     public static DiaChiDto toDto(DiaChiEntity diaChiEntity) {
         if (diaChiEntity == null) return null;
@@ -24,7 +23,6 @@ public class DiaChiDto {
                 .tenNguoiNhan(diaChiEntity.getTenNguoiNhan())
                 .sdt(diaChiEntity.getSdt())
                 .diaChi(diaChiEntity.getDiaChi())
-                .nguoiMuaId(diaChiEntity.getNguoiMuaId())
                 .build();
     }
 }

@@ -24,15 +24,15 @@ public class CmsApplication {
     }
 
     private static void initFirebaseInstance() throws IOException {
-        if (FirebaseApp.getApps().isEmpty()){
+        if (FirebaseApp.getApps().isEmpty()) {
 
-        FileInputStream serviceAccount =
-                new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setStorageBucket("springboot-analysis.appspot.com")
-                .build();
-        FirebaseApp.initializeApp(options);
+            FileInputStream serviceAccount =
+                    new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setStorageBucket("springboot-analysis.appspot.com")
+                    .build();
+            FirebaseApp.initializeApp(options);
         }
 
     }

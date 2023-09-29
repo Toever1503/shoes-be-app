@@ -1,11 +1,14 @@
 package com.shoescms.domain.product.repository;
 
-import com.shoescms.domain.product.entitis.BienTheGiaTri;
+import com.shoescms.domain.product.entitis.DMGiay;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface BienTheGiaTriRepository extends JpaRepository<BienTheGiaTri,Long> , JpaSpecificationExecutor<BienTheGiaTri> {
+public interface IDanhMucRepository extends JpaRepository<DMGiay, Long> , JpaSpecificationExecutor<DMGiay>{
+
+
 }

@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.controller;
 
 import com.shoescms.domain.product.models.DanhMucGiayModel;
-import com.shoescms.domain.product.repository.DanhMucRepository;
+import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.service.IDanhMucGiayService;
 import com.shoescms.domain.product.dto.DanhMucDTO;
 import com.shoescms.domain.product.dto.ResponseDto;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 public class DanhMucGiayController {
     @Autowired
-    DanhMucRepository danhMucRepository;
+    IDanhMucRepository danhMucRepository;
     @Autowired
     IDanhMucGiayService iDanhMucGiayService;
 

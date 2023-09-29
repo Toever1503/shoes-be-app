@@ -89,8 +89,9 @@ public class SecurityConfig {
             "/api/cart/**",
             "/cart/**",
             "/v1/coupon/**",
+            "/v1/san-pham/public/**",
             "/v1/payment/dat-hang",
-            "/v1/san-pham/public/**"
+            "/v1/payment/chi-tiet-don-hang/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {

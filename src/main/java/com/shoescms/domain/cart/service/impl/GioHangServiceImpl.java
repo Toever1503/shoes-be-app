@@ -13,8 +13,8 @@ import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.repository.GioHangRepository;
 import com.shoescms.domain.cart.service.GioHangService;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
-import com.shoescms.domain.product.repository.BienTheGiaTriRepository;
-import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
+import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
+import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,13 @@ public class GioHangServiceImpl implements GioHangService {
 
     private final GioHangRepository gioHangRepository;
     private final GioHangChiTietRepository gioHangChiTietRepository;
-    private final SanPhamBienTheRepository sanPhamBienTheRepository;
+    private final ISanPhamBienTheRepository sanPhamBienTheRepository;
 
-    private final BienTheGiaTriRepository bienTheGiaTriRepository;
+    private final IBienTheGiaTriRepository bienTheGiaTriRepository;
     private final FileRepository fileRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public GioHangServiceImpl(GioHangRepository gioHangRepository, GioHangChiTietRepository gioHangChiTietRepository, SanPhamBienTheRepository sanPhamBienTheRepository, BienTheGiaTriRepository bienTheGiaTriRepository, FileRepository fileRepository, JPAQueryFactory jpaQueryFactory) {
+    public GioHangServiceImpl(GioHangRepository gioHangRepository, GioHangChiTietRepository gioHangChiTietRepository, ISanPhamBienTheRepository sanPhamBienTheRepository, IBienTheGiaTriRepository bienTheGiaTriRepository, FileRepository fileRepository, JPAQueryFactory jpaQueryFactory) {
         this.gioHangRepository = gioHangRepository;
         this.gioHangChiTietRepository = gioHangChiTietRepository;
         this.sanPhamBienTheRepository = sanPhamBienTheRepository;

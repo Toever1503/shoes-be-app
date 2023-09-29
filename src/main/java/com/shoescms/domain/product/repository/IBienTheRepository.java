@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface BienTheRepository  extends JpaRepository<BienThe,Long>, JpaSpecificationExecutor<BienThe> {
+public interface IBienTheRepository extends JpaRepository<BienThe,Long>, JpaSpecificationExecutor<BienThe> {
 }

@@ -8,10 +8,10 @@ import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
-import com.shoescms.domain.product.repository.DanhMucRepository;
+import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
-import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
-import com.shoescms.domain.product.repository.ThuogHieuRepository;
+import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
+import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.models.SanPhamModel;
@@ -37,15 +37,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Lazy
     private ISanPhamRepository sanPhamRepository;
     @Autowired
-    private ThuogHieuRepository thuogHieuRepository;
+    private IThuogHieuRepository thuogHieuRepository;
     @Autowired
-    private DanhMucRepository danhMucRepository;
+    private IDanhMucRepository danhMucRepository;
 
     @Autowired
     private FileRepository fileRepository;
 
     @Autowired
-    private SanPhamBienTheRepository sanPhamBienTheRepository;
+    private ISanPhamBienTheRepository sanPhamBienTheRepository;
 
     @Autowired
     private SanPhamBienTheService sanPhamBienTheService;

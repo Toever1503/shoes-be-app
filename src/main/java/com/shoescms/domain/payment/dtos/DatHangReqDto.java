@@ -10,10 +10,12 @@ import java.util.List;
 @Data
 public class DatHangReqDto {
     @ArraySchema(schema = @Schema(defaultValue = "danh sach san pham dat hang trong gio hang", example = "1"))
-    @NotNull
     private List<Long> gioHangItemIds;
 
-    @Schema(defaultValue = "dia chi nhan hang", example = "duong 32 ngo 214__My Dinh 2__Nam Tu Liem__Ha Noi")
+    @ArraySchema(schema = @Schema(description = "thong tin phan loai sp dat mua"))
+    private List<GioHangTamThoiReqDto> gioHangTamThoiReqDto;
+
+    @Schema(description = "dia chi nhan hang", example = "duong 32 ngo 214__My Dinh 2__Nam Tu Liem__Ha Noi")
     private String diaChiNhanHang;
 
     @Schema(description = "ho ten nguoi nhan hang", example = "Nguyen Van A")

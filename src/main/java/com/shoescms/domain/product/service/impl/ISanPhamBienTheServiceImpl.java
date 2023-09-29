@@ -7,10 +7,10 @@ import com.shoescms.domain.product.dto.BienTheGiaTriDTO;
 import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
 import com.shoescms.domain.product.entitis.*;
 import com.shoescms.domain.product.models.SanPhamBienTheModel;
-import com.shoescms.domain.product.repository.BienTheGiaTriRepository;
-import com.shoescms.domain.product.repository.BienTheRepository;
+import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
+import com.shoescms.domain.product.repository.IBienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
-import com.shoescms.domain.product.repository.SanPhamBienTheRepository;
+import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
 import com.shoescms.domain.product.entitis.BienTheGiaTri_;
 import org.springframework.data.domain.Page;
@@ -24,13 +24,13 @@ import java.util.List;
 @Service
 public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
 
-    private final BienTheRepository bienTheRepository;
-    private final BienTheGiaTriRepository bienTheGiaTriRepository;
-    private final SanPhamBienTheRepository sanPhamBienTheRepository;
+    private final IBienTheRepository bienTheRepository;
+    private final IBienTheGiaTriRepository bienTheGiaTriRepository;
+    private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final ISanPhamRepository sanPhamRepository;
     private final FileRepository fileRepository;
 
-    public ISanPhamBienTheServiceImpl(BienTheRepository bienTheRepository, BienTheGiaTriRepository bienTheGiaTriRepository, SanPhamBienTheRepository sanPhamBienTheRepository, ISanPhamRepository sanPhamRepository, FileRepository fileRepository) {
+    public ISanPhamBienTheServiceImpl(IBienTheRepository bienTheRepository, IBienTheGiaTriRepository bienTheGiaTriRepository, ISanPhamBienTheRepository sanPhamBienTheRepository, ISanPhamRepository sanPhamRepository, FileRepository fileRepository) {
         this.bienTheRepository = bienTheRepository;
         this.bienTheGiaTriRepository = bienTheGiaTriRepository;
         this.sanPhamBienTheRepository = sanPhamBienTheRepository;

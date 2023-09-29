@@ -9,7 +9,7 @@ import com.shoescms.domain.product.entitis.DMGiay;
 import com.shoescms.domain.product.entitis.QDMGiay;
 import com.shoescms.domain.product.entitis.QSanPham;
 import com.shoescms.domain.product.models.DanhMucGiayModel;
-import com.shoescms.domain.product.repository.DanhMucRepository;
+import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.service.IDanhMucGiayService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
 
     @Autowired
     @Lazy
-    DanhMucRepository danhMucRepository;
+    IDanhMucRepository danhMucRepository;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
