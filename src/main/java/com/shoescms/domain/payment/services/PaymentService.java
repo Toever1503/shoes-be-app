@@ -1,6 +1,6 @@
 package com.shoescms.domain.payment.services;
 
-import com.shoescms.common.exception.CommonMessageException;
+import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.exception.ProcessFailedException;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
@@ -21,12 +21,12 @@ import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
@@ -49,7 +49,7 @@ public class PaymentService {
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
 
-
+    private final CommonConfig commonConfig;
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
 
@@ -301,5 +301,24 @@ public class PaymentService {
 
         });
         return dto;
+    }
+
+    @Transactional
+    public String xuLyThanhToanVnpay(VnpayRedirectReqDto reqDto) throws IOException {
+        DonHangEntity donHangEntity = donHangRepository.findByMaDonHang(reqDto.getVnp_TxnRef());
+
+        StringBuilder resParameter = new StringBuilder("redirect:")
+                .append(commonConfig.getVnpayRedirectURl())
+                .append("?status=");
+        if(!reqDto.getVnp_TransactionStatus().equals("00") || donHangEntity == null ) // failed order
+            resParameter.append("FAILED");
+        else{ // success
+            donHangEntity.setTrangThai(ETrangThaiDonHang.VNPAY_PAID);
+            donHangEntity.setNgayXoa(null);
+            // need save vnpay info
+            donHangRepository.saveAndFlush(donHangEntity);
+            resParameter.append("SUCCESS&id=").append(donHangEntity.getId());
+        }
+        return resParameter.toString();
     }
 }

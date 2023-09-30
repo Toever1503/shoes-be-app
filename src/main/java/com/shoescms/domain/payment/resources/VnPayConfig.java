@@ -12,7 +12,7 @@ import java.util.*;
 
 public class VnPayConfig {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "http://localhost:8082/payment/ket-qua";
+    public static String vnp_Returnurl = "http://localhost:8082/v1/vnpay/ket-qua";
     public static String vnp_RefundUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_RefundReturnUrl = "http://34.81.192.98:8082/vnpay_jsp/vnpay_refund.jsp";
     public static String vnp_TmnCode = "SP7OYIEJ";

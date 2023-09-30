@@ -1,16 +1,14 @@
 package com.shoescms.domain.payment.resources;
 
 import com.shoescms.common.security.JwtTokenProvider;
-import com.shoescms.domain.payment.dtos.DatHangReqDto;
-import com.shoescms.domain.payment.dtos.DonHangDto;
-import com.shoescms.domain.payment.dtos.EPhuongThucTT;
-import com.shoescms.domain.payment.dtos.LocDonHangReqDto;
+import com.shoescms.domain.payment.dtos.*;
 import com.shoescms.domain.payment.services.IDonHangService;
 import com.shoescms.domain.payment.services.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -41,7 +40,9 @@ public class PaymentResource {
     private IDonHangService donHangService;
 
     private final JwtTokenProvider jwtTokenProvider;
+
     private final PaymentService paymentService;
+
 
     @Operation(summary = "lay TT don hang", description = "lay TT don hang")
     @GetMapping(value = "{id}")
@@ -64,6 +65,8 @@ public class PaymentResource {
             dto.setUrlPay(paymentService.taoUrlVnpay(dto));
         return dto;
     }
+
+
     @GetMapping("chi-tiet-don-hang/{id}")
     public DonHangDto chiTietDonHang(@PathVariable Long id)
     {
