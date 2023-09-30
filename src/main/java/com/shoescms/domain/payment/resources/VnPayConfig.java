@@ -16,7 +16,7 @@ public class VnPayConfig {
     public static String vnp_RefundUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_RefundReturnUrl = "http://34.81.192.98:8082/vnpay_jsp/vnpay_refund.jsp";
     public static String vnp_TmnCode = "SP7OYIEJ";
-    public static String vnp_HashSecret = "QSZYMQVRZDMMSIAQFHJSTOVYQOVKBGAZ";
+    public static String vnp_HashSecret = "UNRHGLVIEZGLVMSZTUHFJPMEDUYWXLYO";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_code15 ="https://sandbox.vnpayment.vn/paymentv2/Payment/Error.html?code=15";
 
