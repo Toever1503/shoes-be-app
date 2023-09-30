@@ -63,8 +63,12 @@ public class UserService {
 
     private void initRole(){
         this.roleRepository.saveAndFlush(RoleEntity.builder()
-                        .id(1L)
+                        .id(RoleEnum.ROLE_ADMIN.getId())
                         .roleCd(RoleEnum.ROLE_ADMIN.getTitle())
+                .build());
+        this.roleRepository.saveAndFlush(RoleEntity.builder()
+                .id(RoleEnum.ROLE_USER.getId())
+                .roleCd(RoleEnum.ROLE_USER.getTitle())
                 .build());
     }
     @Transactional

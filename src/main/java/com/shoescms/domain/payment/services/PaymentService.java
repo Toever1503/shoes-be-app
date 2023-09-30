@@ -5,6 +5,8 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.exception.ProcessFailedException;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
+import com.shoescms.domain.cart.repository.GioHangRepository;
+import com.shoescms.domain.cart.service.GioHangService;
 import com.shoescms.domain.payment.dtos.*;
 import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
@@ -48,6 +50,7 @@ public class PaymentService {
     private final ISanPhamRepository sanPhamRepository;
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
+    private final GioHangRepository gioHangRepository;
 
     private final CommonConfig commonConfig;
     @Transactional
@@ -55,13 +58,11 @@ public class PaymentService {
 
         // luu thong tin don hang
         DonHangEntity donHangEntity = new DonHangEntity();
+        donHangEntity.setNguoiMuaId(reqDto.getNguoiTao());
         //ma don hang
         donHangEntity.setMaDonHang(getRandomNumber(10));
 
         // luu thong tin chi tiet don hang
-        if (reqDto.getNguoiTao() != null) // nguoi mua dang nhap
-            taoChiTietDonHangTuGioHangChiTiet(reqDto.getGioHangItemIds(), donHangEntity);
-        else // nguoi mua khong dang nhap
             taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
 
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
@@ -83,9 +84,8 @@ public class PaymentService {
         donHangRepository.saveAndFlush(donHangEntity);
 
         // xoa gio hang sau khi dat thanh cong
-        // need update
         if (reqDto.getNguoiTao() != null)
-            gioHangChiTietRepository.deleteAllById(reqDto.getGioHangItemIds());
+            gioHangChiTietRepository.deleteItemFromCart(reqDto.getGioHangItemIds(), gioHangRepository.findByUserEntity(reqDto.getNguoiTao()).getId());
 
         DonHangDto donHangDto = new DonHangDto();
         donHangDto.setId(donHangEntity.getId());
@@ -96,7 +96,6 @@ public class PaymentService {
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
-
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
         for (int i = 0; i < donHangEntity.getChiTietDonHangs().size(); i++) {
@@ -119,6 +118,8 @@ public class PaymentService {
         diaChiDto.setDiaChi(diaChi.getDiaChi());
         donHangDto.setDiaChi(diaChiDto);
         donHangDto.setChiTietDonHang(chiTietDonHangDtos);
+
+
         return donHangDto;
     }
 

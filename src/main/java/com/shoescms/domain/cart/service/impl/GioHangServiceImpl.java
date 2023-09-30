@@ -95,7 +95,8 @@ public class GioHangServiceImpl implements GioHangService {
         GioHangChiTiet entity  = jpaQueryFactory.selectFrom(gioHangChiTiet)
                 .join(gioHang)
                 .on(gioHang.id.eq(gioHangChiTiet.gioHang))
-                .where(gioHangChiTiet.id.eq(itemId), gioHang.userEntity.eq(userId))
+                .where(gioHangChiTiet.sanPhamBienThe.eq(itemId),
+                        gioHang.userEntity.eq(userId))
                 .fetchOne();
         if(entity != null)
         this.gioHangChiTietRepository.delete(entity);
@@ -104,7 +105,6 @@ public class GioHangServiceImpl implements GioHangService {
     @Override
     public SanPhamBienThe getBienTheBySanPhamId(Long sanPhamBienThe) {
         return this.sanPhamBienTheRepository.findById(sanPhamBienThe).orElseThrow(() -> new ObjectNotFoundException(50));
-
     }
 
     @Override

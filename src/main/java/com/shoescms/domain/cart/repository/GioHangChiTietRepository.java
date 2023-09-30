@@ -4,6 +4,7 @@ import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -16,4 +17,8 @@ public interface GioHangChiTietRepository extends JpaRepository<GioHangChiTiet,L
             @Param("gioHang") Long gioHang,
             @Param("sanPhamBienThe") Long sanPhamBienThe);
     List<GioHangChiTiet> findAllByGioHang(Long id, Sort by);
+
+    @Modifying
+    @Query("delete from GioHangChiTiet c where c.sanPhamBienThe in ?1 and c.gioHang = ?2")
+    void deleteItemFromCart(List<Long> gioHangItemIds, Long gioHang);
 }

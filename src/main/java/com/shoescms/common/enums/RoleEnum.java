@@ -6,11 +6,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum RoleEnum {
-    ROLE_ADMIN(1, "ADMIN", "admin of store"),
-    ROLE_STAFF(1, "STAFF", "staff"),
-    ROLE_CUS(1, "CUS", "customer");
+    ROLE_ADMIN(1L, "ADMIN", "admin of store"),
+    ROLE_STAFF(2L, "STAFF", "staff"),
+    ROLE_USER(3L, "USER", "customer");
 
-    private Integer id;
+    private Long id;
     private String title;
     private String desc;
 }
