@@ -12,11 +12,10 @@ import java.util.*;
 
 public class VnPayConfig {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    //	public static String vnp_Returnurl = "http://34.81.192.98:8080/payment/ket-qua";
-    public static String vnp_Returnurl = "http://34.81.192.98:8080/payment/ket-qua";
+    public static String vnp_Returnurl = "http://localhost:8082/payment/ket-qua";
     public static String vnp_RefundUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
-    public static String vnp_RefundReturnUrl = "http://34.81.192.98:8080/vnpay_jsp/vnpay_refund.jsp";
-    public static String vnp_TmnCode = "N2XBMR4S";
+    public static String vnp_RefundReturnUrl = "http://34.81.192.98:8082/vnpay_jsp/vnpay_refund.jsp";
+    public static String vnp_TmnCode = "SP7OYIEJ";
     public static String vnp_HashSecret = "QSZYMQVRZDMMSIAQFHJSTOVYQOVKBGAZ";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
     public static String vnp_code15 ="https://sandbox.vnpayment.vn/paymentv2/Payment/Error.html?code=15";
@@ -114,15 +113,6 @@ public class VnPayConfig {
         return ipAdress;
     }
 
-    public static String getRandomNumber(int len) {
-        Random rnd = new Random();
-        String chars = "0123456789";
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        }
-        return sb.toString();
-    }
 
     public static void main(String[] args) {
 //		System.out.println(VnPayConfig.hmacSHA512("fsa", "FSafs:"));

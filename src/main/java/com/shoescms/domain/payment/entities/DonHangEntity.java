@@ -10,6 +10,7 @@ import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -61,16 +62,16 @@ public class DonHangEntity {
     @Column(name = "ngay_tao", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
 
     @Column(name = "ngay_cap_nhat", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
-    private Date ngayCapNhat;
+    private LocalDateTime ngayCapNhat;
 
     @Column(name = "ngay_xoa")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date ngayXoa;
+    private LocalDateTime ngayXoa;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Where(clause = "ngay_xoa is null")

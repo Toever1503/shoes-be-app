@@ -12,6 +12,7 @@ import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IChiTietDonHangRepository;
 import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
+import com.shoescms.domain.payment.resources.VnPayConfig;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPham;
@@ -26,10 +27,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Component
 //@Log4j
@@ -61,6 +65,9 @@ public class PaymentService {
             taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
 
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
+        if(reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY)) {
+            donHangEntity.setNgayXoa(LocalDateTime.now());
+        }
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
 
         donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien()); // need update later
@@ -79,7 +86,6 @@ public class PaymentService {
         // need update
         if (reqDto.getNguoiTao() != null)
             gioHangChiTietRepository.deleteAllById(reqDto.getGioHangItemIds());
-
 
         DonHangDto donHangDto = new DonHangDto();
         donHangDto.setId(donHangEntity.getId());
@@ -174,6 +180,91 @@ public class PaymentService {
         donHangEntity.setChiTietDonHangs(chiTietDonHangEntities);
     }
 
+    public String taoUrlVnpay(DonHangDto dto) throws UnsupportedEncodingException {
+        // thanh toan vnpay
+        String vnp_OrderInfo = "Thanh toan don hang";//Thông tin mô tả nội dung thanh toán;
+        String vnp_TxnRef = dto.getMaDonHang(); //Mã tham chiếu của giao dịch tại hệ thống của merchant.
+        String bank_code = ""; // edit later
+
+        String vnp_Version = "2.1.0";
+        String vnp_Command = "pay";
+        String orderType = "ATM";
+        String vnp_IpAddr = "0:0:0:0:0:0:0:1";
+        String vnp_TmnCode = VnPayConfig.vnp_TmnCode;
+        BigDecimal amount = dto.getTongGiaCuoiCung().multiply(BigDecimal.valueOf(100)) ; //gia tien don hang (gán tạm)
+
+        Map<String, String> vnp_Params = new HashMap<>();
+        vnp_Params.put("vnp_Version", vnp_Version);
+        vnp_Params.put("vnp_Command", vnp_Command);
+        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
+        vnp_Params.put("vnp_Amount", String.valueOf(amount.toBigInteger()));
+        vnp_Params.put("vnp_CurrCode", "VND");
+
+        if (bank_code != null && !bank_code.isEmpty()) {
+            vnp_Params.put("vnp_BankCode", bank_code);
+        }
+
+        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", vnp_OrderInfo);
+        vnp_Params.put("vnp_OrderType", orderType);
+
+        String locate = "vn";
+        if (locate != null && !locate.isEmpty()) {
+            vnp_Params.put("vnp_Locale", locate);
+        } else {
+            vnp_Params.put("vnp_Locale", "vn");
+        }
+        vnp_Params.put("vnp_ReturnUrl", VnPayConfig.vnp_Returnurl);
+        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
+
+        Date dt = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        String vnp_CreateDate = formatter.format(dt);
+        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
+
+        Calendar cldvnp_ExpireDate = Calendar.getInstance();
+        cldvnp_ExpireDate.add(Calendar.MINUTE, 15);
+        Date vnp_ExpireDateD = cldvnp_ExpireDate.getTime();
+
+        System.out.println("expireDate: " + vnp_ExpireDateD);
+        String vnp_ExpireDate = formatter.format(vnp_ExpireDateD);
+
+        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
+
+        List fieldNames = new ArrayList(vnp_Params.keySet());
+        Collections.sort(fieldNames);
+        StringBuilder hashData = new StringBuilder();
+        StringBuilder query = new StringBuilder();
+        Iterator itr = fieldNames.iterator();
+        while (itr.hasNext()) {
+            String fieldName = (String) itr.next();
+            String fieldValue = (String) vnp_Params.get(fieldName);
+            if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                // Build hash data
+                hashData.append(fieldName);
+                hashData.append('=');
+                // hashData.append(fieldValue); //sử dụng và 2.0.0 và 2.0.1 checksum sha256
+                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString())); // sử dụng v2.1.0
+                // check sum
+                // sha512
+                // Build query
+                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
+                query.append('=');
+                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
+                if (itr.hasNext()) {
+                    query.append('&');
+                    hashData.append('&');
+                }
+            }
+        }
+        String queryUrl = query.toString();
+        String vnp_SecureHash = VnPayConfig.hmacSHA512(VnPayConfig.vnp_HashSecret, hashData.toString());
+        System.out.println("hash: " + vnp_SecureHash);
+        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
+        String paymentUrl = VnPayConfig.vnp_PayUrl + "?" + queryUrl;
+
+        return paymentUrl;
+    }
     public String getRandomNumber(int len) {
         Random rnd = new Random();
         String chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNM";

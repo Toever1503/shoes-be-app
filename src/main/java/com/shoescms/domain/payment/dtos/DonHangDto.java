@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,9 +26,11 @@ public class DonHangDto {
     private BigDecimal tongGiaCuoiCung;
     private Long nguoiMuaId;
     private ETrangThaiDonHang trangThai;
-    private Date ngayTao;
+    private LocalDateTime ngayTao;
     private DiaChiDto diaChi;
     private List<ChiTietDonHangDto> chiTietDonHang;
+
+    private String urlPay;
 
     public static DonHangDto toDto(DonHangEntity donHangEntity) {
         if (donHangEntity == null) return null;

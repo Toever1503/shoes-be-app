@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum ETrangThaiDonHang {
-    WAITING_CONFIRM
+    WAITING_CONFIRM, DRAFT
 }
