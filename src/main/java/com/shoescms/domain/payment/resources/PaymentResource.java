@@ -36,8 +36,7 @@ import java.util.*;
 @RestController
 @RequestMapping(value = "/v1/payment")
 public class PaymentResource {
-    @Autowired
-    private IDonHangService donHangService;
+    private final IDonHangService donHangService;
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -66,14 +65,4 @@ public class PaymentResource {
         return dto;
     }
 
-
-    @GetMapping("chi-tiet-don-hang/{id}")
-    public DonHangDto chiTietDonHang(@PathVariable Long id)
-    {
-        return paymentService.chiTietDonHang(id);
-    }
-    @PostMapping("/filter")
-    public Page<DonHangDto> search(@RequestBody LocDonHangReqDto model, @PageableDefault(sort="id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return donHangService.filterEntities(pageable, null);
-    }
 }

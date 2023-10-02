@@ -39,6 +39,10 @@ public class DonHangEntity {
     @Enumerated(EnumType.STRING)
     private EPhuongThucTT phuongThucTT;
 
+    @Column(name = "tong_tien_giam_gia", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal tongTienGiamGia;
+
     @Column(name = "tong_tien_sp", nullable = false)
     @ColumnDefault("0")
     private BigDecimal tongTienSP;
@@ -80,5 +84,8 @@ public class DonHangEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "dia_chi_id", nullable = false)
     private DiaChiEntity diaChiEntity;
+
+    @Column(name = "ghi_chu")
+    private String ghiChu;
 
 }

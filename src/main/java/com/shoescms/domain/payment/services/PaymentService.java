@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -43,19 +44,17 @@ import java.util.*;
 public class PaymentService {
 
     private final IDonHangRepository donHangRepository;
-    private final IChiTietDonHangRepository chiTietDonHangRepository;
     private final IDiaChiRepository diaChiRepository;
     private final GioHangChiTietRepository gioHangChiTietRepository;
-
-    private final ISanPhamRepository sanPhamRepository;
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
-    private final IBienTheGiaTriRepository bienTheGiaTriRepository;
     private final GioHangRepository gioHangRepository;
 
     private final CommonConfig commonConfig;
+
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
 
+        System.out.println();
         // luu thong tin don hang
         DonHangEntity donHangEntity = new DonHangEntity();
         donHangEntity.setNguoiMuaId(reqDto.getNguoiTao());
@@ -63,10 +62,10 @@ public class PaymentService {
         donHangEntity.setMaDonHang(getRandomNumber(10));
 
         // luu thong tin chi tiet don hang
-            taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
+        taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
 
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
-        if(reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY)) {
+        if (reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY)) {
             donHangEntity.setNgayXoa(LocalDateTime.now());
         }
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
@@ -192,7 +191,7 @@ public class PaymentService {
         String orderType = "ATM";
         String vnp_IpAddr = "0:0:0:0:0:0:0:1";
         String vnp_TmnCode = VnPayConfig.vnp_TmnCode;
-        BigDecimal amount = dto.getTongGiaCuoiCung().multiply(BigDecimal.valueOf(100)) ; //gia tien don hang (gán tạm)
+        BigDecimal amount = dto.getTongGiaCuoiCung().multiply(BigDecimal.valueOf(100)); //gia tien don hang (gán tạm)
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
@@ -266,6 +265,7 @@ public class PaymentService {
 
         return paymentUrl;
     }
+
     public String getRandomNumber(int len) {
         Random rnd = new Random();
         String chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNM";
@@ -280,29 +280,6 @@ public class PaymentService {
         return null;
     }
 
-    public DonHangDto chiTietDonHang(Long id) {
-        DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
-        DonHangDto dto = DonHangDto.toDto(donHangEntity);
-        dto.getChiTietDonHang().forEach(item -> {
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
-            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
-            if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
-                StringBuilder stringBuilder = new StringBuilder();
-                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).orElse(null);
-                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri2()).orElse(null);
-                if (bienTheGiaTri1 != null)
-                    stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
-                if (bienTheGiaTri2 != null)
-                    stringBuilder.append("Size: ").append(bienTheGiaTri2.getGiaTri());
-                item.setMotaPhanLoai(stringBuilder.toString());
-            } else if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
-                bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
-            else
-                bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
-
-        });
-        return dto;
-    }
 
     @Transactional
     public String xuLyThanhToanVnpay(VnpayRedirectReqDto reqDto) throws IOException {
@@ -311,9 +288,9 @@ public class PaymentService {
         StringBuilder resParameter = new StringBuilder("redirect:")
                 .append(commonConfig.getVnpayRedirectURl())
                 .append("?status=");
-        if(!reqDto.getVnp_TransactionStatus().equals("00") || donHangEntity == null ) // failed order
+        if (!reqDto.getVnp_TransactionStatus().equals("00") || donHangEntity == null) // failed order
             resParameter.append("FAILED");
-        else{ // success
+        else { // success
             donHangEntity.setTrangThai(ETrangThaiDonHang.VNPAY_PAID);
             donHangEntity.setNgayXoa(null);
             // need save vnpay info

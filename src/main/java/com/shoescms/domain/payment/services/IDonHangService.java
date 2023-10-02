@@ -8,4 +8,6 @@ import org.springframework.data.jpa.domain.Specification;
 
 public interface IDonHangService {
     Page<DonHangDto> filterEntities(Pageable pageable, Specification<DonHangEntity> specification);
+
+    DonHangDto chiTietDonHang(Long id);
 }
