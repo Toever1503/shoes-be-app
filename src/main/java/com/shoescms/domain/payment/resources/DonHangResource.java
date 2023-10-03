@@ -2,6 +2,7 @@ package com.shoescms.domain.payment.resources;
 
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.dtos.DonHangDto;
+import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import com.shoescms.domain.payment.dtos.LocDonHangReqDto;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity_;
@@ -40,7 +41,7 @@ public class DonHangResource {
 
     private final PaymentService paymentService;
 
-    @GetMapping("chi-tiet-don-hang/{id}")
+    @GetMapping("/chi-tiet/{id}")
     public DonHangDto chiTietDonHang(@PathVariable Long id) {
         return donHangService.chiTietDonHang(id);
     }
@@ -51,7 +52,7 @@ public class DonHangResource {
         if (model.getTrangThai() != null)
             specs.add(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(DonHangEntity_.TRANG_THAI), model.getTrangThai())));
         if (!ObjectUtils.isEmpty(model.getMaDonHang()))
-            specs.add(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(DonHangEntity_.MA_DON_HANG), "%"+model.getMaDonHang()+"%")));
+            specs.add(((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(DonHangEntity_.MA_DON_HANG), "%" + model.getMaDonHang() + "%")));
         if (!ObjectUtils.isEmpty(model.getTenNguoiNhan()))
             specs.add(((root, query, criteriaBuilder) -> criteriaBuilder.like(root.join(DonHangEntity_.DIA_CHI_ENTITY).get(DiaChiEntity_.TEN_NGUOI_NHAN), "%" + model.getTenNguoiNhan() + "%")));
         if (!ObjectUtils.isEmpty(model.getPhuongThucTT()))
@@ -66,5 +67,10 @@ public class DonHangResource {
             else finalSpec.and(spec);
         }
         return donHangService.filterEntities(pageable, finalSpec);
+    }
+
+    @PatchMapping("cap-nhat-trang-thai/{id}")
+    public void capNhatTrangThai(@PathVariable Long id, @RequestParam ETrangThaiDonHang trangThai, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
+        donHangService.capNhatTrangThai(id, trangThai, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }
 }

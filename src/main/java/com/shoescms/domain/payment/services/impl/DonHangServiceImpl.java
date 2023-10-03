@@ -2,7 +2,9 @@ package com.shoescms.domain.payment.services.impl;
 
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.exception.ProcessFailedException;
+import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.domain.payment.dtos.DonHangDto;
+import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IChiTietDonHangRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class DonHangServiceImpl implements IDonHangService {
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
+    private final FileRepository fileRepository;
     @Autowired
     private IDonHangRepository donHangRepository;
 
@@ -42,6 +45,8 @@ public class DonHangServiceImpl implements IDonHangService {
         dto.getChiTietDonHang().forEach(item -> {
             SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
             item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
+            item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienThe.getSanPham().getAnhChinh()).orElse(null));
+
             if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
                 StringBuilder stringBuilder = new StringBuilder();
                 BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).orElse(null);
@@ -49,15 +54,22 @@ public class DonHangServiceImpl implements IDonHangService {
                 if (bienTheGiaTri1 != null)
                     stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
                 if (bienTheGiaTri2 != null)
-                    stringBuilder.append("Size: ").append(bienTheGiaTri2.getGiaTri());
+                    stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
                 item.setMotaPhanLoai(stringBuilder.toString());
             } else if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
                 bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
             else
                 bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
-
         });
         return dto;
+    }
+
+    @Override
+    public void capNhatTrangThai(Long id, ETrangThaiDonHang trangThai, Long userId) {
+        DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
+        donHangEntity.setTrangThai(trangThai);
+        donHangEntity.setNguoiCapNhat(userId);
+        donHangRepository.saveAndFlush(donHangEntity);
     }
 
 }

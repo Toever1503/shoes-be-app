@@ -92,7 +92,7 @@ public class SecurityConfig {
             "/v1/san-pham/public/**",
             "/v1/payment/dat-hang",
             "/v1/vnpay/ket-qua",
-            "/v1/payment/chi-tiet-don-hang/**"
+            "/v1/don-hang/chi-tiet/**"
     };
 
     private static final String[] ADMIN_ONLY_LIST = {
