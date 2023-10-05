@@ -34,6 +34,7 @@ public class SanPhamBienTheDTO {
     private SanPhamMetadataResDto sanPhamMetadata;
     private LocalDateTime ngayXoa;
     private FileEntity anhSpChinh;
+    private String motaPhanLoai;
 
     public static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe) {
         return
@@ -69,4 +70,8 @@ public class SanPhamBienTheDTO {
         return this;
     }
 
+    public SanPhamBienTheDTO setMotaPhanLoai(String motaPhanLoai) {
+        this.motaPhanLoai = motaPhanLoai;
+        return this;
+    }
 }

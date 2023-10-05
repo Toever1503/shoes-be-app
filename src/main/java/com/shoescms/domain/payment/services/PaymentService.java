@@ -69,7 +69,6 @@ public class PaymentService {
             donHangEntity.setNgayXoa(LocalDateTime.now());
         }
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
-
         donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien()); // need update later
 
         // luu dia chi dat hang
@@ -139,7 +138,6 @@ public class PaymentService {
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());
-            chiTietDonHang.setSanPhamId(sanPham.getId());
             chiTietDonHangEntities.add(chiTietDonHang);
         }
 
@@ -160,18 +158,13 @@ public class PaymentService {
             SanPham sanPham = sanPhamBienThe.getSanPham();
             BigDecimal tongTienSp = sanPham.getGiaMoi().multiply(BigDecimal.valueOf(gioHangChiTiets.get(i).getSoLuong().doubleValue()));
             tongTien.add(tongTienSp);
-
-
             tongSanPham += gioHangChiTiets.get(i).getSoLuong();
-
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
             chiTietDonHang.setDonHang(donHangEntity);
             chiTietDonHang.setSoLuong(gioHangChiTiets.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());
-            chiTietDonHang.setSanPhamId(sanPham.getId());
-
             chiTietDonHangEntities.add(chiTietDonHang);
         }
 

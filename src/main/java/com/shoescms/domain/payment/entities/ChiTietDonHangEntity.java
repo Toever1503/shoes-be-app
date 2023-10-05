@@ -29,9 +29,6 @@ public class ChiTietDonHangEntity {
     @JoinColumn(name = "don_hang_id", nullable = false)
     private DonHangEntity donHang;
 
-    @Column(name = "san_pham_id", nullable = false)
-    private Long sanPhamId;
-
     @Column(name = "phan_loai_sp_id", nullable = false)
     private Long phanLoaiSpId;
 

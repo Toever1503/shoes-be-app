@@ -4,6 +4,7 @@ import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.dtos.DonHangDto;
 import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import com.shoescms.domain.payment.dtos.LocDonHangReqDto;
+import com.shoescms.domain.payment.dtos.ThemMoiDonHangReqDto;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity_;
 import com.shoescms.domain.payment.entities.DonHangEntity;
@@ -72,5 +73,12 @@ public class DonHangResource {
     @PatchMapping("cap-nhat-trang-thai/{id}")
     public void capNhatTrangThai(@PathVariable Long id, @RequestParam ETrangThaiDonHang trangThai, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
         donHangService.capNhatTrangThai(id, trangThai, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
+    }
+
+    @PostMapping
+    public void themMoiDonHang(@RequestBody ThemMoiDonHangReqDto reqDto, @RequestHeader(name = "x-api-token") String xApiToken) {
+        if (xApiToken != null) // luu thong tin nguoi dat hang neu ho dang nhap
+            reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
+        donHangService.themMoiDonHang(reqDto);
     }
 }

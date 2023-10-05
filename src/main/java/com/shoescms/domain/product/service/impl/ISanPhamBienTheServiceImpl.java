@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
@@ -238,10 +239,21 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         return sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(id)
                 .stream()
                 .map(item ->
-                        SanPhamBienTheDTO.toDTO(item)
-                                .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
-                                .setGiaTriObj1(bienTheGiaTriRepository.findById(item.getBienTheGiaTri1() == null ? 0 : item.getBienTheGiaTri1()).orElse(null))
-                                .setGiaTriObj2(bienTheGiaTriRepository.findById(item.getBienTheGiaTri2() == null ? 0 : item.getBienTheGiaTri2()).orElse(null))
+                        {
+                            StringBuilder stringBuilder = new StringBuilder();
+                            BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(Optional.ofNullable(item.getBienTheGiaTri1()).orElse(0L)).orElse(null);
+                            BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(Optional.ofNullable(item.getBienTheGiaTri2()).orElse(0L)).orElse(null);
+
+                            if (bienTheGiaTri1 != null)
+                                stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
+                            if (bienTheGiaTri2 != null)
+                                stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
+                            return SanPhamBienTheDTO.toDTO(item)
+                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
+                                    .setGiaTriObj1(bienTheGiaTri1)
+                                    .setGiaTriObj2(bienTheGiaTri2)
+                                    .setMotaPhanLoai(stringBuilder.toString());
+                        }
                 )
                 .toList();
     }
