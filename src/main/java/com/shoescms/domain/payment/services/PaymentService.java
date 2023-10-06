@@ -48,6 +48,7 @@ public class PaymentService {
     private final GioHangChiTietRepository gioHangChiTietRepository;
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final GioHangRepository gioHangRepository;
+    private final IChiTietDonHangRepository chiTietDonHangRepository;
 
     private final CommonConfig commonConfig;
 
@@ -80,6 +81,8 @@ public class PaymentService {
 
         diaChiRepository.saveAndFlush(diaChi);
         donHangRepository.saveAndFlush(donHangEntity);
+        donHangEntity.getChiTietDonHangs().forEach(i -> i.setDonHang(donHangEntity.getId()));
+        chiTietDonHangRepository.saveAllAndFlush(donHangEntity.getChiTietDonHangs());
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
@@ -134,7 +137,6 @@ public class PaymentService {
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
-            chiTietDonHang.setDonHang(donHangEntity);
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());
@@ -161,7 +163,6 @@ public class PaymentService {
             tongSanPham += gioHangChiTiets.get(i).getSoLuong();
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
-            chiTietDonHang.setDonHang(donHangEntity);
             chiTietDonHang.setSoLuong(gioHangChiTiets.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());

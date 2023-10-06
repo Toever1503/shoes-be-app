@@ -4,6 +4,7 @@ import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -86,4 +87,8 @@ public class SanPham  {
 
     @Column(name = "hien_thi_web")
     private Boolean hienThiWeb;
+
+    @Column(name = "tong_sp")
+    @ColumnDefault("0")
+    private Integer tongSp;
 }

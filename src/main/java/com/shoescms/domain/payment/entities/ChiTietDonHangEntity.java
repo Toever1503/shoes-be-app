@@ -25,9 +25,8 @@ public class ChiTietDonHangEntity {
     @JdbcTypeCode(SqlTypes.BIGINT)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "don_hang_id", nullable = false)
-    private DonHangEntity donHang;
+    @Column(name = "don_hang_id", nullable = false)
+    private Long donHang;
 
     @Column(name = "phan_loai_sp_id", nullable = false)
     private Long phanLoaiSpId;

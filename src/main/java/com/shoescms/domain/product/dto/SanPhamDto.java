@@ -56,6 +56,8 @@ public class SanPhamDto {
 
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
+    private Integer tongSp;
+
     public static SanPhamDto toDto(SanPham sanPham){
         if(sanPham == null) return null;
         return SanPhamDto.builder()
@@ -77,6 +79,7 @@ public class SanPhamDto {
                 .anhPhu(ObjectUtils.isEmpty(sanPham.getAnhPhu()) ? null : Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList())
                 .loaiBienThe(sanPham.getLoaiBienThe())
                 .hienThiWeb(sanPham.getHienThiWeb())
+                .tongSp(sanPham.getTongSp())
                 .build();
     }
 
@@ -84,4 +87,6 @@ public class SanPhamDto {
         this.anhChinh = anhChinh;
         return this;
     }
+
+
 }

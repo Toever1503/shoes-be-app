@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
@@ -263,6 +264,13 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));
         sanPhamBienThe.setSoLuong(soLuong);
         sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+
+        SanPham sanPham = sanPhamBienThe.getSanPham();
+        AtomicInteger tongSp = new AtomicInteger(0);
+        sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(sanPham.getId())
+                .forEach(sp -> tongSp.addAndGet(sp.getSoLuong()));
+        sanPham.setTongSp(tongSp.get());
+        sanPhamRepository.saveAndFlush(sanPham);
     }
 
     public SanPhamBienThe getByiD(Long id) {

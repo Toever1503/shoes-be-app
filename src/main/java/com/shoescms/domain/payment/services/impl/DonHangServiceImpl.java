@@ -7,9 +7,11 @@ import com.shoescms.domain.payment.dtos.*;
 import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
 import com.shoescms.domain.payment.entities.DonHangEntity;
+import com.shoescms.domain.payment.repositories.IChiTietDonHangRepository;
 import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.services.IDonHangService;
+import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienThe;
@@ -35,10 +37,12 @@ public class DonHangServiceImpl implements IDonHangService {
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
     private final FileRepository fileRepository;
-    @Autowired
-    private IDonHangRepository donHangRepository;
+    private final IDonHangRepository donHangRepository;
+    private final IChiTietDonHangRepository chiTietDonHangRepository;
     private final ISanPhamRepository sanPhamRepository;
     private final IDiaChiRepository diaChiRepository;
+
+    private final PaymentService paymentService;
 
     @Override
     public Page<DonHangDto> filterEntities(Pageable pageable, Specification<DonHangEntity> specification) {
@@ -83,6 +87,8 @@ public class DonHangServiceImpl implements IDonHangService {
     @Override
     public DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto) {
         DonHangEntity donHangEntity = new DonHangEntity();
+        donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
+        donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
 
         AtomicReference<BigDecimal> tongTien = new AtomicReference<>(new BigDecimal(0));
         AtomicReference<Integer> tongSanPham = new AtomicReference<>(0);
@@ -109,7 +115,6 @@ public class DonHangServiceImpl implements IDonHangService {
         donHangEntity.setGhiChu(reqDto.getGhiChu());
         donHangEntity.setTongSp(tongSanPham.get());
         donHangEntity.setTongGiaTien(tongTien.get());
-        donHangEntity.setChiTietDonHangs(chiTietDonHangEntities);
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
         donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien()); // need update later
 
@@ -121,6 +126,9 @@ public class DonHangServiceImpl implements IDonHangService {
 
         diaChiRepository.saveAndFlush(diaChi);
         donHangRepository.saveAndFlush(donHangEntity);
+        chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
+        chiTietDonHangRepository.saveAllAndFlush(chiTietDonHangEntities);
+
 
         DonHangDto donHangDto = new DonHangDto();
         donHangDto.setId(donHangEntity.getId());
@@ -133,16 +141,15 @@ public class DonHangServiceImpl implements IDonHangService {
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
-        for (int i = 0; i < donHangEntity.getChiTietDonHangs().size(); i++) {
+        for (ChiTietDonHangEntity chiTietDonHangEntity : chiTietDonHangEntities) {
             ChiTietDonHangDto chiTietDonHangDto = new ChiTietDonHangDto();
-            chiTietDonHangDto.setId(donHangEntity.getChiTietDonHangs().get(i).getId());
+            chiTietDonHangDto.setId(chiTietDonHangEntity.getId());
 
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(donHangEntity.getChiTietDonHangs().get(i).getPhanLoaiSpId()).orElse(null);
+            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(chiTietDonHangEntity.getPhanLoaiSpId()).orElse(null);
             chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
-            chiTietDonHangDto.setPhanLoaiSpId(donHangEntity.getChiTietDonHangs().get(i).getPhanLoaiSpId());
-            chiTietDonHangDto.setSoLuong(donHangEntity.getChiTietDonHangs().get(i).getSoLuong());
-            chiTietDonHangDto.setGiaTien(donHangEntity.getChiTietDonHangs().get(i).getGiaTien());
-
+            chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntity.getPhanLoaiSpId());
+            chiTietDonHangDto.setSoLuong(chiTietDonHangEntity.getSoLuong());
+            chiTietDonHangDto.setGiaTien(chiTietDonHangEntity.getGiaTien());
             chiTietDonHangDtos.add(chiTietDonHangDto);
         }
 
