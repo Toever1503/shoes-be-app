@@ -78,7 +78,8 @@ public class DonHangEntity {
     private LocalDateTime ngayXoa;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Where(clause = "ngay_xoa is null")
+    @JoinColumn(name = "don_hang_id")
+//    @Where(clause = "ngay_xoa is null")
     private List<ChiTietDonHangEntity> chiTietDonHangs;
 
     @ManyToOne(optional = false)
