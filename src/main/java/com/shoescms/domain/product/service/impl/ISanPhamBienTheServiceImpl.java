@@ -178,6 +178,14 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
             fileRepository.saveAndFlush(file);
         }
 
+        StringBuilder stringBuilder = new StringBuilder();
+        BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(Optional.ofNullable(model.getBienTheGiaTri1()).orElse(0L)).orElse(null);
+        BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(Optional.ofNullable(model.getBienTheGiaTri2()).orElse(0L)).orElse(null);
+
+        if (bienTheGiaTri1 != null)
+            stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
+        if (bienTheGiaTri2 != null)
+            stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
         SanPhamBienThe sanPhamBienThe = SanPhamBienThe.builder()
                 .id(model.getId())
                 .bienThe1(model.getBienThe1())
@@ -186,6 +194,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .bienTheGiaTri1(model.getBienTheGiaTri1())
                 .bienTheGiaTri2(model.getBienTheGiaTri2())
                 .anh(model.getAnh())
+                .motaPhanLoai(stringBuilder.toString())
                 .build();
         this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
         return SanPhamBienTheDTO

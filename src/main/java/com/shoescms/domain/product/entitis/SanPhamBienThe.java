@@ -48,6 +48,9 @@ public class SanPhamBienThe {
     @Column(name = "so_luong")
     private int soLuong;
 
+    @Column(name = "mo_ta_pl")
+    private String motaPhanLoai;
+
     @Column(name = "ngay_xoa")
     private LocalDateTime ngayXoa;
 

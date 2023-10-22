@@ -16,6 +16,7 @@ public interface GioHangChiTietRepository extends JpaRepository<GioHangChiTiet,L
     GioHangChiTiet findByGioHangAndSanPhamBienThe(
             @Param("gioHang") Long gioHang,
             @Param("sanPhamBienThe") Long sanPhamBienThe);
+
     List<GioHangChiTiet> findAllByGioHang(Long id, Sort by);
 
     @Modifying

@@ -1,5 +1,6 @@
 package com.shoescms.domain.product.service;
 
+import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
 import com.shoescms.domain.product.dto.WebChiTietSanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamFilterReqDto;
@@ -9,6 +10,8 @@ import com.shoescms.domain.product.models.SanPhamModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
 
 public interface ISanPhamService {
     Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification);
@@ -29,4 +32,6 @@ public interface ISanPhamService {
     WebChiTietSanPhamDto chiTietSanPhamResDto(Long id);
 
     Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable);
+
+    List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(List<Long> ids);
 }

@@ -208,6 +208,18 @@ public class ISanPhamServerImpl implements ISanPhamService {
         return pageSp.map(sp -> chiTietSanPhamResDto(sp.getId()));
     }
 
+    @Override
+    public List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(List<Long> ids) {
+        return sanPhamBienTheRepository.findAllById(ids)
+                .stream()
+                .map(item -> SanPhamBienTheDTO
+                        .builder()
+                        .id(item.getId())
+                        .soLuong(item.getSoLuong())
+                        .build())
+                .toList();
+    }
+
     private void setListBienThe1ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {
         dto.setGiaTri1List(dto.getBienTheDTOS()
                 .stream()

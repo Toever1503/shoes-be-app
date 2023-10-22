@@ -139,4 +139,9 @@ public class SanPhamController {
     public Page<WebChiTietSanPhamDto> locSPChoWeb(@RequestBody SanPhamFilterReqDto reqDto, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return iSanPhamService.locSPChoWeb(reqDto, pageable);
     }
+
+    @GetMapping("public/kiem-tra-soluong-sp-bien-the")
+    public List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(@RequestParam List<Long> ids){
+        return iSanPhamService.kiemTraSoLuongSpBienThe(ids);
+    }
 }
