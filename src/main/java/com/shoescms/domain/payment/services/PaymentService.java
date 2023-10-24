@@ -55,7 +55,6 @@ public class PaymentService {
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
 
-        System.out.println();
         // luu thong tin don hang
         DonHangEntity donHangEntity = new DonHangEntity();
         donHangEntity.setNguoiMuaId(reqDto.getNguoiTao());
@@ -63,7 +62,7 @@ public class PaymentService {
         donHangEntity.setMaDonHang(getRandomNumber(10));
 
         // luu thong tin chi tiet don hang
-        taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
+        List<ChiTietDonHangEntity> chiTietDonHangEntities = taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
 
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
         if (reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY)) {
@@ -81,8 +80,8 @@ public class PaymentService {
 
         diaChiRepository.saveAndFlush(diaChi);
         donHangRepository.saveAndFlush(donHangEntity);
-        donHangEntity.getChiTietDonHangs().forEach(i -> i.setDonHang(donHangEntity.getId()));
-        chiTietDonHangRepository.saveAllAndFlush(donHangEntity.getChiTietDonHangs());
+        chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
+        chiTietDonHangRepository.saveAllAndFlush(chiTietDonHangEntities);
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
@@ -99,15 +98,15 @@ public class PaymentService {
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
-        for (int i = 0; i < donHangEntity.getChiTietDonHangs().size(); i++) {
+        for (int i = 0; i < chiTietDonHangEntities.size(); i++) {
             ChiTietDonHangDto chiTietDonHangDto = new ChiTietDonHangDto();
-            chiTietDonHangDto.setId(donHangEntity.getChiTietDonHangs().get(i).getId());
+            chiTietDonHangDto.setId(chiTietDonHangEntities.get(i).getId());
 
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(donHangEntity.getChiTietDonHangs().get(i).getPhanLoaiSpId()).orElse(null);
+            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(chiTietDonHangEntities.get(i).getPhanLoaiSpId()).orElse(null);
             chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
-            chiTietDonHangDto.setPhanLoaiSpId(donHangEntity.getChiTietDonHangs().get(i).getPhanLoaiSpId());
-            chiTietDonHangDto.setSoLuong(donHangEntity.getChiTietDonHangs().get(i).getSoLuong());
-            chiTietDonHangDto.setGiaTien(donHangEntity.getChiTietDonHangs().get(i).getGiaTien());
+            chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntities.get(i).getPhanLoaiSpId());
+            chiTietDonHangDto.setSoLuong(chiTietDonHangEntities.get(i).getSoLuong());
+            chiTietDonHangDto.setGiaTien(chiTietDonHangEntities.get(i).getGiaTien());
 
             chiTietDonHangDtos.add(chiTietDonHangDto);
         }
@@ -124,7 +123,7 @@ public class PaymentService {
         return donHangDto;
     }
 
-    private void taoChiTietDonHangTuGioHangTamThoi(List<GioHangTamThoiReqDto> gioHangTamThoiReqDto, DonHangEntity donHangEntity) {
+    private List<ChiTietDonHangEntity> taoChiTietDonHangTuGioHangTamThoi(List<GioHangTamThoiReqDto> gioHangTamThoiReqDto, DonHangEntity donHangEntity) {
         List<ChiTietDonHangEntity> chiTietDonHangEntities = new ArrayList<>();
         BigDecimal tongTien = new BigDecimal(0);
         Integer tongSanPham = 0;
@@ -146,7 +145,7 @@ public class PaymentService {
         donHangEntity.setTongSp(tongSanPham);
         donHangEntity.setTongTienSP(tongTien);
         donHangEntity.setTongGiaTien(tongTien);
-        donHangEntity.setChiTietDonHangs(chiTietDonHangEntities);
+        return chiTietDonHangEntities;
     }
 
     private void taoChiTietDonHangTuGioHangChiTiet(List<Long> gioHangItems, DonHangEntity donHangEntity) {
