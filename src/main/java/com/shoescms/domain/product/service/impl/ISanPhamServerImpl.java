@@ -7,13 +7,13 @@ import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.*;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
-import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
-import static com.shoescms.domain.product.entitis.QSanPhamBienThe.sanPhamBienThe;
+import static com.shoescms.domain.product.entitis.QSanPhamBienTheEntity.sanPhamBienTheEntity;
 
 @Service
 public class ISanPhamServerImpl implements ISanPhamService {
@@ -54,13 +54,13 @@ public class ISanPhamServerImpl implements ISanPhamService {
     private JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification) {
-        Page<SanPham> sanPhamPage = sanPhamRepository.findAll(specification, pageable);
+    public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPhamEntity> specification) {
+        Page<SanPhamEntity> sanPhamPage = sanPhamRepository.findAll(specification, pageable);
         return sanPhamPage.map(item -> SanPhamDto.toDto(item).setAnhChinh(fileRepository.findById(item.getAnhChinh()).get()));
     }
 
     @Override
-    public Page<SanPham> getAll(Pageable pageable) {
+    public Page<SanPhamEntity> getAll(Pageable pageable) {
         return sanPhamRepository.findAll(pageable);
     }
 
@@ -68,15 +68,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Transactional
     public SanPhamDto add(SanPhamModel model) {
         checkProduct(model);
-        SanPham entity = SanPham.builder()
+        SanPhamEntity entity = SanPhamEntity.builder()
                 .maSP(model.getMaSP())
                 .moTa(model.getMoTa())
-                .dmGiay(danhMucRepository.findById(model.getDmGiay().getId()).get())
+                .dmGiay(danhMucRepository.findById(model.getDmGiayEntity().getId()).get())
                 .giaCu(model.getGiaCu())
                 .giaMoi(model.getGiaMoi())
                 .gioiTinh(model.getGioiTinh())
                 .slug(ASCIIConverter.utf8ToAscii(model.getTieuDe()))
-                .thuongHieu(thuogHieuRepository.findById(model.getThuongHieu().getId()).get())
+                .thuongHieu(thuogHieuRepository.findById(model.getThuongHieuEntity().getId()).get())
                 .tieuDe(model.getTieuDe())
                 .nguoiCapNhat(model.getNguoiCapNhat())
                 .ngayXoa(model.getNgayXoa())
@@ -94,7 +94,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     private void checkProduct(SanPhamModel model) {
         if (model.getId() != null) {
-            SanPham sp = sanPhamRepository.findById(model.getId()).orElse(null);
+            SanPhamEntity sp = sanPhamRepository.findById(model.getId()).orElse(null);
             if (sp == null)
                 throw new ObjectNotFoundException(111);
 
@@ -114,9 +114,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 }
             }
         }
-        if (model.getThuongHieu().getId() == null || thuogHieuRepository.findById(model.getThuongHieu().getId()).isEmpty())
+        if (model.getThuongHieuEntity().getId() == null || thuogHieuRepository.findById(model.getThuongHieuEntity().getId()).isEmpty())
             throw new ObjectNotFoundException(1);
-        if (model.getDmGiay().getId() == null || danhMucRepository.findById(model.getDmGiay().getId()).isEmpty())
+        if (model.getDmGiayEntity().getId() == null || danhMucRepository.findById(model.getDmGiayEntity().getId()).isEmpty())
             throw new ObjectNotFoundException(2);
         if (model.getAnhChinh() == null || fileRepository.findById(model.getAnhChinh()).isEmpty())
             throw new ObjectNotFoundException(3);
@@ -131,7 +131,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Override
     public boolean deleteById(Long id) {
         try {
-            SanPham entity = this.getById(id);
+            SanPhamEntity entity = this.getById(id);
             this.sanPhamRepository.delete(entity);
             return true;
         } catch (Exception e) {
@@ -142,14 +142,14 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Override
     @Transactional
     public void thayDoiPhanLoai(Long id, ELoaiBienThe type) {
-        SanPham sanPham = sanPhamRepository.findById(id).orElse(null);
-        if (sanPham.getLoaiBienThe() == null) {
-            sanPham.setLoaiBienThe(type);
-            sanPhamRepository.saveAndFlush(sanPham);
-        } else if (!sanPham.getLoaiBienThe().equals(type)) {
+        SanPhamEntity sanPhamEntity = sanPhamRepository.findById(id).orElse(null);
+        if (sanPhamEntity.getLoaiBienThe() == null) {
+            sanPhamEntity.setLoaiBienThe(type);
+            sanPhamRepository.saveAndFlush(sanPhamEntity);
+        } else if (!sanPhamEntity.getLoaiBienThe().equals(type)) {
             sanPhamBienTheRepository
                     .saveAllAndFlush(sanPhamBienTheRepository
-                            .findAllAllBySanPhamIdAndNgayXoaIsNull(sanPham.getId())
+                            .findAllAllBySanPhamIdAndNgayXoaIsNull(sanPhamEntity.getId())
                             .stream()
                             .peek(sp -> {
                                 FileEntity file = fileRepository.findById(sp.getAnh()).orElse(null);
@@ -160,8 +160,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                 sp.delete();
                             })
                             .toList());
-            sanPham.setLoaiBienThe(type);
-            sanPhamRepository.saveAndFlush(sanPham);
+            sanPhamEntity.setLoaiBienThe(type);
+            sanPhamRepository.saveAndFlush(sanPhamEntity);
         }
 
     }
@@ -179,18 +179,18 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Override
     public WebChiTietSanPhamDto chiTietSanPhamResDto(Long id) {
-        SanPham sanPham = getById(id);
-        if (sanPham.getNgayXoa() != null)
+        SanPhamEntity sanPhamEntity = getById(id);
+        if (sanPhamEntity.getNgayXoa() != null)
             throw new ObjectNotFoundException(1);
 
-        WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPham);
-        dto.setAnhChinh(fileRepository.findById(sanPham.getAnhChinh()).get());
-        dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList()));
+        WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPhamEntity);
+        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).get());
+        dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 
-        if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
+        if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
             setListBienThe1ChoSP(dto, id, false);
-         else if (sanPham.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
+         else if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
             setListBienThe2ChoSP(dto, id, false);
         else {
             setListBienThe1ChoSP(dto, id, true);
@@ -204,7 +204,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Override
     public Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable) {
         // task: need filter
-        Page<SanPham> pageSp = sanPhamRepository.findAll(pageable);
+        Page<SanPhamEntity> pageSp = sanPhamRepository.findAll(pageable);
         return pageSp.map(sp -> chiTietSanPhamResDto(sp.getId()));
     }
 
@@ -238,11 +238,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                         bienTheGiaTri.id,
                                         bienTheGiaTri.giaTri))
                               .from(bienTheGiaTri)
-                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienThe.bienTheGiaTri2)
-                                        .from(sanPhamBienThe)
-                                        .where(sanPhamBienThe.ngayXoa.isNull(),
-                                                sanPhamBienThe.sanPham.id.eq(spId),
-                                                sanPhamBienThe.bienTheGiaTri1.eq(giaTriDTO.getId())
+                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienTheEntity.bienTheGiaTri2)
+                                        .from(sanPhamBienTheEntity)
+                                        .where(sanPhamBienTheEntity.ngayXoa.isNull(),
+                                                sanPhamBienTheEntity.sanPhamEntity.id.eq(spId),
+                                                sanPhamBienTheEntity.bienTheGiaTri1.eq(giaTriDTO.getId())
                                         )
                                         .fetch()))
                               .fetch();
@@ -272,11 +272,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                         )
                                 )
                                 .from(bienTheGiaTri)
-                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienThe.bienTheGiaTri1)
-                                        .from(sanPhamBienThe)
-                                        .where(sanPhamBienThe.ngayXoa.isNull(),
-                                                sanPhamBienThe.sanPham.id.eq(spId),
-                                                sanPhamBienThe.bienTheGiaTri2.eq(giaTriDTO.getId())
+                                .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienTheEntity.bienTheGiaTri1)
+                                        .from(sanPhamBienTheEntity)
+                                        .where(sanPhamBienTheEntity.ngayXoa.isNull(),
+                                                sanPhamBienTheEntity.sanPhamEntity.id.eq(spId),
+                                                sanPhamBienTheEntity.bienTheGiaTri2.eq(giaTriDTO.getId())
                                         )
                                         .fetch()))
                                 .fetch());
@@ -287,11 +287,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .collect(Collectors.toList()));
     }
 
-    public SanPham getById(Long id) {
+    public SanPhamEntity getById(Long id) {
         return this.sanPhamRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(0));
     }
 
-    public List<SanPham> getAll() {
+    public List<SanPhamEntity> getAll() {
         return sanPhamRepository.findAll();
     }
 

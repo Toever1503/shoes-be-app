@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.models;
 
 
-import com.shoescms.domain.product.entitis.BienThe;
+import com.shoescms.domain.product.entitis.BienTheEntity;
 
 import lombok.*;
 
@@ -14,7 +14,7 @@ import lombok.*;
 public class BienTheGiaTriModel {
     private Long id;
 
-    private BienThe bienThe;
+    private BienTheEntity bienTheEntity;
 
     private String giaTri;
 }

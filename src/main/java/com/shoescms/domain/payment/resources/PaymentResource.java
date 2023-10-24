@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -26,9 +27,9 @@ public class PaymentResource {
 
 
     @Operation(summary = "lay TT don hang", description = "lay TT don hang")
-    @GetMapping(value = "/chi-tiet-don-hang/{id}")
-    public DonHangDto getTTDonHang(@PathVariable Long id) {
-        return donHangService.chiTietDonHang(id);
+    @GetMapping(value = "detail/{id}")
+    public ResponseEntity<DonHangDto> getTTDonHang(@PathVariable Long id) {
+        return ResponseEntity.ok(donHangService.chiTietDonHang(id));
     }
 
     @PostMapping("dat-hang")

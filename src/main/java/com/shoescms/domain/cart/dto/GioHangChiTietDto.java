@@ -1,10 +1,9 @@
 package com.shoescms.domain.cart.dto;
 
 
-import com.shoescms.domain.cart.entity.GioHang;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -32,8 +31,8 @@ public class GioHangChiTietDto {
                 .build();
     }
 
-    public GioHangChiTietDto setSanPhamBienThe(SanPhamBienThe sanPhamBienThe) {
-        this.sanPhamBienThe = SanPhamBienTheDTO.toDTO(sanPhamBienThe);
+    public GioHangChiTietDto setSanPhamBienThe(SanPhamBienTheEntity sanPhamBienTheEntity) {
+        this.sanPhamBienThe = SanPhamBienTheDTO.toDTO(sanPhamBienTheEntity);
         return this;
     }
 }

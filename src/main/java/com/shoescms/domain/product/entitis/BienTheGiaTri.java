@@ -21,7 +21,7 @@ public class BienTheGiaTri {
 
     @ManyToOne
     @JoinColumn(name = "bien_the_id", nullable = false, columnDefinition = "BIGINT COMMENT 'bien the gia tri'")
-    private BienThe bienThe;
+    private BienTheEntity bienThe;
 
     @Column(name = "gia_tri")
     private String giaTri;

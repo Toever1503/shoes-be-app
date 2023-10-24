@@ -14,7 +14,7 @@ import com.shoescms.domain.cart.model.GioHangChiTietModel;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.repository.GioHangRepository;
 import com.shoescms.domain.cart.service.GioHangService;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import org.springframework.data.domain.Sort;
@@ -70,25 +70,25 @@ public class GioHangServiceImpl implements GioHangService {
              gioHangChiTietRepository.findAllByGioHang(gioHang.getId(), Sort.by(Sort.Order.desc(GioHangChiTiet_.NGAY_CAP_NHAT)))
                  .forEach(item ->
                  {
-                     SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(item.getSanPhamBienThe()).orElse(null);
-                     if(sanPhamBienThe.getNgayXoa() == null){
-                         if(item.getSoLuong() > sanPhamBienThe.getSoLuong())
+                     SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getSanPhamBienThe()).orElse(null);
+                     if(sanPhamBienTheEntity.getNgayXoa() == null){
+                         if(item.getSoLuong() > sanPhamBienTheEntity.getSoLuong())
                          {
-                             item.setSoLuong(sanPhamBienThe.getSoLuong());
+                             item.setSoLuong(sanPhamBienTheEntity.getSoLuong());
                              gioHangChiTietRepository.saveAndFlush(item);
                          }
 
-                        FileEntity anh = fileRepository.findById(sanPhamBienThe.getAnh()).orElse(fileRepository.findById(sanPhamBienThe.getSanPham().getAnhChinh()).orElse(null));
+                        FileEntity anh = fileRepository.findById(sanPhamBienTheEntity.getAnh()).orElse(fileRepository.findById(sanPhamBienTheEntity.getSanPhamEntity().getAnhChinh()).orElse(null));
 
                         GioHangChiTietResDto gioHangChiTietDto = GioHangChiTietResDto
                                  .builder()
-                                 .id(sanPhamBienThe.getId())
+                                 .id(sanPhamBienTheEntity.getId())
                                  .qty(item.getSoLuong())
-                                 .productId(sanPhamBienThe.getSanPham().getId())
-                                 .productName(sanPhamBienThe.getSanPham().getTieuDe())
-                                 .price(sanPhamBienThe.getSanPham().getGiaMoi())
-                                 .variation(sanPhamBienThe.getMotaPhanLoai())
-                                 .stockCnt(sanPhamBienThe.getSoLuong())
+                                 .productId(sanPhamBienTheEntity.getSanPhamEntity().getId())
+                                 .productName(sanPhamBienTheEntity.getSanPhamEntity().getTieuDe())
+                                 .price(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi())
+                                 .variation(sanPhamBienTheEntity.getMotaPhanLoai())
+                                 .stockCnt(sanPhamBienTheEntity.getSoLuong())
                                  .build();
                          if(anh != null)
                              gioHangChiTietDto.setAnh(anh.getUrl());
@@ -120,7 +120,7 @@ public class GioHangServiceImpl implements GioHangService {
     }
 
     @Override
-    public SanPhamBienThe getBienTheBySanPhamId(Long sanPhamBienThe) {
+    public SanPhamBienTheEntity getBienTheBySanPhamId(Long sanPhamBienThe) {
         return this.sanPhamBienTheRepository.findById(sanPhamBienThe).orElseThrow(() -> new ObjectNotFoundException(50));
     }
 
@@ -168,10 +168,10 @@ public class GioHangServiceImpl implements GioHangService {
                         .sanPhamBienThe(item.getSanPhamBienThe())
                         .soLuong(item.getSoLuong())
                         .build();
-            SanPhamBienThe sanPhamBienThe = getBienTheBySanPhamId(item.getSanPhamBienThe());
-            if(sanPhamBienThe.getNgayXoa() == null){
-                if(gioHangChiTiet.getSoLuong() > sanPhamBienThe.getSoLuong())
-                    gioHangChiTiet.setSoLuong(sanPhamBienThe.getSoLuong());
+            SanPhamBienTheEntity sanPhamBienTheEntity = getBienTheBySanPhamId(item.getSanPhamBienThe());
+            if(sanPhamBienTheEntity.getNgayXoa() == null){
+                if(gioHangChiTiet.getSoLuong() > sanPhamBienTheEntity.getSoLuong())
+                    gioHangChiTiet.setSoLuong(sanPhamBienTheEntity.getSoLuong());
                 gioHangChiTietRepository.saveAndFlush(gioHangChiTiet);
             }
         });

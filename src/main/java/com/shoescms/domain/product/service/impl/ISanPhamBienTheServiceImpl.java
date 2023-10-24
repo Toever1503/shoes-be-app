@@ -43,57 +43,57 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     }
 
     private void initBienThe() {
-        BienThe bienTheMau = bienTheRepository.saveAndFlush(BienThe
+        BienTheEntity bienTheEntityMau = bienTheRepository.saveAndFlush(BienTheEntity
                 .builder()
                 .id(1L)
                 .tenBienThe("COLOR")
                 .build());
-        BienThe bienTheSize = bienTheRepository.saveAndFlush(BienThe
+        BienTheEntity bienTheEntitySize = bienTheRepository.saveAndFlush(BienTheEntity
                 .builder()
                 .id(2L)
                 .tenBienThe("SIZE")
                 .build());
-        initGiaTriBienThe(bienTheMau);
-        initGiaTriBienThe(bienTheSize);
+        initGiaTriBienThe(bienTheEntityMau);
+        initGiaTriBienThe(bienTheEntitySize);
     }
 
-    private void initGiaTriBienThe(BienThe bienThe) {
-        if (bienThe.getTenBienThe().equals("COLOR")) {
+    private void initGiaTriBienThe(BienTheEntity bienTheEntity) {
+        if (bienTheEntity.getTenBienThe().equals("COLOR")) {
             bienTheGiaTriRepository.saveAllAndFlush(List.of(
                     BienTheGiaTri
                             .builder()
                             .id(1L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Đỏ")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(2L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Xanh")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(3L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Vàng")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(4L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Trắng")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(5L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Xám")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(6L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("Nâu")
                             .build()
             ));
@@ -102,55 +102,55 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                     BienTheGiaTri
                             .builder()
                             .id(46L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("36")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(47L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("37")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(48L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("38")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(49L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("39")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(50L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("40")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(51L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("41")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(52L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("42")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(53L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("43")
                             .build(),
                     BienTheGiaTri
                             .builder()
                             .id(54L)
-                            .bienThe(bienThe)
+                            .bienThe(bienTheEntity)
                             .giaTri("44")
                             .build()
             ));
@@ -158,8 +158,8 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     }
 
     @Override
-    public Page<SanPhamBienTheDTO> filterEntities(Pageable pageable, Specification<SanPhamBienThe> specification) {
-        Page<SanPhamBienThe> sanPhamBienThes = sanPhamBienTheRepository.findAll(specification, pageable);
+    public Page<SanPhamBienTheDTO> filterEntities(Pageable pageable, Specification<SanPhamBienTheEntity> specification) {
+        Page<SanPhamBienTheEntity> sanPhamBienThes = sanPhamBienTheRepository.findAll(specification, pageable);
         return sanPhamBienThes.map(SanPhamBienTheDTO::toDTO);
 
     }
@@ -168,8 +168,8 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     @Transactional
     synchronized public SanPhamBienTheDTO add(SanPhamBienTheModel model) {
         checkValue(model);
-        SanPham sanPham = sanPhamRepository.findById(model.getSanPham()).orElse(null);
-        if (sanPham == null)
+        SanPhamEntity sanPhamEntity = sanPhamRepository.findById(model.getSanPham()).orElse(null);
+        if (sanPhamEntity == null)
             throw new ObjectNotFoundException(8);
 
         FileEntity file = fileRepository.findById(model.getAnh()).orElse(null);
@@ -186,20 +186,20 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
             stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
         if (bienTheGiaTri2 != null)
             stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
-        SanPhamBienThe sanPhamBienThe = SanPhamBienThe.builder()
+        SanPhamBienTheEntity sanPhamBienTheEntity = SanPhamBienTheEntity.builder()
                 .id(model.getId())
                 .bienThe1(model.getBienThe1())
                 .bienThe2(model.getBienThe2())
-                .sanPham(sanPham)
+                .sanPhamEntity(sanPhamEntity)
                 .bienTheGiaTri1(model.getBienTheGiaTri1())
                 .bienTheGiaTri2(model.getBienTheGiaTri2())
                 .anh(model.getAnh())
                 .motaPhanLoai(stringBuilder.toString())
                 .build();
-        this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+        this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienTheEntity);
         return SanPhamBienTheDTO
-                .toDTO(sanPhamBienThe)
-                .setAnh(fileRepository.findById(sanPhamBienThe.getAnh()).orElse(null), null);
+                .toDTO(sanPhamBienTheEntity)
+                .setAnh(fileRepository.findById(sanPhamBienTheEntity.getAnh()).orElse(null), null);
     }
 
     public void checkValue(SanPhamBienTheModel model) {
@@ -220,9 +220,9 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
     @Override
     public boolean deleteById(Long id) {
         try {
-            SanPhamBienThe sanPhamBienThe = this.getByiD(id);
-            sanPhamBienThe.delete();
-            this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+            SanPhamBienTheEntity sanPhamBienTheEntity = this.getByiD(id);
+            sanPhamBienTheEntity.delete();
+            this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienTheEntity);
             return true;
         } catch (Exception e) {
             return false;
@@ -259,7 +259,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             if (bienTheGiaTri2 != null)
                                 stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
                             return SanPhamBienTheDTO.toDTO(item)
-                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
+                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPhamEntity().getAnhChinh()).orElse(null))
                                     .setGiaTriObj1(bienTheGiaTri1)
                                     .setGiaTriObj2(bienTheGiaTri2)
                                     .setMotaPhanLoai(stringBuilder.toString());
@@ -270,19 +270,19 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
 
     @Override
     public void capNhatSoLuongSanPhamChoBienThe(Long id, int soLuong) {
-        SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));
-        sanPhamBienThe.setSoLuong(soLuong);
-        sanPhamBienTheRepository.saveAndFlush(sanPhamBienThe);
+        SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));
+        sanPhamBienTheEntity.setSoLuong(soLuong);
+        sanPhamBienTheRepository.saveAndFlush(sanPhamBienTheEntity);
 
-        SanPham sanPham = sanPhamBienThe.getSanPham();
+        SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
         AtomicInteger tongSp = new AtomicInteger(0);
-        sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(sanPham.getId())
+        sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(sanPhamEntity.getId())
                 .forEach(sp -> tongSp.addAndGet(sp.getSoLuong()));
-        sanPham.setTongSp(tongSp.get());
-        sanPhamRepository.saveAndFlush(sanPham);
+        sanPhamEntity.setTongSp(tongSp.get());
+        sanPhamRepository.saveAndFlush(sanPhamEntity);
     }
 
-    public SanPhamBienThe getByiD(Long id) {
+    public SanPhamBienTheEntity getByiD(Long id) {
         return sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(0));
     }
 }

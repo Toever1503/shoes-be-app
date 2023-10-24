@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.dto;
 
 
-import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ public class ThuongHieuDTO {
     private LocalDateTime ngayTao;
     private Integer soSp;
 
-    public static ThuongHieuDTO toDTO(ThuongHieu th) {
+    public static ThuongHieuDTO toDTO(ThuongHieuEntity th) {
         if (th == null) return null;
         return ThuongHieuDTO.builder()
                 .id(th.getId())
@@ -37,8 +37,8 @@ public class ThuongHieuDTO {
         return this;
     }
 
-    public static List<ThuongHieuDTO> convertToTDO(List<ThuongHieu> thuongHieu) {
-        return thuongHieu.stream().map(s -> ThuongHieuDTO.builder()
+    public static List<ThuongHieuDTO> convertToTDO(List<ThuongHieuEntity> thuongHieuEntity) {
+        return thuongHieuEntity.stream().map(s -> ThuongHieuDTO.builder()
                         .id(s.getId())
                         .tenThuongHieu(s.getTenThuongHieu())
                         .slug(s.getSlug())

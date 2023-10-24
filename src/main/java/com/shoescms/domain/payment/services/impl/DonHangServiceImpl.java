@@ -14,13 +14,12 @@ import com.shoescms.domain.payment.services.IDonHangService;
 import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -55,23 +54,23 @@ public class DonHangServiceImpl implements IDonHangService {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         DonHangDto dto = DonHangDto.toDto(donHangEntity);
         dto.getChiTietDonHang().forEach(item -> {
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
-            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
-            item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienThe.getSanPham().getAnhChinh()).orElse(null));
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
+            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
+            item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPhamEntity().getAnhChinh()).orElse(null));
 
-            if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
+            if (sanPhamBienTheEntity.getSanPhamEntity().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
                 StringBuilder stringBuilder = new StringBuilder();
-                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).orElse(null);
-                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri2()).orElse(null);
+                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).orElse(null);
+                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).orElse(null);
                 if (bienTheGiaTri1 != null)
                     stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
                 if (bienTheGiaTri2 != null)
                     stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
                 item.setMotaPhanLoai(stringBuilder.toString());
-            } else if (sanPhamBienThe.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
-                bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
+            } else if (sanPhamBienTheEntity.getSanPhamEntity().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
+                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
             else
-                bienTheGiaTriRepository.findById(sanPhamBienThe.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
+                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
         });
         return dto;
     }
@@ -95,14 +94,14 @@ public class DonHangServiceImpl implements IDonHangService {
         List<ChiTietDonHangEntity> chiTietDonHangEntities = reqDto.getPhanLoaidIds()
                 .stream()
                 .map(sp -> {
-                    SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-                    tongTien.updateAndGet(v -> v.add(sanPhamBienThe.getSanPham().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
+                    SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
+                    tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
                     tongSanPham.updateAndGet(v -> v + sp.getSoLuong());
                     return ChiTietDonHangEntity
                             .builder()
                             .phanLoaiSpId(sp.getSanPhamBienThe())
                             .soLuong(sp.getSoLuong())
-                            .giaTien(sanPhamBienThe.getSanPham().getGiaMoi())
+                            .giaTien(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi())
                             .build();
                 })
                 .toList();
@@ -145,8 +144,8 @@ public class DonHangServiceImpl implements IDonHangService {
             ChiTietDonHangDto chiTietDonHangDto = new ChiTietDonHangDto();
             chiTietDonHangDto.setId(chiTietDonHangEntity.getId());
 
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(chiTietDonHangEntity.getPhanLoaiSpId()).orElse(null);
-            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(chiTietDonHangEntity.getPhanLoaiSpId()).orElse(null);
+            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
             chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntity.getPhanLoaiSpId());
             chiTietDonHangDto.setSoLuong(chiTietDonHangEntity.getSoLuong());
             chiTietDonHangDto.setGiaTien(chiTietDonHangEntity.getGiaTien());

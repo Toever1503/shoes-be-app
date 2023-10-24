@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,14 +50,12 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
-                .cors().configurationSource(corsConfigurationSource()).and()
-                .csrf().disable()
+                .cors(cnf -> corsConfigurationSource())
+                .csrf(AbstractHttpConfigurer::disable)
                 .formLogin().disable()
                 .headers().frameOptions().disable()
-
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
                 .authorizeHttpRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
@@ -91,19 +90,8 @@ public class SecurityConfig {
             "/v1/coupon/**",
             "/v1/san-pham/public/**",
             "/v1/payment/dat-hang",
-            "/v1/payment/chi-tiet-don-hang/**",
-            "/v1/vnpay/ket-qua",
-            "/v1/don-hang/chi-tiet/**"
+            "/v1/vnpay/ket-qua"
     };
-
-    private static final String[] ADMIN_ONLY_LIST = {
-            "/*/user/resetPassword/{id}"
-    };
-
-    private static final String[] SUPER_ADMIN_ONLY_LIST = {
-            "/*/admin/**"
-    };
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(IGNORING_LIST);
@@ -116,7 +104,9 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger/**",
             "/actuator/health",
-            "/*/exception/**"
+            "/*/exception/**",
+            "/v1/payment/detail/**",
+            "/v1/don-hang/chi-tiet/**"
     };
 
     private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager(final String expression) {

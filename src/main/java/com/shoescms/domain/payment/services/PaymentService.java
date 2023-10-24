@@ -2,11 +2,9 @@ package com.shoescms.domain.payment.services;
 
 import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.exception.ObjectNotFoundException;
-import com.shoescms.common.exception.ProcessFailedException;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.repository.GioHangRepository;
-import com.shoescms.domain.cart.service.GioHangService;
 import com.shoescms.domain.payment.dtos.*;
 import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
@@ -16,14 +14,9 @@ import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.resources.VnPayConfig;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
-import com.shoescms.domain.product.entitis.BienTheGiaTri;
-import com.shoescms.domain.product.entitis.SanPham;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
-import com.shoescms.domain.product.enums.ELoaiBienThe;
-import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
-import com.shoescms.domain.product.repository.ISanPhamRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -102,8 +94,8 @@ public class PaymentService {
             ChiTietDonHangDto chiTietDonHangDto = new ChiTietDonHangDto();
             chiTietDonHangDto.setId(chiTietDonHangEntities.get(i).getId());
 
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(chiTietDonHangEntities.get(i).getPhanLoaiSpId()).orElse(null);
-            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienThe.getSanPham()));
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(chiTietDonHangEntities.get(i).getPhanLoaiSpId()).orElse(null);
+            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
             chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntities.get(i).getPhanLoaiSpId());
             chiTietDonHangDto.setSoLuong(chiTietDonHangEntities.get(i).getSoLuong());
             chiTietDonHangDto.setGiaTien(chiTietDonHangEntities.get(i).getGiaTien());
@@ -129,16 +121,16 @@ public class PaymentService {
         Integer tongSanPham = 0;
 
         for (int i = 0; i < gioHangTamThoiReqDto.size(); i++) {
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(gioHangTamThoiReqDto.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-            SanPham sanPham = sanPhamBienThe.getSanPham();
-            BigDecimal tongTienSp = sanPham.getGiaMoi().multiply(BigDecimal.valueOf(gioHangTamThoiReqDto.get(i).getSoLuong().doubleValue()));
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangTamThoiReqDto.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
+            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
+            BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangTamThoiReqDto.get(i).getSoLuong().doubleValue()));
             tongTien = tongTien.add(tongTienSp);
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
-            chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
-            chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());
+            chiTietDonHang.setGiaTien(sanPhamEntity.getGiaMoi());
+            chiTietDonHang.setPhanLoaiSpId(sanPhamBienTheEntity.getId());
             chiTietDonHangEntities.add(chiTietDonHang);
         }
 
@@ -155,16 +147,16 @@ public class PaymentService {
         Integer tongSanPham = 0;
 
         for (int i = 0; i < gioHangChiTiets.size(); i++) {
-            SanPhamBienThe sanPhamBienThe = sanPhamBienTheRepository.findById(gioHangChiTiets.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-            SanPham sanPham = sanPhamBienThe.getSanPham();
-            BigDecimal tongTienSp = sanPham.getGiaMoi().multiply(BigDecimal.valueOf(gioHangChiTiets.get(i).getSoLuong().doubleValue()));
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangChiTiets.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
+            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
+            BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangChiTiets.get(i).getSoLuong().doubleValue()));
             tongTien.add(tongTienSp);
             tongSanPham += gioHangChiTiets.get(i).getSoLuong();
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
             chiTietDonHang.setSoLuong(gioHangChiTiets.get(i).getSoLuong());
-            chiTietDonHang.setGiaTien(sanPham.getGiaMoi());
-            chiTietDonHang.setPhanLoaiSpId(sanPhamBienThe.getId());
+            chiTietDonHang.setGiaTien(sanPhamEntity.getGiaMoi());
+            chiTietDonHang.setPhanLoaiSpId(sanPhamBienTheEntity.getId());
             chiTietDonHangEntities.add(chiTietDonHang);
         }
 

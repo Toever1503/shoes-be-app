@@ -1,7 +1,6 @@
 package com.shoescms.domain.product.dto;
 
 
-import com.shoescms.domain.product.entitis.BienThe;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import lombok.*;
 

@@ -11,7 +11,7 @@ import lombok.*;
 @Getter
 @Builder
 @Table(name = "tbl_thuoc_tinh_san_pham")
-public class ThuocTinhSP {
+public class ThuocTinhSPEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class ThuocTinhSP {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "san_pham_id", nullable = false, columnDefinition = "BIGINT COMMENT 'thuoc tinh san pham'")
-    private SanPham sanPham;
+    private SanPhamEntity sanPhamEntity;
 
     @Column(name = "ten_thuoc_tinh")
     private String tenThuocTinh;

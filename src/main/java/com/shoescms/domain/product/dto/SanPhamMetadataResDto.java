@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.dto;
 
 import com.shoescms.common.model.FileEntity;
-import com.shoescms.domain.product.entitis.SanPham;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,17 +16,17 @@ public class SanPhamMetadataResDto {
     private String tieuDe;
     private FileEntity anhChinh;
 
-    public SanPhamMetadataResDto(SanPham sanPham) {
-        this.id = sanPham.getId();
-        this.tieuDe = sanPham.getTieuDe();
+    public SanPhamMetadataResDto(SanPhamEntity sanPhamEntity) {
+        this.id = sanPhamEntity.getId();
+        this.tieuDe = sanPhamEntity.getTieuDe();
     }
 
-    public static SanPhamMetadataResDto toDto(SanPham sanPham) {
-        if (sanPham == null) return null;
+    public static SanPhamMetadataResDto toDto(SanPhamEntity sanPhamEntity) {
+        if (sanPhamEntity == null) return null;
         return SanPhamMetadataResDto
                 .builder()
-                .id(sanPham.getId())
-                .tieuDe(sanPham.getTieuDe())
+                .id(sanPhamEntity.getId())
+                .tieuDe(sanPhamEntity.getTieuDe())
                 .build();
     }
 }

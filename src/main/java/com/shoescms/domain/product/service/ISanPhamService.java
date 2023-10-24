@@ -4,7 +4,7 @@ import com.shoescms.domain.product.dto.SanPhamBienTheDTO;
 import com.shoescms.domain.product.dto.WebChiTietSanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamDto;
 import com.shoescms.domain.product.dto.SanPhamFilterReqDto;
-import com.shoescms.domain.product.entitis.SanPham;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamModel;
 import org.springframework.data.domain.Page;
@@ -14,9 +14,9 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 
 public interface ISanPhamService {
-    Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPham> specification);
+    Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPhamEntity> specification);
 
-    Page<SanPham> getAll(Pageable pageable);
+    Page<SanPhamEntity> getAll(Pageable pageable);
 
 
     SanPhamDto add(SanPhamModel model);

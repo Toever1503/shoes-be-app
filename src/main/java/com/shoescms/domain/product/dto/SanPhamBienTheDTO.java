@@ -2,7 +2,7 @@ package com.shoescms.domain.product.dto;
 
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -36,17 +36,17 @@ public class SanPhamBienTheDTO {
     private FileEntity anhSpChinh;
     private String motaPhanLoai;
 
-    public static SanPhamBienTheDTO toDTO(SanPhamBienThe sanPhamBienThe) {
+    public static SanPhamBienTheDTO toDTO(SanPhamBienTheEntity sanPhamBienTheEntity) {
         return
                 SanPhamBienTheDTO.builder()
-                        .id(sanPhamBienThe.getId())
-                        .bienThe1(sanPhamBienThe.getBienThe1())
-                        .bienThe2(sanPhamBienThe.getBienThe2())
-                        .giatri1(sanPhamBienThe.getBienTheGiaTri1())
-                        .giatri2(sanPhamBienThe.getBienTheGiaTri2())
-                        .soLuong(sanPhamBienThe.getSoLuong())
-                        .sanPhamMetadata(new SanPhamMetadataResDto(sanPhamBienThe.getSanPham()))
-                        .ngayXoa(sanPhamBienThe.getNgayXoa())
+                        .id(sanPhamBienTheEntity.getId())
+                        .bienThe1(sanPhamBienTheEntity.getBienThe1())
+                        .bienThe2(sanPhamBienTheEntity.getBienThe2())
+                        .giatri1(sanPhamBienTheEntity.getBienTheGiaTri1())
+                        .giatri2(sanPhamBienTheEntity.getBienTheGiaTri2())
+                        .soLuong(sanPhamBienTheEntity.getSoLuong())
+                        .sanPhamMetadata(new SanPhamMetadataResDto(sanPhamBienTheEntity.getSanPhamEntity()))
+                        .ngayXoa(sanPhamBienTheEntity.getNgayXoa())
                         .build();
     }
 

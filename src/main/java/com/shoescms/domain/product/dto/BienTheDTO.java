@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.dto;
 
 
-import com.shoescms.domain.product.entitis.BienThe;
+import com.shoescms.domain.product.entitis.BienTheEntity;
 import lombok.*;
 
 @NoArgsConstructor
@@ -14,12 +14,12 @@ public class BienTheDTO {
     private Long id;
     private String tenBienThe;
 
-    public static BienTheDTO toDto(BienThe bienThe){
-        if(bienThe == null) return  null;
+    public static BienTheDTO toDto(BienTheEntity bienTheEntity){
+        if(bienTheEntity == null) return  null;
         return BienTheDTO
                 .builder()
-                .id(bienThe.getId())
-                .tenBienThe(bienThe.getTenBienThe())
+                .id(bienTheEntity.getId())
+                .tenBienThe(bienTheEntity.getTenBienThe())
                 .build();
     }
 }

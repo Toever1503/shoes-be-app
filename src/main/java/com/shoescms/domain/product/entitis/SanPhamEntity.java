@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-public class SanPham  {
+public class SanPhamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -49,11 +49,11 @@ public class SanPham  {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "thuong_hieu_id",nullable = false, columnDefinition = "BIGINT COMMENT 'Shoes thuong hieu'")
-    private ThuongHieu thuongHieu;
+    private ThuongHieuEntity thuongHieu;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "danh_muc_id",nullable = false, columnDefinition = "BIGINT COMMENT 'Shoes danh muc'")
-    private DMGiay dmGiay;
+    private DMGiayEntity dmGiay;
 
     @Column(name = "nguoi_tao")
     private Long nguoiTao;

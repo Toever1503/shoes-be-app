@@ -5,11 +5,10 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.cart.dto.GioHangChiTietDto;
 import com.shoescms.domain.cart.dto.GioHangChiTietResDto;
-import com.shoescms.domain.cart.dto.GioHangResDto;
 import com.shoescms.domain.cart.entity.GioHang;
 import com.shoescms.domain.cart.model.GioHangChiTietModel;
 import com.shoescms.domain.cart.service.GioHangService;
-import com.shoescms.domain.product.entitis.SanPhamBienThe;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,16 +34,16 @@ public class GioHangResource {
             ) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
         GioHang gioHang = gioHangService.findCartByUserId(userId);
-        SanPhamBienThe sanPhamBienThe = gioHangService.getBienTheBySanPhamId(model.getSanPhamBienThe());
+        SanPhamBienTheEntity sanPhamBienTheEntity = gioHangService.getBienTheBySanPhamId(model.getSanPhamBienThe());
         if(gioHang.getId() == null){
             gioHang = gioHangService.add(GioHang.builder().userEntity(userId).build());
             model.setGioHang(gioHang.getId());
         }else {
-            if(sanPhamBienThe.getSoLuong() > 0) {
+            if(sanPhamBienTheEntity.getSoLuong() > 0) {
                 model.setGioHang(gioHang.getId());
                 return gioHangService.addItem(model);
             }
-            else if(sanPhamBienThe.getSoLuong() == 0){
+            else if(sanPhamBienTheEntity.getSoLuong() == 0){
                 throw new ObjectNotFoundException(50);
             }
         }

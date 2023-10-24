@@ -1,36 +1,30 @@
 package com.shoescms.domain.product.entitis;
 
-
 import com.shoescms.common.model.BaseDateEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "tbl_danh_muc_giay")
+@Table(name = "tbl_thuong_hieu")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
 @Getter
 @Setter
-public class DMGiay extends BaseDateEntity {
+@Data
+@Builder
+public class ThuongHieuEntity extends BaseDateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @JdbcTypeCode(SqlTypes.NVARCHAR)
-    @Column(name = "ten_danh_muc", length =  255)
-    private String tenDanhMuc;
+    @Column(name = "ten_thuong_hieu")
+    private String tenThuongHieu;
 
-    @Column(name = "slug", length = 255)
+    @Column(name = "slug")
     private String slug;
 
     @Temporal(TemporalType.TIMESTAMP)

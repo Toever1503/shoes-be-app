@@ -2,14 +2,14 @@ package com.shoescms.domain.product.controller;
 
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.product.dto.*;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.models.SanPhamBienTheModel;
 import com.shoescms.domain.product.service.ISanPhamService;
-import com.shoescms.domain.product.entitis.SanPham;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
-import com.shoescms.domain.product.entitis.SanPham_;
+import com.shoescms.domain.product.entitis.SanPhamEntity_;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -90,22 +90,22 @@ public class SanPhamController {
 
     @PostMapping("/filter")
     public Page<SanPhamDto> search(@RequestBody SanPhamFilterReqDto model, Pageable pageable) {
-        List<Specification<SanPham>> listSpect = new ArrayList<>();
+        List<Specification<SanPhamEntity>> listSpect = new ArrayList<>();
 
         if (model.getTieuDe() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.TIEU_DE), "%" + model.getTieuDe().trim() + "%"));
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPhamEntity_.TIEU_DE), "%" + model.getTieuDe().trim() + "%"));
         if (model.getMaSp() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPham_.MA_SP), "%" + model.getMaSp().trim() + "%"));
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPhamEntity_.MA_SP), "%" + model.getMaSp().trim() + "%"));
         if (model.getThuongHieu() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.THUONG_HIEU), model.getThuongHieu()));
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.THUONG_HIEU), model.getThuongHieu()));
         if (model.getDmGiay() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.DM_GIAY), model.getDmGiay()));
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.DM_GIAY), model.getDmGiay()));
         if (model.getHienThiWeb() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPham_.HIEN_THI_WEB), model.getHienThiWeb()));
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.HIEN_THI_WEB), model.getHienThiWeb()));
         if(model.getCreatedAtRange() != null)
-            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(SanPham_.NGAY_TAO), model.getCreatedAtRange().get(0), model.getCreatedAtRange().get(1)));
-        listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPham_.NGAY_XOA)));
-        Specification<SanPham> finalSpec = null;
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(SanPhamEntity_.NGAY_TAO), model.getCreatedAtRange().get(0), model.getCreatedAtRange().get(1)));
+        listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPhamEntity_.NGAY_XOA)));
+        Specification<SanPhamEntity> finalSpec = null;
         for (Specification spec : listSpect) {
             if (finalSpec == null) {
                 finalSpec = Specification.where(spec);
