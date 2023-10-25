@@ -91,4 +91,16 @@ public class SanPhamEntity {
     @Column(name = "tong_sp")
     @ColumnDefault("0")
     private Integer tongSp;
+
+
+    @Column(name = "chat_lieu")
+    private String chatLieu;
+    @Column(name = "trong_luong")
+    private String trongLuong;
+    @Column(name = "cong_nghe")
+    private String congNghe;
+    @Column(name = "tinh_nang")
+    private String tinhNang;
+    @Column(name = "noi_san_xuat")
+    private String noiSanXuat;
 }

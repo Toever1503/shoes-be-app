@@ -32,15 +32,18 @@ public class VoucherService {
     }
 
     @Transactional
-    public VoucherDto update(VoucherReqDto reqDto) {
+    public VoucherDto update(VoucherReqDto reqDto, long loggedUserId) {
         VoucherEntity entity = reqDto.toEntity();
+        entity.setNguoiCapNhat(loggedUserId);
         voucherRepository.saveAndFlush(entity);
         return VoucherDto.toDto(entity);
     }
 
     @Transactional
-    public VoucherDto add(VoucherReqDto reqDto) {
+    public VoucherDto add(VoucherReqDto reqDto, long loggedUserId) {
         VoucherEntity entity = reqDto.toEntity();
+        entity.setNguoiTao(loggedUserId);
+        entity.setNguoiCapNhat(loggedUserId);
         voucherRepository.saveAndFlush(entity);
         return VoucherDto.toDto(entity);
     }

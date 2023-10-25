@@ -1,11 +1,13 @@
 package com.shoescms.domain.voucher;
 
+import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.voucher.dto.EVoucherStatus;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.dto.VoucherFilterReqDto;
 import com.shoescms.domain.voucher.dto.VoucherReqDto;
 import com.shoescms.domain.voucher.entity.VoucherEntity;
 import com.shoescms.domain.voucher.entity.VoucherEntity_;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +20,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/voucher")
+@RequiredArgsConstructor
 public class VoucherResource {
 
-    @Autowired
-    private VoucherService voucherService;
+    private final VoucherService voucherService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("filter")
     public Page<VoucherDto> filter(@RequestBody VoucherFilterReqDto reqDto, Pageable pageable) {
@@ -57,17 +60,17 @@ public class VoucherResource {
     }
 
     @PostMapping
-    public VoucherDto add(@RequestBody VoucherReqDto reqDto) {
+    public VoucherDto add(@RequestBody VoucherReqDto reqDto,  @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
         reqDto.setId(null);
-        return voucherService.add(reqDto);
+        return voucherService.add(reqDto, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }
 
 
 
     @PutMapping("{id}")
-    public VoucherDto update(@PathVariable(name = "id") Long id, @RequestBody VoucherReqDto reqDto) {
+    public VoucherDto update(@PathVariable(name = "id") Long id, @RequestBody VoucherReqDto reqDto,  @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
         reqDto.setId(id);
-        return voucherService.update(reqDto);
+        return voucherService.update(reqDto, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }
 
     @DeleteMapping("bulk")

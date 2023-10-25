@@ -53,4 +53,10 @@ public class SanPhamModel {
     private List<Long> anhPhu;
 
     private Boolean hienThiWeb;
+
+    private String chatLieu;
+    private String trongLuong;
+    private String congNghe;
+    private String tinhNang;
+    private String noiSanXuat;
 }

@@ -83,6 +83,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .anhChinh(model.getAnhChinh())
                 .anhPhu(String.join(",", model.getAnhPhu().stream().map(Object::toString).toList()))
                 .hienThiWeb(model.getHienThiWeb())
+                .chatLieu(model.getChatLieu())
+                .trongLuong(model.getTrongLuong())
+                .congNghe(model.getCongNghe())
+                .tinhNang(model.getTinhNang())
+                .noiSanXuat(model.getNoiSanXuat())
                 .build();
 
         if (model.getId() == null)

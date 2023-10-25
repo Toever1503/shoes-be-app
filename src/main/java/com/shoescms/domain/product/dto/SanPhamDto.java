@@ -36,7 +36,7 @@ public class SanPhamDto {
 
     private ESex gioiTinh;
 
-    private String  anhBia;
+    private String anhBia;
 
     private ThuongHieuEntity thuongHieu;
 
@@ -57,9 +57,14 @@ public class SanPhamDto {
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
     private Integer tongSp;
+    private String chatLieu;
+    private String trongLuong;
+    private String congNghe;
+    private String tinhNang;
+    private String noiSanXuat;
 
-    public static SanPhamDto toDto(SanPhamEntity sanPhamEntity){
-        if(sanPhamEntity == null) return null;
+    public static SanPhamDto toDto(SanPhamEntity sanPhamEntity) {
+        if (sanPhamEntity == null) return null;
         return SanPhamDto.builder()
                 .id(sanPhamEntity.getId())
                 .maSP(sanPhamEntity.getMaSP())
@@ -80,6 +85,11 @@ public class SanPhamDto {
                 .loaiBienThe(sanPhamEntity.getLoaiBienThe())
                 .hienThiWeb(sanPhamEntity.getHienThiWeb())
                 .tongSp(sanPhamEntity.getTongSp())
+                .chatLieu(sanPhamEntity.getChatLieu())
+                .trongLuong(sanPhamEntity.getTrongLuong())
+                .congNghe(sanPhamEntity.getCongNghe())
+                .tinhNang(sanPhamEntity.getTinhNang())
+                .noiSanXuat(sanPhamEntity.getNoiSanXuat())
                 .build();
     }
 
