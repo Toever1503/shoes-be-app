@@ -4,6 +4,7 @@ import com.shoescms.common.model.FileEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
+import com.shoescms.domain.voucher.dto.VoucherMetadataDto;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -54,6 +55,7 @@ public class WebChiTietSanPhamDto {
     private Float soSaoDanhGia;
     private Integer soLuongKho;
 
+    private List<VoucherMetadataDto> vouchers;
     public static WebChiTietSanPhamDto toDto(SanPhamEntity sanPhamEntity) {
         if (sanPhamEntity == null) return null;
         return WebChiTietSanPhamDto.builder()

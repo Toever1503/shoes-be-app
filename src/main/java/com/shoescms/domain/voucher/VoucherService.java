@@ -1,10 +1,14 @@
 package com.shoescms.domain.voucher;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.domain.user.dto.UsermetaDto;
 import com.shoescms.domain.user.repository.UserRepository;
 import com.shoescms.domain.voucher.dto.VoucherDto;
+import com.shoescms.domain.voucher.dto.VoucherMetadataDto;
 import com.shoescms.domain.voucher.dto.VoucherReqDto;
+import com.shoescms.domain.voucher.entity.ELoaiGiamGia;
 import com.shoescms.domain.voucher.entity.VoucherEntity;
 import com.shoescms.domain.voucher.repository.IVoucherRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +18,11 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.shoescms.domain.voucher.entity.QVoucherEntity.voucherEntity;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +30,7 @@ public class VoucherService {
 
     private final IVoucherRepository voucherRepository;
     private final UserRepository userRepository;
+    private final JPAQueryFactory jpaQueryFactory;
     public void deleteByIds(List<Long> ids) {
         List<VoucherEntity> voucherEntities = voucherRepository.findAllById(ids);
         if(voucherEntities.size() > 0){
@@ -65,5 +73,22 @@ public class VoucherService {
                     dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(entity.getNguoiCapNhat()).orElse(null)));
                     return dto;
                 });
+    }
+
+    public List<VoucherMetadataDto> findAvailableVoucherByDanhMuc(Long danhMucId){
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(voucherEntity.danhMucList.contains(danhMucId.toString()));
+        builder.and(voucherEntity.loaiGiamGia.eq(ELoaiGiamGia.ALL));
+        builder.and(voucherEntity.ngayXoa.isNull());
+        LocalDate currentDate = LocalDate.now();
+        builder.and(voucherEntity.ngayBatDau.loe(currentDate));
+        builder.and(voucherEntity.ngayKetThuc.goe(currentDate));
+        return jpaQueryFactory.selectDistinct(voucherEntity)
+                .from(voucherEntity)
+                .where(builder)
+                .fetch()
+                .stream()
+                .map(VoucherMetadataDto::toDto)
+                .toList();
     }
 }

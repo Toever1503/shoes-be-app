@@ -16,6 +16,7 @@ import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
+import com.shoescms.domain.voucher.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
@@ -52,6 +53,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
+
+    @Autowired
+    private VoucherService voucherService;
 
     @Override
     public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPhamEntity> specification) {
@@ -203,6 +207,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
         }
 
         dto.setSoLuongKho(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
+        dto.setVouchers(voucherService.findAvailableVoucherByDanhMuc(dto.getDmGiay().getId()));
         return dto;
     }
 
