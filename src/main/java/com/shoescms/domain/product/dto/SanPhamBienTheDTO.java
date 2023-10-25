@@ -45,7 +45,7 @@ public class SanPhamBienTheDTO {
                         .giatri1(sanPhamBienTheEntity.getBienTheGiaTri1())
                         .giatri2(sanPhamBienTheEntity.getBienTheGiaTri2())
                         .soLuong(sanPhamBienTheEntity.getSoLuong())
-                        .sanPhamMetadata(new SanPhamMetadataResDto(sanPhamBienTheEntity.getSanPhamEntity()))
+                        .sanPhamMetadata(new SanPhamMetadataResDto(sanPhamBienTheEntity.getSanPham()))
                         .ngayXoa(sanPhamBienTheEntity.getNgayXoa())
                         .build();
     }

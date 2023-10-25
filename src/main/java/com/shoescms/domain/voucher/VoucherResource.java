@@ -1,14 +1,19 @@
 package com.shoescms.domain.voucher;
 
+import com.shoescms.domain.voucher.dto.EVoucherStatus;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.dto.VoucherFilterReqDto;
 import com.shoescms.domain.voucher.dto.VoucherReqDto;
+import com.shoescms.domain.voucher.entity.VoucherEntity;
+import com.shoescms.domain.voucher.entity.VoucherEntity_;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +25,30 @@ public class VoucherResource {
 
     @PostMapping("filter")
     public Page<VoucherDto> filter(@RequestBody VoucherFilterReqDto reqDto, Pageable pageable) {
-        return voucherService.filter(pageable, Specification.where(null));
+        List<Specification<VoucherEntity>> specs = new ArrayList<>();
+        if(reqDto.getStatus() != null){
+            specs.add((root, query, criteriaBuilder) -> {
+                        LocalDate currentDate = LocalDate.now();
+                        if (EVoucherStatus.USING == reqDto.getStatus())
+                            return criteriaBuilder.and(
+                                    criteriaBuilder.lessThanOrEqualTo(root.get(VoucherEntity_.NGAY_BAT_DAU), currentDate),
+                                    criteriaBuilder.greaterThanOrEqualTo(root.get(VoucherEntity_.NGAY_KET_THUC), currentDate)
+                            );
+                        else if (EVoucherStatus.COMING == reqDto.getStatus())
+                            return criteriaBuilder.greaterThan(root.get(VoucherEntity_.NGAY_BAT_DAU), currentDate);
+                        else
+                            return criteriaBuilder.lessThan(root.get(VoucherEntity_.NGAY_KET_THUC), currentDate);
+
+                    }
+            );
+        }
+        specs.add((root, query, cb) -> cb.isNull(root.get(VoucherEntity_.NGAY_XOA)));
+
+        Specification<VoucherEntity> finalSpec = null;
+        for(Specification<VoucherEntity> spec: specs)
+            if(finalSpec == null) finalSpec = Specification.where(spec);
+            else finalSpec.and(spec);
+        return voucherService.filter(pageable, finalSpec);
     }
 
     @GetMapping("{id}")

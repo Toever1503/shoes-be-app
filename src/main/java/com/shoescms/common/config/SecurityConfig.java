@@ -50,7 +50,8 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain config(HttpSecurity http) throws Exception {
         return http
-                .cors(cnf -> corsConfigurationSource())
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin().disable()
                 .headers().frameOptions().disable()
@@ -60,11 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .requestMatchers(PERMIT_ALL_LIST).permitAll()
-                .requestMatchers(HttpMethod.PUT,"/*/user/{id}").access(getWebExpressionAuthorizationManager("@authorizationChecker.hasAuthorityOrOwner(request, #id, 'ACCOUNT_WRITE')"))
-//                .requestMatchers(ADMIN_ONLY_LIST).hasAnyRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle(), RoleEnum.ROLE_ADMIN.getTitle())
-//                .requestMatchers(SUPER_ADMIN_ONLY_LIST).hasRole(RoleEnum.ROLE_SUPER_ADMIN.getTitle())
                 .anyRequest().authenticated()
-
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
@@ -90,7 +87,9 @@ public class SecurityConfig {
             "/v1/coupon/**",
             "/v1/san-pham/public/**",
             "/v1/payment/dat-hang",
-            "/v1/vnpay/ket-qua"
+            "/v1/vnpay/ket-qua",
+            "/v1/payment/detail/**",
+            "/v1/don-hang/chi-tiet/**"
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -104,9 +103,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger/**",
             "/actuator/health",
-            "/*/exception/**",
-            "/v1/payment/detail/**",
-            "/v1/don-hang/chi-tiet/**"
+            "/*/exception/**"
     };
 
     private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager(final String expression) {

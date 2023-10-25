@@ -24,7 +24,7 @@ public class SanPhamBienTheEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "san_pham_id", nullable = false, columnDefinition = "BIGINT COMMENT 'san pham '")
-    private SanPhamEntity sanPhamEntity;
+    private SanPhamEntity sanPham;
 
     @Column(name = "bien_the_id1", columnDefinition = "BIGINT COMMENT 'bien the '")
     @JdbcTypeCode(SqlTypes.BIGINT)

@@ -35,7 +35,7 @@ public class SanPhamBienTheController {
         List<Specification<SanPhamBienTheEntity>> listSpect = new ArrayList<>();
         if (model.getSanPham() != null) {
             listSpect.add((root, query, criteriaBuilder) -> {
-                        Join<SanPhamBienTheEntity, SanPhamEntity> join = root.join(SanPhamBienTheEntity_.SAN_PHAM_ENTITY);
+                        Join<SanPhamBienTheEntity, SanPhamEntity> join = root.join(SanPhamBienTheEntity_.SAN_PHAM);
                         return criteriaBuilder.equal(join.get(SanPhamEntity_.ID), model.getSanPham());
                     }
             );

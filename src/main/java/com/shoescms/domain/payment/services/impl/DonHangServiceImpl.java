@@ -55,10 +55,10 @@ public class DonHangServiceImpl implements IDonHangService {
         DonHangDto dto = DonHangDto.toDto(donHangEntity);
         dto.getChiTietDonHang().forEach(item -> {
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
-            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
-            item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPhamEntity().getAnhChinh()).orElse(null));
+            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
+            item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
 
-            if (sanPhamBienTheEntity.getSanPhamEntity().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
+            if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
                 StringBuilder stringBuilder = new StringBuilder();
                 BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).orElse(null);
                 BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).orElse(null);
@@ -67,7 +67,7 @@ public class DonHangServiceImpl implements IDonHangService {
                 if (bienTheGiaTri2 != null)
                     stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
                 item.setMotaPhanLoai(stringBuilder.toString());
-            } else if (sanPhamBienTheEntity.getSanPhamEntity().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
+            } else if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
                 bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
             else
                 bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
@@ -95,13 +95,13 @@ public class DonHangServiceImpl implements IDonHangService {
                 .stream()
                 .map(sp -> {
                     SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-                    tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
+                    tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPham().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
                     tongSanPham.updateAndGet(v -> v + sp.getSoLuong());
                     return ChiTietDonHangEntity
                             .builder()
                             .phanLoaiSpId(sp.getSanPhamBienThe())
                             .soLuong(sp.getSoLuong())
-                            .giaTien(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi())
+                            .giaTien(sanPhamBienTheEntity.getSanPham().getGiaMoi())
                             .build();
                 })
                 .toList();
@@ -145,7 +145,7 @@ public class DonHangServiceImpl implements IDonHangService {
             chiTietDonHangDto.setId(chiTietDonHangEntity.getId());
 
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(chiTietDonHangEntity.getPhanLoaiSpId()).orElse(null);
-            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
+            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
             chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntity.getPhanLoaiSpId());
             chiTietDonHangDto.setSoLuong(chiTietDonHangEntity.getSoLuong());
             chiTietDonHangDto.setGiaTien(chiTietDonHangEntity.getGiaTien());

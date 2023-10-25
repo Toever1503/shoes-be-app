@@ -30,6 +30,9 @@ public class VoucherEntity {
     @Column(name = "ma_giam_gia", unique = true)
     private String maGiamGia;
 
+    @Column(name = "mo_ta")
+    private String moTa;
+
     @Column(name = "so_luong_da_dung")
     @ColumnDefault("0")
     private Integer soLuotDaDung;
@@ -72,11 +75,12 @@ public class VoucherEntity {
     @Column(name = "nguoi_cap_nhat")
     private Long nguoiCapNhat;
 
-    @ManyToMany
-    @JoinTable(name = "tbl_voucher_category",
-            joinColumns = @JoinColumn(name = "voucher_id"),
-            inverseJoinColumns = @JoinColumn(name = "danh_muc_id"))
-    private Set<DMGiayEntity> danhMucList;
+    @Column(name = "danh_muc_list")
+    private String danhMucList;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "loai_giam_gia")
+    private ELoaiGiamGia loaiGiamGia;
 
 
 }

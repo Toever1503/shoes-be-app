@@ -78,15 +78,15 @@ public class GioHangServiceImpl implements GioHangService {
                              gioHangChiTietRepository.saveAndFlush(item);
                          }
 
-                        FileEntity anh = fileRepository.findById(sanPhamBienTheEntity.getAnh()).orElse(fileRepository.findById(sanPhamBienTheEntity.getSanPhamEntity().getAnhChinh()).orElse(null));
+                        FileEntity anh = fileRepository.findById(sanPhamBienTheEntity.getAnh()).orElse(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
 
                         GioHangChiTietResDto gioHangChiTietDto = GioHangChiTietResDto
                                  .builder()
                                  .id(sanPhamBienTheEntity.getId())
                                  .qty(item.getSoLuong())
-                                 .productId(sanPhamBienTheEntity.getSanPhamEntity().getId())
-                                 .productName(sanPhamBienTheEntity.getSanPhamEntity().getTieuDe())
-                                 .price(sanPhamBienTheEntity.getSanPhamEntity().getGiaMoi())
+                                 .productId(sanPhamBienTheEntity.getSanPham().getId())
+                                 .productName(sanPhamBienTheEntity.getSanPham().getTieuDe())
+                                 .price(sanPhamBienTheEntity.getSanPham().getGiaMoi())
                                  .variation(sanPhamBienTheEntity.getMotaPhanLoai())
                                  .stockCnt(sanPhamBienTheEntity.getSoLuong())
                                  .build();

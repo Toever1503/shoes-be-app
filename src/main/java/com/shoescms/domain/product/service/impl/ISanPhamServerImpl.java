@@ -241,7 +241,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                 .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienTheEntity.bienTheGiaTri2)
                                         .from(sanPhamBienTheEntity)
                                         .where(sanPhamBienTheEntity.ngayXoa.isNull(),
-                                                sanPhamBienTheEntity.sanPhamEntity.id.eq(spId),
+                                                sanPhamBienTheEntity.sanPham.id.eq(spId),
                                                 sanPhamBienTheEntity.bienTheGiaTri1.eq(giaTriDTO.getId())
                                         )
                                         .fetch()))
@@ -275,7 +275,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                 .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienTheEntity.bienTheGiaTri1)
                                         .from(sanPhamBienTheEntity)
                                         .where(sanPhamBienTheEntity.ngayXoa.isNull(),
-                                                sanPhamBienTheEntity.sanPhamEntity.id.eq(spId),
+                                                sanPhamBienTheEntity.sanPham.id.eq(spId),
                                                 sanPhamBienTheEntity.bienTheGiaTri2.eq(giaTriDTO.getId())
                                         )
                                         .fetch()))

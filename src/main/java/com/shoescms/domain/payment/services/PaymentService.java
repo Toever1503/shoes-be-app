@@ -95,7 +95,7 @@ public class PaymentService {
             chiTietDonHangDto.setId(chiTietDonHangEntities.get(i).getId());
 
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(chiTietDonHangEntities.get(i).getPhanLoaiSpId()).orElse(null);
-            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPhamEntity()));
+            chiTietDonHangDto.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
             chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntities.get(i).getPhanLoaiSpId());
             chiTietDonHangDto.setSoLuong(chiTietDonHangEntities.get(i).getSoLuong());
             chiTietDonHangDto.setGiaTien(chiTietDonHangEntities.get(i).getGiaTien());
@@ -122,7 +122,7 @@ public class PaymentService {
 
         for (int i = 0; i < gioHangTamThoiReqDto.size(); i++) {
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangTamThoiReqDto.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
+            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPham();
             BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangTamThoiReqDto.get(i).getSoLuong().doubleValue()));
             tongTien = tongTien.add(tongTienSp);
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
@@ -148,7 +148,7 @@ public class PaymentService {
 
         for (int i = 0; i < gioHangChiTiets.size(); i++) {
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangChiTiets.get(i).getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
-            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
+            SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPham();
             BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangChiTiets.get(i).getSoLuong().doubleValue()));
             tongTien.add(tongTienSp);
             tongSanPham += gioHangChiTiets.get(i).getSoLuong();

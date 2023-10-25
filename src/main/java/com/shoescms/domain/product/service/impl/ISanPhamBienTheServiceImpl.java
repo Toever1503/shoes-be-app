@@ -190,7 +190,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .id(model.getId())
                 .bienThe1(model.getBienThe1())
                 .bienThe2(model.getBienThe2())
-                .sanPhamEntity(sanPhamEntity)
+                .sanPham(sanPhamEntity)
                 .bienTheGiaTri1(model.getBienTheGiaTri1())
                 .bienTheGiaTri2(model.getBienTheGiaTri2())
                 .anh(model.getAnh())
@@ -259,7 +259,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             if (bienTheGiaTri2 != null)
                                 stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
                             return SanPhamBienTheDTO.toDTO(item)
-                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPhamEntity().getAnhChinh()).orElse(null))
+                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
                                     .setGiaTriObj1(bienTheGiaTri1)
                                     .setGiaTriObj2(bienTheGiaTri2)
                                     .setMotaPhanLoai(stringBuilder.toString());
@@ -274,7 +274,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         sanPhamBienTheEntity.setSoLuong(soLuong);
         sanPhamBienTheRepository.saveAndFlush(sanPhamBienTheEntity);
 
-        SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPhamEntity();
+        SanPhamEntity sanPhamEntity = sanPhamBienTheEntity.getSanPham();
         AtomicInteger tongSp = new AtomicInteger(0);
         sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(sanPhamEntity.getId())
                 .forEach(sp -> tongSp.addAndGet(sp.getSoLuong()));
