@@ -85,7 +85,6 @@ public class SecurityConfig {
             "/api/cart/**",
             "/cart/**",
             "/v1/coupon/**",
-            "/v1/san-pham/public/**",
             "/v1/payment/dat-hang",
             "/v1/vnpay/ket-qua",
             "/v1/payment/detail/**",
@@ -103,7 +102,8 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger/**",
             "/actuator/health",
-            "/*/exception/**"
+            "/*/exception/**",
+            "/v1/san-pham/public/**"
     };
 
     private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager(final String expression) {
@@ -120,6 +120,7 @@ public class SecurityConfig {
         configuration.addAllowedOriginPattern("http://*:*");
         configuration.addAllowedOriginPattern("https://*:*");
         configuration.addAllowedOriginPattern("*");
+
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(List.of("*"));

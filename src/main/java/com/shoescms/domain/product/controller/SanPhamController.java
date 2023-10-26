@@ -129,18 +129,19 @@ public class SanPhamController {
 
     // public API for user web
     @Operation(summary = "lấy chi tiết sp(user web)")
-    @GetMapping("public/{id}")
+    @GetMapping("/public/{id}")
     public WebChiTietSanPhamDto chiTietSanPhamResDto(@PathVariable Long id) {
         return iSanPhamService.chiTietSanPhamResDto(id);
     }
 
     @Operation(summary = "Lọc sản phẩm(user web)")
-    @PostMapping("public")
+    @PostMapping("/public")
+    @CrossOrigin(value = "http://localhost:3000")
     public Page<WebChiTietSanPhamDto> locSPChoWeb(@RequestBody SanPhamFilterReqDto reqDto, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return iSanPhamService.locSPChoWeb(reqDto, pageable);
     }
 
-    @GetMapping("public/kiem-tra-soluong-sp-bien-the")
+    @GetMapping("/public/kiem-tra-soluong-sp-bien-the")
     public List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(@RequestParam List<Long> ids){
         return iSanPhamService.kiemTraSoLuongSpBienThe(ids);
     }
