@@ -76,7 +76,7 @@ public class SanPhamController {
         return iSanPhamBienTheService.findAllPhanLoaiTheoSanPham(id);
     }
 
-    @GetMapping("get-all-gia-tri-bien-the/{id}")
+    @GetMapping("/public/get-all-gia-tri-bien-the/{id}")
     public List<BienTheGiaTriDTO> getAllBienTheGiaTri(@Parameter(required = true, description = "bien the id", example = "1") @PathVariable Long id) {
         return iSanPhamBienTheService.getListBienTheGiaTriByBienTheId(id);
     }

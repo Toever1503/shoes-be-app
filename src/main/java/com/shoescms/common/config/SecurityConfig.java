@@ -88,7 +88,10 @@ public class SecurityConfig {
             "/v1/payment/dat-hang",
             "/v1/vnpay/ket-qua",
             "/v1/payment/detail/**",
-            "/v1/don-hang/chi-tiet/**"
+            "/v1/don-hang/chi-tiet/**",
+            "/v1/san_pham/public/**",
+            "/v1/danh-muc-giay/loc-danh-muc/**",
+            "/v1/thuong-hieu/loc-thuong-hieu/**"
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -102,8 +105,7 @@ public class SecurityConfig {
             "/webjars/**",
             "/swagger/**",
             "/actuator/health",
-            "/*/exception/**",
-            "/v1/san-pham/public/**"
+            "/*/exception/**"
     };
 
     private WebExpressionAuthorizationManager getWebExpressionAuthorizationManager(final String expression) {
