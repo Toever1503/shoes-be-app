@@ -1,8 +1,8 @@
 package com.shoescms.domain.product.models;
 
-import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.entitis.DMGiayEntity;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.enums.ESex;
-import com.shoescms.domain.product.entitis.DMGiay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,9 +34,9 @@ public class SanPhamModel {
 
     private String  anhBia;
 
-    private ThuongHieu thuongHieu;
+    private ThuongHieuEntity thuongHieuEntity;
 
-    private DMGiay dmGiay;
+    private DMGiayEntity dmGiayEntity;
 
     private Long nguoiTao;
 
@@ -53,4 +53,10 @@ public class SanPhamModel {
     private List<Long> anhPhu;
 
     private Boolean hienThiWeb;
+
+    private String chatLieu;
+    private String trongLuong;
+    private String congNghe;
+    private String tinhNang;
+    private String noiSanXuat;
 }

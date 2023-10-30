@@ -22,13 +22,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        System.out.println("jwt filtering!!!");
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
         if (token != null) {
             if (jwtTokenProvider.validateToken(token)) {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
             } else {
-                request.setAttribute("expired", "exprired");
+//                request.setAttribute("expired", "exprired");
             }
         }
         filterChain.doFilter(request, response);

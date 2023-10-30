@@ -1,11 +1,11 @@
 package com.shoescms.domain.product.dto;
 
 import com.shoescms.common.model.FileEntity;
-import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
-import com.shoescms.domain.product.entitis.DMGiay;
-import com.shoescms.domain.product.entitis.SanPham;
+import com.shoescms.domain.product.entitis.DMGiayEntity;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import lombok.*;
 import org.springframework.util.ObjectUtils;
 
@@ -36,11 +36,11 @@ public class SanPhamDto {
 
     private ESex gioiTinh;
 
-    private String  anhBia;
+    private String anhBia;
 
-    private ThuongHieu thuongHieu;
+    private ThuongHieuEntity thuongHieu;
 
-    private DMGiay dmGiay;
+    private DMGiayEntity dmGiay;
 
     private Long nguoiTao;
 
@@ -56,27 +56,40 @@ public class SanPhamDto {
 
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
-    public static SanPhamDto toDto(SanPham sanPham){
-        if(sanPham == null) return null;
+    private Integer tongSp;
+    private String chatLieu;
+    private String trongLuong;
+    private String congNghe;
+    private String tinhNang;
+    private String noiSanXuat;
+
+    public static SanPhamDto toDto(SanPhamEntity sanPhamEntity) {
+        if (sanPhamEntity == null) return null;
         return SanPhamDto.builder()
-                .id(sanPham.getId())
-                .maSP(sanPham.getMaSP())
-                .tieuDe(sanPham.getTieuDe())
-                .moTa(sanPham.getMoTa())
-                .slug(sanPham.getSlug())
-                .giaCu(sanPham.getGiaCu())
-                .giaMoi(sanPham.getGiaMoi())
-                .gioiTinh(sanPham.getGioiTinh())
-                .thuongHieu(sanPham.getThuongHieu())
-                .dmGiay(sanPham.getDmGiay())
-                .nguoiTao(sanPham.getNguoiTao())
-                .nguoiCapNhat(sanPham.getNguoiCapNhat())
-                .ngayTao(sanPham.getNgayTao())
-                .ngayCapNhat(sanPham.getNgayCapNhat())
-                .ngayXoa(sanPham.getNgayXoa())
-                .anhPhu(ObjectUtils.isEmpty(sanPham.getAnhPhu()) ? null : Arrays.stream(sanPham.getAnhPhu().split(",")).map(Long::valueOf).toList())
-                .loaiBienThe(sanPham.getLoaiBienThe())
-                .hienThiWeb(sanPham.getHienThiWeb())
+                .id(sanPhamEntity.getId())
+                .maSP(sanPhamEntity.getMaSP())
+                .tieuDe(sanPhamEntity.getTieuDe())
+                .moTa(sanPhamEntity.getMoTa())
+                .slug(sanPhamEntity.getSlug())
+                .giaCu(sanPhamEntity.getGiaCu())
+                .giaMoi(sanPhamEntity.getGiaMoi())
+                .gioiTinh(sanPhamEntity.getGioiTinh())
+                .thuongHieu(sanPhamEntity.getThuongHieu())
+                .dmGiay(sanPhamEntity.getDmGiay())
+                .nguoiTao(sanPhamEntity.getNguoiTao())
+                .nguoiCapNhat(sanPhamEntity.getNguoiCapNhat())
+                .ngayTao(sanPhamEntity.getNgayTao())
+                .ngayCapNhat(sanPhamEntity.getNgayCapNhat())
+                .ngayXoa(sanPhamEntity.getNgayXoa())
+                .anhPhu(ObjectUtils.isEmpty(sanPhamEntity.getAnhPhu()) ? null : Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList())
+                .loaiBienThe(sanPhamEntity.getLoaiBienThe())
+                .hienThiWeb(sanPhamEntity.getHienThiWeb())
+                .tongSp(sanPhamEntity.getTongSp())
+                .chatLieu(sanPhamEntity.getChatLieu())
+                .trongLuong(sanPhamEntity.getTrongLuong())
+                .congNghe(sanPhamEntity.getCongNghe())
+                .tinhNang(sanPhamEntity.getTinhNang())
+                .noiSanXuat(sanPhamEntity.getNoiSanXuat())
                 .build();
     }
 
@@ -84,4 +97,6 @@ public class SanPhamDto {
         this.anhChinh = anhChinh;
         return this;
     }
+
+
 }

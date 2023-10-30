@@ -5,9 +5,9 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.product.dto.ThuongHieuDTO;
-import com.shoescms.domain.product.entitis.QSanPham;
-import com.shoescms.domain.product.entitis.QThuongHieu;
-import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.entitis.QSanPhamEntity;
+import com.shoescms.domain.product.entitis.QThuongHieuEntity;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.models.ThuongHieuModel;
 import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.IThuongHieuService;
@@ -34,23 +34,23 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     private JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<ThuongHieu> filterEntities(Pageable pageable, Specification<ThuongHieu> specification) {
+    public Page<ThuongHieuEntity> filterEntities(Pageable pageable, Specification<ThuongHieuEntity> specification) {
         return thuogHieuRepository.findAll(specification, pageable);
     }
 
     @Override
     public ThuongHieuDTO add(ThuongHieuModel thuongHieuModel) {
-       ThuongHieu thuongHieu = ThuongHieu.builder()
+       ThuongHieuEntity thuongHieuEntity = ThuongHieuEntity.builder()
                .tenThuongHieu(thuongHieuModel.getTenThuongHieu())
                .slug(ASCIIConverter.utf8ToAscii(thuongHieuModel.getTenThuongHieu()))
                .build();
-                thuogHieuRepository.save(thuongHieu);
-       return ThuongHieuDTO.toDTO(thuongHieu);
+                thuogHieuRepository.save(thuongHieuEntity);
+       return ThuongHieuDTO.toDTO(thuongHieuEntity);
     }
 
     @Override
     public ThuongHieuDTO update(ThuongHieuModel thuongHieuModel) {
-        ThuongHieu th = thuogHieuRepository.findById(thuongHieuModel.getId()).orElse(null);
+        ThuongHieuEntity th = thuogHieuRepository.findById(thuongHieuModel.getId()).orElse(null);
         if (th != null) {
             th.setTenThuongHieu(thuongHieuModel.getTenThuongHieu());
             th.setSlug(ASCIIConverter.utf8ToAscii(thuongHieuModel.getTenThuongHieu()));
@@ -62,7 +62,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     @Override
     public boolean deleteById(Long id) {
         try {
-            ThuongHieu entity = this.getById(id);
+            ThuongHieuEntity entity = this.getById(id);
             entity.setNgayXoa(LocalDateTime.now());
             this.thuogHieuRepository.saveAndFlush(entity);
             return true;
@@ -73,7 +73,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
 
     @Override
     public List<ThuongHieuDTO> getThuongHieus(String tenThuongHieu, String slug, Pageable pageable) {
-        List<ThuongHieu> thuongHieu = thuogHieuRepository.findAll((Specification<ThuongHieu>) (root, query, criteriaBuilder) -> {
+        List<ThuongHieuEntity> thuongHieuEntity = thuogHieuRepository.findAll((Specification<ThuongHieuEntity>) (root, query, criteriaBuilder) -> {
             Predicate p = criteriaBuilder.conjunction();
             if (!StringUtils.isEmpty(tenThuongHieu)) {
                 p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("tenThuongHieu"), "%" + tenThuongHieu + "%"));
@@ -84,43 +84,43 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
             query.orderBy(criteriaBuilder.desc(root.get("tenThuongHieu")), criteriaBuilder.asc(root.get("id")));
             return p;
         }, pageable).getContent();
-        return ThuongHieuDTO.convertToTDO(thuongHieu);
+        return ThuongHieuDTO.convertToTDO(thuongHieuEntity);
     }
 
     @Override
     public Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (!ObjectUtils.isEmpty(tenThuongHieu))
-            builder.and(QThuongHieu.thuongHieu.tenThuongHieu.contains(tenThuongHieu));
+            builder.and(QThuongHieuEntity.thuongHieuEntity.tenThuongHieu.contains(tenThuongHieu));
 
-        builder.and(QThuongHieu.thuongHieu.ngayXoa.isNull());
+        builder.and(QThuongHieuEntity.thuongHieuEntity.ngayXoa.isNull());
         List<ThuongHieuDTO> content = jpaQueryFactory.selectDistinct(
-                        QThuongHieu.thuongHieu.id,
-                        QThuongHieu.thuongHieu.tenThuongHieu,
-                        QThuongHieu.thuongHieu.slug,
-                        QThuongHieu.thuongHieu.ngayTao,
-                        ExpressionUtils.as(jpaQueryFactory.select(QSanPham.sanPham.id.countDistinct().castToNum(Integer.class)).from(QSanPham.sanPham).where(QSanPham.sanPham.thuongHieu.id.eq(QThuongHieu.thuongHieu.id)), "soSp")
+                        QThuongHieuEntity.thuongHieuEntity.id,
+                        QThuongHieuEntity.thuongHieuEntity.tenThuongHieu,
+                        QThuongHieuEntity.thuongHieuEntity.slug,
+                        QThuongHieuEntity.thuongHieuEntity.ngayTao,
+                        ExpressionUtils.as(jpaQueryFactory.select(QSanPhamEntity.sanPhamEntity.id.countDistinct().castToNum(Integer.class)).from(QSanPhamEntity.sanPhamEntity).where(QSanPhamEntity.sanPhamEntity.thuongHieu.id.eq(QThuongHieuEntity.thuongHieuEntity.id)), "soSp")
                 )
-                .from(QThuongHieu.thuongHieu)
+                .from(QThuongHieuEntity.thuongHieuEntity)
                 .where(builder)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .orderBy(QThuongHieu.thuongHieu.id.desc())
+                .orderBy(QThuongHieuEntity.thuongHieuEntity.id.desc())
                 .fetch()
                 .stream()
                 .map(tuple -> ThuongHieuDTO
                         .builder()
-                        .id(tuple.get(QThuongHieu.thuongHieu.id))
-                        .tenThuongHieu(tuple.get(QThuongHieu.thuongHieu.tenThuongHieu))
-                        .slug(tuple.get(QThuongHieu.thuongHieu.slug))
-                        .ngayTao(tuple.get(QThuongHieu.thuongHieu.ngayTao))
+                        .id(tuple.get(QThuongHieuEntity.thuongHieuEntity.id))
+                        .tenThuongHieu(tuple.get(QThuongHieuEntity.thuongHieuEntity.tenThuongHieu))
+                        .slug(tuple.get(QThuongHieuEntity.thuongHieuEntity.slug))
+                        .ngayTao(tuple.get(QThuongHieuEntity.thuongHieuEntity.ngayTao))
                         .soSp(tuple.get(4, Integer.class))
                         .build())
                 .toList();
 
         Long total = Optional.ofNullable(
-                jpaQueryFactory.select(QThuongHieu.thuongHieu.id.countDistinct())
-                        .from(QThuongHieu.thuongHieu)
+                jpaQueryFactory.select(QThuongHieuEntity.thuongHieuEntity.id.countDistinct())
+                        .from(QThuongHieuEntity.thuongHieuEntity)
                         .where(builder)
                         .fetchOne()
         ).orElse(0L);
@@ -128,7 +128,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
         return new PageImpl<>(content, pageable, total);
     }
 
-    public ThuongHieu getById(Long id) {
+    public ThuongHieuEntity getById(Long id) {
         return thuogHieuRepository.findById(id).orElseThrow(() -> new RuntimeException("22"));
     }
 

@@ -1,7 +1,7 @@
 package com.shoescms.domain.product.dto;
 
 
-import com.shoescms.domain.product.entitis.DMGiay;
+import com.shoescms.domain.product.entitis.DMGiayEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class DanhMucDTO {
     private Integer soSp;
 
 
-    public static DanhMucDTO toDTO(DMGiay dm){
+    public static DanhMucDTO toDTO(DMGiayEntity dm){
         if(dm ==null) return null;
 
         return
@@ -39,8 +39,8 @@ public class DanhMucDTO {
         return this;
     }
 
-    public static List<DanhMucDTO> convertToTDO(List<DMGiay> dmGiay){
-        return dmGiay.stream().map(s -> DanhMucDTO.builder()
+    public static List<DanhMucDTO> convertToTDO(List<DMGiayEntity> dmGiayEntity){
+        return dmGiayEntity.stream().map(s -> DanhMucDTO.builder()
                 .id(s.getId())
                 .tenDanhMuc(s.getTenDanhMuc())
                 .slug(s.getSlug())

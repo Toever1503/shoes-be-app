@@ -1,15 +1,9 @@
 package com.shoescms.domain.product.models;
 
 
-import com.shoescms.domain.product.entitis.BienTheGiaTri;
-import com.shoescms.domain.product.entitis.SanPham;
-import com.shoescms.domain.product.entitis.BienThe;
-
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor

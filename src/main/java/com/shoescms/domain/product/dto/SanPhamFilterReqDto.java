@@ -2,6 +2,9 @@ package com.shoescms.domain.product.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 public class SanPhamFilterReqDto {
 
@@ -11,4 +14,5 @@ public class SanPhamFilterReqDto {
     private Long dmGiay;
     private Long thuongHieu;
     private Boolean hienThiWeb;
+    private List<LocalDateTime> createdAtRange;
 }

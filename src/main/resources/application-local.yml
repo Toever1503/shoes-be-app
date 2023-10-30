@@ -22,8 +22,8 @@ spring:
       - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration
       - org.springframework.boot.actuate.autoconfigure.elasticsearch.ElasticsearchRestHealthContributorAutoConfiguration
   datasource:
-    url: jdbc:mysql://localhost:3306/shoescms
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/shoescms
+    driver-class-name: org.mariadb.jdbc.Driver
     username: shoescms
     password: 1234
     hikari:
@@ -75,6 +75,8 @@ cloud:
       access-key: COG9cbWGCwLg2h2iLmmOgaPMo5tU5yAN6k8JIZ/cfTw=
       secret-key: JcHJHjF3vuy1ZznEcc+IT3F1i2xT3QwkThF12PsIsu7Md7EYh0tWyyr8cXuWMJJ/
 
+shoescms:
+  vnpayredirect: http://localhost:3000/my-account/trang-thai-thanh-toan
 photoism:
   encrypt:
     key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=

@@ -73,8 +73,12 @@ public class UserService {
 
     private void initRole(){
         this.roleRepository.saveAndFlush(RoleEntity.builder()
-                        .id(1L)
+                        .id(RoleEnum.ROLE_ADMIN.getId())
                         .roleCd(RoleEnum.ROLE_ADMIN.getTitle())
+                .build());
+        this.roleRepository.saveAndFlush(RoleEntity.builder()
+                .id(RoleEnum.ROLE_USER.getId())
+                .roleCd(RoleEnum.ROLE_USER.getTitle())
                 .build());
     }
     @Transactional
@@ -148,7 +152,7 @@ public class UserService {
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String content = streamOfString.collect(Collectors.joining());
                 content = content.replaceAll("__enc_param", encParam);
-                content = content.replaceAll("__password_change_url", config.getChgPasswordUrl());
+                content = content.replaceAll("__password_change_url", config.getVnpayRedirectURl());
                 log.info(content);
                 if (!mailService.sendMail(userEntity.getEmail(), "포토이즘 비밀번호 변경", content))
                     throw new AuthFailedException();

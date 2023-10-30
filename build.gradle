@@ -36,6 +36,9 @@ dependencies {
 
 	// database
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.2.0'
+
 	// https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-jpamodelgen
 	annotationProcessor('org.hibernate.orm:hibernate-jpamodelgen:6.3.0.Final')
 

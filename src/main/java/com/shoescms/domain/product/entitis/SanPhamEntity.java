@@ -4,6 +4,7 @@ import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-public class SanPham  {
+public class SanPhamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -48,11 +49,11 @@ public class SanPham  {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "thuong_hieu_id",nullable = false, columnDefinition = "BIGINT COMMENT 'Shoes thuong hieu'")
-    private ThuongHieu thuongHieu;
+    private ThuongHieuEntity thuongHieu;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "danh_muc_id",nullable = false, columnDefinition = "BIGINT COMMENT 'Shoes danh muc'")
-    private DMGiay dmGiay;
+    private DMGiayEntity dmGiay;
 
     @Column(name = "nguoi_tao")
     private Long nguoiTao;
@@ -86,4 +87,20 @@ public class SanPham  {
 
     @Column(name = "hien_thi_web")
     private Boolean hienThiWeb;
+
+    @Column(name = "tong_sp")
+    @ColumnDefault("0")
+    private Integer tongSp;
+
+
+    @Column(name = "chat_lieu")
+    private String chatLieu;
+    @Column(name = "trong_luong")
+    private String trongLuong;
+    @Column(name = "cong_nghe")
+    private String congNghe;
+    @Column(name = "tinh_nang")
+    private String tinhNang;
+    @Column(name = "noi_san_xuat")
+    private String noiSanXuat;
 }

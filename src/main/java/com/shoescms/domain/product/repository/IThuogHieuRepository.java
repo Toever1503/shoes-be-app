@@ -1,11 +1,11 @@
 package com.shoescms.domain.product.repository;
 
-import com.shoescms.domain.product.entitis.ThuongHieu;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface IThuogHieuRepository extends JpaRepository<ThuongHieu , Long>, JpaSpecificationExecutor<ThuongHieu> {
+public interface IThuogHieuRepository extends JpaRepository<ThuongHieuEntity, Long>, JpaSpecificationExecutor<ThuongHieuEntity> {
 }

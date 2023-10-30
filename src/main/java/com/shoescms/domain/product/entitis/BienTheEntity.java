@@ -12,7 +12,7 @@ import org.hibernate.type.SqlTypes;
 @Getter
 @Builder
 @Table(name = "tbl_bien_the")
-public class BienThe {
+public class BienTheEntity {
 
     @Id
     @Column(name = "id")

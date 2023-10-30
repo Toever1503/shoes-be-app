@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Table(name = "tbl_san_pham_bien_the")
-public class SanPhamBienThe {
+public class SanPhamBienTheEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class SanPhamBienThe {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "san_pham_id", nullable = false, columnDefinition = "BIGINT COMMENT 'san pham '")
-    private SanPham sanPham;
+    private SanPhamEntity sanPham;
 
     @Column(name = "bien_the_id1", columnDefinition = "BIGINT COMMENT 'bien the '")
     @JdbcTypeCode(SqlTypes.BIGINT)
@@ -48,12 +48,16 @@ public class SanPhamBienThe {
     @Column(name = "so_luong")
     private int soLuong;
 
+    @Column(name = "mo_ta_pl")
+    private String motaPhanLoai;
+
     @Column(name = "ngay_xoa")
     private LocalDateTime ngayXoa;
 
 
-    public SanPhamBienThe delete(){
+    public SanPhamBienTheEntity delete(){
         this.ngayXoa = LocalDateTime.now();
         return this;
     }
+
 }
