@@ -197,7 +197,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
             throw new ObjectNotFoundException(1);
 
         WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPhamEntity);
-        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).get());
+        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).orElse(null));
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 

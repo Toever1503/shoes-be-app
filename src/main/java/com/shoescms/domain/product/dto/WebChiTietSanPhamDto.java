@@ -56,6 +56,13 @@ public class WebChiTietSanPhamDto {
     private Integer soLuongKho;
 
     private List<VoucherMetadataDto> vouchers;
+
+    private String chatLieu;
+    private String trongLuong;
+    private String congNghe;
+    private String tinhNang;
+    private String noiSanXuat;
+
     public static WebChiTietSanPhamDto toDto(SanPhamEntity sanPhamEntity) {
         if (sanPhamEntity == null) return null;
         return WebChiTietSanPhamDto.builder()
@@ -73,6 +80,11 @@ public class WebChiTietSanPhamDto {
                 .ngayCapNhat(sanPhamEntity.getNgayCapNhat())
                 .loaiBienThe(sanPhamEntity.getLoaiBienThe())
                 .hienThiWeb(sanPhamEntity.getHienThiWeb())
+                .chatLieu(sanPhamEntity.getChatLieu())
+                .trongLuong(sanPhamEntity.getTrongLuong())
+                .congNghe(sanPhamEntity.getCongNghe())
+                .tinhNang(sanPhamEntity.getTinhNang())
+                .noiSanXuat(sanPhamEntity.getNoiSanXuat())
                 .build();
     }
 

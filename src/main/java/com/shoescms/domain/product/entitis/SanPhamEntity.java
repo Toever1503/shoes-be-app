@@ -92,7 +92,6 @@ public class SanPhamEntity {
     @ColumnDefault("0")
     private Integer tongSp;
 
-
     @Column(name = "chat_lieu")
     private String chatLieu;
     @Column(name = "trong_luong")

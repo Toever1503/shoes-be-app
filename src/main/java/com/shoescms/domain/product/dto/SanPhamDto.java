@@ -56,6 +56,7 @@ public class SanPhamDto {
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
     private Integer tongSp;
+
     private String chatLieu;
     private String trongLuong;
     private String congNghe;
