@@ -29,8 +29,8 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
     
-    @Column(name = "user_id", nullable = false, unique = true, columnDefinition = "NVARCHAR(20) COMMENT '사용자 아이디'")
-    private String userId;
+    @Column(name = "user_name", nullable = false, unique = true, columnDefinition = "NVARCHAR(20) COMMENT '사용자 아이디'")
+    private String userName;
     
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(20) COMMENT '이름'")
     private String name;
@@ -72,7 +72,7 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.userId;
+        return this.userName;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

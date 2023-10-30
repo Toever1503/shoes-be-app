@@ -34,8 +34,8 @@ public class AuthService {
 
     @Transactional
     public SignInResDto signIn(SignInReqDto reqDto) {
-        UserEntity userEntity = userRepository.findByUserIdAndDel(reqDto.getUserId(), false).orElseThrow(() -> new SigninFailedException("ID/PW"));
-
+        System.out.println("password: "+ reqDto.getPassword());
+        UserEntity userEntity = userRepository.findByUserNameAndDel(reqDto.getUsername(), false).orElseThrow(() -> new SigninFailedException("ID/PW"));
         if (userEntity.getApproved().equals(false))
             throw new SigninFailedException("Not approved.");
 
@@ -60,7 +60,7 @@ public class AuthService {
                     .build());
 
             return SignInResDto.builder()
-                    .userId(userEntity.getUserId())
+                    .userName(userEntity.getUsername())
                     .accessToken(accessToken)
                     .refreshToken(refreshToken)
                     .accessExpireIn(expire.toString())
@@ -74,7 +74,7 @@ public class AuthService {
                 throw new SigninFailedException("ID/PW");
 
             return SignInResDto.builder()
-                    .userId(userEntity.getUserId())
+                    .userName(userEntity.getUsername())
                     .roles(List.of(userEntity.getRole().getRoleCd()))
                     .setPassword(false)
                     .build();
@@ -109,7 +109,7 @@ public class AuthService {
                             .build());
 
                     return SignInResDto.builder()
-                            .userId(userEntity.getUserId())
+                            .userName(userEntity.getUsername())
                             .accessToken(newAccessToken)
                             .refreshToken(newRefreshToken)
                             .accessExpireIn(expire.toString())

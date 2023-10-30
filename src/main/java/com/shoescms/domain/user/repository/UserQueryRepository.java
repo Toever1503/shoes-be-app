@@ -36,7 +36,7 @@ public class UserQueryRepository {
         return Optional.ofNullable(jpaQueryFactory
                 .select(Projections.constructor(UserDetailResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
@@ -48,9 +48,9 @@ public class UserQueryRepository {
                 .fetchOne());
     }
 
-    public Page<UserResDto> findStaffUserList(String userId, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
+    public Page<UserResDto> findStaffUserList(String username, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)         builder.and(userEntity.userId.eq(userId));
+        if (username != null)         builder.and(userEntity.userName.eq(username));
         if (name != null)           builder.and(userEntity.name.contains(name));
         if (roleCd != null)         builder.and(roleEntity.roleCd.eq(roleCd));
         if (phone != null)          builder.and(userEntity.phone.contains(phone));
@@ -63,7 +63,7 @@ public class UserQueryRepository {
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
@@ -93,7 +93,7 @@ public class UserQueryRepository {
 
     public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)     builder.and(userEntity.userId.eq(userId));
+        if (userId != null)     builder.and(userEntity.userName.eq(userId));
         if (name != null)       builder.and(userEntity.name.contains(name));
         if (phone != null)      builder.and(userEntity.phone.contains(phone));
         if (email != null)      builder.and(userEntity.email.contains(email));
@@ -105,7 +105,7 @@ public class UserQueryRepository {
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
@@ -137,7 +137,7 @@ public class UserQueryRepository {
         return jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
@@ -157,7 +157,7 @@ public class UserQueryRepository {
         return jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
@@ -175,13 +175,13 @@ public class UserQueryRepository {
 
     public List<UserResDto> getUserForStoreMapping(String userId, String name) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)     builder.or(userEntity.userId.contains(userId));
+        if (userId != null)     builder.or(userEntity.userName.contains(userId));
         if (name != null)       builder.or(userEntity.name.contains(name));
 
         return jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
-                        userEntity.userId,
+                        userEntity.userName,
                         userEntity.name,
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,

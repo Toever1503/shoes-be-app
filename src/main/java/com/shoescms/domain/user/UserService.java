@@ -30,6 +30,7 @@ import java.util.stream.Stream;
 
 @Service
 @Slf4j
+@Transactional
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -45,21 +46,30 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.config = config;
         this.mailService = mailService;
-        initRole();
- UserEntity adminUser =        this.userRepository.findByUserIdAndDel("admin", false).orElse(
-         UserEntity.builder()
-                 .userId("admin")
-                 .password(this.passwordEncoder.encode("123456"))
-                 .name("admin")
-                 .approved(true)
-                 .email("admin@email.com")
-                 .phone("0958572838")
-                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
-                 .del(false)
-                 .build()
- );
- this.userRepository.saveAndFlush(adminUser);
     }
+
+//    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
+//        this.passwordEncoder = passwordEncoder;
+//        this.userRepository = userRepository;
+//        this.userQueryRepository = userQueryRepository;
+//        this.roleRepository = roleRepository;
+//        this.config = config;
+//        this.mailService = mailService;
+//        initRole();
+// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+//         UserEntity.builder()
+//                 .userName("admin")
+//                 .password(this.passwordEncoder.encode("123456"))
+//                 .name("admin")
+//                 .approved(true)
+//                 .email("admin@email.com")
+//                 .phone("0958572838")
+//                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+//                 .del(false)
+//                 .build()
+// );
+// this.userRepository.saveAndFlush(adminUser);
+//    }
 
     private void initRole(){
         this.roleRepository.saveAndFlush(RoleEntity.builder()
@@ -69,12 +79,14 @@ public class UserService {
     }
     @Transactional
     public CommonIdResult addUser(UserReqDto reqDto) {
-        if (userRepository.findByUserIdAndDel(reqDto.getUserId(), false).isPresent())
-            throw new ObjectAlreadExistException("userId");
+        if (userRepository.findByUserNameAndDel(reqDto.getUserName(), false).isPresent())
+            throw new ObjectAlreadExistException("userName");
 
         UserEntity userEntity = reqDto.toEntity();
-        userEntity.setPassword(passwordEncoder.encode(reqDto.getUserId()));
+        System.out.println("pass = " + reqDto.getPassword());
+        userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
 
+        userEntity.setApproved(true);
 
         userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
 
@@ -110,12 +122,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<String> findId(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUserId).toList();
+        return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUsername).toList();
     }
 
     @Transactional(readOnly = true)
-    public void findPassword(String userId, String name, String email) throws Exception {
-        UserEntity userEntity = userRepository.findByUserIdAndNameAndEmail(userId, name, email).orElseThrow(UserNotFoundException::new);
+    public void findPassword(String userName, String name, String email) throws Exception {
+        UserEntity userEntity = userRepository.findByUserNameAndNameAndEmail(userName, name, email).orElseThrow(UserNotFoundException::new);
 
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
@@ -165,22 +177,27 @@ public class UserService {
     public CommonIdResult resetPassword(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userEntity.setPassword(null);
-        userEntity.setTmpPassword(passwordEncoder.encode(userEntity.getUserId()));
+        userEntity.setTmpPassword(passwordEncoder.encode(userEntity.getUsername()));
         return new CommonIdResult(userEntity.getId());
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStaffUserList(String userId, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStaffUserList(userId, name, roleCd, phone, email, approved, pageable));
+    public UserListResDto getStaffUserList(String userName, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
+        return new UserListResDto(userQueryRepository.findStaffUserList(userName, name, roleCd, phone, email, approved, pageable));
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStoreUserList(userId, name, phone, email, approved, pageable));
+    public UserListResDto getStoreUserList(String userName, String name, String phone, String email, Boolean approved, Pageable pageable) {
+        return new UserListResDto(userQueryRepository.findStoreUserList(userName, name, phone, email, approved, pageable));
     }
 
     @Transactional(readOnly = true)
-    public List<UserResDto> getUserForStoreMapping(String userId, String name) {
-        return userQueryRepository.getUserForStoreMapping(userId, name);
+    public List<UserResDto> getUserForStoreMapping(String userName, String name) {
+        return userQueryRepository.getUserForStoreMapping(userName, name);
+    }
+
+    @Transactional(readOnly = true)
+    public UserEntity findByUserId(String userName) {
+        return userRepository.findByUserName(userName);
     }
 }
