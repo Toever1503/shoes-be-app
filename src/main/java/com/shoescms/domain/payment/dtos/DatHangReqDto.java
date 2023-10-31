@@ -32,9 +32,10 @@ public class DatHangReqDto {
     @Schema(description = "id cua dia chi da luu truoc do", example = "1")
     private Long diaChiId;
 
-
     // id cua nguoi dang nhap
     private Long nguoiTao;
+
+    private Long maGiamGiaId;
 
     @Schema(description = "Ghi chu", example = "COD")
     private EPhuongThucTT phuongThucTT;

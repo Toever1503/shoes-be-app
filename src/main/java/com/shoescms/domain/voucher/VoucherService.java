@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
 import static com.shoescms.domain.voucher.entity.QVoucherEntity.voucherEntity;
 
 @Component
@@ -32,9 +33,10 @@ public class VoucherService {
     private final IVoucherRepository voucherRepository;
     private final UserRepository userRepository;
     private final JPAQueryFactory jpaQueryFactory;
+
     public void deleteByIds(List<Long> ids) {
         List<VoucherEntity> voucherEntities = voucherRepository.findAllById(ids);
-        if(voucherEntities.size() > 0){
+        if (voucherEntities.size() > 0) {
             voucherEntities.forEach(i -> i.setNgayXoa(LocalDateTime.now()));
             voucherRepository.saveAllAndFlush(voucherEntities);
         }
@@ -59,7 +61,7 @@ public class VoucherService {
 
     public VoucherDto findById(Long id) {
         VoucherEntity entity = voucherRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(-99));
-        if(entity.getNgayXoa() != null) throw  new ObjectNotFoundException(-99);
+        if (entity.getNgayXoa() != null) throw new ObjectNotFoundException(-99);
         VoucherDto dto = VoucherDto.toDto(entity);
         dto.setNguoiTao(UsermetaDto.toDto(userRepository.findById(entity.getNguoiTao()).orElse(null)));
         dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(entity.getNguoiCapNhat()).orElse(null)));
@@ -76,7 +78,7 @@ public class VoucherService {
                 });
     }
 
-    public List<VoucherMetadataDto> findAvailableVoucherByDanhMuc(Long danhMucId){
+    public List<VoucherMetadataDto> findAvailableVoucherByDanhMuc(Long danhMucId) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(voucherEntity.danhMucList.contains(danhMucId.toString())
                 .or(voucherEntity.loaiGiamGia.eq(ELoaiGiamGia.ALL)));
@@ -93,15 +95,21 @@ public class VoucherService {
                 .toList();
     }
 
-    public VoucherDto checkVoucher(String code, List<Long> dmList) {
+    public VoucherDto checkVoucher(String code, List<Long> productList) {
         VoucherEntity entity = voucherRepository.findByMaGiamGia(code).orElseThrow(() -> new ObjectNotFoundException(-99));
-        if(entity.getNgayXoa() != null) throw  new ObjectNotFoundException(-99);
+        if (entity.getNgayXoa() != null) throw new ObjectNotFoundException(-99);
         VoucherDto dto = VoucherDto.toDto(entity);
-        if(entity.getLoaiGiamGia().equals(ELoaiGiamGia.BY_CATEGORY)) {
+
+        List<Long> dmList = jpaQueryFactory.selectDistinct(sanPhamEntity.dmGiay.id)
+                .from(sanPhamEntity)
+                .where(sanPhamEntity.ngayXoa.isNull(), sanPhamEntity.id.in(productList))
+                .fetch();
+
+        if (entity.getLoaiGiamGia().equals(ELoaiGiamGia.BY_CATEGORY)) {
             List<Long> appliedDmList = Arrays.stream(entity.getDanhMucList().split(",")).map(Long::valueOf).toList();
-            for (Long dmId: dmList)
-                if(!appliedDmList.contains(dmId))
-                    throw  new ObjectNotFoundException(-99);
+            for (Long dmId : dmList)
+                if (!appliedDmList.contains(dmId))
+                    throw new ObjectNotFoundException(-99);
         }
         return dto;
     }

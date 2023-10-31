@@ -93,7 +93,7 @@ public class SecurityConfig {
             "/v1/san-pham/public/get-all-gia-tri-bien-the/",
             "/v1/danh-muc-giay/loc-danh-muc/**",
             "/v1/thuong-hieu/loc-thuong-hieu/**",
-            "/voucher/public/**"
+            "/v1/voucher/public/**"
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {

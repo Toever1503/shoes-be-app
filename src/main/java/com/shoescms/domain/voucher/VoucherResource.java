@@ -80,7 +80,7 @@ public class VoucherResource {
 
 
     @GetMapping("public/kiem-tra-voucher/{code}")
-    public VoucherDto checkVoucher(@PathVariable String code, @RequestParam List<Long> dmList){
-        return voucherService.checkVoucher(code, dmList);
+    public VoucherDto checkVoucher(@PathVariable String code, @RequestParam List<Long> productList){
+        return voucherService.checkVoucher(code, productList);
     }
 }
