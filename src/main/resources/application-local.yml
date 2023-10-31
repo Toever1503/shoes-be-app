@@ -76,7 +76,7 @@ cloud:
       secret-key: JcHJHjF3vuy1ZznEcc+IT3F1i2xT3QwkThF12PsIsu7Md7EYh0tWyyr8cXuWMJJ/
 
 shoescms:
-  vnpayredirect: http://localhost:3000/my-account/trang-thai-thanh-toan
+  vnpayredirect: http://localhost:3000/dat-hang/ket-qua
 photoism:
   encrypt:
     key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=
