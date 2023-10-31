@@ -78,4 +78,9 @@ public class VoucherResource {
         this.voucherService.deleteByIds(ids);
     }
 
+
+    @GetMapping("public/kiem-tra-voucher/{code}")
+    public VoucherDto checkVoucher(@PathVariable String code, @RequestParam List<Long> dmList){
+        return voucherService.checkVoucher(code, dmList);
+    }
 }

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.shoescms.domain.voucher.entity.QVoucherEntity.voucherEntity;
@@ -77,8 +78,8 @@ public class VoucherService {
 
     public List<VoucherMetadataDto> findAvailableVoucherByDanhMuc(Long danhMucId){
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(voucherEntity.danhMucList.contains(danhMucId.toString()));
-        builder.and(voucherEntity.loaiGiamGia.eq(ELoaiGiamGia.ALL));
+        builder.and(voucherEntity.danhMucList.contains(danhMucId.toString())
+                .or(voucherEntity.loaiGiamGia.eq(ELoaiGiamGia.ALL)));
         builder.and(voucherEntity.ngayXoa.isNull());
         LocalDate currentDate = LocalDate.now();
         builder.and(voucherEntity.ngayBatDau.loe(currentDate));
@@ -90,5 +91,18 @@ public class VoucherService {
                 .stream()
                 .map(VoucherMetadataDto::toDto)
                 .toList();
+    }
+
+    public VoucherDto checkVoucher(String code, List<Long> dmList) {
+        VoucherEntity entity = voucherRepository.findByMaGiamGia(code).orElseThrow(() -> new ObjectNotFoundException(-99));
+        if(entity.getNgayXoa() != null) throw  new ObjectNotFoundException(-99);
+        VoucherDto dto = VoucherDto.toDto(entity);
+        if(entity.getLoaiGiamGia().equals(ELoaiGiamGia.BY_CATEGORY)) {
+            List<Long> appliedDmList = Arrays.stream(entity.getDanhMucList().split(",")).map(Long::valueOf).toList();
+            for (Long dmId: dmList)
+                if(!appliedDmList.contains(dmId))
+                    throw  new ObjectNotFoundException(-99);
+        }
+        return dto;
     }
 }
