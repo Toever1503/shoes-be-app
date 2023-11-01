@@ -43,6 +43,7 @@ public class SanPhamController {
     public SanPhamDto addSanPham(@RequestBody SanPhamModel model,
                                  @RequestHeader("x-api-token") String xApiToken) {
         model.setNguoiCapNhat(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
+        if (model.getId() == null) model.setNguoiTao(model.getNguoiCapNhat());
         return this.iSanPhamService.add(model);
     }
 
@@ -102,7 +103,7 @@ public class SanPhamController {
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.DM_GIAY), model.getDmGiay()));
         if (model.getHienThiWeb() != null)
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.HIEN_THI_WEB), model.getHienThiWeb()));
-        if(model.getCreatedAtRange() != null)
+        if (model.getCreatedAtRange() != null)
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(SanPhamEntity_.NGAY_TAO), model.getCreatedAtRange().get(0), model.getCreatedAtRange().get(1)));
         listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPhamEntity_.NGAY_XOA)));
         Specification<SanPhamEntity> finalSpec = null;
@@ -142,7 +143,7 @@ public class SanPhamController {
     }
 
     @GetMapping("/public/kiem-tra-soluong-sp-bien-the")
-    public List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(@RequestParam List<Long> ids){
+    public List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(@RequestParam List<Long> ids) {
         return iSanPhamService.kiemTraSoLuongSpBienThe(ids);
     }
 }

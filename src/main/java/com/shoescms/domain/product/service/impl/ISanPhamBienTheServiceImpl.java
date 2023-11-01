@@ -95,6 +95,12 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             .id(6L)
                             .bienThe(bienTheEntity)
                             .giaTri("Nâu")
+                            .build(),
+                    BienTheGiaTri
+                            .builder()
+                            .id(7L)
+                            .bienThe(bienTheEntity)
+                            .giaTri("Đen")
                             .build()
             ));
         } else {
@@ -172,10 +178,12 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         if (sanPhamEntity == null)
             throw new ObjectNotFoundException(8);
 
-        FileEntity file = fileRepository.findById(model.getAnh()).orElse(null);
-        if (file != null) {
-            file.setIsVerified(true);
-            fileRepository.saveAndFlush(file);
+        if(model.getAnh() != null){
+            FileEntity file = fileRepository.findById(model.getAnh()).orElse(null);
+            if (file != null) {
+                file.setIsVerified(true);
+                fileRepository.saveAndFlush(file);
+            }
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -199,7 +207,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
         this.sanPhamBienTheRepository.saveAndFlush(sanPhamBienTheEntity);
         return SanPhamBienTheDTO
                 .toDTO(sanPhamBienTheEntity)
-                .setAnh(fileRepository.findById(sanPhamBienTheEntity.getAnh()).orElse(null), null);
+                .setAnh(fileRepository.findImageById(sanPhamBienTheEntity.getAnh()).orElse(null), null);
     }
 
     public void checkValue(SanPhamBienTheModel model) {
@@ -259,7 +267,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                             if (bienTheGiaTri2 != null)
                                 stringBuilder.append(" Size: ").append(bienTheGiaTri2.getGiaTri());
                             return SanPhamBienTheDTO.toDTO(item)
-                                    .setAnh(fileRepository.findById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
+                                    .setAnh(fileRepository.findImageById(item.getAnh()).orElse(null), fileRepository.findById(item.getSanPham().getAnhChinh()).orElse(null))
                                     .setGiaTriObj1(bienTheGiaTri1)
                                     .setGiaTriObj2(bienTheGiaTri2)
                                     .setMotaPhanLoai(stringBuilder.toString());

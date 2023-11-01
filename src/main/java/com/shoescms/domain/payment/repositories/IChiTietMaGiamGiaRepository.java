@@ -1,7 +1,6 @@
 package com.shoescms.domain.payment.repositories;
 
 import com.shoescms.domain.payment.entities.ChiTietMaGiamGiaEntity;
-import com.shoescms.domain.payment.entities.MaGiamGiaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
