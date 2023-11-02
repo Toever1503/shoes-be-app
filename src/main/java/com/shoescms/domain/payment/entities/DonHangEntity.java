@@ -53,6 +53,9 @@ public class DonHangEntity {
     @Column(name = "tong_gia_cuoi_cung", nullable = false)
     private BigDecimal tongGiaCuoiCung;
 
+    @Column(name = "ma_giam_gia_id")
+    private Long maGiamGiaId;
+
     @Column(name = "nguoi_mua_id")
     private Long nguoiMuaId;
 

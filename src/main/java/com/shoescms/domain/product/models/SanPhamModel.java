@@ -34,9 +34,9 @@ public class SanPhamModel {
 
     private String  anhBia;
 
-    private ThuongHieuEntity thuongHieuEntity;
+    private ThuongHieuEntity thuongHieu;
 
-    private DMGiayEntity dmGiayEntity;
+    private DMGiayEntity dmGiay;
 
     private Long nguoiTao;
 

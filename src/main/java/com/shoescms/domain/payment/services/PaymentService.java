@@ -17,6 +17,9 @@ import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
+import com.shoescms.domain.voucher.VoucherService;
+import com.shoescms.domain.voucher.dto.VoucherDto;
+import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +46,7 @@ public class PaymentService {
     private final IChiTietDonHangRepository chiTietDonHangRepository;
 
     private final CommonConfig commonConfig;
+    private final VoucherService voucherService;
 
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
@@ -69,6 +73,18 @@ public class PaymentService {
         diaChi.setDiaChi(reqDto.getDiaChiNhanHang());
         diaChi.setSdt(reqDto.getSoDienThoaiNhanHang());
         diaChi.setTenNguoiNhan(reqDto.getHoTenNguoiNhan());
+
+        // set giam gia
+        if(reqDto.getMaGiamGiaId() != null){
+            VoucherDto voucherDto = voucherService.findById(reqDto.getMaGiamGiaId());
+            donHangEntity.setMaGiamGiaId(voucherDto.getId());
+            donHangEntity.setTongTienGiamGia(BigDecimal.ZERO);
+            if(voucherDto.getGiamGiaTheo().equals(EGiamGiaTheo.DIRECTLY))
+                donHangEntity.setTongTienGiamGia(BigDecimal.valueOf(voucherDto.getGiaGiam()));
+            else
+                donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherDto.getPhanTramGiam()/100)));
+            donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien().subtract(donHangEntity.getTongTienGiamGia()));
+        }
 
         diaChiRepository.saveAndFlush(diaChi);
         donHangRepository.saveAndFlush(donHangEntity);

@@ -73,14 +73,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
     public SanPhamDto add(SanPhamModel model) {
         checkProduct(model);
         SanPhamEntity entity = SanPhamEntity.builder()
+                .id(model.getId())
                 .maSP(model.getMaSP())
                 .moTa(model.getMoTa())
-                .dmGiay(danhMucRepository.findById(model.getDmGiayEntity().getId()).get())
+                .dmGiay(danhMucRepository.findById(model.getDmGiay().getId()).get())
                 .giaCu(model.getGiaCu())
                 .giaMoi(model.getGiaMoi())
                 .gioiTinh(model.getGioiTinh())
                 .slug(ASCIIConverter.utf8ToAscii(model.getTieuDe()))
-                .thuongHieu(thuogHieuRepository.findById(model.getThuongHieuEntity().getId()).get())
+                .thuongHieu(thuogHieuRepository.findById(model.getThuongHieu().getId()).get())
                 .tieuDe(model.getTieuDe())
                 .nguoiCapNhat(model.getNguoiCapNhat())
                 .ngayXoa(model.getNgayXoa())
@@ -123,9 +124,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 }
             }
         }
-        if (model.getThuongHieuEntity().getId() == null || thuogHieuRepository.findById(model.getThuongHieuEntity().getId()).isEmpty())
+        if (model.getThuongHieu().getId() == null || thuogHieuRepository.findById(model.getThuongHieu().getId()).isEmpty())
             throw new ObjectNotFoundException(1);
-        if (model.getDmGiayEntity().getId() == null || danhMucRepository.findById(model.getDmGiayEntity().getId()).isEmpty())
+        if (model.getDmGiay().getId() == null || danhMucRepository.findById(model.getDmGiay().getId()).isEmpty())
             throw new ObjectNotFoundException(2);
         if (model.getAnhChinh() == null || fileRepository.findById(model.getAnhChinh()).isEmpty())
             throw new ObjectNotFoundException(3);
@@ -182,8 +183,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Override
     public SanPhamDto findBydId(Long id) {
-        return SanPhamDto
-                .toDto(getById(id));
+        SanPhamEntity sanPhamEntity = getById(id);
+        SanPhamDto dto = SanPhamDto.toDto(sanPhamEntity);
+        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).orElse(null));
+        dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
+        return dto;
     }
 
     @Override
@@ -193,7 +197,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
             throw new ObjectNotFoundException(1);
 
         WebChiTietSanPhamDto dto = WebChiTietSanPhamDto.toDto(sanPhamEntity);
-        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).get());
+        dto.setAnhChinh(fileRepository.findById(sanPhamEntity.getAnhChinh()).orElse(null));
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 

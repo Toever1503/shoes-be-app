@@ -36,7 +36,6 @@ public class SanPhamDto {
 
     private ESex gioiTinh;
 
-    private String anhBia;
 
     private ThuongHieuEntity thuongHieu;
 
@@ -52,11 +51,12 @@ public class SanPhamDto {
 
     private LocalDateTime ngayXoa;
     private FileEntity anhChinh;
-    private List<Long> anhPhu;
+    private List<FileEntity> anhPhu;
 
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
     private Integer tongSp;
+
     private String chatLieu;
     private String trongLuong;
     private String congNghe;
@@ -81,7 +81,6 @@ public class SanPhamDto {
                 .ngayTao(sanPhamEntity.getNgayTao())
                 .ngayCapNhat(sanPhamEntity.getNgayCapNhat())
                 .ngayXoa(sanPhamEntity.getNgayXoa())
-                .anhPhu(ObjectUtils.isEmpty(sanPhamEntity.getAnhPhu()) ? null : Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList())
                 .loaiBienThe(sanPhamEntity.getLoaiBienThe())
                 .hienThiWeb(sanPhamEntity.getHienThiWeb())
                 .tongSp(sanPhamEntity.getTongSp())

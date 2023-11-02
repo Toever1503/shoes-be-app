@@ -89,9 +89,11 @@ public class SecurityConfig {
             "/v1/vnpay/ket-qua",
             "/v1/payment/detail/**",
             "/v1/don-hang/chi-tiet/**",
-            "/v1/san_pham/public/**",
+            "/v1/san-pham/public/**",
+            "/v1/san-pham/public/get-all-gia-tri-bien-the/",
             "/v1/danh-muc-giay/loc-danh-muc/**",
-            "/v1/thuong-hieu/loc-thuong-hieu/**"
+            "/v1/thuong-hieu/loc-thuong-hieu/**",
+            "/v1/voucher/public/**"
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
