@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class CmsApplication {
 
     public static void main(String[] args) throws IOException {
-//        initFirebaseInstance();
+        initFirebaseInstance();
         SpringApplication.run(CmsApplication.class, args);
     }
 
@@ -27,7 +27,7 @@ public class CmsApplication {
         if (FirebaseApp.getApps().isEmpty()) {
 
             FileInputStream serviceAccount =
-                    new FileInputStream("./credentials/springboot-analysis-firebase-adminsdk-4tybt-238e7329ca.json");
+                    new FileInputStream("./credentials/firebase_secret.json");
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setStorageBucket("springboot-analysis.appspot.com")

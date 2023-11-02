@@ -83,6 +83,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .slug(ASCIIConverter.utf8ToAscii(model.getTieuDe()))
                 .thuongHieu(thuogHieuRepository.findById(model.getThuongHieu().getId()).get())
                 .tieuDe(model.getTieuDe())
+                .nguoiTao(model.getNguoiTao())
                 .nguoiCapNhat(model.getNguoiCapNhat())
                 .ngayXoa(model.getNgayXoa())
                 .anhChinh(model.getAnhChinh())
