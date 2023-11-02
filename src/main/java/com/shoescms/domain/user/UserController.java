@@ -131,9 +131,14 @@ public class UserController {
         return baseResponse.getContentResult(userService.getUserForStoreMapping(userId, name));
     }
 
-    @GetMapping("/detail/{userId}")
-    public UserEntity getAccountDetail(@PathVariable("userId") String userName, @RequestHeader(name ="x-api-token", required = false) String token) {
+    @GetMapping("/detail")
+    public CommonResult<UserEntity> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
-        return userService.findByUserId(userName);
+        return baseResponse.getContentResult(userService.findById(userId));
+    }
+    @PutMapping("/update-profile")
+    public CommonResult<CommonIdResult> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token, @RequestBody UserUpdateReqDto dto) {
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userService.updateUser(userId, dto));
     }
 }

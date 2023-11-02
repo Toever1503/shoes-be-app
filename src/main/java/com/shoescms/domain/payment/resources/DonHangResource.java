@@ -81,4 +81,12 @@ public class DonHangResource {
             reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
         donHangService.themMoiDonHang(reqDto);
     }
+
+    @GetMapping("/lich-su-da-mua")
+    public List<DonHangEntity> lichSuDaMua(@RequestHeader(name = "x-api-token") String xApiToken,@RequestParam(value = "trangThai", required = false) ETrangThaiDonHang trangThai) {
+        Long userId = Long.parseLong(jwtTokenProvider.getUserPk(xApiToken));
+        if(trangThai == null)
+            return donHangService.findByNguoiMuaId(userId);
+        return donHangService.findByNguoiMuaId(userId, trangThai);
+    }
 }

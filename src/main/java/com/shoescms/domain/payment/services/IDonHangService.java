@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
+
 public interface IDonHangService {
     Page<DonHangDto> filterEntities(Pageable pageable, Specification<DonHangEntity> specification);
 
@@ -16,4 +18,9 @@ public interface IDonHangService {
     void capNhatTrangThai(Long id, ETrangThaiDonHang trangThai, Long userId);
 
     DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto);
+
+    List<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, ETrangThaiDonHang trangThai);
+    List<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId);
+
+
 }

@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -201,7 +202,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserEntity findByUserId(String userName) {
-        return userRepository.findByUserName(userName);
+    public UserEntity findById(Long id) {
+        return userRepository.findByIdUser(id);
     }
 }

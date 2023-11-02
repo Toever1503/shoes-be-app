@@ -14,7 +14,8 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByIdAndDel(Long userId, Boolean del);
     Optional<UserEntity> findByUserNameAndNameAndEmail(String userId, String name, String email);
     List<UserEntity> findByNameAndPhone(String name, String phone);
-    @Query("SELECT u FROM UserEntity u WHERE u.userName = :userId")
-    UserEntity findByUserName(String userId);
+
+    @Query("select u from UserEntity u where u.id = ?1")
+    UserEntity findByIdUser(Long id);
 
 }
