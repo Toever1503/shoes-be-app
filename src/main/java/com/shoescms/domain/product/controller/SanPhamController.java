@@ -137,7 +137,6 @@ public class SanPhamController {
 
     @Operation(summary = "Lọc sản phẩm(user web)")
     @PostMapping("/public")
-    @CrossOrigin(value = "http://localhost:3000")
     public Page<WebChiTietSanPhamDto> locSPChoWeb(@RequestBody SanPhamFilterReqDto reqDto, @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return iSanPhamService.locSPChoWeb(reqDto, pageable);
     }
