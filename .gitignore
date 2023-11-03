@@ -40,3 +40,4 @@ out/
 .env
 credentials/
 logs/
+src/main/resources/application-dev.yml
