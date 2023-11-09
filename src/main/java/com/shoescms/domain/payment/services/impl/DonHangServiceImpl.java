@@ -165,13 +165,14 @@ public class DonHangServiceImpl implements IDonHangService {
     }
 
     @Override
-    public List<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId,ETrangThaiDonHang trangThai){
-        return donHangRepository.findByNguoiMuaId(nguoiMuaId, trangThai);
+    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId,ETrangThaiDonHang trangThai, Pageable pageable) {
+        return donHangRepository.findByNguoiMuaId(nguoiMuaId, trangThai, pageable);
     }
 
     @Override
-    public List<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId) {
-        return donHangRepository.findByNguoiMuaId(nguoiMuaId);
+    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable  ) {
+        return donHangRepository.findByNguoiMuaId(nguoiMuaId, pageable);
     }
+
 
 }
