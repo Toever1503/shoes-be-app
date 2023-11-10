@@ -119,6 +119,8 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
 
     public void update(UserUpdateReqDto reqDto) {
         if (reqDto.getName() != null)           this.name = reqDto.getName();
+        if (reqDto.getBirthDate() != null)           this.birthDate = reqDto.getBirthDate();
+        if (reqDto.getSex() != null)           this.sex = reqDto.getSex();
         if (reqDto.getPhone() != null)          this.phone = reqDto.getPhone();
         if (reqDto.getEmail() != null)          this.email = reqDto.getEmail();
     }

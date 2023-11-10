@@ -93,6 +93,12 @@ public class SanPhamController {
     public Page<SanPhamDto> search(@RequestBody SanPhamFilterReqDto model, Pageable pageable) {
         List<Specification<SanPhamEntity>> listSpect = new ArrayList<>();
 
+        if (model.getQ() != null)
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.or(
+                    criteriaBuilder.like(root.get(SanPhamEntity_.TIEU_DE), "%" + model.getQ().trim() + "%"),
+                    criteriaBuilder.like(root.get(SanPhamEntity_.MA_SP), "%" + model.getQ().trim() + "%")
+            ));
+
         if (model.getTieuDe() != null)
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(SanPhamEntity_.TIEU_DE), "%" + model.getTieuDe().trim() + "%"));
         if (model.getMaSp() != null)

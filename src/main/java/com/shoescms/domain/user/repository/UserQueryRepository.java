@@ -88,20 +88,19 @@ public class UserQueryRepository {
 
     public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)     builder.and(userEntity.userId.eq(userId));
+        if (userId != null)     builder.and(userEntity.userId.contains(userId));
         if (name != null)       builder.and(userEntity.name.contains(name));
         if (phone != null)      builder.and(userEntity.phone.contains(phone));
         if (email != null)      builder.and(userEntity.email.contains(email));
         builder.and(userEntity.del.isFalse());
-        builder.and(userEntity.role.roleCd.eq(RoleEnum.ROLE_USER.getDesc()));
-        List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
+        builder.and(userEntity.role.roleCd.eq("ROLE_USER"));
 
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
                         userEntity.userId,
                         userEntity.name,
-                        roleEntity.roleCd.as("roleCd"),
+                        userEntity.role.roleCd,
                         userEntity.phone,
                         userEntity.email,
                         userEntity.sex,
@@ -109,10 +108,8 @@ public class UserQueryRepository {
                         userEntity._super.ngayTao
                 ))
                 .from(userEntity)
-                .join(roleEntity)
-                    .on(roleEntity.roleCd.contains("ROLE_STORE"))
                 .where(builder)
-                .orderBy(orders.toArray(OrderSpecifier[]::new))
+                .orderBy(userEntity.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -120,8 +117,6 @@ public class UserQueryRepository {
         long total = jpaQueryFactory
                 .select(Wildcard.count)
                 .from(userEntity)
-                .join(roleEntity)
-                .on(roleEntity.roleCd.contains("ROLE_STORE"))
                 .where(builder)
                 .fetch().get(0);
 

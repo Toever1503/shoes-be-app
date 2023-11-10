@@ -43,18 +43,19 @@ public class UserController {
         return baseResponse.getContentResult(userService.approval(id));
     }
 
-    @Operation(summary = "사용자 수정", description = "사용자 수정")
+    @PostMapping(value = "/add-new")
+    public void addNewUser(@Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
+        userService.addNewUser(reqDto);
+    }
     @PutMapping(value = "/{id}")
-    public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+    public void updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
                                                    @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
-        return baseResponse.getContentResult(userService.updateUser(id, reqDto));
+        userService.updateUser(id, reqDto);
     }
 
-    @Operation(summary = "사용자 제거", description = "사용자 제거")
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('ACCOUNT_WRITE')")
-    public CommonResult<CommonIdResult> deleteUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
-        return baseResponse.getContentResult(userService.deleteUser(id));
+    public void deleteUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
+        userService.deleteUser(id);
     }
 
     @Operation(summary = "사용자 상세 조회", description = "사용자 상세 조회")

@@ -68,6 +68,10 @@ public class UserService {
                         .roleCd(RoleEnum.ROLE_ADMIN.getTitle())
                 .build());
         this.roleRepository.saveAndFlush(RoleEntity.builder()
+                .id(RoleEnum.ROLE_STAFF.getId())
+                .roleCd(RoleEnum.ROLE_STAFF.getTitle())
+                .build());
+        this.roleRepository.saveAndFlush(RoleEntity.builder()
                 .id(RoleEnum.ROLE_USER.getId())
                 .roleCd(RoleEnum.ROLE_USER.getTitle())
                 .build());
@@ -97,7 +101,12 @@ public class UserService {
     public CommonIdResult updateUser(Long id, UserUpdateReqDto reqDto) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userEntity.update(reqDto);
-        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        if(reqDto.getRole() != null)
+            userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+
+        if(reqDto.getPassword() != null)
+            userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        userRepository.saveAndFlush(userEntity);
         return new CommonIdResult(userEntity.getId());
     }
 
@@ -184,4 +193,19 @@ public class UserService {
         return userQueryRepository.findStoreUserList(userId, name, phone, email, pageable);
     }
 
+    public void addNewUser(UserUpdateReqDto reqDto) {
+        UserEntity userEntity = UserEntity
+                .builder()
+                .userId(reqDto.getUserId())
+                .name(reqDto.getName())
+                .password(passwordEncoder.encode(reqDto.getPassword()))
+                .phone(reqDto.getPhone())
+                .email(reqDto.getEmail())
+                .sex(reqDto.getSex())
+                .birthDate(reqDto.getBirthDate())
+                .approved(true)
+                .build();
+        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        userRepository.saveAndFlush(userEntity);
+    }
 }
