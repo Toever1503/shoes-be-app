@@ -14,6 +14,7 @@ import com.shoescms.domain.user.repository.UserQueryRepository;
 import com.shoescms.domain.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -174,17 +175,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStaffUserList(String userId, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStaffUserList(userId, name, roleCd, phone, email, approved, pageable));
+    public Page<UserResDto> getStaffUserList(String userId, String name,  String phone, String email,  Pageable pageable) {
+        return userQueryRepository.findStaffUserList(userId, name, phone, email, pageable);
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStoreUserList(userId, name, phone, email, approved, pageable));
+    public Page<UserResDto> getStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
+        return userQueryRepository.findStoreUserList(userId, name, phone, email, pageable);
     }
 
-    @Transactional(readOnly = true)
-    public List<UserResDto> getUserForStoreMapping(String userId, String name) {
-        return userQueryRepository.getUserForStoreMapping(userId, name);
-    }
 }

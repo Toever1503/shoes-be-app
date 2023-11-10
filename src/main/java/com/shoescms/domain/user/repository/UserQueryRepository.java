@@ -1,6 +1,7 @@
 package com.shoescms.domain.user.repository;
 
 import com.shoescms.common.config.QueryDSLConfig;
+import com.shoescms.common.enums.RoleEnum;
 import com.shoescms.domain.user.dto.UserDetailResDto;
 import com.shoescms.domain.user.dto.UserResDto;
 import com.querydsl.core.BooleanBuilder;
@@ -48,34 +49,30 @@ public class UserQueryRepository {
                 .fetchOne());
     }
 
-    public Page<UserResDto> findStaffUserList(String userId, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
+    public Page<UserResDto> findStaffUserList(String userId, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (userId != null)         builder.and(userEntity.userId.eq(userId));
+        if (userId != null)         builder.and(userEntity.userId.contains(userId));
         if (name != null)           builder.and(userEntity.name.contains(name));
-        if (roleCd != null)         builder.and(roleEntity.roleCd.eq(roleCd));
         if (phone != null)          builder.and(userEntity.phone.contains(phone));
         if (email != null)          builder.and(userEntity.email.contains(email));
-        if (approved != null)       builder.and(userEntity.approved.eq(approved));
+        builder.and(userEntity.role.roleCd.in("ROLE_ADMIN", "ROLE_STAFF"));
         builder.and(userEntity.del.isFalse());
-
-        List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
                         userEntity.id,
                         userEntity.userId,
                         userEntity.name,
-                        roleEntity.roleCd.as("roleCd"),
+                        userEntity.role.roleCd,
                         userEntity.phone,
                         userEntity.email,
-                        userEntity.approved,
+                        userEntity.sex,
+                        userEntity.birthDate,
                         userEntity._super.ngayTao
                 ))
                 .from(userEntity)
-                .join(roleEntity)
-                    .on(roleEntity.roleCd.contains("ROLE_STORE").not())
                 .where(builder)
-                .orderBy(orders.toArray(OrderSpecifier[]::new))
+                .orderBy(userEntity.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -83,23 +80,20 @@ public class UserQueryRepository {
         long total = jpaQueryFactory
                 .select(Wildcard.count)
                 .from(userEntity)
-                .join(roleEntity)
-                .on(roleEntity.roleCd.contains("ROLE_STORE").not())
                 .where(builder)
                 .fetch().get(0);
 
         return new PageImpl<>(content, pageable, total);
     }
 
-    public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Boolean approved, Pageable pageable) {
+    public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (userId != null)     builder.and(userEntity.userId.eq(userId));
         if (name != null)       builder.and(userEntity.name.contains(name));
         if (phone != null)      builder.and(userEntity.phone.contains(phone));
         if (email != null)      builder.and(userEntity.email.contains(email));
-        if (approved != null)   builder.and(userEntity.approved.eq(approved));
         builder.and(userEntity.del.isFalse());
-
+        builder.and(userEntity.role.roleCd.eq(RoleEnum.ROLE_USER.getDesc()));
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 
         List<UserResDto> content = jpaQueryFactory
@@ -110,7 +104,8 @@ public class UserQueryRepository {
                         roleEntity.roleCd.as("roleCd"),
                         userEntity.phone,
                         userEntity.email,
-                        userEntity.approved,
+                        userEntity.sex,
+                        userEntity.birthDate,
                         userEntity._super.ngayTao
                 ))
                 .from(userEntity)

@@ -1,9 +1,12 @@
 package com.shoescms.domain.user.dto;
 
+import com.shoescms.domain.product.enums.ESex;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Schema(description = "사용자 조회 응답 정보")
@@ -22,20 +25,17 @@ public class UserResDto {
     @Schema(description = "ROLE코드", example = "ROLE_MARKETING")
     private String roleCd;
 
-    @Schema(description = "ROLE명칭(한글)", example = "마케팅팀")
-    private String roleNmKr;
-
-    @Schema(description = "ROLE명칭(영문)", example = "Marketing team")
-    private String roleNmEn;
-
     @Schema(description = "연락처", example = "010-1234-1234")
     private String phone;
 
     @Schema(description = "이메일", example = "example@seobuk.kr")
     private String email;
 
-    @Schema(description = "승인여부")
-    private Boolean approved;
+    @Schema(description = "sex", example = "MALE")
+    private ESex sex;
+
+    @Schema(description = "Birth date", example = "2023-10-01")
+    private LocalDate birthDate;
 
     @Schema(description = "생성일자")
     private LocalDateTime createDate;
