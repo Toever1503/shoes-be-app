@@ -19,14 +19,14 @@ import java.util.Date;
 @Component
 public class FileUploadService {
 
-//    private final Bucket DEFAULT_BUCKET;
+    private final Bucket DEFAULT_BUCKET;
     private final String STORAGE_URL = "https://firebasestorage.googleapis.com/v0/b/springboot-analysis.appspot.com/o/";
     private final String DEFAULT_PATH = "tmp/";
     private final FileRepository fileRepository;
 
     public FileUploadService(FileRepository fileRepository) {
         this.fileRepository = fileRepository;
-//        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
+        this.DEFAULT_BUCKET = StorageClient.getInstance().bucket();
 //        this.DEFAULT_BUCKET = null;
     }
 
@@ -50,7 +50,7 @@ public class FileUploadService {
 
     public FileEntity uploadFile(String path, MultipartFile file) throws IOException {
         String filePath = generatePath(path, generateUniqueFileName(FilenameUtils.getExtension(file.getOriginalFilename())));
-//        DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
+        DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
         return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath.replaceAll("/", "%2F") + "?alt=media", file.getOriginalFilename(), filePath));
     }
 }
