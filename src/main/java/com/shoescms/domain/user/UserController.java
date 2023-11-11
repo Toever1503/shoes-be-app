@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -101,10 +102,10 @@ public class UserController {
 
     @GetMapping(value = "/list/staff")
     public Page<UserResDto> getStaffUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
-                                                         @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
-                                                         @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
-                                                         @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
-                                                         @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
+                                             @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
+                                             @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
+                                             @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
+                                             @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return userService.getStaffUserList(userId, name, phone, email, pageable);
     }
 

@@ -49,7 +49,7 @@ public class UserQueryRepository {
                 .fetchOne());
     }
 
-    public Page<UserResDto> findStaffUserList(String username, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
+    public Page<UserResDto> findStaffUserList(String username, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (username != null)         builder.and(userEntity.userName.eq(username));
         if (name != null)           builder.and(userEntity.name.contains(name));

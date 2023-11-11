@@ -41,15 +41,6 @@ public class UserService {
     private final CommonConfig config;
     private final MailService mailService;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-        this.userQueryRepository = userQueryRepository;
-        this.roleRepository = roleRepository;
-        this.config = config;
-        this.mailService = mailService;
-    }
-
 //    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
 //        this.passwordEncoder = passwordEncoder;
 //        this.userRepository = userRepository;
@@ -57,21 +48,30 @@ public class UserService {
 //        this.roleRepository = roleRepository;
 //        this.config = config;
 //        this.mailService = mailService;
-//        initRole();
-// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
-//         UserEntity.builder()
-//                 .userName("admin")
-//                 .password(this.passwordEncoder.encode("123456"))
-//                 .name("admin")
-//                 .approved(true)
-//                 .email("admin@email.com")
-//                 .phone("0958572838")
-//                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
-//                 .del(false)
-//                 .build()
-// );
-// this.userRepository.saveAndFlush(adminUser);
 //    }
+
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.userQueryRepository = userQueryRepository;
+        this.roleRepository = roleRepository;
+        this.config = config;
+        this.mailService = mailService;
+        initRole();
+ UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+         UserEntity.builder()
+                 .userName("admin")
+                 .password(this.passwordEncoder.encode("123456"))
+                 .name("admin")
+                 .approved(true)
+                 .email("admin@email.com")
+                 .phone("0958572838")
+                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+                 .del(false)
+                 .build()
+ );
+ this.userRepository.saveAndFlush(adminUser);
+    }
 
     private void initRole(){
         this.roleRepository.saveAndFlush(RoleEntity.builder()
@@ -209,7 +209,7 @@ public class UserService {
     public void addNewUser(UserUpdateReqDto reqDto) {
         UserEntity userEntity = UserEntity
                 .builder()
-                .userId(reqDto.getUserId())
+                .userName(reqDto.getUserId())
                 .name(reqDto.getName())
                 .password(passwordEncoder.encode(reqDto.getPassword()))
                 .phone(reqDto.getPhone())
