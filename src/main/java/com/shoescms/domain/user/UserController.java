@@ -4,7 +4,9 @@ import com.shoescms.common.model.response.BaseResponse;
 import com.shoescms.common.model.response.CommonBaseResult;
 import com.shoescms.common.model.response.CommonIdResult;
 import com.shoescms.common.model.response.CommonResult;
+import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.user.dto.*;
+import com.shoescms.domain.user.entity.UserEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -29,6 +31,8 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final BaseResponse baseResponse;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Operation(summary = "회원 가입", description = "사용자 등록")
     @PostMapping(value = "/sign-up")
@@ -58,12 +62,12 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @Operation(summary = "사용자 상세 조회", description = "사용자 상세 조회")
-    @GetMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('ACCOUNT_READ')")
-    public CommonResult<UserDetailResDto> getDetail(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
-        return baseResponse.getContentResult(userService.getDetail(id));
-    }
+//    @Operation(summary = "사용자 상세 조회", description = "사용자 상세 조회")
+//    @GetMapping(value = "/{id}")
+//    @PreAuthorize("hasAuthority('ACCOUNT_READ')")
+//    public CommonResult<UserDetailResDto> getDetail(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
+//        return baseResponse.getContentResult(userService.getDetail(id));
+//    }
 
     @Operation(summary = "아이디 찾기", description = "아이디 찾기")
     @GetMapping(value = "/find-id")
@@ -74,10 +78,10 @@ public class UserController {
 
     @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
     @PostMapping(value = "/find-pw")
-    public CommonBaseResult findPassword(@Parameter(required = true, name = "userId", description = "아이디") @RequestParam String userId,
+    public CommonBaseResult findPassword(@Parameter(required = true, name = "userName", description = "아이디") @RequestParam String userName,
                                          @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
                                          @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
-        userService.findPassword(userId, name, email);
+        userService.findPassword(userName, name, email);
         return baseResponse.getSuccessResult();
     }
 
@@ -111,5 +115,16 @@ public class UserController {
                                             @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
                                             @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         return userService.getStoreUserList(userId, name, phone, email, pageable);
+    }
+
+    @GetMapping("/detail")
+    public CommonResult<UserEntity> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token) {
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userService.findById(userId));
+    }
+    @PutMapping("/update-profile")
+    public CommonResult<CommonIdResult> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token, @RequestBody UserUpdateReqDto dto) {
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userService.updateUser(userId, dto));
     }
 }

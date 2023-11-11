@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class SignInResDto {
     @Schema(description = "사용자 아이디", example = "test1")
-    private String userId;
+    private String userName;
 
     @Schema(description = "사용자 role", example = "ADMIN")
     private List<String> roles;

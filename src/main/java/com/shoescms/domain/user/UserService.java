@@ -26,11 +26,13 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
 @Slf4j
+@Transactional
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
@@ -46,21 +48,30 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.config = config;
         this.mailService = mailService;
-        initRole();
- UserEntity adminUser =        this.userRepository.findByUserIdAndDel("admin", false).orElse(
-         UserEntity.builder()
-                 .userId("admin")
-                 .password(this.passwordEncoder.encode("123456"))
-                 .name("admin")
-                 .approved(true)
-                 .email("admin@email.com")
-                 .phone("0958572838")
-                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
-                 .del(false)
-                 .build()
- );
- this.userRepository.saveAndFlush(adminUser);
     }
+
+//    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
+//        this.passwordEncoder = passwordEncoder;
+//        this.userRepository = userRepository;
+//        this.userQueryRepository = userQueryRepository;
+//        this.roleRepository = roleRepository;
+//        this.config = config;
+//        this.mailService = mailService;
+//        initRole();
+// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+//         UserEntity.builder()
+//                 .userName("admin")
+//                 .password(this.passwordEncoder.encode("123456"))
+//                 .name("admin")
+//                 .approved(true)
+//                 .email("admin@email.com")
+//                 .phone("0958572838")
+//                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+//                 .del(false)
+//                 .build()
+// );
+// this.userRepository.saveAndFlush(adminUser);
+//    }
 
     private void initRole(){
         this.roleRepository.saveAndFlush(RoleEntity.builder()
@@ -78,12 +89,14 @@ public class UserService {
     }
     @Transactional
     public CommonIdResult addUser(UserReqDto reqDto) {
-        if (userRepository.findByUserIdAndDel(reqDto.getUserId(), false).isPresent())
-            throw new ObjectAlreadExistException("userId");
+        if (userRepository.findByUserNameAndDel(reqDto.getUserName(), false).isPresent())
+            throw new ObjectAlreadExistException("userName");
 
         UserEntity userEntity = reqDto.toEntity();
-        userEntity.setPassword(passwordEncoder.encode(reqDto.getUserId()));
+        System.out.println("pass = " + reqDto.getPassword());
+        userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
 
+        userEntity.setApproved(true);
 
         userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
 
@@ -124,12 +137,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<String> findId(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUserId).toList();
+        return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUsername).toList();
     }
 
     @Transactional(readOnly = true)
-    public void findPassword(String userId, String name, String email) throws Exception {
-        UserEntity userEntity = userRepository.findByUserIdAndNameAndEmail(userId, name, email).orElseThrow(UserNotFoundException::new);
+    public void findPassword(String userName, String name, String email) throws Exception {
+        UserEntity userEntity = userRepository.findByUserNameAndNameAndEmail(userName, name, email).orElseThrow(UserNotFoundException::new);
 
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
@@ -179,7 +192,7 @@ public class UserService {
     public CommonIdResult resetPassword(Long id) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userEntity.setPassword(null);
-        userEntity.setTmpPassword(passwordEncoder.encode(userEntity.getUserId()));
+        userEntity.setTmpPassword(passwordEncoder.encode(userEntity.getUsername()));
         return new CommonIdResult(userEntity.getId());
     }
 
@@ -207,5 +220,10 @@ public class UserService {
                 .build();
         userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
         userRepository.saveAndFlush(userEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public UserEntity findById(Long id) {
+        return userRepository.findByIdUser(id);
     }
 }

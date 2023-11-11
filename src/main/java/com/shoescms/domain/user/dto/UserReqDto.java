@@ -18,7 +18,7 @@ public class UserReqDto {
 
     @Schema(description = "사용자 아이디", example = "test01")
     @NotBlank
-    private String userId;
+    private String userName;
 
     @Schema(description = "비밀번호", example = "password")
     @NotBlank
@@ -37,7 +37,7 @@ public class UserReqDto {
 
     public UserEntity toEntity() {
         return UserEntity.builder()
-                .userId(userId)
+                .userName(userName)
                 .name(name)
                 .phone(phone)
                 .email(email)

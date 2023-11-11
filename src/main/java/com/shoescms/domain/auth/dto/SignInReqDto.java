@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class SignInReqDto {
     @Schema(description = "사용자 아이디", example = "test1")
     @NotBlank
-    private String userId;
+    private String username;
 
     @Schema(description = "비밀번호", example = "test1")
     @NotBlank

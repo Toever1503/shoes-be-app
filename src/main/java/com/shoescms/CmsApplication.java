@@ -19,23 +19,23 @@ import java.nio.charset.StandardCharsets;
 public class CmsApplication {
 
     public static void main(String[] args) throws IOException {
-        initFirebaseInstance();
+//        initFirebaseInstance();
         SpringApplication.run(CmsApplication.class, args);
     }
 
-    private static void initFirebaseInstance() throws IOException {
-        if (FirebaseApp.getApps().isEmpty()) {
-
-            FileInputStream serviceAccount =
-                    new FileInputStream("./credentials/firebase_secret.json");
-            FirebaseOptions options = FirebaseOptions.builder()
-                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                    .setStorageBucket("springboot-analysis.appspot.com")
-                    .build();
-            FirebaseApp.initializeApp(options);
-        }
-
-    }
+//    private static void initFirebaseInstance() throws IOException {
+//        if (FirebaseApp.getApps().isEmpty()) {
+//
+//            FileInputStream serviceAccount =
+//                    new FileInputStream("./credentials/firebase_secret.json");
+//            FirebaseOptions options = FirebaseOptions.builder()
+//                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+//                    .setStorageBucket("springboot-analysis.appspot.com")
+//                    .build();
+//            FirebaseApp.initializeApp(options);
+//        }
+//
+//    }
 
 
 }
