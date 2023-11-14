@@ -202,14 +202,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 
-        if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
+        if(sanPhamEntity.getLoaiBienThe() != null)
+            if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
             setListBienThe1ChoSP(dto, id, false);
-         else if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
-            setListBienThe2ChoSP(dto, id, false);
-        else {
-            setListBienThe1ChoSP(dto, id, true);
-            setListBienThe2ChoSP(dto, id, true);
-        }
+             else if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
+                setListBienThe2ChoSP(dto, id, false);
+            else {
+                setListBienThe1ChoSP(dto, id, true);
+                setListBienThe2ChoSP(dto, id, true);
+            }
 
         dto.setSoLuongKho(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
         dto.setVouchers(voucherService.findAvailableVoucherByDanhMuc(dto.getDmGiay().getId()));

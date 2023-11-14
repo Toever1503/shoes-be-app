@@ -3,6 +3,7 @@ package com.shoescms.domain.user.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shoescms.common.model.BaseDateEntity;
 import com.shoescms.domain.auth.entity.RoleEntity;
+import com.shoescms.domain.product.enums.ESex;
 import com.shoescms.domain.user.dto.UserForgot;
 import com.shoescms.domain.user.dto.UserReqDto;
 import com.shoescms.domain.user.dto.UserUpdateReqDto;
@@ -13,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -42,6 +44,13 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
 
     @Column(name = "email", columnDefinition = "NVARCHAR(64) COMMENT '이메일'")
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sex")
+    private ESex sex;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
     @Column(name = "password", columnDefinition = "NVARCHAR(128) COMMENT '비밀번호'")
     private String password;
@@ -112,6 +121,8 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
 
     public void update(UserUpdateReqDto reqDto) {
         if (reqDto.getName() != null)           this.name = reqDto.getName();
+        if (reqDto.getBirthDate() != null)           this.birthDate = reqDto.getBirthDate();
+        if (reqDto.getSex() != null)           this.sex = reqDto.getSex();
         if (reqDto.getPhone() != null)          this.phone = reqDto.getPhone();
         if (reqDto.getEmail() != null)          this.email = reqDto.getEmail();
     }

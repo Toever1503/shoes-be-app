@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -47,6 +48,15 @@ public class UserController {
         return baseResponse.getContentResult(userService.approval(id));
     }
 
+    @PostMapping(value = "/add-new")
+    public void addNewUser(@Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
+        userService.addNewUser(reqDto);
+    }
+    @PutMapping(value = "/{id}")
+    public void updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
+        userService.updateUser(id, reqDto);
+    }
 //    @Operation(summary = "사용자 수정", description = "사용자 수정")
 //    @PutMapping(value = "/{id}")
 //    public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
@@ -55,7 +65,7 @@ public class UserController {
 //    }
     @Operation(summary = "사용자 수정", description = "사용자 수정")
     @PutMapping(value = "/forgot-pass/{id}")
-    public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+    public CommonResult<CommonIdResult> forgotPassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
                                                    @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserForgot reqDto) {
         return baseResponse.getContentResult(userService.forgotPass(id, reqDto));
     }
@@ -111,37 +121,22 @@ public class UserController {
         return baseResponse.getContentResult(userService.resetPassword(id));
     }
 
-    @Operation(summary = "사용자 목록 조회(직원)", description = "직원 계정 목록 조회")
     @GetMapping(value = "/list/staff")
-    @PreAuthorize("hasAuthority('ACCOUNT_READ')")
-    public CommonResult<UserListResDto> getStaffUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
-                                                         @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
-                                                         @Parameter(name = "role", description = "ROLE") @RequestParam(required = false) String roleCd,
-                                                         @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
-                                                         @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
-                                                         @Parameter(name = "approved", description = "승인여부") @RequestParam(required = false) Boolean approved,
-                                                         @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return baseResponse.getContentResult(userService.getStaffUserList(userId, name, roleCd, phone, email, approved, pageable));
+    public Page<UserResDto> getStaffUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
+                                             @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
+                                             @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
+                                             @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
+                                             @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
+        return userService.getStaffUserList(userId, name, phone, email, pageable);
     }
 
-    @Operation(summary = "사용자 목록 조회(상점)", description = "상점 계정 목록 조회")
-    @GetMapping(value = "/list/store")
-    @PreAuthorize("hasAuthority('ACCOUNT_READ')")
-    public CommonResult<UserListResDto> getStoreUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
-                                                         @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
-                                                         @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
-                                                         @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
-                                                         @Parameter(name = "approved", description = "승인여부") @RequestParam(required = false) Boolean approved,
-                                                         @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return baseResponse.getContentResult(userService.getStoreUserList(userId, name, phone, email, approved, pageable));
-    }
-
-    @Operation(summary = "사용자 검색(상점관리)", description = "사용자 검색(상점관리)")
-    @GetMapping(value = "/find")
-    @PreAuthorize("hasAuthority('STORE_WRITE')")
-    public CommonResult<List<UserResDto>> getUserForStoreMapping(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
-                                                                 @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name) {
-        return baseResponse.getContentResult(userService.getUserForStoreMapping(userId, name));
+    @GetMapping(value = "/list/user")
+    public Page<UserResDto> getUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
+                                            @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
+                                            @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
+                                            @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
+                                            @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
+        return userService.getStoreUserList(userId, name, phone, email, pageable);
     }
 
     @GetMapping("/detail")

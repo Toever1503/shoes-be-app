@@ -15,6 +15,7 @@ import com.shoescms.domain.user.repository.UserQueryRepository;
 import com.shoescms.domain.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,20 @@ public class UserService {
         this.config = config;
         this.mailService = mailService;
         this.jwtTokenProvider = jwtTokenProvider;
+        initRole();
+ UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+         UserEntity.builder()
+                 .userName("admin")
+                 .password(this.passwordEncoder.encode("123456"))
+                 .name("admin")
+                 .approved(true)
+                 .email("admin@email.com")
+                 .phone("0958572838")
+                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+                 .del(false)
+                 .build()
+ );
+ this.userRepository.saveAndFlush(adminUser);
     }
 
 //    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
@@ -80,6 +95,10 @@ public class UserService {
         this.roleRepository.saveAndFlush(RoleEntity.builder()
                         .id(RoleEnum.ROLE_ADMIN.getId())
                         .roleCd(RoleEnum.ROLE_ADMIN.getTitle())
+                .build());
+        this.roleRepository.saveAndFlush(RoleEntity.builder()
+                .id(RoleEnum.ROLE_STAFF.getId())
+                .roleCd(RoleEnum.ROLE_STAFF.getTitle())
                 .build());
         this.roleRepository.saveAndFlush(RoleEntity.builder()
                 .id(RoleEnum.ROLE_USER.getId())
@@ -113,7 +132,12 @@ public class UserService {
     public CommonIdResult updateUser(Long id, UserUpdateReqDto reqDto) {
         UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         userEntity.update(reqDto);
-        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        if(reqDto.getRole() != null)
+            userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+
+        if(reqDto.getPassword() != null)
+            userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        userRepository.saveAndFlush(userEntity);
         return new CommonIdResult(userEntity.getId());
     }
     @Transactional
@@ -155,8 +179,7 @@ public class UserService {
         String param = gson.toJson(dto);
 
         // encrypt info
-        StringBuilder expired = new StringBuilder();
-        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
+        String encParam = "www";
         ClassPathResource resource = new ClassPathResource("html/mail-body.html");
         if (resource.exists()) {
             try {
@@ -164,47 +187,10 @@ public class UserService {
                 InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String content = streamOfString.collect(Collectors.joining());
-                content = content.replaceAll("__enc_param", userName);
-                content = content.replaceAll("__enc_token", token);
-                content = content.replaceAll("__password_change_url", config.getForgotPass());
+                content = content.replaceAll("__enc_param", encParam);
+                content = content.replaceAll("__password_change_url", config.getVnpayRedirectURl());
                 log.info(content);
-                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
-                    throw new AuthFailedException();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            throw new ObjectNotFoundException("mail-body.html");
-        }
-    }
-    @Transactional(readOnly = true)
-    public void findPassword(String email) throws Exception {
-        UserEntity userEntity = userRepository.findByEmail(email);
-
-        // make expire time
-        LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
-        String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Gson gson = new Gson();
-        UserPasswordCodeDto dto = new UserPasswordCodeDto();
-        dto.setId(userEntity.getId());
-        dto.setExpire(expire);
-        String param = gson.toJson(dto);
-
-        // encrypt info
-        StringBuilder expired = new StringBuilder();
-        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
-        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
-        if (resource.exists()) {
-            try {
-                log.info("start send mail");
-                InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
-                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
-                String content = streamOfString.collect(Collectors.joining());
-                content = content.replaceAll("__enc_param", email);
-                content = content.replaceAll("__enc_token", token);
-                content = content.replaceAll("__password_change_url", config.getForgotPass());
-                log.info(content);
-                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
+                if (!mailService.sendMail(userEntity.getEmail(), "포토이즘 비밀번호 변경", content))
                     throw new AuthFailedException();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -236,18 +222,29 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStaffUserList(String userName, String name, String roleCd, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStaffUserList(userName, name, roleCd, phone, email, approved, pageable));
+    public Page<UserResDto> getStaffUserList(String userId, String name,  String phone, String email,  Pageable pageable) {
+        return userQueryRepository.findStaffUserList(userId, name, phone, email, pageable);
     }
 
     @Transactional(readOnly = true)
-    public UserListResDto getStoreUserList(String userName, String name, String phone, String email, Boolean approved, Pageable pageable) {
-        return new UserListResDto(userQueryRepository.findStoreUserList(userName, name, phone, email, approved, pageable));
+    public Page<UserResDto> getStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
+        return userQueryRepository.findStoreUserList(userId, name, phone, email, pageable);
     }
 
-    @Transactional(readOnly = true)
-    public List<UserResDto> getUserForStoreMapping(String userName, String name) {
-        return userQueryRepository.getUserForStoreMapping(userName, name);
+    public void addNewUser(UserUpdateReqDto reqDto) {
+        UserEntity userEntity = UserEntity
+                .builder()
+                .userName(reqDto.getUserId())
+                .name(reqDto.getName())
+                .password(passwordEncoder.encode(reqDto.getPassword()))
+                .phone(reqDto.getPhone())
+                .email(reqDto.getEmail())
+                .sex(reqDto.getSex())
+                .birthDate(reqDto.getBirthDate())
+                .approved(true)
+                .build();
+        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        userRepository.saveAndFlush(userEntity);
     }
 
     @Transactional(readOnly = true)

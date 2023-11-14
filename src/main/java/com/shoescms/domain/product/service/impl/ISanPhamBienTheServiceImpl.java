@@ -107,55 +107,55 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
             bienTheGiaTriRepository.saveAllAndFlush(List.of(
                     BienTheGiaTri
                             .builder()
-                            .id(46L)
+                            .id(36L)
                             .bienThe(bienTheEntity)
                             .giaTri("36")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(47L)
+                            .id(37L)
                             .bienThe(bienTheEntity)
                             .giaTri("37")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(48L)
+                            .id(38L)
                             .bienThe(bienTheEntity)
                             .giaTri("38")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(49L)
+                            .id(39L)
                             .bienThe(bienTheEntity)
                             .giaTri("39")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(50L)
+                            .id(40L)
                             .bienThe(bienTheEntity)
                             .giaTri("40")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(51L)
+                            .id(41L)
                             .bienThe(bienTheEntity)
                             .giaTri("41")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(52L)
+                            .id(42L)
                             .bienThe(bienTheEntity)
                             .giaTri("42")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(53L)
+                            .id(43L)
                             .bienThe(bienTheEntity)
                             .giaTri("43")
                             .build(),
                     BienTheGiaTri
                             .builder()
-                            .id(54L)
+                            .id(44L)
                             .bienThe(bienTheEntity)
                             .giaTri("44")
                             .build()
