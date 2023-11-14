@@ -116,6 +116,13 @@ public class UserService {
         userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
         return new CommonIdResult(userEntity.getId());
     }
+    @Transactional
+    public CommonIdResult forgotPass(Long id, UserForgot reqDto) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        userEntity.update(userEntity);
+        return new CommonIdResult(userEntity.getId());
+    }
 
     @Transactional
     public CommonIdResult deleteUser(Long id) {

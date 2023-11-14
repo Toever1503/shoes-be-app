@@ -47,11 +47,17 @@ public class UserController {
         return baseResponse.getContentResult(userService.approval(id));
     }
 
+//    @Operation(summary = "사용자 수정", description = "사용자 수정")
+//    @PutMapping(value = "/{id}")
+//    public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+//                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
+//        return baseResponse.getContentResult(userService.updateUser(id, reqDto));
+//    }
     @Operation(summary = "사용자 수정", description = "사용자 수정")
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "/forgot-pass/{id}")
     public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
-                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
-        return baseResponse.getContentResult(userService.updateUser(id, reqDto));
+                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserForgot reqDto) {
+        return baseResponse.getContentResult(userService.forgotPass(id, reqDto));
     }
 
     @Operation(summary = "사용자 제거", description = "사용자 제거")
@@ -147,5 +153,11 @@ public class UserController {
     public CommonResult<CommonIdResult> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token, @RequestBody UserUpdateReqDto dto) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
         return baseResponse.getContentResult(userService.updateUser(userId, dto));
+    }
+
+    @GetMapping("/token")
+    public CommonResult<String> getToken(@RequestParam(name ="token", required = false) String token) {
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userId.toString());
     }
 }

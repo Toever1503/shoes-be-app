@@ -93,6 +93,8 @@ public class SecurityConfig {
             "/v1/san-pham/public/get-all-gia-tri-bien-the/",
             "/v1/danh-muc-giay/loc-danh-muc/**",
             "/v1/thuong-hieu/loc-thuong-hieu/**",
+            "/v1/user/token",
+            "/v1/user/forgot-pass/**",
             "/v1/voucher/public/**"
     };
     @Bean
