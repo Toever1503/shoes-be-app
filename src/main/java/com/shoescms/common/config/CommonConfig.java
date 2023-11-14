@@ -10,4 +10,6 @@ public class CommonConfig {
     @Value("${shoescms.vnpayredirect}")
     private String vnpayRedirectURl;
 
+    @Value("${shoescms.forgotPassword}")
+    private String forgotPass;
 }

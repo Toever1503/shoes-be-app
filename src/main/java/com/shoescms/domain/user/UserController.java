@@ -75,12 +75,19 @@ public class UserController {
         return baseResponse.getContentResult(userService.findId(name, phone));
     }
 
+//    @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
+//    @PostMapping(value = "/find-pw")
+//    public CommonBaseResult findPassword(@Parameter(required = true, name = "userName", description = "아이디") @RequestParam String userName,
+//                                         @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
+//                                         @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
+//        userService.findPassword(userName, name, email);
+//        return baseResponse.getSuccessResult();
+//    }
+
     @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
     @PostMapping(value = "/find-pw")
-    public CommonBaseResult findPassword(@Parameter(required = true, name = "userName", description = "아이디") @RequestParam String userName,
-                                         @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
-                                         @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
-        userService.findPassword(userName, name, email);
+    public CommonBaseResult findPassword(@Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
+        userService.findPassword(email);
         return baseResponse.getSuccessResult();
     }
 

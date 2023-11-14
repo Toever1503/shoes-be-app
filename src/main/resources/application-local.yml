@@ -77,6 +77,8 @@ cloud:
 
 shoescms:
   vnpayredirect: http://localhost:3000/dat-hang/ket-qua
+  forgotPassword: http://localhost:3000/quen-mat-khau
+
 photoism:
   encrypt:
     key: Uyn+GjQZ1to6HCyxxnCv7yyY8OGI9uhTiVkWEPAqOz4=
@@ -85,6 +87,9 @@ photoism:
     smtp:
       host: smtp.gmail.com
       port: 587
-      user: support@ebiznow.co.kr
-      pass: bvGfFF8Wz17b5awiQJuLZA==
-      mail: support@ebiznow.co.kr
+      user: danhvinhh@gmail.com
+      pass: ogrteoipmcrywdmk
+      auth: true
+      starttls.enable: true
+
+

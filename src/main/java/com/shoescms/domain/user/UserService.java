@@ -5,6 +5,7 @@ import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.enums.RoleEnum;
 import com.shoescms.common.exception.*;
 import com.shoescms.common.model.response.CommonIdResult;
+import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.common.service.MailService;
 import com.shoescms.domain.auth.entity.RoleEntity;
 import com.shoescms.domain.auth.repository.RoleRepository;
@@ -40,13 +41,16 @@ public class UserService {
     private final CommonConfig config;
     private final MailService mailService;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService,JwtTokenProvider jwtTokenProvider) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userQueryRepository = userQueryRepository;
         this.roleRepository = roleRepository;
         this.config = config;
         this.mailService = mailService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
 //    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
@@ -144,7 +148,8 @@ public class UserService {
         String param = gson.toJson(dto);
 
         // encrypt info
-        String encParam = "www";
+        StringBuilder expired = new StringBuilder();
+        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
         ClassPathResource resource = new ClassPathResource("html/mail-body.html");
         if (resource.exists()) {
             try {
@@ -152,10 +157,47 @@ public class UserService {
                 InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String content = streamOfString.collect(Collectors.joining());
-                content = content.replaceAll("__enc_param", encParam);
-                content = content.replaceAll("__password_change_url", config.getVnpayRedirectURl());
+                content = content.replaceAll("__enc_param", userName);
+                content = content.replaceAll("__enc_token", token);
+                content = content.replaceAll("__password_change_url", config.getForgotPass());
                 log.info(content);
-                if (!mailService.sendMail(userEntity.getEmail(), "포토이즘 비밀번호 변경", content))
+                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
+                    throw new AuthFailedException();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new ObjectNotFoundException("mail-body.html");
+        }
+    }
+    @Transactional(readOnly = true)
+    public void findPassword(String email) throws Exception {
+        UserEntity userEntity = userRepository.findByEmail(email);
+
+        // make expire time
+        LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
+        String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Gson gson = new Gson();
+        UserPasswordCodeDto dto = new UserPasswordCodeDto();
+        dto.setId(userEntity.getId());
+        dto.setExpire(expire);
+        String param = gson.toJson(dto);
+
+        // encrypt info
+        StringBuilder expired = new StringBuilder();
+        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
+        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
+        if (resource.exists()) {
+            try {
+                log.info("start send mail");
+                InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
+                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
+                String content = streamOfString.collect(Collectors.joining());
+                content = content.replaceAll("__enc_param", email);
+                content = content.replaceAll("__enc_token", token);
+                content = content.replaceAll("__password_change_url", config.getForgotPass());
+                log.info(content);
+                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
                     throw new AuthFailedException();
             } catch (Exception e) {
                 e.printStackTrace();
