@@ -52,20 +52,20 @@ public class UserService {
         this.config = config;
         this.mailService = mailService;
         this.jwtTokenProvider = jwtTokenProvider;
-        initRole();
- UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
-         UserEntity.builder()
-                 .userName("admin")
-                 .password(this.passwordEncoder.encode("123456"))
-                 .name("admin")
-                 .approved(true)
-                 .email("admin@email.com")
-                 .phone("0958572838")
-                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
-                 .del(false)
-                 .build()
- );
- this.userRepository.saveAndFlush(adminUser);
+//        initRole();
+// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+//         UserEntity.builder()
+//                 .userName("admin")
+//                 .password(this.passwordEncoder.encode("123456"))
+//                 .name("admin")
+//                 .approved(true)
+//                 .email("admin@email.com")
+//                 .phone("0958572838")
+//                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+//                 .del(false)
+//                 .build()
+// );
+// this.userRepository.saveAndFlush(adminUser);
     }
 
 //    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {
@@ -163,6 +163,42 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<String> findId(String name, String phone) {
         return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUsername).toList();
+    }
+    @Transactional(readOnly = true)
+    public void findPassword(String email) throws Exception {
+        UserEntity userEntity = userRepository.findByEmail(email);
+
+        // make expire time
+        LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
+        String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Gson gson = new Gson();
+        UserPasswordCodeDto dto = new UserPasswordCodeDto();
+        dto.setId(userEntity.getId());
+        dto.setExpire(expire);
+        String param = gson.toJson(dto);
+
+        // encrypt info
+        StringBuilder expired = new StringBuilder();
+        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
+        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
+        if (resource.exists()) {
+            try {
+                log.info("start send mail");
+                InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
+                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
+                String content = streamOfString.collect(Collectors.joining());
+                content = content.replaceAll("__enc_param", email);
+                content = content.replaceAll("__enc_token", token);
+                content = content.replaceAll("__password_change_url", config.getForgotPass());
+                log.info(content);
+                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
+                    throw new AuthFailedException();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new ObjectNotFoundException("mail-body.html");
+        }
     }
 
     @Transactional(readOnly = true)
