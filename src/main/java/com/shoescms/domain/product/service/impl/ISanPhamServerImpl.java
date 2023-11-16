@@ -226,7 +226,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 setListBienThe2ChoSP(dto, id, true);
             }
 
-        dto.setSoLuongKho(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
+        dto.setTongSp(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
         dto.setVouchers(voucherService.findAvailableVoucherByDanhMuc(dto.getDmGiay().getId()));
         return dto;
     }

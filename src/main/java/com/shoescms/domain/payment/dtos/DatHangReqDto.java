@@ -39,6 +39,7 @@ public class DatHangReqDto {
     private Long maGiamGiaId;
 
     private BigDecimal shipFee;
+
     private BigDecimal totalPay;
 
     @Schema(description = "Ghi chu", example = "COD")

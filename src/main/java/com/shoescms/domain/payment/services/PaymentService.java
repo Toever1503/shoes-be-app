@@ -61,32 +61,40 @@ public class PaymentService {
         List<ChiTietDonHangEntity> chiTietDonHangEntities = taoChiTietDonHangTuGioHangTamThoi(reqDto.getGioHangTamThoiReqDto(), donHangEntity);
 
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
-        if (reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY)) {
+        if (reqDto.getPhuongThucTT().equals(EPhuongThucTT.VNPAY))
             donHangEntity.setNgayXoa(LocalDateTime.now());
-        }
+
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
-        donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien()); // need update later
+        donHangEntity.setPhiShip(reqDto.getShipFee());
+        donHangEntity.setTongGiaCuoiCung(reqDto.getTotalPay());
 
         // luu dia chi dat hang
-        DiaChiEntity diaChi = new DiaChiEntity();
-        donHangEntity.setDiaChiEntity(diaChi);
-        diaChi.setDiaChi(reqDto.getDiaChiNhanHang());
-        diaChi.setSdt(reqDto.getSoDienThoaiNhanHang());
-        diaChi.setTenNguoiNhan(reqDto.getHoTenNguoiNhan());
+        DiaChiDto diaChiDto = new DiaChiDto();
+        if (reqDto.getDiaChiId() != null) {
+            DiaChiEntity diaChi = new DiaChiEntity();
+            donHangEntity.setDiaChiEntity(diaChi);
+            diaChi.setDiaChi(reqDto.getDiaChiNhanHang());
+            diaChi.setSdt(reqDto.getSoDienThoaiNhanHang());
+            diaChi.setTenNguoiNhan(reqDto.getHoTenNguoiNhan());
+            diaChiRepository.saveAndFlush(diaChi);
+
+            diaChiDto.setId(diaChi.getId());
+            diaChiDto.setTenNguoiNhan(diaChi.getTenNguoiNhan());
+            diaChiDto.setSdt(diaChi.getSdt());
+            diaChiDto.setDiaChi(diaChi.getDiaChi());
+        }
 
         // set giam gia
-        if(reqDto.getMaGiamGiaId() != null){
+        if (reqDto.getMaGiamGiaId() != null) {
             VoucherDto voucherDto = voucherService.findById(reqDto.getMaGiamGiaId());
             donHangEntity.setMaGiamGiaId(voucherDto.getId());
             donHangEntity.setTongTienGiamGia(BigDecimal.ZERO);
-            if(voucherDto.getGiamGiaTheo().equals(EGiamGiaTheo.DIRECTLY))
+            if (voucherDto.getGiamGiaTheo().equals(EGiamGiaTheo.DIRECTLY))
                 donHangEntity.setTongTienGiamGia(BigDecimal.valueOf(voucherDto.getGiaGiam()));
             else
-                donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherDto.getPhanTramGiam()/100)));
+                donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherDto.getPhanTramGiam() / 100)));
             donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien().subtract(donHangEntity.getTongTienGiamGia()));
         }
-
-        diaChiRepository.saveAndFlush(diaChi);
         donHangRepository.saveAndFlush(donHangEntity);
         chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
         chiTietDonHangRepository.saveAllAndFlush(chiTietDonHangEntities);
@@ -119,11 +127,7 @@ public class PaymentService {
             chiTietDonHangDtos.add(chiTietDonHangDto);
         }
 
-        DiaChiDto diaChiDto = new DiaChiDto();
-        diaChiDto.setId(diaChi.getId());
-        diaChiDto.setTenNguoiNhan(diaChi.getTenNguoiNhan());
-        diaChiDto.setSdt(diaChi.getSdt());
-        diaChiDto.setDiaChi(diaChi.getDiaChi());
+
         donHangDto.setDiaChi(diaChiDto);
         donHangDto.setChiTietDonHang(chiTietDonHangDtos);
 
