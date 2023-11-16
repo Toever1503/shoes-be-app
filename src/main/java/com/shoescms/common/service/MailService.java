@@ -18,6 +18,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -48,23 +49,48 @@ public class MailService {
     }
 
     public void sendEmail(String templatePath, String to, String subject, Map<String, Object> content) throws MessagingException {
-        mailLogger.info("Begin send mail");
-        MimeMessage message = javaMailSender.createMimeMessage(); // init new SimpleMailMessage
-        MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = null;
 
-        //add variable
-        Context context = new Context();
-        context.setVariables(content);
+        try {
+            mailLogger.info("Bắt đầu gửi email");
 
-        String contentHtml = templateEngine.process(templatePath, context);
+            // Kiểm tra giá trị null
+            Objects.requireNonNull(templatePath, "Đường dẫn mẫu không được null");
+            Objects.requireNonNull(to, "Người nhận không được null");
+            Objects.requireNonNull(subject, "Chủ đề không được null");
+            Objects.requireNonNull(content, "Bản đồ nội dung không được null");
 
-        // set recipient, subject, content
-        messageHelper.setFrom("noreply@animenews.life");
-        messageHelper.setTo(to);
-        messageHelper.setSubject(subject);
-        messageHelper.setText(contentHtml, true);
+            messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-        javaMailSender.send(message); // send mail
-        mailLogger.info("Send mail to ".concat(to.concat(" successfully!")));
+            // Thêm biến
+            Context context = new Context();
+            context.setVariables(content);
+
+            mailLogger.info("html", templatePath);
+            String contentHtml = templateEngine.process(templatePath, context);
+
+            // Đặt người nhận, chủ đề, nội dung
+            messageHelper.setFrom("noreply@animenews.life");
+            messageHelper.setTo(to);
+            messageHelper.setSubject(subject);
+            messageHelper.setText(contentHtml, true);
+
+            javaMailSender.send(message); // Gửi email
+            mailLogger.info("Gửi email đến {} thành công!", to);
+        } catch (Exception e) {
+            // Xử lý ngoại lệ (ghi log hoặc ném lại nếu cần thiết)
+            mailLogger.error("Lỗi khi gửi email: {}", e.getMessage(), e);
+            throw new MessagingException("Lỗi khi gửi email", e);
+        } finally {
+            if (messageHelper != null && messageHelper.getMimeMessage() != null) {
+                try {
+                    // Đảm bảo rằng tài nguyên được giải phóng
+                    messageHelper.getMimeMessage().getFolder().close(true);
+                } catch (MessagingException e) {
+                    mailLogger.error("Lỗi khi đóng tài nguyên: {}", e.getMessage(), e);
+                }
+            }
+        }
     }
 }

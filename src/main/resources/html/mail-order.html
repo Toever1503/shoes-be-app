@@ -18,7 +18,7 @@
 
 <body style="max-width: 500px; min-width: 300px; margin-top: 20px; font-size: 14px;">
 
-<div>Dear <span th:text="${order.getUser_id().getFullName()}"/>, </div>
+<div>Dear <span th:text="${order}"/>, </div>
 <p>
   Cảm ơn bạn đã sử dụng dịch vụ. Dưới đây là thông tin đặt hàng của bạn:
 </p>
@@ -27,7 +27,7 @@
   <p style="font-size: 16px;">THÔNG TIN ĐƠN HÀNG</p>
   <div>
     <p>Mã đơn hàng: <span th:text="${order.getMaDonHang()}"/></p>
-    <p>Thời gian đăng ký: <span th:text="${#dates.format(order.getCreated_at(), 'dd-MM-yyyy HH:mm:ss')}"/></p>
+    <p>Thời gian đăng ký: <span th:text="${#dates.format(order.getNgayTao(), 'dd-MM-yyyy HH:mm:ss')}"/></p>
   </div>
 </div>
 <table cellpadding="10" cellspacing="10">
@@ -40,10 +40,10 @@
   </thead>
   <tbody>
   <tr height="25" style="text-align: center">
-    <td th:text="${order.getSubs_pack_id().getName()}">
+    <td th:text="${order.getChiTietDonHangs()}">
     </td>
-    <td th:text="${#numbers.formatDecimal(order.getFinalPrice(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
-    <td th:text="${#numbers.formatDecimal(order.getFinalPrice(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
+    <td th:text="${#numbers.formatDecimal(order.getTongGiaCuoiCung(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
+    <td th:text="${#numbers.formatDecimal(order.getTongGiaCuoiCung(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
   </tr>
 
   </tbody>

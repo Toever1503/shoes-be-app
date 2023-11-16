@@ -2,6 +2,7 @@ package com.shoescms.domain.payment.services;
 
 import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.exception.ObjectNotFoundException;
+import com.shoescms.common.service.MailService;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.repository.GioHangRepository;
@@ -17,10 +18,13 @@ import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
+import com.shoescms.domain.user.UserService;
+import com.shoescms.domain.user.entity.UserEntity;
 import com.shoescms.domain.voucher.VoucherService;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,8 +49,11 @@ public class PaymentService {
     private final GioHangRepository gioHangRepository;
     private final IChiTietDonHangRepository chiTietDonHangRepository;
 
+    private final UserService userService;
     private final CommonConfig commonConfig;
     private final VoucherService voucherService;
+
+    private final MailService mailService;
 
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
@@ -90,6 +97,16 @@ public class PaymentService {
         donHangRepository.saveAndFlush(donHangEntity);
         chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
         chiTietDonHangRepository.saveAllAndFlush(chiTietDonHangEntities);
+        UserEntity userEntity = userService.findById(reqDto.getNguoiTao());
+        Map<String, Object> context = new HashMap<>();
+        context.put("order", donHangEntity);
+        try {
+            System.out.println("send mail to " + userEntity.getEmail());
+            this.mailService.sendEmail("html/mail-order.html", userEntity.getEmail(), "Thông tin đặt hàng", context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
