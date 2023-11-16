@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -36,6 +37,9 @@ public class DatHangReqDto {
     private Long nguoiTao;
 
     private Long maGiamGiaId;
+
+    private BigDecimal shipFee;
+    private BigDecimal totalPay;
 
     @Schema(description = "Ghi chu", example = "COD")
     private EPhuongThucTT phuongThucTT;

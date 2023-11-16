@@ -7,11 +7,9 @@ import com.shoescms.domain.product.enums.ESex;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import lombok.*;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -56,6 +54,8 @@ public class SanPhamDto {
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
     private Integer tongSp;
+    private Float tbDanhGia;
+    private Integer soDanhGia;
 
     private String chatLieu;
     private String trongLuong;
@@ -89,6 +89,9 @@ public class SanPhamDto {
                 .congNghe(sanPhamEntity.getCongNghe())
                 .tinhNang(sanPhamEntity.getTinhNang())
                 .noiSanXuat(sanPhamEntity.getNoiSanXuat())
+                .tongSp(sanPhamEntity.getTongSp())
+                .tbDanhGia(sanPhamEntity.getTbDanhGia())
+                .soDanhGia(sanPhamEntity.getSoDanhGia())
                 .build();
     }
 
