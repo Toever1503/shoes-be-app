@@ -108,10 +108,11 @@ public class UserController {
     }
 
     @Operation(summary = "패스워드 변경", description = "패스워드 변경")
-    @PatchMapping(value = "/{id}/password")
-    public CommonResult<CommonIdResult> changePassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+    @PatchMapping(value = "/password")
+    public CommonResult<CommonIdResult> changePassword(@RequestHeader(name ="x-api-token", required = false) String token,
                                                        @Parameter(required = true, name = "reqDto", description = "비밀번호 변경 요청 정보") @RequestBody @Valid ChangePasswordReqDto reqDto) {
-        return baseResponse.getContentResult(userService.changePassword(id, reqDto));
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userService.changePassword(userId, reqDto));
     }
 
     @Deprecated
