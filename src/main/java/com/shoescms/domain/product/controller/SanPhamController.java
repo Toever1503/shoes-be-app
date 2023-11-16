@@ -111,6 +111,11 @@ public class SanPhamController {
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.HIEN_THI_WEB), model.getHienThiWeb()));
         if (model.getCreatedAtRange() != null)
             listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(SanPhamEntity_.NGAY_TAO), model.getCreatedAtRange().get(0), model.getCreatedAtRange().get(1)));
+        if (model.getTinhTrangKho() != null && model.getTinhTrangKho().equals("EMPTY"))
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(SanPhamEntity_.TONG_SP), 0));
+        if (model.getTinhTrangKho() != null && model.getTinhTrangKho().equals("AVAIL"))
+            listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(root.get(SanPhamEntity_.TONG_SP), 0));
+
         listSpect.add((root, query, criteriaBuilder) -> criteriaBuilder.isNull(root.get(SanPhamEntity_.NGAY_XOA)));
         Specification<SanPhamEntity> finalSpec = null;
         for (Specification spec : listSpect) {

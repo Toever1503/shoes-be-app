@@ -52,8 +52,9 @@ public class WebChiTietSanPhamDto {
     private List<BienTheGiaTriDTO> giaTri1List;
     private List<BienTheGiaTriDTO> giaTri2List;
 
-    private Float soSaoDanhGia;
-    private Integer soLuongKho;
+    private Integer tongSp;
+    private Float tbDanhGia;
+    private Integer soDanhGia;
 
     private List<VoucherMetadataDto> vouchers;
 
@@ -85,6 +86,9 @@ public class WebChiTietSanPhamDto {
                 .congNghe(sanPhamEntity.getCongNghe())
                 .tinhNang(sanPhamEntity.getTinhNang())
                 .noiSanXuat(sanPhamEntity.getNoiSanXuat())
+                .tongSp(sanPhamEntity.getTongSp())
+                .tbDanhGia(sanPhamEntity.getTbDanhGia())
+                .soDanhGia(sanPhamEntity.getSoDanhGia())
                 .build();
     }
 

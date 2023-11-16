@@ -92,14 +92,28 @@ public class SanPhamEntity {
     @ColumnDefault("0")
     private Integer tongSp;
 
+    @Column(name = "da_ban")
+    @ColumnDefault("0")
+    private Integer daBan;
+
+    @Column(name = "tb_danh_gia")
+    private Float tbDanhGia;
+
+    @Column(name = "so_danh_gia")
+    private Integer soDanhGia;
+
     @Column(name = "chat_lieu")
     private String chatLieu;
+
     @Column(name = "trong_luong")
     private String trongLuong;
+
     @Column(name = "cong_nghe")
     private String congNghe;
+
     @Column(name = "tinh_nang")
     private String tinhNang;
+
     @Column(name = "noi_san_xuat")
     private String noiSanXuat;
 }

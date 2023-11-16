@@ -6,12 +6,11 @@ import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
+import com.shoescms.domain.user.dto.UsermetaDto;
 import lombok.*;
-import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -41,7 +40,7 @@ public class SanPhamDto {
 
     private DMGiayEntity dmGiay;
 
-    private Long nguoiTao;
+    private UsermetaDto nguoiTao;
 
     private Long nguoiCapNhat;
 
@@ -56,6 +55,8 @@ public class SanPhamDto {
     private ELoaiBienThe loaiBienThe;
     private Boolean hienThiWeb;
     private Integer tongSp;
+    private Float tbDanhGia;
+    private Integer soDanhGia;
 
     private String chatLieu;
     private String trongLuong;
@@ -76,7 +77,6 @@ public class SanPhamDto {
                 .gioiTinh(sanPhamEntity.getGioiTinh())
                 .thuongHieu(sanPhamEntity.getThuongHieu())
                 .dmGiay(sanPhamEntity.getDmGiay())
-                .nguoiTao(sanPhamEntity.getNguoiTao())
                 .nguoiCapNhat(sanPhamEntity.getNguoiCapNhat())
                 .ngayTao(sanPhamEntity.getNgayTao())
                 .ngayCapNhat(sanPhamEntity.getNgayCapNhat())
@@ -89,6 +89,9 @@ public class SanPhamDto {
                 .congNghe(sanPhamEntity.getCongNghe())
                 .tinhNang(sanPhamEntity.getTinhNang())
                 .noiSanXuat(sanPhamEntity.getNoiSanXuat())
+                .tongSp(sanPhamEntity.getTongSp())
+                .tbDanhGia(sanPhamEntity.getTbDanhGia())
+                .soDanhGia(sanPhamEntity.getSoDanhGia())
                 .build();
     }
 
@@ -97,5 +100,8 @@ public class SanPhamDto {
         return this;
     }
 
-
+    public SanPhamDto setNguoiTao(UsermetaDto nguoiTao) {
+        this.nguoiTao = nguoiTao;
+        return  this;
+    }
 }
