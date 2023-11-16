@@ -11,6 +11,7 @@ public class SanPhamFilterReqDto {
     private String q;
     private String tieuDe;
     private String maSp;
+    private String tinhTrangKho;
     private Long dmGiay;
     private Long thuongHieu;
     private Boolean hienThiWeb;

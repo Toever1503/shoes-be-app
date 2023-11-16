@@ -16,6 +16,8 @@ import com.shoescms.domain.product.repository.IThuogHieuRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
+import com.shoescms.domain.user.dto.UsermetaDto;
+import com.shoescms.domain.user.repository.UserRepository;
 import com.shoescms.domain.voucher.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -57,10 +59,15 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Autowired
     private VoucherService voucherService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPhamEntity> specification) {
         Page<SanPhamEntity> sanPhamPage = sanPhamRepository.findAll(specification, pageable);
-        return sanPhamPage.map(item -> SanPhamDto.toDto(item).setAnhChinh(fileRepository.findById(item.getAnhChinh()).get()));
+        return sanPhamPage.map(item -> SanPhamDto.toDto(item)
+                .setAnhChinh(fileRepository.findById(item.getAnhChinh()).get())
+                .setNguoiTao(UsermetaDto.toDto(userRepository.findByIdUser(item.getNguoiTao()))));
     }
 
     @Override
@@ -72,6 +79,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
     @Transactional
     public SanPhamDto add(SanPhamModel model) {
         checkProduct(model);
+
         SanPhamEntity entity = SanPhamEntity.builder()
                 .id(model.getId())
                 .maSP(model.getMaSP())
@@ -83,7 +91,6 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .slug(ASCIIConverter.utf8ToAscii(model.getTieuDe()))
                 .thuongHieu(thuogHieuRepository.findById(model.getThuongHieu().getId()).get())
                 .tieuDe(model.getTieuDe())
-                .nguoiTao(model.getNguoiTao())
                 .nguoiCapNhat(model.getNguoiCapNhat())
                 .ngayXoa(model.getNgayXoa())
                 .anhChinh(model.getAnhChinh())
@@ -95,9 +102,16 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .tinhNang(model.getTinhNang())
                 .noiSanXuat(model.getNoiSanXuat())
                 .build();
-
-        if (model.getId() == null)
+        if (model.getId() != null) {
+            SanPhamEntity original = sanPhamRepository.findById(model.getId()).get();
+            entity.setNguoiTao(original.getNguoiTao());
+            entity.setNgayTao(original.getNgayTao());
+            entity.setLoaiBienThe(original.getLoaiBienThe());
+            entity.setNguoiCapNhat(original.getNguoiCapNhat());
+        } else {
+            entity.setTongSp(0);
             entity.setNguoiTao(model.getNguoiCapNhat());
+        }
 
         this.sanPhamRepository.saveAndFlush(entity);
         return SanPhamDto.toDto(entity);
@@ -202,10 +216,10 @@ public class ISanPhamServerImpl implements ISanPhamService {
         dto.setAnhPhu(fileRepository.findAllById(Arrays.stream(sanPhamEntity.getAnhPhu().split(",")).map(Long::valueOf).toList()));
         dto.setBienTheDTOS(sanPhamBienTheService.findAllPhanLoaiTheoSanPham(id));
 
-        if(sanPhamEntity.getLoaiBienThe() != null)
+        if (sanPhamEntity.getLoaiBienThe() != null)
             if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.COLOR))
-            setListBienThe1ChoSP(dto, id, false);
-             else if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
+                setListBienThe1ChoSP(dto, id, false);
+            else if (sanPhamEntity.getLoaiBienThe().equals(ELoaiBienThe.SIZE))
                 setListBienThe2ChoSP(dto, id, false);
             else {
                 setListBienThe1ChoSP(dto, id, true);
@@ -247,13 +261,12 @@ public class ISanPhamServerImpl implements ISanPhamService {
                             .giaTri(item.getGiaTriObj1().getGiaTri())
                             .build();
 
-                    if (is2BienThe)
-                    {
-                      List<BienTheGiaTriDTO> ls =   jpaQueryFactory
-                              .selectDistinct(Projections.constructor(BienTheGiaTriDTO.class,
+                    if (is2BienThe) {
+                        List<BienTheGiaTriDTO> ls = jpaQueryFactory
+                                .selectDistinct(Projections.constructor(BienTheGiaTriDTO.class,
                                         bienTheGiaTri.id,
                                         bienTheGiaTri.giaTri))
-                              .from(bienTheGiaTri)
+                                .from(bienTheGiaTri)
                                 .where(bienTheGiaTri.id.in(jpaQueryFactory.select(sanPhamBienTheEntity.bienTheGiaTri2)
                                         .from(sanPhamBienTheEntity)
                                         .where(sanPhamBienTheEntity.ngayXoa.isNull(),
@@ -261,8 +274,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
                                                 sanPhamBienTheEntity.bienTheGiaTri1.eq(giaTriDTO.getId())
                                         )
                                         .fetch()))
-                              .fetch();
-                      giaTriDTO.setBienThe2(ls);
+                                .fetch();
+                        giaTriDTO.setBienThe2(ls);
                     }
                     return giaTriDTO;
                 })

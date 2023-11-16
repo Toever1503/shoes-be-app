@@ -6,6 +6,7 @@ import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.enums.ESex;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
+import com.shoescms.domain.user.dto.UsermetaDto;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -39,7 +40,7 @@ public class SanPhamDto {
 
     private DMGiayEntity dmGiay;
 
-    private Long nguoiTao;
+    private UsermetaDto nguoiTao;
 
     private Long nguoiCapNhat;
 
@@ -76,7 +77,6 @@ public class SanPhamDto {
                 .gioiTinh(sanPhamEntity.getGioiTinh())
                 .thuongHieu(sanPhamEntity.getThuongHieu())
                 .dmGiay(sanPhamEntity.getDmGiay())
-                .nguoiTao(sanPhamEntity.getNguoiTao())
                 .nguoiCapNhat(sanPhamEntity.getNguoiCapNhat())
                 .ngayTao(sanPhamEntity.getNgayTao())
                 .ngayCapNhat(sanPhamEntity.getNgayCapNhat())
@@ -100,5 +100,8 @@ public class SanPhamDto {
         return this;
     }
 
-
+    public SanPhamDto setNguoiTao(UsermetaDto nguoiTao) {
+        this.nguoiTao = nguoiTao;
+        return  this;
+    }
 }
