@@ -7,7 +7,10 @@ import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.*;
+import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
+import com.shoescms.domain.product.entitis.SanPhamEntity_;
+import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
@@ -33,6 +36,7 @@ import java.util.stream.Collectors;
 
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
 import static com.shoescms.domain.product.entitis.QSanPhamBienTheEntity.sanPhamBienTheEntity;
+import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
 
 @Service
 public class ISanPhamServerImpl implements ISanPhamService {
@@ -248,6 +252,28 @@ public class ISanPhamServerImpl implements ISanPhamService {
                         .soLuong(item.getSoLuong())
                         .build())
                 .toList();
+    }
+
+    @Override
+    public void setMacDinhDanhMuc(Long id) {
+        DMGiayEntity dmGiayEntity = danhMucRepository.findById(1L).get();
+        List<SanPhamEntity> sps = jpaQueryFactory.selectFrom(sanPhamEntity)
+                .where(sanPhamEntity.dmGiay.id.eq(id))
+                .fetch()
+                .stream().peek(sp -> sp.setDmGiay(dmGiayEntity))
+                .toList();
+        sanPhamRepository.saveAllAndFlush(sps);
+    }
+
+    @Override
+    public void setMacDinhThuongHieu(Long id) {
+        ThuongHieuEntity thuongHieuEntity = thuogHieuRepository.findById(1L).get();
+        List<SanPhamEntity> sps = jpaQueryFactory.selectFrom(sanPhamEntity)
+                .where(sanPhamEntity.thuongHieu.id.eq(id))
+                .fetch()
+                .stream().peek(sp -> sp.setThuongHieu(thuongHieuEntity))
+                .toList();
+        sanPhamRepository.saveAllAndFlush(sps);
     }
 
     private void setListBienThe1ChoSP(WebChiTietSanPhamDto dto, Long spId, boolean is2BienThe) {

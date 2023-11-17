@@ -30,14 +30,17 @@ public class DanhMucGiayController {
     public List<DanhMucDTO> getDanhMuc(@RequestParam(required = false) String tenDanhMuc,
                                        @RequestParam(required = false) String slug,
                                        Pageable pageable) {
-        return iDanhMucGiayService.getDanhMucs(tenDanhMuc,slug,pageable);
+        return iDanhMucGiayService.getDanhMucs(tenDanhMuc, slug, pageable);
     }
 
     @GetMapping("loc-danh-muc")
     public Page<DanhMucDTO> locDanhMuc(@Parameter(name = "tenDanhMuc") @RequestParam(required = false) String tenDanhMuc,
-                                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable){
-        return iDanhMucGiayService.locDanhMuc(tenDanhMuc, pageable);
-    };
+                                       @Parameter(name = "layMacDinh") @RequestParam(defaultValue = "") String layMacDinh,
+                                       @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
+        return iDanhMucGiayService.locDanhMuc(tenDanhMuc, layMacDinh, pageable);
+    }
+
+    ;
 
     @PostMapping("/add")
 

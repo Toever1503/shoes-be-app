@@ -11,6 +11,7 @@ import com.shoescms.domain.product.entitis.QSanPhamEntity;
 import com.shoescms.domain.product.models.DanhMucGiayModel;
 import com.shoescms.domain.product.repository.IDanhMucRepository;
 import com.shoescms.domain.product.service.IDanhMucGiayService;
+import com.shoescms.domain.product.service.ISanPhamService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -35,6 +36,8 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     IDanhMucRepository danhMucRepository;
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
+    @Autowired
+    private ISanPhamService sanPhamService;
 
     @Override
     public Page<DMGiayEntity> filterEntities(Pageable pageable, Specification<DMGiayEntity> specification) {
@@ -70,6 +73,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
             DMGiayEntity entity = this.getById(id);
             entity.setNgayXoa(LocalDateTime.now());
             this.danhMucRepository.saveAndFlush(entity);
+            sanPhamService.setMacDinhDanhMuc(id);
             return true;
         } catch (Exception e) {
             return false;
@@ -77,14 +81,14 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     }
 
     @Override
-    public List<DanhMucDTO> getDanhMucs(String tenDanhMuc, String slug,Pageable pageable) {
+    public List<DanhMucDTO> getDanhMucs(String tenDanhMuc, String slug, Pageable pageable) {
         List<DMGiayEntity> dmGiayEntities = danhMucRepository.findAll((Specification<DMGiayEntity>) (root, query, criteriaBuilder) -> {
             Predicate p = criteriaBuilder.conjunction();
             if (!StringUtils.isEmpty(tenDanhMuc)) {
                 p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("tenDanhMuc"), "%" + tenDanhMuc + "%"));
             }
-            if(!StringUtils.isEmpty(slug)){
-                p = criteriaBuilder.and(p,criteriaBuilder.like(root.get("slug"),"%" + slug +"%"));
+            if (!StringUtils.isEmpty(slug)) {
+                p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("slug"), "%" + slug + "%"));
             }
             query.orderBy(criteriaBuilder.desc(root.get("tenDanhMuc")), criteriaBuilder.asc(root.get("id")));
             return p;
@@ -93,12 +97,13 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     }
 
     @Override
-    public Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, Pageable pageable) {
+    public Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, String layMacDinh, Pageable pageable) {
 
         BooleanBuilder builder = new BooleanBuilder();
-        if(!ObjectUtils.isEmpty(tenDanhMuc))
+        if (!ObjectUtils.isEmpty(tenDanhMuc))
             builder.and(QDMGiayEntity.dMGiayEntity.tenDanhMuc.contains(tenDanhMuc));
-
+        if (!ObjectUtils.isEmpty(layMacDinh))
+            builder.and(QDMGiayEntity.dMGiayEntity.id.ne(1L));
         builder.and(QDMGiayEntity.dMGiayEntity.ngayXoa.isNull());
         List<DanhMucDTO> content = jpaQueryFactory
                 .selectDistinct(

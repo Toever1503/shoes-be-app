@@ -21,5 +21,5 @@ public interface IDanhMucGiayService {
 
     List<DanhMucDTO> getDanhMucs(String tenDanhMuc, String slug, Pageable pageable);
 
-    Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, Pageable pageable);
+    Page<DanhMucDTO> locDanhMuc(String tenDanhMuc, String layMacDinh, Pageable pageable);
 }

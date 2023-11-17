@@ -69,19 +69,22 @@ public class PaymentService {
         donHangEntity.setTongGiaCuoiCung(reqDto.getTotalPay());
 
         // luu dia chi dat hang
-        DiaChiDto diaChiDto = new DiaChiDto();
-        if (reqDto.getDiaChiId() != null) {
+        DiaChiDto diaChiDto;
+        if (reqDto.getDiaChiId() == null) {
             DiaChiEntity diaChi = new DiaChiEntity();
-            donHangEntity.setDiaChiEntity(diaChi);
             diaChi.setDiaChi(reqDto.getDiaChiNhanHang());
             diaChi.setSdt(reqDto.getSoDienThoaiNhanHang());
             diaChi.setTenNguoiNhan(reqDto.getHoTenNguoiNhan());
             diaChiRepository.saveAndFlush(diaChi);
+            donHangEntity.setDiaChiEntity(diaChi);
 
-            diaChiDto.setId(diaChi.getId());
-            diaChiDto.setTenNguoiNhan(diaChi.getTenNguoiNhan());
-            diaChiDto.setSdt(diaChi.getSdt());
-            diaChiDto.setDiaChi(diaChi.getDiaChi());
+            diaChiDto = DiaChiDto.toDto(diaChi);
+        }
+        else
+        {
+            DiaChiEntity diaChi = diaChiRepository.findById(reqDto.getDiaChiId()).orElseThrow(() -> new ObjectNotFoundException(1));
+            donHangEntity.setDiaChiEntity(diaChi);
+            diaChiDto = DiaChiDto.toDto(diaChi);
         }
 
         // set giam gia
@@ -111,6 +114,7 @@ public class PaymentService {
         donHangDto.setNguoiMuaId(donHangEntity.getNguoiMuaId());
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
+        donHangDto.setPhiShip(donHangEntity.getPhiShip());
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();

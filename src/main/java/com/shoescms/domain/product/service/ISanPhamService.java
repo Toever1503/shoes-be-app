@@ -34,4 +34,8 @@ public interface ISanPhamService {
     Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable);
 
     List<SanPhamBienTheDTO> kiemTraSoLuongSpBienThe(List<Long> ids);
+
+    void setMacDinhDanhMuc(Long id);
+
+    void setMacDinhThuongHieu(Long id);
 }
