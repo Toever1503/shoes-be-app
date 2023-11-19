@@ -57,10 +57,24 @@ public class UserController {
                                                    @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
         userService.updateUser(id, reqDto);
     }
+//    @Operation(summary = "사용자 수정", description = "사용자 수정")
+//    @PutMapping(value = "/{id}")
+//    public CommonResult<CommonIdResult> updateUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+//                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserUpdateReqDto reqDto) {
+//        return baseResponse.getContentResult(userService.updateUser(id, reqDto));
+//    }
+    @Operation(summary = "사용자 수정", description = "사용자 수정")
+    @PutMapping(value = "/forgot-pass/{id}")
+    public CommonResult<CommonIdResult> forgotPassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+                                                   @Parameter(required = true, name = "reqDto", description = "사용자 수정 정보") @RequestBody @Valid UserForgot reqDto) {
+        return baseResponse.getContentResult(userService.forgotPass(id, reqDto));
+    }
 
+    @Operation(summary = "사용자 제거", description = "사용자 제거")
     @DeleteMapping(value = "/{id}")
-    public void deleteUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
-        userService.deleteUser(id);
+    @PreAuthorize("hasAuthority('ACCOUNT_WRITE')")
+    public CommonResult<CommonIdResult> deleteUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
+        return baseResponse.getContentResult(userService.deleteUser(id));
     }
 
 //    @Operation(summary = "사용자 상세 조회", description = "사용자 상세 조회")
@@ -77,20 +91,28 @@ public class UserController {
         return baseResponse.getContentResult(userService.findId(name, phone));
     }
 
+//    @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
+//    @PostMapping(value = "/find-pw")
+//    public CommonBaseResult findPassword(@Parameter(required = true, name = "userName", description = "아이디") @RequestParam String userName,
+//                                         @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
+//                                         @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
+//        userService.findPassword(userName, name, email);
+//        return baseResponse.getSuccessResult();
+//    }
+
     @Operation(summary = "패스워드 찾기", description = "패스워드 찾기")
     @PostMapping(value = "/find-pw")
-    public CommonBaseResult findPassword(@Parameter(required = true, name = "userName", description = "아이디") @RequestParam String userName,
-                                         @Parameter(required = true, name = "name", description = "이름") @RequestParam String name,
-                                         @Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
-        userService.findPassword(userName, name, email);
+    public CommonBaseResult findPassword(@Parameter(required = true, name = "email", description = "이메일") @RequestParam String email) throws Exception {
+        userService.findPassword(email);
         return baseResponse.getSuccessResult();
     }
 
     @Operation(summary = "패스워드 변경", description = "패스워드 변경")
-    @PatchMapping(value = "/{id}/password")
-    public CommonResult<CommonIdResult> changePassword(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id,
+    @PatchMapping(value = "/password")
+    public CommonResult<CommonIdResult> changePassword(@RequestHeader(name ="x-api-token", required = false) String token,
                                                        @Parameter(required = true, name = "reqDto", description = "비밀번호 변경 요청 정보") @RequestBody @Valid ChangePasswordReqDto reqDto) {
-        return baseResponse.getContentResult(userService.changePassword(id, reqDto));
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userService.changePassword(userId, reqDto));
     }
 
     @Deprecated
@@ -127,5 +149,11 @@ public class UserController {
     public CommonResult<CommonIdResult> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token, @RequestBody UserUpdateReqDto dto) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
         return baseResponse.getContentResult(userService.updateUser(userId, dto));
+    }
+
+    @GetMapping("/token")
+    public CommonResult<String> getToken(@RequestParam(name ="token", required = false) String token) {
+        Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return baseResponse.getContentResult(userId.toString());
     }
 }

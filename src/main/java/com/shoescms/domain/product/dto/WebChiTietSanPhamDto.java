@@ -65,6 +65,7 @@ public class WebChiTietSanPhamDto {
     private String tinhNang;
     private String noiSanXuat;
 
+
     public static WebChiTietSanPhamDto toDto(SanPhamEntity sanPhamEntity) {
         if (sanPhamEntity == null) return null;
         return WebChiTietSanPhamDto.builder()

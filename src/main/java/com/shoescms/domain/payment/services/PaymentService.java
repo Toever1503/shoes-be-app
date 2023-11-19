@@ -2,6 +2,8 @@ package com.shoescms.domain.payment.services;
 
 import com.shoescms.common.config.CommonConfig;
 import com.shoescms.common.exception.ObjectNotFoundException;
+import com.shoescms.common.exception.ProcessFailedException;
+import com.shoescms.common.service.MailService;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
 import com.shoescms.domain.cart.repository.GioHangRepository;
@@ -14,16 +16,22 @@ import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.resources.VnPayConfig;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
+import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
+import com.shoescms.domain.product.enums.ELoaiBienThe;
+import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
+import com.shoescms.domain.user.UserService;
+import com.shoescms.domain.user.entity.UserEntity;
 import com.shoescms.domain.voucher.VoucherService;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
 import com.shoescms.domain.voucher.entity.VoucherEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,8 +57,12 @@ public class PaymentService {
     private final IChiTietDonHangRepository chiTietDonHangRepository;
     private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
 
+    private final UserService userService;
     private final CommonConfig commonConfig;
     private final VoucherService voucherService;
+
+    private final IBienTheGiaTriRepository bienTheGiaTriRepository;
+    private final MailService mailService;
 
     @Transactional
     public DonHangDto datHang(DatHangReqDto reqDto) {
@@ -107,6 +119,7 @@ public class PaymentService {
         donHangRepository.saveAndFlush(donHangEntity);
         chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
         chiTietDonHangRepository.saveAllAndFlush(chiTietDonHangEntities);
+        UserEntity userEntity = userService.findById(reqDto.getNguoiTao());
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
@@ -142,6 +155,36 @@ public class PaymentService {
         donHangDto.setChiTietDonHang(chiTietDonHangDtos);
 
 
+        donHangDto.getChiTietDonHang().forEach(item -> {
+            SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
+            item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
+
+            if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
+                StringBuilder stringBuilder = new StringBuilder();
+                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).orElse(null);
+                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).orElse(null);
+                if (bienTheGiaTri1 != null)
+                    stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
+                if (bienTheGiaTri2 != null)
+                    stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
+                item.setMotaPhanLoai(stringBuilder.toString());
+            } else if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
+                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
+            else
+                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
+        });
+
+        System.out.println("don Hang gui mail "+ donHangDto);
+
+        Map<String, Object> context = new HashMap<>();
+        context.put("order", donHangDto);
+        try {
+            System.out.println("send mail to " + userEntity.getEmail());
+            this.mailService.sendEmail("mail-order.html", userEntity.getEmail(), "Thông tin đặt hàng", context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
         return donHangDto;
     }
 

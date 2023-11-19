@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 public class CmsApplication {
 
     public static void main(String[] args) throws IOException {
-        initFirebaseInstance();
+//        initFirebaseInstance();
         SpringApplication.run(CmsApplication.class, args);
     }
 

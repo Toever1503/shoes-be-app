@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shoescms.common.model.BaseDateEntity;
 import com.shoescms.domain.auth.entity.RoleEntity;
 import com.shoescms.domain.product.enums.ESex;
+import com.shoescms.domain.user.dto.UserForgot;
+import com.shoescms.domain.user.dto.UserReqDto;
 import com.shoescms.domain.user.dto.UserUpdateReqDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -123,6 +125,9 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
         if (reqDto.getSex() != null)           this.sex = reqDto.getSex();
         if (reqDto.getPhone() != null)          this.phone = reqDto.getPhone();
         if (reqDto.getEmail() != null)          this.email = reqDto.getEmail();
+    }
+    public void update(UserEntity reqDto) {
+        if (reqDto.getPassword() != null)       this.password = reqDto.getPassword();
     }
 
     public void setDel() {

@@ -1,22 +1,34 @@
 package com.shoescms.common.service;
 
 import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class MailService {
     private final JavaMailSender javaMailSender;
+    private final TemplateEngine templateEngine;
+    private final Logger mailLogger = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${photoism.mail.smtp.mail}")
+    @Value("noreply@animenews.life")
     String from;
 
     public boolean sendMail(String to, String subject, String content) {
@@ -33,6 +45,52 @@ public class MailService {
         } catch (MailException me) {
             log.error("MailException", me);
             return false;
+        }
+    }
+
+    public void sendEmail(String templatePath, String to, String subject, Map<String, Object> content) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = null;
+
+        try {
+            mailLogger.info("Bắt đầu gửi email");
+
+            // Kiểm tra giá trị null
+            Objects.requireNonNull(templatePath, "Đường dẫn mẫu không được null");
+            Objects.requireNonNull(to, "Người nhận không được null");
+            Objects.requireNonNull(subject, "Chủ đề không được null");
+            Objects.requireNonNull(content, "Bản đồ nội dung không được null");
+
+            messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+            // Thêm biến
+            Context context = new Context();
+            context.setVariables(content);
+
+            mailLogger.info("html", templatePath);
+            String contentHtml = templateEngine.process(templatePath, context);
+
+            // Đặt người nhận, chủ đề, nội dung
+            messageHelper.setFrom("noreply@animenews.life");
+            messageHelper.setTo(to);
+            messageHelper.setSubject(subject);
+            messageHelper.setText(contentHtml, true);
+
+            javaMailSender.send(message); // Gửi email
+            mailLogger.info("Gửi email đến {} thành công!", to);
+        } catch (Exception e) {
+            // Xử lý ngoại lệ (ghi log hoặc ném lại nếu cần thiết)
+            mailLogger.error("Lỗi khi gửi email: {}", e.getMessage(), e);
+            throw new MessagingException("Lỗi khi gửi email", e);
+        } finally {
+            if (messageHelper != null && messageHelper.getMimeMessage() != null) {
+                try {
+                    // Đảm bảo rằng tài nguyên được giải phóng
+                    messageHelper.getMimeMessage().getFolder().close(true);
+                } catch (MessagingException e) {
+                    mailLogger.error("Lỗi khi đóng tài nguyên: {}", e.getMessage(), e);
+                }
+            }
         }
     }
 }
