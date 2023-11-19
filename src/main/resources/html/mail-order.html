@@ -18,41 +18,36 @@
 
 <body style="max-width: 500px; min-width: 300px; margin-top: 20px; font-size: 14px;">
 
-<div>Dear <span th:text="${order}"/>, </div>
+<div>Chào bạn, </div>
 <p>
-  Cảm ơn bạn đã sử dụng dịch vụ. Dưới đây là thông tin đặt hàng của bạn:
+  Cảm ơn bạn đã mua sản phẩm của Shop Giày Thể Thao HAUNV. Dưới đây là thông tin đặt hàng của bạn:
 </p>
 
-<div style="display: flex; justify-content: space-between; background: #3eb8cd; color: white; padding: 10px; font-size: 14px;">
+<div style="display: flex; justify-content: space-between; background: #F97837; color: white; padding: 10px; font-size: 14px;">
   <p style="font-size: 16px;">THÔNG TIN ĐƠN HÀNG</p>
   <div>
     <p>Mã đơn hàng: <span th:text="${order.getMaDonHang()}"/></p>
-    <p>Thời gian đăng ký: <span th:text="${#dates.format(order.getNgayTao(), 'dd-MM-yyyy HH:mm:ss')}"/></p>
+    <p>Thời gian đăng ký: <span th:text="${#temporals.format(order.ngayTao, 'dd-MM-yyyy HH:mm:ss')}"/></p>
   </div>
 </div>
-<table cellpadding="10" cellspacing="10">
+<table cellpadding="10" cellspacing="10" >
   <thead>
   <tr>
-    <th width="50%" align="center"> Tiêu đề </th>
-    <th width="10%" align="center"> Giá sản phẩm</th>
-    <th width="12%" nowrap="" align="center">Tổng tiền thanh toán</th>
+    <th width="40%" align="center"> Tên sản phẩm </th>
+    <th width="20%" align="center">Số lượng</th>
+    <th width="20%" align="center"> Giá sản phẩm</th>
   </tr>
   </thead>
   <tbody>
-  <tr height="25" style="text-align: center">
-    <td th:text="${order.getChiTietDonHangs()}">
-    </td>
-    <td th:text="${#numbers.formatDecimal(order.getTongGiaCuoiCung(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
-    <td th:text="${#numbers.formatDecimal(order.getTongGiaCuoiCung(), 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
+  <tr th:each="chiTietDonHang : ${order.getChiTietDonHang()}">
+    <td th:text="${chiTietDonHang.sanPham.tieuDe + ' - ' + chiTietDonHang.motaPhanLoai}"></td>
+    <td th:text="${chiTietDonHang.soLuong}"></td>
+    <td th:text="${#numbers.formatDecimal(chiTietDonHang.giaTien, 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
   </tr>
-
   </tbody>
 </table>
-
-<p>Bạn có thể xem chi tiết
-  <a href="">tại đây</a>.
-</p>
-
+<br>
+Tổng tiền: <span th:text="${#numbers.formatDecimal(order.tongGiaCuoiCung, 0, 'POINT', 0, 'POINT') + ' vnd'}"></span>
 <p>
   Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.
 </p>

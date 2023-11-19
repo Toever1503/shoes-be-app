@@ -13,6 +13,8 @@ logging:
       max-history: 7
 
 spring:
+  thymeleaf:
+    prefix: classpath:/html/
   autoconfigure:
     excludd: org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration
     exclude:
