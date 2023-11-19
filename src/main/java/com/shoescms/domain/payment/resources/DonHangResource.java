@@ -6,7 +6,6 @@ import com.shoescms.domain.payment.dtos.DonHangDto;
 import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import com.shoescms.domain.payment.dtos.LocDonHangReqDto;
 import com.shoescms.domain.payment.dtos.ThemMoiDonHangReqDto;
-import com.shoescms.domain.payment.entities.DiaChiEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity_;
 import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.entities.DonHangEntity_;
@@ -14,15 +13,11 @@ import com.shoescms.domain.payment.services.IDonHangService;
 import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.user.UserService;
 import com.shoescms.domain.user.dto.UserDetailResDto;
-import com.shoescms.domain.user.entity.UserEntity;
-import com.shoescms.domain.user.entity.UserEntity_;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,17 +26,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-@Slf4j
 @Tag(name = "06. Don hang")
 @RequiredArgsConstructor
 @RestController
@@ -91,15 +80,11 @@ public class DonHangResource {
         donHangService.capNhatTrangThai(id, trangThai, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }
 
+     // for admin or employee
     @PostMapping
-    public void themMoiDonHang(@RequestBody ThemMoiDonHangReqDto reqDto, @RequestHeader(name = "x-api-token") String xApiToken) throws MessagingException {
-        if (xApiToken != null) // luu thong tin nguoi dat hang neu ho dang nhap
+    public void themMoiDonHang(@RequestBody ThemMoiDonHangReqDto reqDto, @RequestHeader(name = "x-api-token") String xApiToken) {
+        if (xApiToken != null) // luu thong tin nguoi tao
             reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
-        UserDetailResDto udrd = userService.getDetail(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
-        String email = udrd.getEmail();
-        Map<String, Object> context = new HashMap<>();
-        context.put("donHang", reqDto.getPhanLoaidIds());
-        mailService.sendEmail("html/mail-order.html", email, "Đặt hàng thành công", context );
         donHangService.themMoiDonHang(reqDto);
     }
 

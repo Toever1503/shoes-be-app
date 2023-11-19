@@ -27,7 +27,7 @@
   <p style="font-size: 16px;">THÔNG TIN ĐƠN HÀNG</p>
   <div>
     <p>Mã đơn hàng: <span th:text="${order.getMaDonHang()}"/></p>
-    <p>Thời gian đăng ký: <span th:text="${#temporals.format(order.ngayTao, 'dd-MM-yyyy HH:mm:ss')}"/></p>
+    <p>Ngày đặt: <span th:text="${#temporals.format(order.ngayTao, 'dd-MM-yyyy HH:mm:ss')}"/></p>
   </div>
 </div>
 <table cellpadding="10" cellspacing="10" >
@@ -36,6 +36,7 @@
     <th width="40%" align="center"> Tên sản phẩm </th>
     <th width="20%" align="center">Số lượng</th>
     <th width="20%" align="center"> Giá sản phẩm</th>
+    <th width="20%" align="center"> Tổng tiền</th>
   </tr>
   </thead>
   <tbody>
@@ -43,6 +44,7 @@
     <td th:text="${chiTietDonHang.sanPham.tieuDe + ' - ' + chiTietDonHang.motaPhanLoai}"></td>
     <td th:text="${chiTietDonHang.soLuong}"></td>
     <td th:text="${#numbers.formatDecimal(chiTietDonHang.giaTien, 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
+    <td th:text="${#numbers.formatDecimal(chiTietDonHang.giaTien * chiTietDonHang.soLuong, 0, 'POINT', 0, 'POINT') + ' vnd'}"></td>
   </tr>
   </tbody>
 </table>

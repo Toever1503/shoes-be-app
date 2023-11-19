@@ -15,6 +15,7 @@ import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
@@ -30,7 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +87,17 @@ public class DonHangServiceImpl implements IDonHangService {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         donHangEntity.setTrangThai(trangThai);
         donHangEntity.setNguoiCapNhat(userId);
+        if(trangThai.equals(ETrangThaiDonHang.COMPLETED)){
+            donHangEntity.getChiTietDonHangs()
+                    .forEach(sp -> {
+                        SanPhamEntity sanPhamEntity = sanPhamRepository.findById(sp.getId()).orElse(null);
+                        if(sanPhamEntity != null){
+                            int daBan = Optional.ofNullable(sanPhamEntity.getDaBan()).orElse(0);
+                            sanPhamEntity.setDaBan(daBan+sp.getSoLuong());
+                            sanPhamRepository.saveAndFlush(sanPhamEntity);
+                        }
+                    });
+        }
         donHangRepository.saveAndFlush(donHangEntity);
     }
 
