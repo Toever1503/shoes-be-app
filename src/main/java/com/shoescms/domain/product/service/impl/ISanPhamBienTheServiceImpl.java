@@ -276,6 +276,7 @@ public class ISanPhamBienTheServiceImpl implements SanPhamBienTheService {
                 .toList();
     }
 
+    @Transactional
     @Override
     public void capNhatSoLuongSanPhamChoBienThe(Long id, int soLuong) {
         SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(1));

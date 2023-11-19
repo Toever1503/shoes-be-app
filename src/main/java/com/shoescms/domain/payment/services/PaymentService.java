@@ -17,9 +17,12 @@ import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
+import com.shoescms.domain.product.service.ISanPhamService;
+import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import com.shoescms.domain.voucher.VoucherService;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
+import com.shoescms.domain.voucher.entity.VoucherEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +47,7 @@ public class PaymentService {
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final GioHangRepository gioHangRepository;
     private final IChiTietDonHangRepository chiTietDonHangRepository;
+    private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
 
     private final CommonConfig commonConfig;
     private final VoucherService voucherService;
@@ -89,14 +93,16 @@ public class PaymentService {
 
         // set giam gia
         if (reqDto.getMaGiamGiaId() != null) {
-            VoucherDto voucherDto = voucherService.findById(reqDto.getMaGiamGiaId());
-            donHangEntity.setMaGiamGiaId(voucherDto.getId());
+            VoucherEntity voucherEntity = voucherService.getById(reqDto.getMaGiamGiaId());
+            donHangEntity.setMaGiamGiaId(voucherEntity.getId());
             donHangEntity.setTongTienGiamGia(BigDecimal.ZERO);
-            if (voucherDto.getGiamGiaTheo().equals(EGiamGiaTheo.DIRECTLY))
-                donHangEntity.setTongTienGiamGia(BigDecimal.valueOf(voucherDto.getGiaGiam()));
+            if (voucherEntity.getGiamGiaTheo().equals(EGiamGiaTheo.DIRECTLY))
+                donHangEntity.setTongTienGiamGia(BigDecimal.valueOf(voucherEntity.getGiaGiam()));
             else
-                donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherDto.getPhanTramGiam() / 100)));
+                donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherEntity.getPhanTramGiam() / 100)));
             donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien().subtract(donHangEntity.getTongTienGiamGia()));
+            voucherEntity.setSoLuotDaDung(Optional.ofNullable(voucherEntity.getSoLuotDaDung()).orElse(0)+1);
+            voucherService.updateEntity(voucherEntity);
         }
         donHangRepository.saveAndFlush(donHangEntity);
         chiTietDonHangEntities.forEach(i -> i.setDonHang(donHangEntity.getId()));
@@ -104,7 +110,7 @@ public class PaymentService {
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
-            gioHangChiTietRepository.deleteItemFromCart(reqDto.getGioHangItemIds(), gioHangRepository.findByUserEntity(reqDto.getNguoiTao()).getId());
+            gioHangChiTietRepository.deleteItemFromCart(reqDto.getGioHangTamThoiReqDto().stream().map(GioHangTamThoiReqDto::getSanPhamBienThe).toList(), gioHangRepository.findByUserEntity(reqDto.getNguoiTao()).getId());
 
         DonHangDto donHangDto = new DonHangDto();
         donHangDto.setId(donHangEntity.getId());
@@ -150,6 +156,9 @@ public class PaymentService {
             BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangTamThoiReqDto.get(i).getSoLuong().doubleValue()));
             tongTien = tongTien.add(tongTienSp);
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
+
+            int newSoLuong = sanPhamBienTheEntity.getSoLuong() - gioHangTamThoiReqDto.get(i).getSoLuong();
+            sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
