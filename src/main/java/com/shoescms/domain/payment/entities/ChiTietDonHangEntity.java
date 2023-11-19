@@ -31,6 +31,9 @@ public class ChiTietDonHangEntity {
     @Column(name = "phan_loai_sp_id", nullable = false)
     private Long phanLoaiSpId;
 
+    @Column(name = "sp_id", nullable = false)
+    private Long spId;
+
     @Column(name = "so_luong", nullable = false)
     private Integer soLuong;
 

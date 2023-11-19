@@ -102,6 +102,7 @@ public class DonHangServiceImpl implements IDonHangService {
                             .phanLoaiSpId(sp.getSanPhamBienThe())
                             .soLuong(sp.getSoLuong())
                             .giaTien(sanPhamBienTheEntity.getSanPham().getGiaMoi())
+                            .spId(sanPhamBienTheEntity.getSanPham().getId())
                             .build();
                 })
                 .toList();

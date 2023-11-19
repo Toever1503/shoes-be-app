@@ -77,7 +77,7 @@ public class DonHangResource {
 
     @PostMapping
     public void themMoiDonHang(@RequestBody ThemMoiDonHangReqDto reqDto, @RequestHeader(name = "x-api-token") String xApiToken) {
-        if (xApiToken != null) // luu thong tin nguoi dat hang neu ho dang nhap
+        if (xApiToken != null) // luu thong tin nguoi tao
             reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
         donHangService.themMoiDonHang(reqDto);
     }

@@ -155,6 +155,7 @@ public class PaymentService {
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPhamEntity.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienTheEntity.getId());
+            chiTietDonHang.setSpId(sanPhamEntity.getId());
             chiTietDonHangEntities.add(chiTietDonHang);
         }
 
