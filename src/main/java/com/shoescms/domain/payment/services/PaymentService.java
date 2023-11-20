@@ -24,6 +24,8 @@ import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import com.shoescms.domain.user.UserService;
+import com.shoescms.domain.user.dto.UsermetaDto;
+import com.shoescms.domain.user.repository.UserRepository;
 import com.shoescms.domain.voucher.VoucherService;
 import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
 import com.shoescms.domain.voucher.entity.VoucherEntity;
@@ -54,6 +56,7 @@ public class PaymentService {
     private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
 
     private final UserService userService;
+    private final UserRepository userRepository;
     private final CommonConfig commonConfig;
     private final VoucherService voucherService;
 
@@ -87,6 +90,7 @@ public class PaymentService {
             DiaChiEntity diaChi = new DiaChiEntity();
             diaChi.setDiaChi(reqDto.getDiaChiNhanHang());
             diaChi.setSdt(reqDto.getSoDienThoaiNhanHang());
+            diaChi.setEmail(reqDto.getEmail());
             diaChi.setTenNguoiNhan(reqDto.getHoTenNguoiNhan());
             diaChiRepository.saveAndFlush(diaChi);
             donHangEntity.setDiaChiEntity(diaChi);
@@ -126,11 +130,15 @@ public class PaymentService {
         donHangDto.setMaDonHang(donHangEntity.getMaDonHang());
         donHangDto.setTongSp(donHangEntity.getTongSp());
         donHangDto.setPhuongThucTT(donHangEntity.getPhuongThucTT());
-        donHangDto.setNguoiMuaId(donHangEntity.getNguoiMuaId());
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
         donHangDto.setPhiShip(donHangEntity.getPhiShip());
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
+
+        if(donHangEntity.getNguoiMuaId() != null)
+            donHangDto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
+        if(donHangEntity.getNguoiCapNhat() != null)
+            donHangDto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
         for (int i = 0; i < chiTietDonHangEntities.size(); i++) {

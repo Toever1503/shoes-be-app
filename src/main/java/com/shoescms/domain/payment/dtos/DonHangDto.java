@@ -1,6 +1,7 @@
 package com.shoescms.domain.payment.dtos;
 
 import com.shoescms.domain.payment.entities.DonHangEntity;
+import com.shoescms.domain.user.dto.UsermetaDto;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +28,7 @@ public class DonHangDto {
     private BigDecimal tongTienSp;
     private BigDecimal tongGiaCuoiCung;
     private BigDecimal phiShip;
-    private Long nguoiMuaId;
+    private UsermetaDto nguoiMua;
     private ETrangThaiDonHang trangThai;
     private LocalDateTime ngayTao;
     private DiaChiDto diaChi;
@@ -36,6 +37,7 @@ public class DonHangDto {
     private String ghiChu;
     private String urlPay;
 
+    private UsermetaDto nguoiCapNhat;
     public static DonHangDto toDto(DonHangEntity donHangEntity) {
         if (donHangEntity == null) return null;
         return DonHangDto.builder()
@@ -48,7 +50,6 @@ public class DonHangDto {
                 .tongTienSp(donHangEntity.getTongTienSP())
                 .phiShip(donHangEntity.getPhiShip())
                 .tongGiaCuoiCung(donHangEntity.getTongGiaCuoiCung())
-                .nguoiMuaId(donHangEntity.getNguoiMuaId())
                 .trangThai(donHangEntity.getTrangThai())
                 .ngayTao(donHangEntity.getNgayTao())
                 .diaChi(DiaChiDto.toDto(donHangEntity.getDiaChiEntity()))

@@ -108,6 +108,11 @@ public class ISanPhamServerImpl implements ISanPhamService {
                 .build();
         if (model.getId() != null) {
             SanPhamEntity original = sanPhamRepository.findById(model.getId()).get();
+
+            entity.setDaBan(original.getDaBan());
+            entity.setTongSp(original.getTongSp());
+            entity.setTbDanhGia(original.getTbDanhGia());
+            entity.setSoDanhGia(original.getSoDanhGia());
             entity.setNguoiTao(original.getNguoiTao());
             entity.setNgayTao(original.getNgayTao());
             entity.setLoaiBienThe(original.getLoaiBienThe());
