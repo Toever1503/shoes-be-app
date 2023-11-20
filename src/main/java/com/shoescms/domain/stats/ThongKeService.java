@@ -7,6 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.shoescms.common.model.QFileEntity.fileEntity;
 import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
 import static com.shoescms.domain.payment.entities.QDonHangEntity.donHangEntity;
 import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
@@ -114,6 +116,7 @@ public class ThongKeService {
                 Projections.constructor(StatsProductRevenueDto.class,
                         sanPhamEntity.id,
                         sanPhamEntity.tieuDe,
+                        ExpressionUtils.as(JPAExpressions.select(fileEntity.url).from(fileEntity).where(fileEntity.id.eq(sanPhamEntity.anhChinh)), "anhChinh"),
                         chiTietDonHangEntity.soLuong.sum(),
                         t
                         )
