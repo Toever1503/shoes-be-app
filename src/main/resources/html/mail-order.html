@@ -47,10 +47,15 @@
   </tbody>
 </table>
 <br>
-Tổng tiền: <span th:text="${#numbers.formatDecimal(order.tongGiaCuoiCung, 0, 'POINT', 0, 'POINT') + ' vnd'}"></span>
+Giảm giá: <span th:text="${#numbers.formatDecimal(order.tongTienGiamGia, 0, 'POINT', 0, 'POINT') + ' vnd'}"></span>
 <p>
-  Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.
+  Phí vận chuyển: <span th:text="${#numbers.formatDecimal(order.phiShip, 0, 'POINT', 0, 'POINT') + ' vnd'}"></span> <br>
 </p>
+<p>
+Tổng tiền: <span th:text="${#numbers.formatDecimal(order.tongGiaCuoiCung, 0, 'POINT', 0, 'POINT') + ' vnd'}"></span>
+</p>
+  Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi.
+
 
 </body>
 

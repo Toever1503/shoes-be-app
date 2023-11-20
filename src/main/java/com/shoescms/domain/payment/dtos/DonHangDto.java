@@ -31,7 +31,6 @@ public class DonHangDto {
     private LocalDateTime ngayTao;
     private DiaChiDto diaChi;
     private List<ChiTietDonHangDto> chiTietDonHang;
-
     private String ghiChu;
     private String urlPay;
 
