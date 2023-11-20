@@ -1,7 +1,12 @@
 package com.shoescms.domain.product.service.impl;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.shoescms.common.config.QueryDSLConfig;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
@@ -25,11 +30,15 @@ import com.shoescms.domain.voucher.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,6 +68,9 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
+
+    @Autowired
+    private QueryDSLConfig queryDSLConfig;
 
     @Autowired
     private VoucherService voucherService;
@@ -240,11 +252,71 @@ public class ISanPhamServerImpl implements ISanPhamService {
         return dto;
     }
 
+
     @Override
     public Page<WebChiTietSanPhamDto> locSPChoWeb(SanPhamFilterReqDto reqDto, Pageable pageable) {
-        // task: need filter
-        Page<SanPhamEntity> pageSp = sanPhamRepository.findAll(pageable);
-        return pageSp.map(sp -> chiTietSanPhamResDto(sp.getId()));
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(sanPhamEntity.ngayXoa.isNull());
+        builder.and(sanPhamEntity.hienThiWeb.eq(true));
+        if(!ObjectUtils.isEmpty(reqDto.getTieuDe()))
+            builder.and(sanPhamEntity.tieuDe.contains(reqDto.getTieuDe()));
+        if(!ObjectUtils.isEmpty(reqDto.getDmGiay()))
+            builder.and(sanPhamEntity.dmGiay.id.eq(reqDto.getDmGiay()));
+        if(!ObjectUtils.isEmpty(reqDto.getThuongHieu()))
+            builder.and(sanPhamEntity.thuongHieu.id.eq(reqDto.getThuongHieu()));
+        if(!ObjectUtils.isEmpty(reqDto.getKhoangGia()))
+            builder.and(sanPhamEntity.giaMoi.between(reqDto.getKhoangGia().get(0), reqDto.getKhoangGia().get(1)));
+        if(!ObjectUtils.isEmpty(reqDto.getMau()))
+            builder.and(sanPhamBienTheEntity.bienThe1.eq(reqDto.getMau()));
+        if(!ObjectUtils.isEmpty(reqDto.getSize()))
+            builder.and(sanPhamBienTheEntity.bienThe2.eq(reqDto.getSize()));
+
+
+        List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
+
+        JPAQuery<Long> rs = jpaQueryFactory
+                .selectDistinct(sanPhamEntity.id)
+                .join(sanPhamBienTheEntity)
+                .on(sanPhamEntity.id.eq(sanPhamBienTheEntity.sanPham.id))
+                .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize());
+        List<WebChiTietSanPhamDto> content = rs.fetch().stream().map(this::chiTietSanPhamResDto).toList();
+        return new PageImpl<>(content, pageable, rs.fetchCount());
+    }
+
+    private List<OrderSpecifier<?>> getOrderSpecifiers(Pageable pageable) {
+        List<OrderSpecifier<?>> orders = new ArrayList<>();
+        if (!ObjectUtils.isEmpty(pageable.getSort())) {
+            for (Sort.Order order : pageable.getSort()) {
+                Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+                switch (order.getProperty()) {
+                    case "ngayTao" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, sanPhamEntity, "ngayTao");
+                        orders.add(orderUserId);
+                    }
+                    case "daBan" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, sanPhamEntity, "daBan");
+                        orders.add(orderUserId);
+                    }
+                    case "tbDanhGia" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, sanPhamEntity, "tbDanhGia");
+                        orders.add(orderUserId);
+                    }
+                    case "giaMoi" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, sanPhamEntity, "giaMoi");
+                        orders.add(orderUserId);
+                    }
+                    case "soDanhGia" -> {
+                        OrderSpecifier<?> orderUserId = queryDSLConfig.getSortedColumn(direction, sanPhamEntity, "soDanhGia");
+                        orders.add(orderUserId);
+                    }
+                    default -> {
+                    }
+                }
+            }
+        }
+        return orders;
     }
 
     @Override
