@@ -14,4 +14,5 @@ public class StatsRevenueDto {
 
     private Object time;
     private BigDecimal total;
+    private BigDecimal returned;
 }

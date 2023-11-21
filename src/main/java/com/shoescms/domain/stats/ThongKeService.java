@@ -49,8 +49,20 @@ public class ThongKeService {
         return jpaQueryFactory.select(
                         Projections.constructor(StatsRevenueDto.class,
                 donHangEntity.ngayTao.as("time"),
-                donHangEntity.tongGiaCuoiCung.sum().castToNum(BigDecimal.class).as("total")
-        ))
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.COMPLETED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("total"),
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.PHONE_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("returned")        ))
                 .from(donHangEntity)
                 .where(builder)
                 .orderBy(donHangEntity.ngayTao.asc())
@@ -65,10 +77,24 @@ public class ThongKeService {
         builder.and(donHangEntity.ngayXoa.isNull());
         builder.and(donHangEntity.ngayTao.between(LocalDateTime.parse(startDate),LocalDateTime.parse(endDate)));
 
+
         return jpaQueryFactory.select(
                         Projections.constructor(StatsRevenueDto.class,
                                 donHangEntity.ngayTao.hour().as("time"),
-                                donHangEntity.tongGiaCuoiCung.sum().castToNum(BigDecimal.class).as("total")
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.COMPLETED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("total"),
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.PHONE_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("returned")
                         ))
                 .from(donHangEntity)
                 .where(builder)

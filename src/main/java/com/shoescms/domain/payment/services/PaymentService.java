@@ -150,6 +150,7 @@ public class PaymentService {
             chiTietDonHangDto.setPhanLoaiSpId(chiTietDonHangEntities.get(i).getPhanLoaiSpId());
             chiTietDonHangDto.setSoLuong(chiTietDonHangEntities.get(i).getSoLuong());
             chiTietDonHangDto.setGiaTien(chiTietDonHangEntities.get(i).getGiaTien());
+            chiTietDonHangDto.setMotaPhanLoai(sanPhamBienTheEntity.getMotaPhanLoai());
 
             chiTietDonHangDtos.add(chiTietDonHangDto);
         }
@@ -160,20 +161,6 @@ public class PaymentService {
         donHangDto.getChiTietDonHang().forEach(item -> {
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
             item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
-
-            if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
-                StringBuilder stringBuilder = new StringBuilder();
-                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).orElse(null);
-                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).orElse(null);
-                if (bienTheGiaTri1 != null)
-                    stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
-                if (bienTheGiaTri2 != null)
-                    stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
-                item.setMotaPhanLoai(stringBuilder.toString());
-            } else if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
-                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
-            else
-                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
         });
 
         if(reqDto.getEmail() != null)
@@ -212,6 +199,7 @@ public class PaymentService {
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
             chiTietDonHang.setGiaTien(sanPhamEntity.getGiaMoi());
             chiTietDonHang.setPhanLoaiSpId(sanPhamBienTheEntity.getId());
+            chiTietDonHang.setMotaPhanLoai(sanPhamBienTheEntity.getMotaPhanLoai());
             chiTietDonHang.setSpId(sanPhamEntity.getId());
             chiTietDonHangEntities.add(chiTietDonHang);
         }

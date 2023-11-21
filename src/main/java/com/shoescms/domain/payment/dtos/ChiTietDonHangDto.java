@@ -28,6 +28,7 @@ public class ChiTietDonHangDto {
                 .phanLoaiSpId(chiTietDonHangEntity.getPhanLoaiSpId())
                 .soLuong(chiTietDonHangEntity.getSoLuong())
                 .giaTien(chiTietDonHangEntity.getGiaTien())
+                .motaPhanLoai(chiTietDonHangEntity.getMotaPhanLoai())
                 .build();
     }
 }

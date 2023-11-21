@@ -73,21 +73,8 @@ public class DonHangServiceImpl implements IDonHangService {
             SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
             item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
             item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
-
-            if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.BOTH)) {
-                StringBuilder stringBuilder = new StringBuilder();
-                BienTheGiaTri bienTheGiaTri1 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).orElse(null);
-                BienTheGiaTri bienTheGiaTri2 = bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).orElse(null);
-                if (bienTheGiaTri1 != null)
-                    stringBuilder.append("Màu: ").append(bienTheGiaTri1.getGiaTri());
-                if (bienTheGiaTri2 != null)
-                    stringBuilder.append(" , Size: ").append(bienTheGiaTri2.getGiaTri());
-                item.setMotaPhanLoai(stringBuilder.toString());
-            } else if (sanPhamBienTheEntity.getSanPham().getLoaiBienThe().equals(ELoaiBienThe.COLOR))
-                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri1()).ifPresent(bienTheGiaTri1 -> item.setMotaPhanLoai("Màu: " + bienTheGiaTri1.getGiaTri()));
-            else
-                bienTheGiaTriRepository.findById(sanPhamBienTheEntity.getBienTheGiaTri2()).ifPresent(bienTheGiaTri2 -> item.setMotaPhanLoai("Size: " + bienTheGiaTri2.getGiaTri()));
         });
+
         if(donHangEntity.getNguoiMuaId() != null)
             dto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
         if(donHangEntity.getNguoiCapNhat() != null)
@@ -138,6 +125,7 @@ public class DonHangServiceImpl implements IDonHangService {
                             .soLuong(sp.getSoLuong())
                             .giaTien(sanPhamBienTheEntity.getSanPham().getGiaMoi())
                             .spId(sanPhamBienTheEntity.getSanPham().getId())
+                            .motaPhanLoai(sanPhamBienTheEntity.getMotaPhanLoai())
                             .build();
                 })
                 .toList();
