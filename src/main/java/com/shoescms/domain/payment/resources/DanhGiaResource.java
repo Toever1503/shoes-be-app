@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
+import static com.shoescms.domain.payment.entities.QDanhGia.danhGia;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -48,4 +51,10 @@ public class DanhGiaResource {
             return ResponseEntity.ok(resultList);
         }
     }
+
+    @GetMapping("public/lay-danh-gia/{id}")
+    public List<DanhGia> layDanhGiaChoSp(@PathVariable Long id){
+        return service.layDanhGiaChoSp(id);
+    }
+
 }

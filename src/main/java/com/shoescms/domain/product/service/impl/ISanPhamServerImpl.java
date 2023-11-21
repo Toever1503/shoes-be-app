@@ -11,6 +11,7 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
+import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
@@ -42,6 +43,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
+import static com.shoescms.domain.payment.entities.QDanhGia.danhGia;
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
 import static com.shoescms.domain.product.entitis.QSanPhamBienTheEntity.sanPhamBienTheEntity;
 import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
@@ -76,6 +79,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Autowired
     private UserRepository userRepository;
+
 
     @Override
     public Page<SanPhamDto> filterEntities(Pageable pageable, Specification<SanPhamEntity> specification) {
@@ -248,6 +252,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
         dto.setTongSp(dto.getBienTheDTOS().stream().map(SanPhamBienTheDTO::getSoLuong).reduce(0, Integer::sum));
         dto.setVouchers(voucherService.findAvailableVoucherByDanhMuc(dto.getDmGiay().getId()));
+
         return dto;
     }
 
