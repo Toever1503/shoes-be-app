@@ -14,7 +14,6 @@ import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
-import com.shoescms.domain.product.entitis.SanPhamEntity_;
 import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IDanhMucRepository;
@@ -268,17 +267,19 @@ public class ISanPhamServerImpl implements ISanPhamService {
             builder.and(sanPhamEntity.giaMoi.between(reqDto.getKhoangGia().get(0), reqDto.getKhoangGia().get(1)));
         if(!ObjectUtils.isEmpty(reqDto.getMau()))
             builder.and(sanPhamBienTheEntity.bienThe1.eq(reqDto.getMau()));
-        if(!ObjectUtils.isEmpty(reqDto.getSize()))
-            builder.and(sanPhamBienTheEntity.bienThe2.eq(reqDto.getSize()));
+        if(!ObjectUtils.isEmpty(reqDto.getSizeId()))
+            builder.and(sanPhamBienTheEntity.bienThe2.eq(reqDto.getSizeId()));
 
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 
         JPAQuery<Long> rs = jpaQueryFactory
                 .selectDistinct(sanPhamEntity.id)
+                .from(sanPhamEntity)
                 .join(sanPhamBienTheEntity)
-                .on(sanPhamEntity.id.eq(sanPhamBienTheEntity.sanPham.id))
+                .on(sanPhamBienTheEntity.sanPham.id.eq(sanPhamEntity.id))
                 .where(builder)
+                .orderBy(orders.toArray(OrderSpecifier[]::new))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
         List<WebChiTietSanPhamDto> content = rs.fetch().stream().map(this::chiTietSanPhamResDto).toList();

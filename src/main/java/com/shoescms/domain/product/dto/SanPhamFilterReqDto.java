@@ -19,7 +19,7 @@ public class SanPhamFilterReqDto {
     private Boolean hienThiWeb;
     private ESex gioiTinh;
     private Long mau;
-    private Long size;
+    private Long sizeId;
     private List<BigDecimal> khoangGia;
     private List<LocalDateTime> createdAtRange;
 }
