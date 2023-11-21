@@ -40,6 +40,9 @@ public class ChiTietDonHangEntity {
     @Column(name = "gia_tien", nullable = false)
     private BigDecimal giaTien;
 
+    @Column(name = "mo_ta_pl")
+    private String motaPhanLoai;
+
     @Column(name = "ngay_xoa")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngayXoa;

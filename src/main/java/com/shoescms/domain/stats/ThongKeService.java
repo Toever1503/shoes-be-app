@@ -7,6 +7,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.core.types.dsl.StringPath;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
@@ -25,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.shoescms.common.model.QFileEntity.fileEntity;
 import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
 import static com.shoescms.domain.payment.entities.QDonHangEntity.donHangEntity;
 import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
@@ -47,8 +49,20 @@ public class ThongKeService {
         return jpaQueryFactory.select(
                         Projections.constructor(StatsRevenueDto.class,
                 donHangEntity.ngayTao.as("time"),
-                donHangEntity.tongGiaCuoiCung.sum().castToNum(BigDecimal.class).as("total")
-        ))
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.COMPLETED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("total"),
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.PHONE_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("returned")        ))
                 .from(donHangEntity)
                 .where(builder)
                 .orderBy(donHangEntity.ngayTao.asc())
@@ -63,10 +77,24 @@ public class ThongKeService {
         builder.and(donHangEntity.ngayXoa.isNull());
         builder.and(donHangEntity.ngayTao.between(LocalDateTime.parse(startDate),LocalDateTime.parse(endDate)));
 
+
         return jpaQueryFactory.select(
                         Projections.constructor(StatsRevenueDto.class,
                                 donHangEntity.ngayTao.hour().as("time"),
-                                donHangEntity.tongGiaCuoiCung.sum().castToNum(BigDecimal.class).as("total")
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.COMPLETED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("total"),
+                                donHangEntity.trangThai
+                                        .when(ETrangThaiDonHang.PHONE_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
+                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .otherwise(new BigDecimal(0))
+                                        .sum()
+                                        .castToNum(BigDecimal.class).as("returned")
                         ))
                 .from(donHangEntity)
                 .where(builder)
@@ -114,6 +142,7 @@ public class ThongKeService {
                 Projections.constructor(StatsProductRevenueDto.class,
                         sanPhamEntity.id,
                         sanPhamEntity.tieuDe,
+                        ExpressionUtils.as(JPAExpressions.select(fileEntity.url).from(fileEntity).where(fileEntity.id.eq(sanPhamEntity.anhChinh)), "anhChinh"),
                         chiTietDonHangEntity.soLuong.sum(),
                         t
                         )

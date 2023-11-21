@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class StatsProductRevenueDto {
     private Long id;
     private String tieuDe;
+    private String anhChinh;
     private Integer soLuong;
     private BigDecimal total;
 }

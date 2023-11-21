@@ -85,7 +85,7 @@ public class DonHangEntity {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "don_hang_id")
-//    @Where(clause = "ngay_xoa is null")
+    @Where(clause = "ngay_xoa is null")
     private List<ChiTietDonHangEntity> chiTietDonHangs;
 
     @ManyToOne(optional = false)

@@ -30,6 +30,9 @@ public class DiaChiEntity {
     @Column(name = "sdt", length = 15, nullable = false)
     private String sdt;
 
+    @Column(name = "email", length = 50)
+    private String email;
+
     @Column(name = "dia_chi", length = 500, nullable = false)
     private String diaChi;
 

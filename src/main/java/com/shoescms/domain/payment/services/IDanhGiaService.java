@@ -8,4 +8,6 @@ public interface IDanhGiaService {
     DanhGia create(DanhGia danhGia);
 
     List<DanhGia> findByIds(List<Long> ids);
+
+    List<DanhGia> layDanhGiaChoSp(Long id);
 }
