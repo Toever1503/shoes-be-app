@@ -25,8 +25,9 @@ public class ThuongHieuController {
 
     @GetMapping("loc-thuong-hieu")
     public Page<ThuongHieuDTO> locThuongHieu(@Parameter(name = "tenThuongHieu") @RequestParam(required = false) String tenThuongHieu,
+                                             @Parameter(name = "layMacDinh") @RequestParam(defaultValue = "") String layMacDinh,
                                        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable){
-        return iThuongHieuService.locThuongHieu(tenThuongHieu, pageable);
+        return iThuongHieuService.locThuongHieu(tenThuongHieu, layMacDinh, pageable);
     };
     @PostMapping("/add")
     public ResponseDto addThuongHieu(@RequestBody ThuongHieuModel thuongHieuModel){

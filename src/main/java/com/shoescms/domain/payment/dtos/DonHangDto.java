@@ -26,6 +26,7 @@ public class DonHangDto {
     private BigDecimal tongGiaTien;
     private BigDecimal tongTienSp;
     private BigDecimal tongGiaCuoiCung;
+    private BigDecimal phiShip;
     private Long nguoiMuaId;
     private ETrangThaiDonHang trangThai;
     private LocalDateTime ngayTao;
@@ -44,6 +45,7 @@ public class DonHangDto {
                 .tongTienGiamGia(donHangEntity.getTongTienGiamGia())
                 .tongGiaTien(donHangEntity.getTongGiaTien())
                 .tongTienSp(donHangEntity.getTongTienSP())
+                .phiShip(donHangEntity.getPhiShip())
                 .tongGiaCuoiCung(donHangEntity.getTongGiaCuoiCung())
                 .nguoiMuaId(donHangEntity.getNguoiMuaId())
                 .trangThai(donHangEntity.getTrangThai())

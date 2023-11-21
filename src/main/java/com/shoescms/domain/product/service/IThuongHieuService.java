@@ -21,5 +21,5 @@ public interface IThuongHieuService{
 
     List<ThuongHieuDTO> getThuongHieus(String tenThuongHieu, String slug,Pageable pageable);
 
-    Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, Pageable pageable);
+    Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, String layMacDinh, Pageable pageable);
 }

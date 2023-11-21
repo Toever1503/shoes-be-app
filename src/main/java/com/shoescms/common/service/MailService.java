@@ -36,7 +36,7 @@ public class MailService {
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             mimeMessage.setFrom(new InternetAddress(from));
             mimeMessage.setSubject(subject, "utf-8");
-            mimeMessage.setText(content, "utf-8", "html");
+            mimeMessage.setText(content, "utf-8", "templates/html");
         };
 
         try {
@@ -67,7 +67,7 @@ public class MailService {
             Context context = new Context();
             context.setVariables(content);
 
-            mailLogger.info("html", templatePath);
+            mailLogger.info("templates/html", templatePath);
             String contentHtml = templateEngine.process(templatePath, context);
 
             // Đặt người nhận, chủ đề, nội dung
@@ -82,15 +82,6 @@ public class MailService {
             // Xử lý ngoại lệ (ghi log hoặc ném lại nếu cần thiết)
             mailLogger.error("Lỗi khi gửi email: {}", e.getMessage(), e);
             throw new MessagingException("Lỗi khi gửi email", e);
-        } finally {
-            if (messageHelper != null && messageHelper.getMimeMessage() != null) {
-                try {
-                    // Đảm bảo rằng tài nguyên được giải phóng
-                    messageHelper.getMimeMessage().getFolder().close(true);
-                } catch (MessagingException e) {
-                    mailLogger.error("Lỗi khi đóng tài nguyên: {}", e.getMessage(), e);
-                }
-            }
         }
     }
 }

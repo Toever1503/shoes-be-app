@@ -27,7 +27,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -180,7 +179,7 @@ public class UserService {
         // encrypt info
         StringBuilder expired = new StringBuilder();
         String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
-        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
+        ClassPathResource resource = new ClassPathResource("templates/html/mail-body.html");
         if (resource.exists()) {
             try {
                 log.info("start send mail");
@@ -216,7 +215,7 @@ public class UserService {
 
         // encrypt info
         String encParam = "www";
-        ClassPathResource resource = new ClassPathResource("html/mail-body.html");
+        ClassPathResource resource = new ClassPathResource("templates/html/mail-body.html");
         if (resource.exists()) {
             try {
                 log.info("start send mail");

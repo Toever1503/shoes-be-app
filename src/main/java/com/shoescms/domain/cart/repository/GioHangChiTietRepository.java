@@ -21,5 +21,5 @@ public interface GioHangChiTietRepository extends JpaRepository<GioHangChiTiet,L
 
     @Modifying
     @Query("delete from GioHangChiTiet c where c.sanPhamBienThe in ?1 and c.gioHang = ?2")
-    void deleteItemFromCart(List<Long> gioHangItemIds, Long gioHang);
+    void deleteItemFromCart(List<Long> spBt, Long gioHang);
 }

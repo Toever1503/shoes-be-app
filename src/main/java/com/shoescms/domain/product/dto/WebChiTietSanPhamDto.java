@@ -53,6 +53,7 @@ public class WebChiTietSanPhamDto {
     private List<BienTheGiaTriDTO> giaTri2List;
 
     private Integer tongSp;
+    private Integer daBan;
     private Float tbDanhGia;
     private Integer soDanhGia;
 
@@ -90,6 +91,7 @@ public class WebChiTietSanPhamDto {
                 .tongSp(sanPhamEntity.getTongSp())
                 .tbDanhGia(sanPhamEntity.getTbDanhGia())
                 .soDanhGia(sanPhamEntity.getSoDanhGia())
+                .daBan(sanPhamEntity.getDaBan())
                 .build();
     }
 

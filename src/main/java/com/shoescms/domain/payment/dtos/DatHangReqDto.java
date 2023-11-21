@@ -30,6 +30,9 @@ public class DatHangReqDto {
     @Schema(description = "Ghi chu", example = "giao luc 12h")
     private String note;
 
+    @Schema(description = "mail", example = "mail@gmail.com")
+    private String email;
+
     @Schema(description = "id cua dia chi da luu truoc do", example = "1")
     private Long diaChiId;
 
@@ -39,6 +42,7 @@ public class DatHangReqDto {
     private Long maGiamGiaId;
 
     private BigDecimal shipFee;
+
     private BigDecimal totalPay;
 
     @Schema(description = "Ghi chu", example = "COD")

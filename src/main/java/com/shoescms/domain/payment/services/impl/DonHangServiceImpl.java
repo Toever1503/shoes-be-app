@@ -15,20 +15,25 @@ import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
 import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
+import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +45,7 @@ public class DonHangServiceImpl implements IDonHangService {
     private final IChiTietDonHangRepository chiTietDonHangRepository;
     private final ISanPhamRepository sanPhamRepository;
     private final IDiaChiRepository diaChiRepository;
+    private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
 
     private final PaymentService paymentService;
 
@@ -75,14 +81,27 @@ public class DonHangServiceImpl implements IDonHangService {
         return dto;
     }
 
+    @Transactional
     @Override
     public void capNhatTrangThai(Long id, ETrangThaiDonHang trangThai, Long userId) {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         donHangEntity.setTrangThai(trangThai);
         donHangEntity.setNguoiCapNhat(userId);
+        if(trangThai.equals(ETrangThaiDonHang.COMPLETED)){
+            donHangEntity.getChiTietDonHangs()
+                    .forEach(sp -> {
+                        SanPhamEntity sanPhamEntity = sanPhamRepository.findById(sp.getId()).orElse(null);
+                        if(sanPhamEntity != null){
+                            int daBan = Optional.ofNullable(sanPhamEntity.getDaBan()).orElse(0);
+                            sanPhamEntity.setDaBan(daBan+sp.getSoLuong());
+                            sanPhamRepository.saveAndFlush(sanPhamEntity);
+                        }
+                    });
+        }
         donHangRepository.saveAndFlush(donHangEntity);
     }
 
+    @Transactional
     @Override
     public DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto) {
         DonHangEntity donHangEntity = new DonHangEntity();
@@ -97,11 +116,14 @@ public class DonHangServiceImpl implements IDonHangService {
                     SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
                     tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPham().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
                     tongSanPham.updateAndGet(v -> v + sp.getSoLuong());
+                    int newSoLuong = sanPhamBienTheEntity.getSoLuong() - sp.getSoLuong();
+                    sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
                     return ChiTietDonHangEntity
                             .builder()
                             .phanLoaiSpId(sp.getSanPhamBienThe())
                             .soLuong(sp.getSoLuong())
                             .giaTien(sanPhamBienTheEntity.getSanPham().getGiaMoi())
+                            .spId(sanPhamBienTheEntity.getSanPham().getId())
                             .build();
                 })
                 .toList();

@@ -50,6 +50,9 @@ public class DonHangEntity {
     @Column(name = "tong_gia_tien", nullable = false)
     private BigDecimal tongGiaTien;
 
+    @Column(name = "phi_ship", nullable = false)
+    private BigDecimal phiShip;
+
     @Column(name = "tong_gia_cuoi_cung", nullable = false)
     private BigDecimal tongGiaCuoiCung;
 

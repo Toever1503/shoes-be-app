@@ -60,7 +60,7 @@ public class VoucherResource {
     }
 
     @PostMapping
-    public VoucherDto add(@RequestBody VoucherReqDto reqDto,  @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
+    public VoucherDto add(@RequestBody VoucherReqDto reqDto,  @RequestHeader(name = "x-api-token") String xApiToken) {
         reqDto.setId(null);
         return voucherService.add(reqDto, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }

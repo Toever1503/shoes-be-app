@@ -10,6 +10,7 @@ import com.shoescms.domain.product.entitis.QThuongHieuEntity;
 import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.models.ThuongHieuModel;
 import com.shoescms.domain.product.repository.IThuogHieuRepository;
+import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.service.IThuongHieuService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
+    @Autowired
+    private ISanPhamService sanPhamService;
     @Override
     public Page<ThuongHieuEntity> filterEntities(Pageable pageable, Specification<ThuongHieuEntity> specification) {
         return thuogHieuRepository.findAll(specification, pageable);
@@ -65,6 +68,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
             ThuongHieuEntity entity = this.getById(id);
             entity.setNgayXoa(LocalDateTime.now());
             this.thuogHieuRepository.saveAndFlush(entity);
+            sanPhamService.setMacDinhThuongHieu(id);
             return true;
         } catch (Exception e) {
             return false;
@@ -88,10 +92,12 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
     }
 
     @Override
-    public Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, Pageable pageable) {
+    public Page<ThuongHieuDTO> locThuongHieu(String tenThuongHieu, String layMacDinh,Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (!ObjectUtils.isEmpty(tenThuongHieu))
             builder.and(QThuongHieuEntity.thuongHieuEntity.tenThuongHieu.contains(tenThuongHieu));
+        if (!ObjectUtils.isEmpty(layMacDinh))
+            builder.and(QThuongHieuEntity.thuongHieuEntity.id.ne(1L));
 
         builder.and(QThuongHieuEntity.thuongHieuEntity.ngayXoa.isNull());
         List<ThuongHieuDTO> content = jpaQueryFactory.selectDistinct(

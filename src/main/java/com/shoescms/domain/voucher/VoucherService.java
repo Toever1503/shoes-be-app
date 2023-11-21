@@ -60,12 +60,15 @@ public class VoucherService {
     }
 
     public VoucherDto findById(Long id) {
-        VoucherEntity entity = voucherRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(-99));
+        VoucherEntity entity = getById(id);
         if (entity.getNgayXoa() != null) throw new ObjectNotFoundException(-99);
         VoucherDto dto = VoucherDto.toDto(entity);
         dto.setNguoiTao(UsermetaDto.toDto(userRepository.findById(entity.getNguoiTao()).orElse(null)));
         dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(entity.getNguoiCapNhat()).orElse(null)));
         return dto;
+    }
+    public VoucherEntity getById(Long id) {
+        return voucherRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(-99));
     }
 
     public Page<VoucherDto> filter(Pageable pageable, Specification<VoucherEntity> where) {
@@ -112,5 +115,10 @@ public class VoucherService {
                     throw new ObjectNotFoundException(-99);
         }
         return dto;
+    }
+
+    @Transactional
+    public void updateEntity(VoucherEntity voucherEntity) {
+        voucherRepository.saveAndFlush(voucherEntity);
     }
 }
