@@ -14,6 +14,7 @@ import com.shoescms.common.utils.ASCIIConverter;
 import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
+import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.entitis.ThuongHieuEntity;
 import com.shoescms.domain.product.enums.ELoaiBienThe;
@@ -38,6 +39,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -181,9 +183,16 @@ public class ISanPhamServerImpl implements ISanPhamService {
     public boolean deleteById(Long id) {
         try {
             SanPhamEntity entity = this.getById(id);
-            this.sanPhamRepository.delete(entity);
+            entity.setNgayXoa(LocalDateTime.now());
+           List<SanPhamBienTheEntity> bts =  sanPhamBienTheRepository.findAllAllBySanPhamIdAndNgayXoaIsNull(id);
+           if(!bts.isEmpty()){
+               bts.forEach(bt -> bt.setNgayXoa(LocalDateTime.now()));
+               sanPhamBienTheRepository.saveAllAndFlush(bts);
+           }
+           sanPhamRepository.saveAndFlush(entity);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

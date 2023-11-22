@@ -14,11 +14,14 @@ import org.springframework.context.event.EventListener;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.ZoneId;
+import java.util.TimeZone;
 
 @SpringBootApplication
 public class CmsApplication {
 
     public static void main(String[] args) throws IOException {
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.of("+7")));
         initFirebaseInstance();
         SpringApplication.run(CmsApplication.class, args);
     }

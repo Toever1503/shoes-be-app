@@ -40,16 +40,14 @@ public class FileUploadService {
     private String generateUniqueFileName(String ext) {
         String filename = "";
         long millis = System.currentTimeMillis();
-        String datetime = new Date().toString();
-        datetime = datetime.replace(" ", "");
-        datetime = datetime.replace(":", "");
         String rndchars = RandomStringUtils.randomAlphanumeric(16);
-        filename = rndchars + "_" + datetime + "_" + millis + "." + ext;
+        filename = rndchars + "_" + millis + "." + ext;
         return filename;
     }
 
     public FileEntity uploadFile(String path, MultipartFile file) throws IOException {
         String filePath = generatePath(path, generateUniqueFileName(FilenameUtils.getExtension(file.getOriginalFilename())));
+        System.out.println("file path: "+ filePath);
         DEFAULT_BUCKET.create(filePath, file.getInputStream(), file.getContentType());
         return fileRepository.saveAndFlush(new FileEntity(STORAGE_URL + filePath.replaceAll("/", "%2F") + "?alt=media", file.getOriginalFilename(), filePath));
     }
