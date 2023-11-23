@@ -1,6 +1,8 @@
 package com.shoescms.domain.payment.resources;
 
 import com.shoescms.common.security.JwtTokenProvider;
+import com.shoescms.domain.payment.dtos.DanhGiaDTO;
+import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
 import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.payment.services.IDanhGiaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,15 +29,15 @@ public class DanhGiaResource {
     private IDanhGiaService service;
 
     @PostMapping("/create")
-    public List<DanhGia> create(@RequestBody List<DanhGia> danhGiaList, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
+    public List<DanhGiaDTO> create(@RequestBody List<DanhGiaReqDTO> danhGiaList, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
         Long userId = Long.parseLong(jwtTokenProvider.getUserPk(xApiToken));
-        List<DanhGia> savedDanhGiaList = new ArrayList<>();
+        List<DanhGiaDTO> savedDanhGiaList = new ArrayList<>();
 
-        for (DanhGia danhGia : danhGiaList) {
-            danhGia.setNguoiTaoId(userId);
-            danhGia.setNgayTao(LocalDateTime.now());
-            savedDanhGiaList.add(service.create(danhGia));
-        }
+           for (DanhGiaReqDTO danhGia : danhGiaList) {
+                danhGia.setNguoiTaoId(userId);
+                danhGia.setNgayTao(LocalDateTime.now());
+                savedDanhGiaList.add(service.create(danhGia));
+            }
 
         return savedDanhGiaList;
     }
@@ -57,4 +59,15 @@ public class DanhGiaResource {
         return service.layDanhGiaChoSp(id);
     }
 
+    @GetMapping("/soSao")
+    public ResponseEntity<Double> findRatingBySanPham(@RequestParam("idSanPham") Long idSanPham) {
+        // Gọi phương thức trong service để thực hiện tìm kiếm theo danh sách ID.
+        Double result = service.findRatingBySanPham(idSanPham);
+        System.out.println("result: " + result);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(result);
+        }
+    }
 }

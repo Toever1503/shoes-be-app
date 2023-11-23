@@ -129,7 +129,7 @@ public class SanPhamController {
     }
 
 
-    //    @PutMapping("/update-step1/{id}")
+//        @PutMapping("/update-step1/{id}")
 //    public  ResponseDto updateSanPham(@RequestBody SanPhamModel model){
 //           return ResponseDto.of(iSanPhamService.update(model));
 //        }

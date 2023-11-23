@@ -21,6 +21,7 @@ public interface ISanPhamService {
 
     SanPhamDto add(SanPhamModel model);
 
+
     boolean deleteById(Long id);
 
     void thayDoiPhanLoai(Long id, ELoaiBienThe type);

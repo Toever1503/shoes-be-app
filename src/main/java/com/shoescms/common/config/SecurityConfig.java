@@ -96,7 +96,9 @@ public class SecurityConfig {
             "/v1/user/token",
             "/v1/user/forgot-pass/**",
             "/v1/voucher/public/**",
-            "/v1/danh-gia/public/**"
+            "/v1/danh-gia/public/**",
+            "/v1/danh-gia/soSao/**"
+
     };
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
