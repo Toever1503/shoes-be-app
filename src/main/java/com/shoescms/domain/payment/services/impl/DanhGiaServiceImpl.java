@@ -4,7 +4,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.payment.dtos.DanhGiaDTO;
 import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
 import com.shoescms.domain.payment.entities.DanhGia;
+import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IDanhGiaRepository;
+import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.services.IDanhGiaService;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
@@ -24,6 +26,10 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 
     @Autowired
     private ISanPhamRepository sanPhamRepository;
+
+    @Autowired
+    private IDonHangRepository donHangRepository;
+
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
 
@@ -41,16 +47,19 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
 
         // Cập nhật điểm trung bình đánh giá cho sản phẩm
         SanPhamEntity sp = repo.findSanPhamDanhGia(danhGia.getDonHangChiTietId());
-
+        DonHangEntity dh = repo.findDonHangDanhGia(danhGia.getDonHangChiTietId());
 
         System.out.println("sp = " + sp);
+        System.out.println("dh = " + dh);
         if (sp != null) {
             System.out.println("sanPham = " + sp);
             Integer soNguoiDanhGia = layDanhGiaChoSp(sp.getId()).size();
             Double soSao = repo.findRatingBySanPham(sp.getId());
             sp.setTbDanhGia(soSao.floatValue()); // Đảm bảo không gặp vấn đề với giá trị null
             sp.setSoDanhGia(soNguoiDanhGia);
+            dh.setCheckRate(1);
             sanPhamRepository.save(sp);
+            donHangRepository.save(dh);
             System.out.println("sanPham sau khi update = " + sp);
         } else {
             // Xử lý trường hợp không tìm thấy sản phẩm

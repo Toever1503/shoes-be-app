@@ -1,6 +1,7 @@
 package com.shoescms.domain.payment.repositories;
 
 import com.shoescms.domain.payment.entities.DanhGia;
+import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,4 +26,10 @@ public interface IDanhGiaRepository extends JpaRepository<DanhGia, Long> {
             "join DanhGia dg on dg.donHangChiTietId = ctdh.id " +
             "where dg.donHangChiTietId = ?1")
     SanPhamEntity findSanPhamDanhGia(Long idNguoiDanhGia);
+
+
+    @Query("SELECT dh FROM DonHangEntity dh join ChiTietDonHangEntity ctdh on dh.id = ctdh.donHang " +
+            "join DanhGia dg on dg.donHangChiTietId = ctdh.id " +
+            "where dg.donHangChiTietId = ?1")
+    DonHangEntity findDonHangDanhGia(Long id);
 }

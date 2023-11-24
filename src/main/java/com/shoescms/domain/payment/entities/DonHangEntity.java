@@ -95,4 +95,7 @@ public class DonHangEntity {
     @Column(name = "ghi_chu")
     private String ghiChu;
 
+    @Column(name="check_rate")
+    private Integer checkRate;
+
 }

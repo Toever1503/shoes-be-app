@@ -35,6 +35,7 @@ public class DonHangDto {
     private List<ChiTietDonHangDto> chiTietDonHang;
     private String ghiChu;
     private String urlPay;
+    private Integer checkRate;
 
     private UsermetaDto nguoiCapNhat;
     public static DonHangDto toDto(DonHangEntity donHangEntity) {
@@ -54,6 +55,7 @@ public class DonHangDto {
                 .diaChi(DiaChiDto.toDto(donHangEntity.getDiaChiEntity()))
                 .chiTietDonHang(donHangEntity.getChiTietDonHangs().stream().map(ChiTietDonHangDto::toDto).collect(Collectors.toList()))
                 .ghiChu(donHangEntity.getGhiChu())
+                .checkRate(donHangEntity.getCheckRate())
                 .build();
     }
 }
