@@ -24,5 +24,5 @@ public interface IDonHangService {
     Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable);
 
 
-
+    List<DonHangDto> traCuuDonHang(String q);
 }

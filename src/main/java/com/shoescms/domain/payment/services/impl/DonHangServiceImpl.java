@@ -1,5 +1,6 @@
 package com.shoescms.domain.payment.services.impl;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.exception.ProcessFailedException;
 import com.shoescms.common.model.repositories.FileRepository;
@@ -37,6 +38,8 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import static com.shoescms.domain.payment.entities.QDonHangEntity.donHangEntity;
+
 @Service
 @RequiredArgsConstructor
 public class DonHangServiceImpl implements IDonHangService {
@@ -50,6 +53,7 @@ public class DonHangServiceImpl implements IDonHangService {
     private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
     private final UserRepository userRepository;
 
+    private final JPAQueryFactory jpaQueryFactory;
     private final PaymentService paymentService;
 
     @Override
@@ -195,6 +199,27 @@ public class DonHangServiceImpl implements IDonHangService {
     @Override
     public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable  ) {
         return donHangRepository.findByNguoiMuaId(nguoiMuaId, pageable);
+    }
+
+    @Override
+    public List<DonHangDto> traCuuDonHang(String q) {
+        return jpaQueryFactory.selectFrom(donHangEntity)
+                .where(
+                        donHangEntity.ngayXoa.isNull(),
+                        donHangEntity.maDonHang.eq(q).or(donHangEntity.diaChiEntity.sdt.eq(q))
+                )
+                .fetch()
+                .stream()
+                .map(dh -> {
+                    DonHangDto dto = DonHangDto.toDto(dh);
+                    dto.getChiTietDonHang().forEach(item -> {
+                        SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(item.getPhanLoaiSpId()).orElseThrow(() -> new ProcessFailedException("failed"));
+                        item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
+                        item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
+                    });
+                    return dto;
+                })
+                .toList();
     }
 
 

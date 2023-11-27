@@ -96,7 +96,10 @@ public class DonHangResource {
             return donHangService.findByNguoiMuaId(userId,pageable);
         return donHangService.findByNguoiMuaId(userId, trangThai,pageable);
     }
-
+    @GetMapping("/public/tra-cuu")
+    public List<DonHangDto> traCuuDonHang(@RequestParam String q) {
+        return donHangService.traCuuDonHang(q);
+    }
 //    @PostMapping("/send-email")
 //    public void sendEmail(@RequestParam("email") String email) {
 //        try {
