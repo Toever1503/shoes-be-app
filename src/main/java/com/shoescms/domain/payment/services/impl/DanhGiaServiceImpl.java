@@ -17,8 +17,10 @@ import com.shoescms.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.List;
@@ -43,6 +45,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     @Override
     public DanhGiaDto create(DanhGiaReqDTO danhGia) {
         // Thêm mới đánh giá và cập nhật sản phẩm
@@ -63,7 +66,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
         System.out.println("dh = " + dh);
         if (sp != null) {
             System.out.println("sanPham = " + sp);
-            Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId() , null, Pageable.unpaged()).getTotalElements();
+            Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId() , null,  PageRequest.of(0,1)).getTotalElements();
             Double soSao = repo.findRatingBySanPham(sp.getId());
             sp.setTbDanhGia(soSao.floatValue()); // Đảm bảo không gặp vấn đề với giá trị null
             sp.setSoDanhGia(soNguoiDanhGia.intValue());
@@ -108,6 +111,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
         return new PageImpl<>(content, pageable, jpaQuery.fetchCount());
     }
 
+    @Transactional
     @Override
     public void xoaDanhGia(Long id) {
         try{
@@ -116,7 +120,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
                 repo.deleteById(danhGia.getId());
                 SanPhamEntity sp = repo.findSanPhamDanhGia(danhGia.getDonHangChiTietId());
                 if (sp != null) {
-                    Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId(), null, Pageable.unpaged()).getTotalElements();
+                    Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId(), null, PageRequest.of(0,1)).getTotalElements();
                     Double soSao = repo.findRatingBySanPham(sp.getId());
                     sp.setTbDanhGia(soSao.floatValue()); // Đảm bảo không gặp vấn đề với giá trị null
                     sp.setSoDanhGia(soNguoiDanhGia.intValue());
