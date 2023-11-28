@@ -3,7 +3,6 @@ package com.shoescms.domain.payment.services;
 import com.shoescms.domain.payment.dtos.DonHangDto;
 import com.shoescms.domain.payment.dtos.ETrangThaiDonHang;
 import com.shoescms.domain.payment.dtos.ThemMoiDonHangReqDto;
-import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.payment.entities.DonHangEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +23,5 @@ public interface IDonHangService {
     Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable);
 
 
-
+    List<DonHangDto> traCuuDonHang(String q);
 }

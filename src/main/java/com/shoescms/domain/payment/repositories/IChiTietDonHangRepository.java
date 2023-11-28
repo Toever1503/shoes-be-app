@@ -1,8 +1,6 @@
 package com.shoescms.domain.payment.repositories;
 
 import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
-import com.shoescms.domain.payment.entities.DanhGia;
-import com.shoescms.domain.payment.entities.DonHangEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

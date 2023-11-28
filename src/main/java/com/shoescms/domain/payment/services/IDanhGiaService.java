@@ -1,17 +1,20 @@
 package com.shoescms.domain.payment.services;
 
-import com.shoescms.domain.payment.dtos.DanhGiaDTO;
-import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
-import com.shoescms.domain.payment.entities.DanhGia;
+import com.shoescms.domain.payment.dtos.DanhGiaDto;
+import com.shoescms.domain.payment.entities.DanhGiaEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface IDanhGiaService {
     DanhGiaDTO create(DanhGiaReqDTO danhGia);
 
-    List<DanhGia> findByIds(List<Long> ids);
+    List<DanhGiaEntity> findByIds(List<Long> ids);
 
-    List<DanhGia> layDanhGiaChoSp(Long id);
+        Double findRatingBySanPham(Long idSanPham);
 
-    Double findRatingBySanPham(Long idSanPham);
+    Page<DanhGiaDto> layDanhGiaChoSp(Long id, String q, Pageable pageable);
+
+    void xoaDanhGia(Long id);
 }

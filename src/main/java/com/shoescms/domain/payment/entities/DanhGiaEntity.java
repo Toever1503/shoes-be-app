@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @DynamicInsert
 @Table(name = "tb_danh_gia")
-public class DanhGia {
+public class DanhGiaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,7 @@ public class DanhGia {
     @Column(name = "nguoi_tao_id")
     private Long nguoiTaoId;
 
-    @Column(name = "binh_luan" , length = 255)
+    @Column(name = "binh_luan", length = 255)
     private String binhLuan;
 
     @Column(name = "so_sao")

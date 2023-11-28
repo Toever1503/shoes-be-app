@@ -11,7 +11,6 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
-import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
@@ -45,8 +44,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
-import static com.shoescms.domain.payment.entities.QDanhGia.danhGia;
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
 import static com.shoescms.domain.product.entitis.QSanPhamBienTheEntity.sanPhamBienTheEntity;
 import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
