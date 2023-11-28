@@ -1,6 +1,5 @@
 package com.shoescms.domain.payment.repositories;
 
-import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.payment.entities.DanhGiaEntity;
 import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;

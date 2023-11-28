@@ -1,6 +1,7 @@
 package com.shoescms.domain.payment.services;
 
 import com.shoescms.domain.payment.dtos.DanhGiaDto;
+import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
 import com.shoescms.domain.payment.entities.DanhGiaEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface IDanhGiaService {
-    DanhGiaDTO create(DanhGiaReqDTO danhGia);
+    DanhGiaDto create(DanhGiaReqDTO danhGia);
 
     List<DanhGiaEntity> findByIds(List<Long> ids);
 

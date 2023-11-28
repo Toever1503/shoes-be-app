@@ -1,8 +1,8 @@
 package com.shoescms.domain.payment.dtos;
 
-import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
-import com.shoescms.domain.payment.entities.DanhGia;
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shoescms.domain.payment.entities.DanhGiaEntity;
+import com.shoescms.domain.user.dto.UsermetaDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,32 +10,30 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DanhGiaDTO {
+@Data
+@Builder
+public class DanhGiaDto {
+
     private Long id;
-
-    private Long donHangChiTietId;
-
+    private String binhLuan;
+    private Integer soSao;
+    private LocalDateTime ngayTao;
+    private UsermetaDto nguoiTao;
+    @JsonIgnore
     private Long nguoiTaoId;
 
-    private String binhLuan;
-
-    private Integer soSao;
-
-    private LocalDateTime ngayTao;
-
-    public static DanhGiaDTO toDto(DanhGia danhGia) {
-        if (danhGia == null) return null;
-        return DanhGiaDTO.builder()
+    public static DanhGiaDto toDto(DanhGiaEntity danhGia){
+        return DanhGiaDto
+                .builder()
                 .id(danhGia.getId())
-                .donHangChiTietId(danhGia.getDonHangChiTietId())
-                .nguoiTaoId(danhGia.getNguoiTaoId())
                 .binhLuan(danhGia.getBinhLuan())
                 .soSao(danhGia.getSoSao())
                 .ngayTao(danhGia.getNgayTao())
+                .nguoiTaoId(danhGia.getNguoiTaoId())
                 .build();
     }
+
+
 }

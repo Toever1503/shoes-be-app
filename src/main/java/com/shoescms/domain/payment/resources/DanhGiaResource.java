@@ -27,11 +27,10 @@ public class DanhGiaResource {
     private IDanhGiaService service;
 
     @PostMapping("/create")
-    public List<DanhGiaEntity> create(@RequestBody List<DanhGiaEntity> danhGiaList, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
+    public List<DanhGiaDto> create(@RequestBody List<DanhGiaReqDTO> danhGiaList, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {
         Long userId = Long.parseLong(jwtTokenProvider.getUserPk(xApiToken));
-        List<DanhGiaEntity> savedDanhGiaList = new ArrayList<>();
-
-        for (DanhGiaEntity danhGia : danhGiaList) {
+        List<DanhGiaDto> savedDanhGiaList = new ArrayList<>();
+        for (DanhGiaReqDTO danhGia : danhGiaList) {
             danhGia.setNguoiTaoId(userId);
             danhGia.setNgayTao(LocalDateTime.now());
             savedDanhGiaList.add(service.create(danhGia));
@@ -61,15 +60,4 @@ public class DanhGiaResource {
         return service.layDanhGiaChoSp(id, q, pageable);
     }
 
-    @GetMapping("/soSao")
-    public ResponseEntity<Double> findRatingBySanPham(@RequestParam("idSanPham") Long idSanPham) {
-        // Gọi phương thức trong service để thực hiện tìm kiếm theo danh sách ID.
-        Double result = service.findRatingBySanPham(idSanPham);
-        System.out.println("result: " + result);
-        if (result == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok(result);
-        }
-    }
 }

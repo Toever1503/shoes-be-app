@@ -4,10 +4,14 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.domain.payment.dtos.DanhGiaDto;
+import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
 import com.shoescms.domain.payment.entities.DanhGiaEntity;
+import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IDanhGiaRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.services.IDanhGiaService;
+import com.shoescms.domain.product.entitis.SanPhamEntity;
+import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.user.dto.UsermetaDto;
 import com.shoescms.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +44,9 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     private UserRepository userRepository;
 
     @Override
-    public DanhGiaDTO create(DanhGiaReqDTO danhGia) {
+    public DanhGiaDto create(DanhGiaReqDTO danhGia) {
         // Thêm mới đánh giá và cập nhật sản phẩm
-        DanhGia entity = DanhGia.builder()
+        DanhGiaEntity entity = DanhGiaEntity.builder()
                 .donHangChiTietId(danhGia.getDonHangChiTietId())
                 .binhLuan(danhGia.getBinhLuan())
                 .ngayTao(danhGia.getNgayTao())
@@ -59,10 +63,10 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
         System.out.println("dh = " + dh);
         if (sp != null) {
             System.out.println("sanPham = " + sp);
-            Integer soNguoiDanhGia = layDanhGiaChoSp(sp.getId()).size();
+            Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId() , null, Pageable.unpaged()).getTotalElements();
             Double soSao = repo.findRatingBySanPham(sp.getId());
             sp.setTbDanhGia(soSao.floatValue()); // Đảm bảo không gặp vấn đề với giá trị null
-            sp.setSoDanhGia(soNguoiDanhGia);
+            sp.setSoDanhGia(soNguoiDanhGia.intValue());
             dh.setCheckRate(1);
             sanPhamRepository.save(sp);
             donHangRepository.save(dh);
@@ -72,14 +76,7 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
             // Có thể làm gì đó tùy thuộc vào yêu cầu của bạn
         }
 
-        return DanhGiaDTO.builder()
-                .id(entity.getId())
-                .binhLuan(entity.getBinhLuan())
-                .donHangChiTietId(entity.getDonHangChiTietId())
-                .ngayTao(entity.getNgayTao())
-                .nguoiTaoId(entity.getNguoiTaoId())
-                .soSao(entity.getSoSao())
-                .build();
+        return DanhGiaDto.toDto(entity);
     }
 
 
@@ -114,7 +111,18 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     @Override
     public void xoaDanhGia(Long id) {
         try{
-            repo.deleteById(id);
+            DanhGiaEntity danhGia = repo.findById(id).orElse(null);
+            if(danhGia!= null) {
+                repo.deleteById(danhGia.getId());
+                SanPhamEntity sp = repo.findSanPhamDanhGia(danhGia.getDonHangChiTietId());
+                if (sp != null) {
+                    Long soNguoiDanhGia = layDanhGiaChoSp(sp.getId(), null, Pageable.unpaged()).getTotalElements();
+                    Double soSao = repo.findRatingBySanPham(sp.getId());
+                    sp.setTbDanhGia(soSao.floatValue()); // Đảm bảo không gặp vấn đề với giá trị null
+                    sp.setSoDanhGia(soNguoiDanhGia.intValue());
+                    sanPhamRepository.save(sp);
+                }
+            }
         }
         catch (Exception ex){
             throw ex;
