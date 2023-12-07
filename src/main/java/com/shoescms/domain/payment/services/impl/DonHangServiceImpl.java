@@ -143,7 +143,9 @@ public class DonHangServiceImpl implements IDonHangService {
         donHangEntity.setTongSp(tongSanPham.get());
         donHangEntity.setTongGiaTien(tongTien.get());
         donHangEntity.setTrangThai(ETrangThaiDonHang.WAITING_CONFIRM);
-        donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien()); // need update later
+        donHangEntity.setTongTienGiamGia(reqDto.getDiscount());
+        donHangEntity.setPhiShip(reqDto.getShipFee());
+        donHangEntity.setTongGiaCuoiCung(reqDto.getTotalPay());
 
         DiaChiEntity diaChi = new DiaChiEntity();
         donHangEntity.setDiaChiEntity(diaChi);
@@ -164,6 +166,9 @@ public class DonHangServiceImpl implements IDonHangService {
         donHangDto.setPhuongThucTT(donHangEntity.getPhuongThucTT());
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
+        donHangDto.setTongTienGiamGia(donHangEntity.getTongTienGiamGia());
+        donHangDto.setPhiShip(donHangEntity.getPhiShip());
+        donHangDto.setTongGiaTien(donHangEntity.getTongGiaTien());
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
