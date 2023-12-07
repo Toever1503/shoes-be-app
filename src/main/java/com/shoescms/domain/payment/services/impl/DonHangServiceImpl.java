@@ -61,9 +61,9 @@ public class DonHangServiceImpl implements IDonHangService {
         Page<DonHangEntity> donHangDtoPage = donHangRepository.findAll(specification, pageable);
         return donHangDtoPage.map(donHangEntity -> {
             DonHangDto dto = DonHangDto.toDto(donHangEntity);
-            if(donHangEntity.getNguoiMuaId() != null)
+            if (donHangEntity.getNguoiMuaId() != null)
                 dto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
-            if(donHangEntity.getNguoiCapNhat() != null)
+            if (donHangEntity.getNguoiCapNhat() != null)
                 dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
             return dto;
         });
@@ -79,9 +79,9 @@ public class DonHangServiceImpl implements IDonHangService {
             item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
         });
 
-        if(donHangEntity.getNguoiMuaId() != null)
+        if (donHangEntity.getNguoiMuaId() != null)
             dto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
-        if(donHangEntity.getNguoiCapNhat() != null)
+        if (donHangEntity.getNguoiCapNhat() != null)
             dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
         return dto;
     }
@@ -92,13 +92,23 @@ public class DonHangServiceImpl implements IDonHangService {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         donHangEntity.setTrangThai(trangThai);
         donHangEntity.setNguoiCapNhat(userId);
-        if(trangThai.equals(ETrangThaiDonHang.COMPLETED)){
+
+        if (trangThai.equals(ETrangThaiDonHang.DELIVERING))
+            donHangEntity
+                    .getChiTietDonHangs()
+                    .forEach(gioHangChiTiet -> {
+                        SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangChiTiet.getPhanLoaiSpId()).orElseThrow(() -> new ObjectNotFoundException(8));
+                        int newSoLuong = sanPhamBienTheEntity.getSoLuong() - gioHangChiTiet.getSoLuong();
+                        sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
+                    });
+
+        if (trangThai.equals(ETrangThaiDonHang.COMPLETED)) {
             donHangEntity.getChiTietDonHangs()
                     .forEach(sp -> {
                         SanPhamEntity sanPhamEntity = sanPhamRepository.findById(sp.getSpId()).orElse(null);
-                        if(sanPhamEntity != null){
+                        if (sanPhamEntity != null) {
                             int daBan = Optional.ofNullable(sanPhamEntity.getDaBan()).orElse(0);
-                            sanPhamEntity.setDaBan(daBan+sp.getSoLuong());
+                            sanPhamEntity.setDaBan(daBan + sp.getSoLuong());
                             sanPhamRepository.saveAndFlush(sanPhamEntity);
                         }
                     });
@@ -121,8 +131,6 @@ public class DonHangServiceImpl implements IDonHangService {
                     SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
                     tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPham().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
                     tongSanPham.updateAndGet(v -> v + sp.getSoLuong());
-                    int newSoLuong = sanPhamBienTheEntity.getSoLuong() - sp.getSoLuong();
-                    sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
                     return ChiTietDonHangEntity
                             .builder()
                             .phanLoaiSpId(sp.getSanPhamBienThe())
@@ -192,12 +200,12 @@ public class DonHangServiceImpl implements IDonHangService {
     }
 
     @Override
-    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId,ETrangThaiDonHang trangThai, Pageable pageable) {
+    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, ETrangThaiDonHang trangThai, Pageable pageable) {
         return donHangRepository.findByNguoiMuaId(nguoiMuaId, trangThai, pageable);
     }
 
     @Override
-    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable  ) {
+    public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable) {
         return donHangRepository.findByNguoiMuaId(nguoiMuaId, pageable);
     }
 

@@ -193,8 +193,6 @@ public class PaymentService {
             tongTien = tongTien.add(tongTienSp);
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
 
-            int newSoLuong = sanPhamBienTheEntity.getSoLuong() - gioHangTamThoiReqDto.get(i).getSoLuong();
-            sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();
             chiTietDonHang.setSoLuong(gioHangTamThoiReqDto.get(i).getSoLuong());
