@@ -55,7 +55,7 @@ public class UserQueryRepository {
         if (name != null)           builder.and(userEntity.name.contains(name));
         if (phone != null)          builder.and(userEntity.phone.contains(phone));
         if (email != null)          builder.and(userEntity.email.contains(email));
-//        builder.and(userEntity.role.roleCd.in("ROLE_ADMIN", "ROLE_STAFF"));
+        builder.and(userEntity.role.roleCd.in("ROLE_ADMIN", "ROLE_STAFF"));
         builder.and(userEntity.del.isFalse());
 
         List<UserResDto> content = jpaQueryFactory
