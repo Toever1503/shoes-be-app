@@ -135,6 +135,7 @@ public class ThongKeService {
     public Page<StatsProductRevenueDto> doanhThuTungSanPham(String startDate, String endDate, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(donHangEntity.ngayXoa.isNull());
+        builder.and(donHangEntity.trangThai.eq(ETrangThaiDonHang.COMPLETED));
         builder.and(donHangEntity.ngayTao.between(LocalDateTime.parse(startDate),LocalDateTime.parse(endDate)));
 
         NumberExpression t = chiTietDonHangEntity.soLuong.multiply(chiTietDonHangEntity.giaTien).sum().castToNum(BigDecimal.class);
