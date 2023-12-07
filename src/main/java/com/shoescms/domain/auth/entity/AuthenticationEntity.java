@@ -16,7 +16,6 @@ import org.hibernate.annotations.DynamicInsert;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_authentication")
 public class AuthenticationEntity extends BaseDateEntity {
     @Id

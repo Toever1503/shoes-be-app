@@ -25,7 +25,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_user")
 public class UserEntity extends BaseDateEntity implements UserDetails {
     @Id

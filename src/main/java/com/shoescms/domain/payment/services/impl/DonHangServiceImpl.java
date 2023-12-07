@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -119,8 +120,23 @@ public class DonHangServiceImpl implements IDonHangService {
     @Transactional
     @Override
     public DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto) {
-        DonHangEntity donHangEntity = new DonHangEntity();
-        donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
+        DonHangEntity donHangEntity;
+        if (reqDto.getOrderId() != null) {
+            donHangEntity = donHangRepository.findById(reqDto.getOrderId()).orElseThrow(() -> new ProcessFailedException("failed to find original order"));
+            chiTietDonHangRepository.saveAllAndFlush(
+                    donHangEntity
+                            .getChiTietDonHangs()
+                            .stream()
+                            .peek(ct -> ct.setNgayXoa(LocalDateTime.now()))
+                            .toList()
+            );
+//            chiTietDonHangRepository.deleteAllById(donHangEntity
+//                    .getChiTietDonHangs().stream().map(ChiTietDonHangEntity::getId).toList());
+            donHangEntity.setChiTietDonHangs(null);
+        } else donHangEntity = new DonHangEntity();
+
+        if (reqDto.getOrderId() == null)
+            donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
 
         AtomicReference<BigDecimal> tongTien = new AtomicReference<>(new BigDecimal(0));
@@ -174,6 +190,8 @@ public class DonHangServiceImpl implements IDonHangService {
         donHangDto.setPhuongThucTT(donHangEntity.getPhuongThucTT());
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
+
+        donHangDto.setTongTienSp(donHangEntity.getTongTienSP());
         donHangDto.setTongTienGiamGia(donHangEntity.getTongTienGiamGia());
         donHangDto.setPhiShip(donHangEntity.getPhiShip());
         donHangDto.setTongGiaTien(donHangEntity.getTongGiaTien());
