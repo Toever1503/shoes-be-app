@@ -4,7 +4,7 @@ import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.dtos.DanhGiaDto;
 import com.shoescms.domain.payment.dtos.DanhGiaReqDTO;
 import com.shoescms.domain.payment.entities.DanhGiaEntity;
-import com.shoescms.domain.payment.services.IDanhGiaService;
+import com.shoescms.domain.payment.services.DanhGiaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 public class DanhGiaResource {
     private final JwtTokenProvider jwtTokenProvider;
     @Autowired
-    private IDanhGiaService service;
+    private DanhGiaServiceImpl service;
 
     @PostMapping("/create")
     public List<DanhGiaDto> create(@RequestBody List<DanhGiaReqDTO> danhGiaList, @RequestHeader(name = "x-api-token", required = false) String xApiToken) {

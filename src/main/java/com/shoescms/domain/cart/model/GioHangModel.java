@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class GioHangModel {
 private Long id;
 
-    private Long userEntity;
+    private Long nguoiDungEntity;
 
 }

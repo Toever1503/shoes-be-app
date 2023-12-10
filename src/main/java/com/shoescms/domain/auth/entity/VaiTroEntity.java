@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table( name = "tb_role")
-public class RoleEntity {
+public class VaiTroEntity {
     @Id
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;

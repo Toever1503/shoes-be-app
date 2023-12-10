@@ -6,8 +6,7 @@ import com.shoescms.common.model.response.CommonIdResult;
 import com.shoescms.common.model.response.CommonResult;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.user.dto.*;
-import com.shoescms.domain.user.entity.UserEntity;
-import io.swagger.v3.oas.annotations.Operation;
+import com.shoescms.domain.user.entity.NguoiDungEntity;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -36,8 +35,8 @@ public class UserController {
     private JwtTokenProvider jwtTokenProvider;
 
     @PostMapping(value = "/sign-up")
-    public CommonResult<CommonIdResult> addUser(@Parameter(required = true, name = "reqDto", description = "사용자 등록 정보") @RequestBody @Valid UserReqDto reqDto) {
-        return baseResponse.getContentResult(userService.addUser(reqDto));
+    public CommonIdResult addUser(@Parameter(required = true, name = "reqDto", description = "사용자 등록 정보") @RequestBody @Valid UserReqDto reqDto) {
+        return userService.addUser(reqDto);
     }
 
     @PatchMapping(value = "/{id}")
@@ -113,7 +112,7 @@ public class UserController {
     }
 
     @GetMapping("/detail")
-    public CommonResult<UserEntity> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token) {
+    public CommonResult<NguoiDungEntity> getAccountDetail(@RequestHeader(name ="x-api-token", required = false) String token) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
         return baseResponse.getContentResult(userService.findById(userId));
     }

@@ -7,12 +7,12 @@ import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.domain.cart.dto.GioHangChiTietDto;
 import com.shoescms.domain.cart.dto.GioHangChiTietResDto;
 import com.shoescms.domain.cart.dto.GioHangResDto;
-import com.shoescms.domain.cart.entity.GioHang;
+import com.shoescms.domain.cart.entity.GioHangEntity;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
 import com.shoescms.domain.cart.entity.GioHangChiTiet_;
 import com.shoescms.domain.cart.model.GioHangChiTietModel;
-import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
-import com.shoescms.domain.cart.repository.GioHangRepository;
+import com.shoescms.domain.cart.repository.IGioHangChiTietRepository;
+import com.shoescms.domain.cart.repository.IGioHangRepository;
 import com.shoescms.domain.cart.service.GioHangService;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
@@ -24,21 +24,21 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.shoescms.domain.cart.entity.QGioHang.gioHang;
+import static com.shoescms.domain.cart.entity.QGioHangEntity.gioHangEntity;
 import static com.shoescms.domain.cart.entity.QGioHangChiTiet.gioHangChiTiet;
 
 @Service
 public class GioHangServiceImpl implements GioHangService {
 
-    private final GioHangRepository gioHangRepository;
-    private final GioHangChiTietRepository gioHangChiTietRepository;
+    private final IGioHangRepository gioHangRepository;
+    private final IGioHangChiTietRepository gioHangChiTietRepository;
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
 
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
     private final FileRepository fileRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
-    public GioHangServiceImpl(GioHangRepository gioHangRepository, GioHangChiTietRepository gioHangChiTietRepository, ISanPhamBienTheRepository sanPhamBienTheRepository, IBienTheGiaTriRepository bienTheGiaTriRepository, FileRepository fileRepository, JPAQueryFactory jpaQueryFactory) {
+    public GioHangServiceImpl(IGioHangRepository gioHangRepository, IGioHangChiTietRepository gioHangChiTietRepository, ISanPhamBienTheRepository sanPhamBienTheRepository, IBienTheGiaTriRepository bienTheGiaTriRepository, FileRepository fileRepository, JPAQueryFactory jpaQueryFactory) {
         this.gioHangRepository = gioHangRepository;
         this.gioHangChiTietRepository = gioHangChiTietRepository;
         this.sanPhamBienTheRepository = sanPhamBienTheRepository;
@@ -49,7 +49,7 @@ public class GioHangServiceImpl implements GioHangService {
 
     @Override
     public GioHangResDto findById(Long id) {
-        GioHang entity = this.gioHangRepository.findById(id).orElse(null);
+        GioHangEntity entity = this.gioHangRepository.findById(id).orElse(null);
         if(entity == null){
             return null;
         }
@@ -57,15 +57,15 @@ public class GioHangServiceImpl implements GioHangService {
     }
 
     @Override
-    public GioHang findCartByUserId(Long userEntity) {
-        return gioHangRepository.findByUserEntity(userEntity);
+    public GioHangEntity findCartByUserId(Long nguoiDungEntity) {
+        return gioHangRepository.findByNguoiDungId(nguoiDungEntity);
     }
 
     @Transactional
     @Override
-    public  List<GioHangChiTietResDto> gioHangCuaToi(Long userEntity) {
+    public  List<GioHangChiTietResDto> gioHangCuaToi(Long nguoiDungEntity) {
         List<GioHangChiTietResDto> gioHangChiTietResDtos = new ArrayList<>();
-        GioHang gioHang = gioHangRepository.findByUserEntity(userEntity);
+        GioHangEntity gioHang = gioHangRepository.findByNguoiDungId(nguoiDungEntity);
         if(gioHang != null)
              gioHangChiTietRepository.findAllByGioHang(gioHang.getId(), Sort.by(Sort.Order.desc(GioHangChiTiet_.NGAY_CAP_NHAT)))
                  .forEach(item ->
@@ -102,7 +102,7 @@ public class GioHangServiceImpl implements GioHangService {
 
     @Transactional
     @Override
-    public GioHang add(GioHang gioHang) {
+    public GioHangEntity add(GioHangEntity gioHang) {
         return gioHangRepository.saveAndFlush(gioHang);
     }
 
@@ -110,10 +110,10 @@ public class GioHangServiceImpl implements GioHangService {
     @Override
     public void remove(Long spBienTheId, Long userId) {
         GioHangChiTiet entity  = jpaQueryFactory.selectFrom(gioHangChiTiet)
-                .join(gioHang)
-                .on(gioHang.id.eq(gioHangChiTiet.gioHang))
+                .join(gioHangEntity)
+                .on(gioHangEntity.id.eq(gioHangChiTiet.gioHang))
                 .where(gioHangChiTiet.sanPhamBienThe.eq(spBienTheId),
-                        gioHang.userEntity.eq(userId))
+                        gioHangEntity.nguoiDungId.eq(userId))
                 .fetchOne();
         if(entity != null)
         this.gioHangChiTietRepository.delete(entity);
@@ -152,13 +152,13 @@ public class GioHangServiceImpl implements GioHangService {
     @Transactional
     @Override
     public List<GioHangChiTietResDto> dongBoGioHang(List<GioHangChiTietModel> models, Long userId) {
-        GioHang gioHang = findCartByUserId(userId);
+        GioHangEntity gioHang = findCartByUserId(userId);
         if(gioHang == null)
-            gioHang = add(GioHang
+            gioHang = add(GioHangEntity
                     .builder()
-                    .userEntity(userId)
+                    .nguoiDungId(userId)
                     .build());
-        GioHang finalGioHang = gioHang;
+        GioHangEntity finalGioHang = gioHang;
         models.forEach(item -> {
             GioHangChiTiet gioHangChiTiet = gioHangChiTietRepository.findByGioHangAndSanPhamBienThe(finalGioHang.getId(), item.getSanPhamBienThe());
             if(gioHangChiTiet == null)

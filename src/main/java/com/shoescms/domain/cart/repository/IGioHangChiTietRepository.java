@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GioHangChiTietRepository extends JpaRepository<GioHangChiTiet,Long>, JpaSpecificationExecutor<GioHangChiTiet> {
+public interface IGioHangChiTietRepository extends JpaRepository<GioHangChiTiet,Long>, JpaSpecificationExecutor<GioHangChiTiet> {
 
     @Query("SELECT c FROM GioHangChiTiet c WHERE c.gioHang = :gioHang AND c.sanPhamBienThe = :sanPhamBienThe")
     GioHangChiTiet findByGioHangAndSanPhamBienThe(

@@ -5,7 +5,7 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.cart.dto.GioHangChiTietDto;
 import com.shoescms.domain.cart.dto.GioHangChiTietResDto;
-import com.shoescms.domain.cart.entity.GioHang;
+import com.shoescms.domain.cart.entity.GioHangEntity;
 import com.shoescms.domain.cart.model.GioHangChiTietModel;
 import com.shoescms.domain.cart.service.GioHangService;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
@@ -33,10 +33,10 @@ public class GioHangResource {
             @RequestHeader("x-api-token") String token
             ) {
         Long userId = Long.valueOf(jwtTokenProvider.getUserPk(token));
-        GioHang gioHang = gioHangService.findCartByUserId(userId);
+        GioHangEntity gioHang = gioHangService.findCartByUserId(userId);
         SanPhamBienTheEntity sanPhamBienTheEntity = gioHangService.getBienTheBySanPhamId(model.getSanPhamBienThe());
         if(gioHang.getId() == null){
-            gioHang = gioHangService.add(GioHang.builder().userEntity(userId).build());
+            gioHang = gioHangService.add(GioHangEntity.builder().nguoiDungId(userId).build());
             model.setGioHang(gioHang.getId());
         }else {
             if(sanPhamBienTheEntity.getSoLuong() > 0) {

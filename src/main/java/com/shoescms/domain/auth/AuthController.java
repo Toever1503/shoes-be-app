@@ -47,8 +47,8 @@ public class AuthController {
 
     @Operation(summary = "로그인", description = "로그인")
     @PostMapping(value = "/auth/sign-in")
-    public CommonResult<SignInResDto> signIn(@Parameter(required = true, name = "reqDto", description = "사용자 로그인 정보") @RequestBody @Valid SignInReqDto reqDto) {
-        return baseResponse.getContentResult(authService.signIn(reqDto));
+    public SignInResDto signIn(@Parameter(required = true, name = "reqDto", description = "사용자 로그인 정보") @RequestBody @Valid SignInReqDto reqDto) {
+        return authService.signIn(reqDto);
     }
 
     @Operation(summary = "로그아웃", description = "로그아웃")

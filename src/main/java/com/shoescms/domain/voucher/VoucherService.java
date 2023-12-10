@@ -4,7 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import com.shoescms.domain.voucher.dto.VoucherDto;
 import com.shoescms.domain.voucher.dto.VoucherMetadataDto;
 import com.shoescms.domain.voucher.dto.VoucherReqDto;
@@ -31,7 +31,7 @@ import static com.shoescms.domain.voucher.entity.QVoucherEntity.voucherEntity;
 public class VoucherService {
 
     private final IVoucherRepository voucherRepository;
-    private final UserRepository userRepository;
+    private final INguoiDungRepository userRepository;
     private final JPAQueryFactory jpaQueryFactory;
 
     public void deleteByIds(List<Long> ids) {

@@ -1,4 +1,4 @@
-package com.shoescms.domain.payment.services.impl;
+package com.shoescms.domain.payment.services;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -9,11 +9,10 @@ import com.shoescms.domain.payment.entities.DanhGiaEntity;
 import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IDanhGiaRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
-import com.shoescms.domain.payment.services.IDanhGiaService;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,7 +28,7 @@ import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTiet
 import static com.shoescms.domain.payment.entities.QDanhGiaEntity.danhGiaEntity;
 
 @Service
-public class DanhGiaServiceImpl implements IDanhGiaService {
+public class DanhGiaServiceImpl  {
 
     @Autowired
     private IDanhGiaRepository repo;
@@ -43,10 +42,9 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
     @Autowired
-    private UserRepository userRepository;
+    private INguoiDungRepository userRepository;
 
     @Transactional
-    @Override
     public DanhGiaDto create(DanhGiaReqDTO danhGia) {
         // Thêm mới đánh giá và cập nhật sản phẩm
         DanhGiaEntity entity = DanhGiaEntity.builder()
@@ -83,12 +81,10 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     }
 
 
-    @Override
     public List<DanhGiaEntity> findByIds(List<Long> ids) {
         return repo.findByIds(ids);
     }
 
-    @Override
     public Page<DanhGiaDto> layDanhGiaChoSp(Long id, String q, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(chiTietDonHangEntity.spId.eq(id));
@@ -112,7 +108,6 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
     }
 
     @Transactional
-    @Override
     public void xoaDanhGia(Long id) {
         try{
             DanhGiaEntity danhGia = repo.findById(id).orElse(null);
@@ -133,7 +128,6 @@ public class DanhGiaServiceImpl implements IDanhGiaService {
         }
     }
 
-    @Override
     public Double findRatingBySanPham(Long idSanPham) {
         return repo.findRatingBySanPham(idSanPham);
     }

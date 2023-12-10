@@ -1,4 +1,4 @@
-package com.shoescms.domain.payment.services.impl;
+package com.shoescms.domain.payment.services;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.shoescms.common.exception.ObjectNotFoundException;
@@ -11,19 +11,16 @@ import com.shoescms.domain.payment.entities.DonHangEntity;
 import com.shoescms.domain.payment.repositories.IChiTietDonHangRepository;
 import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
-import com.shoescms.domain.payment.services.IDonHangService;
 import com.shoescms.domain.payment.services.PaymentService;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
-import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
-import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.repository.ISanPhamRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,13 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 import static com.shoescms.domain.payment.entities.QDonHangEntity.donHangEntity;
 
 @Service
 @RequiredArgsConstructor
-public class DonHangServiceImpl implements IDonHangService {
+public class DonHangServiceImpl  {
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
     private final IBienTheGiaTriRepository bienTheGiaTriRepository;
     private final FileRepository fileRepository;
@@ -51,12 +47,11 @@ public class DonHangServiceImpl implements IDonHangService {
     private final ISanPhamRepository sanPhamRepository;
     private final IDiaChiRepository diaChiRepository;
     private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
-    private final UserRepository userRepository;
+    private final INguoiDungRepository userRepository;
 
     private final JPAQueryFactory jpaQueryFactory;
     private final PaymentService paymentService;
 
-    @Override
     public Page<DonHangDto> filterEntities(Pageable pageable, Specification<DonHangEntity> specification) {
         Page<DonHangEntity> donHangDtoPage = donHangRepository.findAll(specification, pageable);
         return donHangDtoPage.map(donHangEntity -> {
@@ -69,7 +64,6 @@ public class DonHangServiceImpl implements IDonHangService {
         });
     }
 
-    @Override
     public DonHangDto chiTietDonHang(Long id) {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         DonHangDto dto = DonHangDto.toDto(donHangEntity);
@@ -87,7 +81,6 @@ public class DonHangServiceImpl implements IDonHangService {
     }
 
     @Transactional
-    @Override
     public void capNhatTrangThai(Long id, ETrangThaiDonHang trangThai, Long userId) {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         donHangEntity.setTrangThai(trangThai);
@@ -107,7 +100,6 @@ public class DonHangServiceImpl implements IDonHangService {
     }
 
     @Transactional
-    @Override
     public DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto) {
         DonHangEntity donHangEntity = new DonHangEntity();
         donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
@@ -196,17 +188,14 @@ public class DonHangServiceImpl implements IDonHangService {
         return donHangDto;
     }
 
-    @Override
     public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId,ETrangThaiDonHang trangThai, Pageable pageable) {
         return donHangRepository.findByNguoiMuaId(nguoiMuaId, trangThai, pageable);
     }
 
-    @Override
     public Page<DonHangEntity> findByNguoiMuaId(Long nguoiMuaId, Pageable pageable  ) {
         return donHangRepository.findByNguoiMuaId(nguoiMuaId, pageable);
     }
 
-    @Override
     public List<DonHangDto> traCuuDonHang(String q) {
         return jpaQueryFactory.selectFrom(donHangEntity)
                 .where(

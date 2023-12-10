@@ -1,7 +1,7 @@
 package com.shoescms.domain.user.dto;
 
 import com.shoescms.common.enums.RoleEnum;
-import com.shoescms.domain.user.entity.UserEntity;
+import com.shoescms.domain.user.entity.NguoiDungEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -35,8 +35,8 @@ public class UserReqDto {
     @Schema(description = "이메일", example = "example@seobuk.kr")
     private String email;
 
-    public UserEntity toEntity() {
-        return UserEntity.builder()
+    public NguoiDungEntity toEntity() {
+        return NguoiDungEntity.builder()
                 .userName(userName)
                 .name(name)
                 .phone(phone)

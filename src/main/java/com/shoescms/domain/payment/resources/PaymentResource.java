@@ -2,8 +2,8 @@ package com.shoescms.domain.payment.resources;
 
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.domain.payment.dtos.*;
-import com.shoescms.domain.payment.services.IDonHangService;
 import com.shoescms.domain.payment.services.PaymentService;
+import com.shoescms.domain.payment.services.DonHangServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import java.io.UnsupportedEncodingException;
 @RestController
 @RequestMapping(value = "/v1/payment")
 public class PaymentResource {
-    private final IDonHangService donHangService;
+    private final DonHangServiceImpl donHangService;
 
     private final JwtTokenProvider jwtTokenProvider;
 

@@ -5,8 +5,8 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.exception.ProcessFailedException;
 import com.shoescms.common.service.MailService;
 import com.shoescms.domain.cart.entity.GioHangChiTiet;
-import com.shoescms.domain.cart.repository.GioHangChiTietRepository;
-import com.shoescms.domain.cart.repository.GioHangRepository;
+import com.shoescms.domain.cart.repository.IGioHangChiTietRepository;
+import com.shoescms.domain.cart.repository.IGioHangRepository;
 import com.shoescms.domain.payment.dtos.*;
 import com.shoescms.domain.payment.entities.ChiTietDonHangEntity;
 import com.shoescms.domain.payment.entities.DiaChiEntity;
@@ -16,16 +16,14 @@ import com.shoescms.domain.payment.repositories.IDiaChiRepository;
 import com.shoescms.domain.payment.repositories.IDonHangRepository;
 import com.shoescms.domain.payment.resources.VnPayConfig;
 import com.shoescms.domain.product.dto.SanPhamMetadataResDto;
-import com.shoescms.domain.product.entitis.BienTheGiaTri;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
 import com.shoescms.domain.product.entitis.SanPhamEntity;
-import com.shoescms.domain.product.enums.ELoaiBienThe;
 import com.shoescms.domain.product.repository.IBienTheGiaTriRepository;
 import com.shoescms.domain.product.repository.ISanPhamBienTheRepository;
 import com.shoescms.domain.product.service.impl.ISanPhamBienTheServiceImpl;
 import com.shoescms.domain.user.UserService;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import com.shoescms.domain.voucher.VoucherService;
 import com.shoescms.domain.voucher.entity.EGiamGiaTheo;
 import com.shoescms.domain.voucher.entity.VoucherEntity;
@@ -49,14 +47,14 @@ public class PaymentService {
 
     private final IDonHangRepository donHangRepository;
     private final IDiaChiRepository diaChiRepository;
-    private final GioHangChiTietRepository gioHangChiTietRepository;
+    private final IGioHangChiTietRepository gioHangChiTietRepository;
     private final ISanPhamBienTheRepository sanPhamBienTheRepository;
-    private final GioHangRepository gioHangRepository;
+    private final IGioHangRepository gioHangRepository;
     private final IChiTietDonHangRepository chiTietDonHangRepository;
     private final ISanPhamBienTheServiceImpl sanPhamBienTheService;
 
     private final UserService userService;
-    private final UserRepository userRepository;
+    private final INguoiDungRepository userRepository;
     private final CommonConfig commonConfig;
     private final VoucherService voucherService;
 
@@ -123,7 +121,7 @@ public class PaymentService {
 
         // xoa gio hang sau khi dat thanh cong
         if (reqDto.getNguoiTao() != null)
-            gioHangChiTietRepository.deleteItemFromCart(reqDto.getGioHangTamThoiReqDto().stream().map(GioHangTamThoiReqDto::getSanPhamBienThe).toList(), gioHangRepository.findByUserEntity(reqDto.getNguoiTao()).getId());
+            gioHangChiTietRepository.deleteItemFromCart(reqDto.getGioHangTamThoiReqDto().stream().map(GioHangTamThoiReqDto::getSanPhamBienThe).toList(), gioHangRepository.findByNguoiDungId(reqDto.getNguoiTao()).getId());
 
         DonHangDto donHangDto = new DonHangDto();
         donHangDto.setId(donHangEntity.getId());

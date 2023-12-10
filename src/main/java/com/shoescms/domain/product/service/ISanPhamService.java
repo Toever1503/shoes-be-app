@@ -19,7 +19,7 @@ public interface ISanPhamService {
     Page<SanPhamEntity> getAll(Pageable pageable);
 
 
-    SanPhamDto add(SanPhamModel model);
+    SanPhamDto themSuaSp(SanPhamModel model);
 
 
     boolean deleteById(Long id);

@@ -25,7 +25,7 @@ import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import com.shoescms.domain.voucher.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -77,7 +77,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
     private VoucherService voucherService;
 
     @Autowired
-    private UserRepository userRepository;
+    private INguoiDungRepository userRepository;
 
 
     @Override
@@ -85,7 +85,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
         Page<SanPhamEntity> sanPhamPage = sanPhamRepository.findAll(specification, pageable);
         return sanPhamPage.map(item -> SanPhamDto.toDto(item)
                 .setAnhChinh(fileRepository.findById(item.getAnhChinh()).get())
-                .setNguoiTao(UsermetaDto.toDto(userRepository.findByIdUser(item.getNguoiTao()))));
+                .setNguoiTao(UsermetaDto.toDto(userRepository.findById(item.getNguoiTao()).orElse(null))));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Override
     @Transactional
-    public SanPhamDto add(SanPhamModel model) {
+    public SanPhamDto themSuaSp(SanPhamModel model) {
         checkProduct(model);
 
         SanPhamEntity entity = SanPhamEntity.builder()

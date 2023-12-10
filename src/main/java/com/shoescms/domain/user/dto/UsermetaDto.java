@@ -1,6 +1,6 @@
 package com.shoescms.domain.user.dto;
 
-import com.shoescms.domain.user.entity.UserEntity;
+import com.shoescms.domain.user.entity.NguoiDungEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class UsermetaDto {
     private String name;
     private String username;
 
-    public static UsermetaDto toDto(UserEntity entity){
+    public static UsermetaDto toDto(NguoiDungEntity entity){
         if(entity == null) return null;
         return UsermetaDto
                 .builder()
