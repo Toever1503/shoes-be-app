@@ -7,6 +7,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,7 +16,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_chi_tiet_don_hang")
 public class ChiTietDonHangEntity {
 
@@ -45,6 +45,6 @@ public class ChiTietDonHangEntity {
 
     @Column(name = "ngay_xoa")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date ngayXoa;
+    private LocalDateTime ngayXoa;
 
 }

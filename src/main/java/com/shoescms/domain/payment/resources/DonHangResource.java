@@ -75,7 +75,7 @@ public class DonHangResource {
         donHangService.capNhatTrangThai(id, trangThai, Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
     }
 
-     // for admin or employee
+    // for admin or employee
     @PostMapping
     public void themMoiDonHang(@RequestBody ThemMoiDonHangReqDto reqDto, @RequestHeader(name = "x-api-token") String xApiToken) {
         if (xApiToken != null) // luu thong tin nguoi tao
@@ -83,14 +83,26 @@ public class DonHangResource {
         donHangService.themMoiDonHang(reqDto);
     }
 
+    @PutMapping("cap-nhat/{id}")
+    public void capNhatMoiDonHang(
+            @PathVariable Long id,
+            @RequestBody ThemMoiDonHangReqDto reqDto,
+            @RequestHeader(name = "x-api-token") String xApiToken) {
+        if (xApiToken != null) // luu thong tin nguoi tao
+            reqDto.setNguoiTao(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
+        reqDto.setOrderId(id);
+        donHangService.themMoiDonHang(reqDto);
+    }
+
     @GetMapping("/lich-su-da-mua")
-    public Page<DonHangEntity> lichSuDaMua(@RequestHeader(name = "x-api-token") String xApiToken,@RequestParam(value = "trangThai", required = false) ETrangThaiDonHang trangThai,
+    public Page<DonHangEntity> lichSuDaMua(@RequestHeader(name = "x-api-token") String xApiToken, @RequestParam(value = "trangThai", required = false) ETrangThaiDonHang trangThai,
                                            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
         Long userId = Long.parseLong(jwtTokenProvider.getUserPk(xApiToken));
-        if(trangThai == null)
-            return donHangService.findByNguoiMuaId(userId,pageable);
-        return donHangService.findByNguoiMuaId(userId, trangThai,pageable);
+        if (trangThai == null)
+            return donHangService.findByNguoiMuaId(userId, pageable);
+        return donHangService.findByNguoiMuaId(userId, trangThai, pageable);
     }
+
     @GetMapping("/public/tra-cuu")
     public List<DonHangDto> traCuuDonHang(@RequestParam String q) {
         return donHangService.traCuuDonHang(q);

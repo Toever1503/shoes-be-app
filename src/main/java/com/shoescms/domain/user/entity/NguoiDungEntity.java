@@ -22,7 +22,6 @@ import java.util.Collection;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_user")
 public class NguoiDungEntity extends BaseDateEntity implements UserDetails {
     @Id

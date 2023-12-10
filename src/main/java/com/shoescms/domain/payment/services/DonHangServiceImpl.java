@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -56,9 +57,9 @@ public class DonHangServiceImpl  {
         Page<DonHangEntity> donHangDtoPage = donHangRepository.findAll(specification, pageable);
         return donHangDtoPage.map(donHangEntity -> {
             DonHangDto dto = DonHangDto.toDto(donHangEntity);
-            if(donHangEntity.getNguoiMuaId() != null)
+            if (donHangEntity.getNguoiMuaId() != null)
                 dto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
-            if(donHangEntity.getNguoiCapNhat() != null)
+            if (donHangEntity.getNguoiCapNhat() != null)
                 dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
             return dto;
         });
@@ -73,9 +74,9 @@ public class DonHangServiceImpl  {
             item.getSanPham().setAnhChinh(fileRepository.findById(sanPhamBienTheEntity.getSanPham().getAnhChinh()).orElse(null));
         });
 
-        if(donHangEntity.getNguoiMuaId() != null)
+        if (donHangEntity.getNguoiMuaId() != null)
             dto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
-        if(donHangEntity.getNguoiCapNhat() != null)
+        if (donHangEntity.getNguoiCapNhat() != null)
             dto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
         return dto;
     }
@@ -85,13 +86,23 @@ public class DonHangServiceImpl  {
         DonHangEntity donHangEntity = donHangRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(51));
         donHangEntity.setTrangThai(trangThai);
         donHangEntity.setNguoiCapNhat(userId);
-        if(trangThai.equals(ETrangThaiDonHang.COMPLETED)){
+
+        if (trangThai.equals(ETrangThaiDonHang.DELIVERING))
+            donHangEntity
+                    .getChiTietDonHangs()
+                    .forEach(gioHangChiTiet -> {
+                        SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(gioHangChiTiet.getPhanLoaiSpId()).orElseThrow(() -> new ObjectNotFoundException(8));
+                        int newSoLuong = sanPhamBienTheEntity.getSoLuong() - gioHangChiTiet.getSoLuong();
+                        sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
+                    });
+
+        if (trangThai.equals(ETrangThaiDonHang.COMPLETED)) {
             donHangEntity.getChiTietDonHangs()
                     .forEach(sp -> {
                         SanPhamEntity sanPhamEntity = sanPhamRepository.findById(sp.getSpId()).orElse(null);
-                        if(sanPhamEntity != null){
+                        if (sanPhamEntity != null) {
                             int daBan = Optional.ofNullable(sanPhamEntity.getDaBan()).orElse(0);
-                            sanPhamEntity.setDaBan(daBan+sp.getSoLuong());
+                            sanPhamEntity.setDaBan(daBan + sp.getSoLuong());
                             sanPhamRepository.saveAndFlush(sanPhamEntity);
                         }
                     });
@@ -101,8 +112,23 @@ public class DonHangServiceImpl  {
 
     @Transactional
     public DonHangDto themMoiDonHang(ThemMoiDonHangReqDto reqDto) {
-        DonHangEntity donHangEntity = new DonHangEntity();
-        donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
+        DonHangEntity donHangEntity;
+        if (reqDto.getOrderId() != null) {
+            donHangEntity = donHangRepository.findById(reqDto.getOrderId()).orElseThrow(() -> new ProcessFailedException("failed to find original order"));
+            chiTietDonHangRepository.saveAllAndFlush(
+                    donHangEntity
+                            .getChiTietDonHangs()
+                            .stream()
+                            .peek(ct -> ct.setNgayXoa(LocalDateTime.now()))
+                            .toList()
+            );
+//            chiTietDonHangRepository.deleteAllById(donHangEntity
+//                    .getChiTietDonHangs().stream().map(ChiTietDonHangEntity::getId).toList());
+            donHangEntity.setChiTietDonHangs(null);
+        } else donHangEntity = new DonHangEntity();
+
+        if (reqDto.getOrderId() == null)
+            donHangEntity.setMaDonHang(paymentService.getRandomNumber(10));
         donHangEntity.setPhuongThucTT(reqDto.getPhuongThucTT());
 
         AtomicReference<BigDecimal> tongTien = new AtomicReference<>(new BigDecimal(0));
@@ -113,8 +139,6 @@ public class DonHangServiceImpl  {
                     SanPhamBienTheEntity sanPhamBienTheEntity = sanPhamBienTheRepository.findById(sp.getSanPhamBienThe()).orElseThrow(() -> new ObjectNotFoundException(8));
                     tongTien.updateAndGet(v -> v.add(sanPhamBienTheEntity.getSanPham().getGiaMoi().multiply(BigDecimal.valueOf(sp.getSoLuong()))));
                     tongSanPham.updateAndGet(v -> v + sp.getSoLuong());
-                    int newSoLuong = sanPhamBienTheEntity.getSoLuong() - sp.getSoLuong();
-                    sanPhamBienTheService.capNhatSoLuongSanPhamChoBienThe(sanPhamBienTheEntity.getId(), Math.max(newSoLuong, 0));
                     return ChiTietDonHangEntity
                             .builder()
                             .phanLoaiSpId(sp.getSanPhamBienThe())
@@ -158,6 +182,8 @@ public class DonHangServiceImpl  {
         donHangDto.setPhuongThucTT(donHangEntity.getPhuongThucTT());
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
+
+        donHangDto.setTongTienSp(donHangEntity.getTongTienSP());
         donHangDto.setTongTienGiamGia(donHangEntity.getTongTienGiamGia());
         donHangDto.setPhiShip(donHangEntity.getPhiShip());
         donHangDto.setTongGiaTien(donHangEntity.getTongGiaTien());

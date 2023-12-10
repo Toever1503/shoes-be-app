@@ -14,7 +14,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_dia_chi")
 public class DiaChiEntity {
 

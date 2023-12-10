@@ -20,7 +20,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_don_hang")
 public class DonHangEntity {
     @Id
