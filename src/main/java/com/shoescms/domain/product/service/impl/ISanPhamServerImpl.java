@@ -280,7 +280,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
             builder.and(sanPhamBienTheEntity.bienThe1.eq(reqDto.getMau()));
         if(!ObjectUtils.isEmpty(reqDto.getSizeId()))
             builder.and(sanPhamBienTheEntity.bienThe2.eq(reqDto.getSizeId()));
-
+        if(!ObjectUtils.isEmpty(reqDto.getSoSaoDanhGia()))
+            builder.and(sanPhamEntity.tbDanhGia.between(reqDto.getSoSaoDanhGia(), reqDto.getSoSaoDanhGia() + 0.9f));
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 

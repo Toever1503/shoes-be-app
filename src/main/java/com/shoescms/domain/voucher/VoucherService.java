@@ -44,7 +44,10 @@ public class VoucherService {
 
     @Transactional
     public VoucherDto update(VoucherReqDto reqDto, long loggedUserId) {
+        VoucherEntity original = getById(reqDto.getId());
         VoucherEntity entity = reqDto.toEntity();
+        entity.setNgayTao(original.getNgayTao());
+        entity.setNguoiTao(original.getNguoiTao());
         entity.setNguoiCapNhat(loggedUserId);
         voucherRepository.saveAndFlush(entity);
         return VoucherDto.toDto(entity);

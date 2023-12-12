@@ -40,7 +40,6 @@ public class UserController {
     }
 
     @PatchMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('ACCOUNT_WRITE')")
     public CommonResult<CommonIdResult> approval(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
         return baseResponse.getContentResult(userService.approval(id));
     }
@@ -62,7 +61,6 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{id}")
-    @PreAuthorize("hasAuthority('ACCOUNT_WRITE')")
     public CommonResult<CommonIdResult> deleteUser(@Parameter(required = true, name = "id", description = "아이디") @PathVariable Long id) {
         return baseResponse.getContentResult(userService.deleteUser(id));
     }
@@ -94,21 +92,25 @@ public class UserController {
     }
 
     @GetMapping(value = "/list/staff")
-    public Page<UserResDto> getStaffUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
+    public Page<UserResDto> getStaffUserList(@RequestHeader(name ="x-api-token") String token,
+                                             @Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
                                              @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
                                              @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
                                              @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
                                              @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return userService.getStaffUserList(userId, name, phone, email, pageable);
+        Long loggedUserId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return userService.getStaffUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     @GetMapping(value = "/list/user")
-    public Page<UserResDto> getUserList(@Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
+    public Page<UserResDto> getUserList(@RequestHeader(name ="x-api-token") String token,
+                                        @Parameter(name = "userId", description = "사용자 아이디") @RequestParam(required = false) String userId,
                                             @Parameter(name = "name", description = "이름") @RequestParam(required = false) String name,
                                             @Parameter(name = "phone", description = "연락처") @RequestParam(required = false) String phone,
                                             @Parameter(name = "email", description = "이메일") @RequestParam(required = false) String email,
                                             @PageableDefault(sort="createDate", direction = Sort.Direction.DESC) @ParameterObject Pageable pageable) {
-        return userService.getStoreUserList(userId, name, phone, email, pageable);
+        Long loggedUserId = Long.valueOf(jwtTokenProvider.getUserPk(token));
+        return userService.getStoreUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     @GetMapping("/detail")

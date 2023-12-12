@@ -49,7 +49,7 @@ public class UserQueryRepository {
                 .fetchOne());
     }
 
-    public Page<UserResDto> findStaffUserList(String username, String name, String phone, String email, Pageable pageable) {
+    public Page<UserResDto> findStaffUserList(Long loggedUserId, String username, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (username != null)         builder.and(nguoiDungEntity.userName.eq(username));
         if (name != null)           builder.and(nguoiDungEntity.name.contains(name));
@@ -57,6 +57,7 @@ public class UserQueryRepository {
         if (email != null)          builder.and(nguoiDungEntity.email.contains(email));
         builder.and(nguoiDungEntity.role.roleCd.in("ROLE_ADMIN", "ROLE_STAFF"));
         builder.and(nguoiDungEntity.del.isFalse());
+        builder.and(nguoiDungEntity.id.ne(loggedUserId));
 
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,
@@ -86,7 +87,7 @@ public class UserQueryRepository {
         return new PageImpl<>(content, pageable, total);
     }
 
-    public Page<UserResDto> findStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
+    public Page<UserResDto> findStoreUserList(Long loggedUserId, String userId, String name, String phone, String email, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         if (userId != null)     builder.and(nguoiDungEntity.userName.eq(userId));
         if (name != null)       builder.and(nguoiDungEntity.name.contains(name));
@@ -94,6 +95,7 @@ public class UserQueryRepository {
         if (email != null)      builder.and(nguoiDungEntity.email.contains(email));
         builder.and(nguoiDungEntity.del.isFalse());
         builder.and(nguoiDungEntity.role.roleCd.eq("ROLE_USER"));
+        builder.and(nguoiDungEntity.id.ne(loggedUserId));
 
         List<UserResDto> content = jpaQueryFactory
                 .select(Projections.constructor(UserResDto.class,

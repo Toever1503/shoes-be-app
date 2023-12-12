@@ -151,6 +151,7 @@ public class UserService {
     public CommonIdResult deleteUser(Long id) {
         NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         nguoiDungEntity.setDel();
+        userRepository.saveAndFlush(nguoiDungEntity);
         return new CommonIdResult(id);
     }
 
@@ -257,13 +258,13 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserResDto> getStaffUserList(String userId, String name,  String phone, String email,  Pageable pageable) {
-        return userQueryRepository.findStaffUserList(userId, name, phone, email, pageable);
+    public Page<UserResDto> getStaffUserList(Long loggedUserId, String userId, String name,  String phone, String email,  Pageable pageable) {
+        return userQueryRepository.findStaffUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<UserResDto> getStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
-        return userQueryRepository.findStoreUserList(userId, name, phone, email, pageable);
+    public Page<UserResDto> getStoreUserList(Long loggedUserId, String userId, String name, String phone, String email, Pageable pageable) {
+        return userQueryRepository.findStoreUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     public void addNewUser(UserUpdateReqDto reqDto) {

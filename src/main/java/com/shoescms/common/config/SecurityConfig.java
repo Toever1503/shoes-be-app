@@ -75,7 +75,7 @@ public class SecurityConfig {
             "/*/auth/**",
             "/*/user/sign-up",
             "/*/user/find-id",
-            "/*/user/find-pw",
+            "/v1/user/find-pw/**",
             "/*/user/{id}/password",
             "/*/kiosk/seq",
             "/*/file/**",
