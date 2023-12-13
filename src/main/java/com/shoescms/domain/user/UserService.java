@@ -176,6 +176,7 @@ public class UserService {
         dto.setExpire(expire);
         String param = gson.toJson(dto);
 
+
         // encrypt info
         StringBuilder expired = new StringBuilder();
         String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
@@ -186,9 +187,10 @@ public class UserService {
                 InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String content = streamOfString.collect(Collectors.joining());
-                content = content.replaceAll("__enc_param", email);
-                content = content.replaceAll("__enc_token", token);
-                content = content.replaceAll("__password_change_url", config.getForgotPass());
+                content = content.replace("__enc_param", email)
+                        .replace("__enc_token", token)
+                        .replace("__password_change_url", config.getForgotPass());
+
                 log.info(content);
                 if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
                     throw new AuthFailedException();
