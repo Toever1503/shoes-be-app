@@ -7,12 +7,12 @@ import com.shoescms.common.exception.*;
 import com.shoescms.common.model.response.CommonIdResult;
 import com.shoescms.common.security.JwtTokenProvider;
 import com.shoescms.common.service.MailService;
-import com.shoescms.domain.auth.entity.RoleEntity;
-import com.shoescms.domain.auth.repository.RoleRepository;
+import com.shoescms.domain.auth.entity.VaiTroEntity;
+import com.shoescms.domain.auth.repository.IVaiTroRepository;
 import com.shoescms.domain.user.dto.*;
-import com.shoescms.domain.user.entity.UserEntity;
+import com.shoescms.domain.user.entity.NguoiDungEntity;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import com.shoescms.domain.user.repository.UserQueryRepository;
-import com.shoescms.domain.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
@@ -35,15 +35,15 @@ import java.util.stream.Stream;
 @Transactional
 public class UserService {
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
+    private final INguoiDungRepository userRepository;
     private final UserQueryRepository userQueryRepository;
-    private final RoleRepository roleRepository;
+    private final IVaiTroRepository roleRepository;
     private final CommonConfig config;
     private final MailService mailService;
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService,JwtTokenProvider jwtTokenProvider) {
+    public UserService(PasswordEncoder passwordEncoder, INguoiDungRepository userRepository, UserQueryRepository userQueryRepository, IVaiTroRepository roleRepository, CommonConfig config, MailService mailService, JwtTokenProvider jwtTokenProvider) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.userQueryRepository = userQueryRepository;
@@ -52,8 +52,8 @@ public class UserService {
         this.mailService = mailService;
         this.jwtTokenProvider = jwtTokenProvider;
 //        initRole();
-// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
-//         UserEntity.builder()
+// nguoiDungEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+//         nguoiDungEntity.builder()
 //                 .userName("admin")
 //                 .password(this.passwordEncoder.encode("123456"))
 //                 .name("admin")
@@ -75,8 +75,8 @@ public class UserService {
 //        this.config = config;
 //        this.mailService = mailService;
 //        initRole();
-// UserEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
-//         UserEntity.builder()
+// nguoiDungEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+//         nguoiDungEntity.builder()
 //                 .userName("admin")
 //                 .password(this.passwordEncoder.encode("123456"))
 //                 .name("admin")
@@ -91,15 +91,15 @@ public class UserService {
 //    }
 
     private void initRole(){
-        this.roleRepository.saveAndFlush(RoleEntity.builder()
+        this.roleRepository.saveAndFlush(VaiTroEntity.builder()
                         .id(RoleEnum.ROLE_ADMIN.getId())
                         .roleCd(RoleEnum.ROLE_ADMIN.getTitle())
                 .build());
-        this.roleRepository.saveAndFlush(RoleEntity.builder()
+        this.roleRepository.saveAndFlush(VaiTroEntity.builder()
                 .id(RoleEnum.ROLE_STAFF.getId())
                 .roleCd(RoleEnum.ROLE_STAFF.getTitle())
                 .build());
-        this.roleRepository.saveAndFlush(RoleEntity.builder()
+        this.roleRepository.saveAndFlush(VaiTroEntity.builder()
                 .id(RoleEnum.ROLE_USER.getId())
                 .roleCd(RoleEnum.ROLE_USER.getTitle())
                 .build());
@@ -109,48 +109,49 @@ public class UserService {
         if (userRepository.findByUserNameAndDel(reqDto.getUserName(), false).isPresent())
             throw new ObjectAlreadExistException("userName");
 
-        UserEntity userEntity = reqDto.toEntity();
+        NguoiDungEntity nguoiDungEntity = reqDto.toEntity();
         System.out.println("pass = " + reqDto.getPassword());
-        userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
 
-        userEntity.setApproved(true);
+        nguoiDungEntity.setApproved(true);
 
-        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        nguoiDungEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
 
-        return new CommonIdResult(userRepository.save(userEntity).getId());
+        return new CommonIdResult(userRepository.save(nguoiDungEntity).getId());
     }
 
     @Transactional
     public CommonIdResult approval(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userEntity.setApproved(true);
-        return new CommonIdResult(userEntity.getId());
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        nguoiDungEntity.setApproved(true);
+        return new CommonIdResult(nguoiDungEntity.getId());
     }
 
     @Transactional
     public CommonIdResult updateUser(Long id, UserUpdateReqDto reqDto) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userEntity.update(reqDto);
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        nguoiDungEntity.update(reqDto);
         if(reqDto.getRole() != null)
-            userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+            nguoiDungEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
 
         if(reqDto.getPassword() != null)
-            userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
-        userRepository.saveAndFlush(userEntity);
-        return new CommonIdResult(userEntity.getId());
+            nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        userRepository.saveAndFlush(nguoiDungEntity);
+        return new CommonIdResult(nguoiDungEntity.getId());
     }
     @Transactional
     public CommonIdResult forgotPass(Long id, UserForgot reqDto) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
-        userEntity.update(userEntity);
-        return new CommonIdResult(userEntity.getId());
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
+        nguoiDungEntity.update(nguoiDungEntity);
+        return new CommonIdResult(nguoiDungEntity.getId());
     }
 
     @Transactional
     public CommonIdResult deleteUser(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userEntity.setDel();
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        nguoiDungEntity.setDel();
+        userRepository.saveAndFlush(nguoiDungEntity);
         return new CommonIdResult(id);
     }
 
@@ -161,25 +162,25 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public List<String> findId(String name, String phone) {
-        return userRepository.findByNameAndPhone(name, phone).stream().map(UserEntity::getUsername).toList();
+        return userRepository.findByNameAndPhone(name, phone).stream().map(NguoiDungEntity::getUsername).toList();
     }
     @Transactional(readOnly = true)
     public void findPassword(String email) throws Exception {
-        UserEntity userEntity = userRepository.findByEmail(email);
+        NguoiDungEntity nguoiDungEntity = userRepository.findByEmail(email);
 
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
         String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Gson gson = new Gson();
         UserPasswordCodeDto dto = new UserPasswordCodeDto();
-        dto.setId(userEntity.getId());
+        dto.setId(nguoiDungEntity.getId());
         dto.setExpire(expire);
         String param = gson.toJson(dto);
 
 
         // encrypt info
         StringBuilder expired = new StringBuilder();
-        String token = jwtTokenProvider.createToken(String.valueOf(userEntity.getId()), List.of(userEntity.getRole().getRoleCd()), expired);
+        String token = jwtTokenProvider.createToken(String.valueOf(nguoiDungEntity.getId()), List.of(nguoiDungEntity.getRole().getRoleCd()), expired);
         ClassPathResource resource = new ClassPathResource("templates/html/mail-body.html");
         if (resource.exists()) {
             try {
@@ -192,7 +193,7 @@ public class UserService {
                         .replace("__password_change_url", config.getForgotPass());
 
                 log.info(content);
-                if (!mailService.sendMail(userEntity.getEmail(), "Quên mật khẩu", content))
+                if (!mailService.sendMail(nguoiDungEntity.getEmail(), "Quên mật khẩu", content))
                     throw new AuthFailedException();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -204,14 +205,14 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public void findPassword(String userName, String name, String email) throws Exception {
-        UserEntity userEntity = userRepository.findByUserNameAndNameAndEmail(userName, name, email).orElseThrow(UserNotFoundException::new);
+        NguoiDungEntity nguoiDungEntity = userRepository.findByUserNameAndNameAndEmail(userName, name, email).orElseThrow(UserNotFoundException::new);
 
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
         String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         Gson gson = new Gson();
         UserPasswordCodeDto dto = new UserPasswordCodeDto();
-        dto.setId(userEntity.getId());
+        dto.setId(nguoiDungEntity.getId());
         dto.setExpire(expire);
         String param = gson.toJson(dto);
 
@@ -227,7 +228,7 @@ public class UserService {
                 content = content.replaceAll("__enc_param", encParam);
                 content = content.replaceAll("__password_change_url", config.getVnpayRedirectURl());
                 log.info(content);
-                if (!mailService.sendMail(userEntity.getEmail(), "포토이즘 비밀번호 변경", content))
+                if (!mailService.sendMail(nguoiDungEntity.getEmail(), "포토이즘 비밀번호 변경", content))
                     throw new AuthFailedException();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -239,37 +240,37 @@ public class UserService {
 
     @Transactional
     public CommonIdResult changePassword(Long id, ChangePasswordReqDto reqDto) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        String oldPassword = userEntity.getPassword() != null ? userEntity.getPassword() : userEntity.getTmpPassword();
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        String oldPassword = nguoiDungEntity.getPassword() != null ? nguoiDungEntity.getPassword() : nguoiDungEntity.getTmpPassword();
         if (!passwordEncoder.matches(reqDto.getOldPassword(), oldPassword)) {
             throw new SigninFailedException("ID/PW");
         }
 
-        userEntity.setPassword(passwordEncoder.encode(reqDto.getNewPassword()));
-        userEntity.setTmpPassword(null);
-        return new CommonIdResult(userEntity.getId());
+        nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getNewPassword()));
+        nguoiDungEntity.setTmpPassword(null);
+        return new CommonIdResult(nguoiDungEntity.getId());
     }
 
     @Transactional
     public CommonIdResult resetPassword(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        userEntity.setPassword(null);
-        userEntity.setTmpPassword(passwordEncoder.encode(userEntity.getUsername()));
-        return new CommonIdResult(userEntity.getId());
+        NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        nguoiDungEntity.setPassword(null);
+        nguoiDungEntity.setTmpPassword(passwordEncoder.encode(nguoiDungEntity.getUsername()));
+        return new CommonIdResult(nguoiDungEntity.getId());
     }
 
     @Transactional(readOnly = true)
-    public Page<UserResDto> getStaffUserList(String userId, String name,  String phone, String email,  Pageable pageable) {
-        return userQueryRepository.findStaffUserList(userId, name, phone, email, pageable);
+    public Page<UserResDto> getStaffUserList(Long loggedUserId, String userId, String name,  String phone, String email,  Pageable pageable) {
+        return userQueryRepository.findStaffUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<UserResDto> getStoreUserList(String userId, String name, String phone, String email, Pageable pageable) {
-        return userQueryRepository.findStoreUserList(userId, name, phone, email, pageable);
+    public Page<UserResDto> getStoreUserList(Long loggedUserId, String userId, String name, String phone, String email, Pageable pageable) {
+        return userQueryRepository.findStoreUserList(loggedUserId, userId, name, phone, email, pageable);
     }
 
     public void addNewUser(UserUpdateReqDto reqDto) {
-        UserEntity userEntity = UserEntity
+        NguoiDungEntity nguoiDungEntity = NguoiDungEntity
                 .builder()
                 .userName(reqDto.getUserId())
                 .name(reqDto.getName())
@@ -280,12 +281,12 @@ public class UserService {
                 .birthDate(reqDto.getBirthDate())
                 .approved(true)
                 .build();
-        userEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
-        userRepository.saveAndFlush(userEntity);
+        nguoiDungEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
+        userRepository.saveAndFlush(nguoiDungEntity);
     }
 
     @Transactional(readOnly = true)
-    public UserEntity findById(Long id) {
-        return userRepository.findByIdUser(id);
+    public NguoiDungEntity findById(Long id) {
+        return userRepository.findById(id).orElseGet(null);
     }
 }

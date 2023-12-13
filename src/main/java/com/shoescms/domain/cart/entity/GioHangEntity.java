@@ -1,6 +1,5 @@
 package com.shoescms.domain.cart.entity;
 
-import com.shoescms.domain.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,12 +11,12 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class GioHang {
+public class GioHangEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "user_entity")
-    private Long userEntity;
+    private Long nguoiDungId;
 }

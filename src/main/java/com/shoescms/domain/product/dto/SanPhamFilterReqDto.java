@@ -20,6 +20,7 @@ public class SanPhamFilterReqDto {
     private ESex gioiTinh;
     private Long mau;
     private Long sizeId;
+    private Float soSaoDanhGia;
     private List<BigDecimal> khoangGia;
     private List<LocalDateTime> createdAtRange;
 }

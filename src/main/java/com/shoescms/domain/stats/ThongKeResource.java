@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("v1/stats")
-public class StatsResource {
+public class ThongKeResource {
     private final ThongKeService thongKeService;
 
-    public StatsResource(ThongKeService thongKeService) {
+    public ThongKeResource(ThongKeService thongKeService) {
         this.thongKeService = thongKeService;
     }
 

@@ -2,10 +2,8 @@ package com.shoescms.domain.user.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shoescms.common.model.BaseDateEntity;
-import com.shoescms.domain.auth.entity.RoleEntity;
+import com.shoescms.domain.auth.entity.VaiTroEntity;
 import com.shoescms.domain.product.enums.ESex;
-import com.shoescms.domain.user.dto.UserForgot;
-import com.shoescms.domain.user.dto.UserReqDto;
 import com.shoescms.domain.user.dto.UserUpdateReqDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +22,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_user")
-public class UserEntity extends BaseDateEntity implements UserDetails {
+public class NguoiDungEntity extends BaseDateEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
@@ -69,7 +65,7 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false, columnDefinition = "BIGINT COMMENT 'user role'")
-    private RoleEntity role;
+    private VaiTroEntity role;
 
     @Transient
     @Setter
@@ -126,7 +122,7 @@ public class UserEntity extends BaseDateEntity implements UserDetails {
         if (reqDto.getPhone() != null)          this.phone = reqDto.getPhone();
         if (reqDto.getEmail() != null)          this.email = reqDto.getEmail();
     }
-    public void update(UserEntity reqDto) {
+    public void update(NguoiDungEntity reqDto) {
         if (reqDto.getPassword() != null)       this.password = reqDto.getPassword();
     }
 

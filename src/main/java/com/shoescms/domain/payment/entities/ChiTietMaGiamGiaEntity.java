@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@DynamicInsert
 @Table(name = "tb_chi_tiet_ma_giam_gia")
 public class ChiTietMaGiamGiaEntity {
 

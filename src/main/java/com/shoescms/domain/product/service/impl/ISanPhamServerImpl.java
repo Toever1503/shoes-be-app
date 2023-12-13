@@ -11,7 +11,6 @@ import com.shoescms.common.exception.ObjectNotFoundException;
 import com.shoescms.common.model.FileEntity;
 import com.shoescms.common.model.repositories.FileRepository;
 import com.shoescms.common.utils.ASCIIConverter;
-import com.shoescms.domain.payment.entities.DanhGia;
 import com.shoescms.domain.product.dto.*;
 import com.shoescms.domain.product.entitis.DMGiayEntity;
 import com.shoescms.domain.product.entitis.SanPhamBienTheEntity;
@@ -26,7 +25,7 @@ import com.shoescms.domain.product.service.ISanPhamService;
 import com.shoescms.domain.product.models.SanPhamModel;
 import com.shoescms.domain.product.service.SanPhamBienTheService;
 import com.shoescms.domain.user.dto.UsermetaDto;
-import com.shoescms.domain.user.repository.UserRepository;
+import com.shoescms.domain.user.repository.INguoiDungRepository;
 import com.shoescms.domain.voucher.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -45,8 +44,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.shoescms.domain.payment.entities.QChiTietDonHangEntity.chiTietDonHangEntity;
-import static com.shoescms.domain.payment.entities.QDanhGia.danhGia;
 import static com.shoescms.domain.product.entitis.QBienTheGiaTri.bienTheGiaTri;
 import static com.shoescms.domain.product.entitis.QSanPhamBienTheEntity.sanPhamBienTheEntity;
 import static com.shoescms.domain.product.entitis.QSanPhamEntity.sanPhamEntity;
@@ -80,7 +77,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
     private VoucherService voucherService;
 
     @Autowired
-    private UserRepository userRepository;
+    private INguoiDungRepository userRepository;
 
 
     @Override
@@ -88,7 +85,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
         Page<SanPhamEntity> sanPhamPage = sanPhamRepository.findAll(specification, pageable);
         return sanPhamPage.map(item -> SanPhamDto.toDto(item)
                 .setAnhChinh(fileRepository.findById(item.getAnhChinh()).get())
-                .setNguoiTao(UsermetaDto.toDto(userRepository.findByIdUser(item.getNguoiTao()))));
+                .setNguoiTao(UsermetaDto.toDto(userRepository.findById(item.getNguoiTao()).orElse(null))));
     }
 
     @Override
@@ -98,7 +95,7 @@ public class ISanPhamServerImpl implements ISanPhamService {
 
     @Override
     @Transactional
-    public SanPhamDto add(SanPhamModel model) {
+    public SanPhamDto themSuaSp(SanPhamModel model) {
         checkProduct(model);
 
         SanPhamEntity entity = SanPhamEntity.builder()
@@ -283,7 +280,8 @@ public class ISanPhamServerImpl implements ISanPhamService {
             builder.and(sanPhamBienTheEntity.bienThe1.eq(reqDto.getMau()));
         if(!ObjectUtils.isEmpty(reqDto.getSizeId()))
             builder.and(sanPhamBienTheEntity.bienThe2.eq(reqDto.getSizeId()));
-
+        if(!ObjectUtils.isEmpty(reqDto.getSoSaoDanhGia()))
+            builder.and(sanPhamEntity.tbDanhGia.between(reqDto.getSoSaoDanhGia(), reqDto.getSoSaoDanhGia() + 0.9f));
 
         List<OrderSpecifier<?>> orders = getOrderSpecifiers(pageable);
 

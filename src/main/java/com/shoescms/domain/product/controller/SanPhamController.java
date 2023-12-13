@@ -40,11 +40,11 @@ public class SanPhamController {
     ISanPhamBienTheServiceImpl iSanPhamBienTheService;
 
     @PostMapping(value = "/save-step1")
-    public SanPhamDto addSanPham(@RequestBody SanPhamModel model,
+    public SanPhamDto themSuaSp(@RequestBody SanPhamModel model,
                                  @RequestHeader("x-api-token") String xApiToken) {
         model.setNguoiCapNhat(Long.parseLong(jwtTokenProvider.getUserPk(xApiToken)));
         if (model.getId() == null) model.setNguoiTao(model.getNguoiCapNhat());
-        return this.iSanPhamService.add(model);
+        return this.iSanPhamService.themSuaSp(model);
     }
 
     @PatchMapping("/thay-doi-phan-loai/{id}")

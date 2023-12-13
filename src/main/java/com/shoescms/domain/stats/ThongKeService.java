@@ -51,15 +51,15 @@ public class ThongKeService {
                 donHangEntity.ngayTao.as("time"),
                                 donHangEntity.trangThai
                                         .when(ETrangThaiDonHang.COMPLETED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .otherwise(new BigDecimal(0))
                                         .sum()
                                         .castToNum(BigDecimal.class).as("total"),
                                 donHangEntity.trangThai
                                         .when(ETrangThaiDonHang.PHONE_RETURNED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .otherwise(new BigDecimal(0))
                                         .sum()
                                         .castToNum(BigDecimal.class).as("returned")        ))
@@ -83,15 +83,15 @@ public class ThongKeService {
                                 donHangEntity.ngayTao.hour().as("time"),
                                 donHangEntity.trangThai
                                         .when(ETrangThaiDonHang.COMPLETED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .otherwise(new BigDecimal(0))
                                         .sum()
                                         .castToNum(BigDecimal.class).as("total"),
                                 donHangEntity.trangThai
                                         .when(ETrangThaiDonHang.PHONE_RETURNED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .when(ETrangThaiDonHang.WRONG_SP_RETURNED)
-                                        .then(donHangEntity.tongGiaCuoiCung)
+                                        .then(donHangEntity.tongTienSP)
                                         .otherwise(new BigDecimal(0))
                                         .sum()
                                         .castToNum(BigDecimal.class).as("returned")
@@ -124,7 +124,7 @@ public class ThongKeService {
                 });
 
         map.put("total", Optional
-                .ofNullable(jpaQueryFactory.select(donHangEntity.tongGiaCuoiCung.sum())
+                .ofNullable(jpaQueryFactory.select(donHangEntity.tongTienSP.sum())
                 .from(donHangEntity)
                 .where(builder, donHangEntity.trangThai.eq(ETrangThaiDonHang.COMPLETED))
                 .fetchOne())
@@ -135,6 +135,7 @@ public class ThongKeService {
     public Page<StatsProductRevenueDto> doanhThuTungSanPham(String startDate, String endDate, Pageable pageable) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(donHangEntity.ngayXoa.isNull());
+        builder.and(donHangEntity.trangThai.eq(ETrangThaiDonHang.COMPLETED));
         builder.and(donHangEntity.ngayTao.between(LocalDateTime.parse(startDate),LocalDateTime.parse(endDate)));
 
         NumberExpression t = chiTietDonHangEntity.soLuong.multiply(chiTietDonHangEntity.giaTien).sum().castToNum(BigDecimal.class);
