@@ -79,10 +79,9 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     protected CommonBaseResult objectNotFoundSuccessException(HttpServletRequest request, ObjectNotFoundException e) {
         String message = getMessage("validate.code" + e.getCode());
-        if (e.getMessage() != null) {
+        if (e.getMessage() != null)
             message = message + "(" + e.getMessage() +")";
-        }
-        return baseResponse.getFailResult(Integer.parseInt(getMessage("objectNotFound.code")), message);
+        return baseResponse.getFailResult(e.getCode(), message);
     }
 
     @ExceptionHandler(SigninFailedException.class)

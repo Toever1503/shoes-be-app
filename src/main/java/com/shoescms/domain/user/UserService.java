@@ -167,7 +167,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public void findPassword(String email) throws Exception {
         NguoiDungEntity nguoiDungEntity = userRepository.findByEmail(email);
-
+        if(nguoiDungEntity == null)
+            throw new ObjectNotFoundException(20);
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
         String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
