@@ -67,6 +67,7 @@ public class PaymentService {
         // luu thong tin don hang
         DonHangEntity donHangEntity = new DonHangEntity();
         donHangEntity.setNguoiMuaId(reqDto.getNguoiTao());
+        donHangEntity.setTongTienGiamGia(BigDecimal.ZERO);
         //ma don hang
         donHangEntity.setMaDonHang(getRandomNumber(10));
 
