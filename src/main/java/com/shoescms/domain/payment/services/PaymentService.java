@@ -94,9 +94,7 @@ public class PaymentService {
             donHangEntity.setDiaChiEntity(diaChi);
 
             diaChiDto = DiaChiDto.toDto(diaChi);
-        }
-        else
-        {
+        } else {
             DiaChiEntity diaChi = diaChiRepository.findById(reqDto.getDiaChiId()).orElseThrow(() -> new ObjectNotFoundException(1));
             donHangEntity.setDiaChiEntity(diaChi);
             diaChiDto = DiaChiDto.toDto(diaChi);
@@ -112,7 +110,7 @@ public class PaymentService {
             else
                 donHangEntity.setTongTienGiamGia(donHangEntity.getTongGiaTien().multiply(BigDecimal.valueOf(voucherEntity.getPhanTramGiam() / 100)));
             donHangEntity.setTongGiaCuoiCung(donHangEntity.getTongGiaTien().subtract(donHangEntity.getTongTienGiamGia()));
-            voucherEntity.setSoLuotDaDung(Optional.ofNullable(voucherEntity.getSoLuotDaDung()).orElse(0)+1);
+            voucherEntity.setSoLuotDaDung(Optional.ofNullable(voucherEntity.getSoLuotDaDung()).orElse(0) + 1);
             voucherService.updateEntity(voucherEntity);
         }
         donHangRepository.saveAndFlush(donHangEntity);
@@ -133,9 +131,9 @@ public class PaymentService {
         donHangDto.setPhiShip(donHangEntity.getPhiShip());
         donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
 
-        if(donHangEntity.getNguoiMuaId() != null)
+        if (donHangEntity.getNguoiMuaId() != null)
             donHangDto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));
-        if(donHangEntity.getNguoiCapNhat() != null)
+        if (donHangEntity.getNguoiCapNhat() != null)
             donHangDto.setNguoiCapNhat(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiCapNhat()).orElse(null)));
 
         List<ChiTietDonHangDto> chiTietDonHangDtos = new ArrayList<>();
@@ -162,10 +160,10 @@ public class PaymentService {
             item.setSanPham(SanPhamMetadataResDto.toDto(sanPhamBienTheEntity.getSanPham()));
         });
 
-        if(reqDto.getEmail() != null)
+        if (reqDto.getEmail() != null)
             new Thread(() -> {
                 try {
-                    System.out.println("don Hang gui mail "+ donHangDto);
+                    System.out.println("don Hang gui mail " + donHangDto);
                     Map<String, Object> context = new HashMap<>();
                     context.put("order", donHangDto);
                     System.out.println("send mail to " + reqDto.getEmail());
@@ -190,6 +188,9 @@ public class PaymentService {
             BigDecimal tongTienSp = sanPhamEntity.getGiaMoi().multiply(BigDecimal.valueOf(gioHangTamThoiReqDto.get(i).getSoLuong().doubleValue()));
             tongTien = tongTien.add(tongTienSp);
             tongSanPham += gioHangTamThoiReqDto.get(i).getSoLuong();
+
+            if (sanPhamBienTheEntity.getSoLuong() < gioHangTamThoiReqDto.get(i).getSoLuong())
+                throw new ObjectNotFoundException(60);
 
             // tao thong tin
             ChiTietDonHangEntity chiTietDonHang = new ChiTietDonHangEntity();

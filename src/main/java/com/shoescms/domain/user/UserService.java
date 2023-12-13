@@ -144,6 +144,7 @@ public class UserService {
         NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
         nguoiDungEntity.update(nguoiDungEntity);
+        userRepository.saveAndFlush(nguoiDungEntity);
         return new CommonIdResult(nguoiDungEntity.getId());
     }
 

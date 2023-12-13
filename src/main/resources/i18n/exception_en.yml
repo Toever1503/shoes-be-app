@@ -51,8 +51,10 @@ validate:
   code55: "Dữ liệu hiện không có!"
   code6: "Biến Thể Không tồn tại . Vui Lòng chọn Lại!"
   code7: "Biến Thể Giá Trị Không tồn tại . Vui Lòng chọn Lại!"
-  code8 : "Sản Phẩm Không Tồn Tại . Vui Lòng Chọn Lại"
+  code8: "Sản Phẩm Không Tồn Tại . Vui Lòng Chọn Lại"
   code20: "Tài khoản không tồn tại!"
   code50: "Sản phẩm đã hết hàng"
   code51: "Đơn hàng không tồn tại!"
+  # user-gio hang
+  code60: "Sản phẩm trong giỏ bạn đặt hiện đã hết hàng!"
 
