@@ -147,6 +147,7 @@ public class UserService {
         NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
         nguoiDungEntity.update(nguoiDungEntity);
+        userRepository.saveAndFlush(nguoiDungEntity);
         return new CommonIdResult(nguoiDungEntity.getId());
     }
 
@@ -170,7 +171,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public void findPassword(String email) throws Exception {
         NguoiDungEntity nguoiDungEntity = userRepository.findByEmail(email);
-
+        if(nguoiDungEntity == null)
+            throw new ObjectNotFoundException(20);
         // make expire time
         LocalDateTime currentTime = LocalDateTime.now().plusDays(1L);
         String expire = currentTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -179,6 +181,7 @@ public class UserService {
         dto.setId(nguoiDungEntity.getId());
         dto.setExpire(expire);
         String param = gson.toJson(dto);
+
 
         // encrypt info
         StringBuilder expired = new StringBuilder();
@@ -190,9 +193,10 @@ public class UserService {
                 InputStreamReader inputStreamReader =  new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String content = streamOfString.collect(Collectors.joining());
-                content = content.replaceAll("__enc_param", email);
-                content = content.replaceAll("__enc_token", token);
-                content = content.replaceAll("__password_change_url", config.getForgotPass());
+                content = content.replace("__enc_param", email)
+                        .replace("__enc_token", token)
+                        .replace("__password_change_url", config.getForgotPass());
+
                 log.info(content);
                 if (!mailService.sendMail(nguoiDungEntity.getEmail(), "Quên mật khẩu", content))
                     throw new AuthFailedException();

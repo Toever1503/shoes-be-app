@@ -2,8 +2,11 @@ package com.shoescms.common.service;
 
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -33,10 +36,21 @@ public class MailService {
 
     public boolean sendMail(String to, String subject, String content) {
         MimeMessagePreparator preparator = mimeMessage -> {
-            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            mimeMessage.setFrom(new InternetAddress(from));
-            mimeMessage.setSubject(subject, "utf-8");
-            mimeMessage.setText(content, "utf-8", "templates/html");
+            try {
+                mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                mimeMessage.setFrom(new InternetAddress(from));
+                mimeMessage.setSubject(subject, "utf-8");
+
+                MimeBodyPart mimeBodyPart = new MimeBodyPart();
+                mimeBodyPart.setText(content, "utf-8", "html");
+
+                Multipart multipart = new MimeMultipart();
+                multipart.addBodyPart(mimeBodyPart);
+
+                mimeMessage.setContent(multipart);
+            } catch (MessagingException e) {
+                log.error("MessagingException", e);
+            }
         };
 
         try {
