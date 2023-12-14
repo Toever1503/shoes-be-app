@@ -106,8 +106,11 @@ public class UserService {
     }
     @Transactional
     public CommonIdResult addUser(UserReqDto reqDto) {
+        NguoiDungEntity nguoiDungCheck = null;
         if (userRepository.findByUserNameAndDel(reqDto.getUserName(), false).isPresent())
             throw new ObjectAlreadExistException("userName");
+
+        userRepository.findByUserNameAndDel(reqDto.getUserName(), false).orElse(null);
 
         NguoiDungEntity nguoiDungEntity = reqDto.toEntity();
         System.out.println("pass = " + reqDto.getPassword());
