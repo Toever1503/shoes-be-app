@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface INguoiDungRepository extends JpaRepository<NguoiDungEntity, Long> {
     Optional<NguoiDungEntity> findByUserNameAndDel(String userId, Boolean del);
     Optional<NguoiDungEntity> findByEmailAndDel(String email, Boolean del);
-    Optional<NguoiDungEntity> findByPhoneAndDel(String email, Boolean del);
+    Optional<NguoiDungEntity> findByPhoneAndDel(String phone, Boolean del);
     Optional<NguoiDungEntity> findByIdAndDel(Long userId, Boolean del);
     Optional<NguoiDungEntity> findByUserNameAndNameAndEmail(String userId, String name, String email);
     List<NguoiDungEntity> findByNameAndPhone(String name, String phone);

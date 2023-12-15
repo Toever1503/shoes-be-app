@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -108,9 +109,14 @@ public class UserService {
     public CommonIdResult addUser(UserReqDto reqDto) {
         NguoiDungEntity nguoiDungCheck = null;
         if (userRepository.findByUserNameAndDel(reqDto.getUserName(), false).isPresent())
-            throw new ObjectAlreadExistException("userName");
+            throw new ObjectNotFoundException(21);
 
-        userRepository.findByUserNameAndDel(reqDto.getUserName(), false).orElse(null);
+        if(userRepository.findByEmailAndDel(reqDto.getEmail(), false).isPresent())
+            throw new ObjectNotFoundException(22);
+
+
+        if(userRepository.findByPhoneAndDel(reqDto.getPhone(), false).isPresent())
+            throw new ObjectNotFoundException(23);
 
         NguoiDungEntity nguoiDungEntity = reqDto.toEntity();
         System.out.println("pass = " + reqDto.getPassword());
@@ -133,9 +139,20 @@ public class UserService {
     @Transactional
     public CommonIdResult updateUser(Long id, UserUpdateReqDto reqDto) {
         NguoiDungEntity nguoiDungEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+
+        NguoiDungEntity check = null;
+        if(!ObjectUtils.isEmpty(reqDto.getEmail())) {
+            check = userRepository.findByEmailAndDel(reqDto.getEmail(), false).orElse(null);
+            if (check != null)
+                if (!check.getId().equals(nguoiDungEntity.getId()))
+                    throw new ObjectNotFoundException(22);
+        }
+
+        check  = userRepository.findByPhoneAndDel(reqDto.getPhone(), false).orElse(null);
+        if(check != null)
+            if(!check.getId().equals(nguoiDungEntity.getId()))
+                throw new ObjectNotFoundException(23);
         nguoiDungEntity.update(reqDto);
-        if(reqDto.getRole() != null)
-            nguoiDungEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
 
         if(reqDto.getPassword() != null)
             nguoiDungEntity.setPassword(passwordEncoder.encode(reqDto.getPassword()));
@@ -275,6 +292,16 @@ public class UserService {
     }
 
     public void addNewUser(UserUpdateReqDto reqDto) {
+        if (userRepository.findByUserNameAndDel(reqDto.getUserId(), false).isPresent())
+            throw new ObjectNotFoundException(21);
+
+        if(!ObjectUtils.isEmpty(reqDto.getEmail()))
+          if(userRepository.findByEmailAndDel(reqDto.getEmail(), false).isPresent())
+            throw new ObjectNotFoundException(22);
+
+
+        if(userRepository.findByPhoneAndDel(reqDto.getPhone(), false).isPresent())
+            throw new ObjectNotFoundException(23);
         NguoiDungEntity nguoiDungEntity = NguoiDungEntity
                 .builder()
                 .userName(reqDto.getUserId())
@@ -285,6 +312,7 @@ public class UserService {
                 .sex(reqDto.getSex())
                 .birthDate(reqDto.getBirthDate())
                 .approved(true)
+                .del(false)
                 .build();
         nguoiDungEntity.setRole(this.roleRepository.findByRoleCd(reqDto.getRole().getTitle()));
         userRepository.saveAndFlush(nguoiDungEntity);

@@ -130,7 +130,7 @@ public class PaymentService {
         donHangDto.setTrangThai(donHangEntity.getTrangThai());
         donHangDto.setNgayTao(donHangEntity.getNgayTao());
         donHangDto.setPhiShip(donHangEntity.getPhiShip());
-        donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaTien());
+        donHangDto.setTongGiaCuoiCung(donHangEntity.getTongGiaCuoiCung());
 
         if (donHangEntity.getNguoiMuaId() != null)
             donHangDto.setNguoiMua(UsermetaDto.toDto(userRepository.findById(donHangEntity.getNguoiMuaId()).orElse(null)));

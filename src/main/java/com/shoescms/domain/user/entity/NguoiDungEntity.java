@@ -29,7 +29,7 @@ public class NguoiDungEntity extends BaseDateEntity implements UserDetails {
     @Column(name = "id", nullable = false, columnDefinition = "BIGINT COMMENT '아이디'")
     private Long id;
     
-    @Column(name = "user_name", nullable = false, unique = true, columnDefinition = "NVARCHAR(20) COMMENT '사용자 아이디'")
+    @Column(name = "user_name", nullable = false, columnDefinition = "NVARCHAR(20) COMMENT '사용자 아이디'")
     private String userName;
     
     @Column(name = "name", nullable = false, columnDefinition = "NVARCHAR(20) COMMENT '이름'")
