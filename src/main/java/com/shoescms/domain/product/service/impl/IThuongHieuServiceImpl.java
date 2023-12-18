@@ -96,8 +96,7 @@ public class IThuongHieuServiceImpl implements IThuongHieuService {
         BooleanBuilder builder = new BooleanBuilder();
         if (!ObjectUtils.isEmpty(tenThuongHieu))
             builder.and(QThuongHieuEntity.thuongHieuEntity.tenThuongHieu.contains(tenThuongHieu));
-        if (!ObjectUtils.isEmpty(layMacDinh))
-            builder.and(QThuongHieuEntity.thuongHieuEntity.id.ne(1L));
+        builder.and(QThuongHieuEntity.thuongHieuEntity.id.ne(1L));
 
         builder.and(QThuongHieuEntity.thuongHieuEntity.ngayXoa.isNull());
         List<ThuongHieuDTO> content = jpaQueryFactory.selectDistinct(

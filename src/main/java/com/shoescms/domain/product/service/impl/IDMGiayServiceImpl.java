@@ -84,6 +84,7 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
     public List<DanhMucDTO> getDanhMucs(String tenDanhMuc, String slug, Pageable pageable) {
         List<DMGiayEntity> dmGiayEntities = danhMucRepository.findAll((Specification<DMGiayEntity>) (root, query, criteriaBuilder) -> {
             Predicate p = criteriaBuilder.conjunction();
+            p = criteriaBuilder.and(p, criteriaBuilder.notEqual(root.get("id"), 1L));
             if (!StringUtils.isEmpty(tenDanhMuc)) {
                 p = criteriaBuilder.and(p, criteriaBuilder.like(root.get("tenDanhMuc"), "%" + tenDanhMuc + "%"));
             }
@@ -102,8 +103,8 @@ public class IDMGiayServiceImpl implements IDanhMucGiayService {
         BooleanBuilder builder = new BooleanBuilder();
         if (!ObjectUtils.isEmpty(tenDanhMuc))
             builder.and(QDMGiayEntity.dMGiayEntity.tenDanhMuc.contains(tenDanhMuc));
-        if (!ObjectUtils.isEmpty(layMacDinh))
-            builder.and(QDMGiayEntity.dMGiayEntity.id.ne(1L));
+
+        builder.and(QDMGiayEntity.dMGiayEntity.id.ne(1L));
         builder.and(QDMGiayEntity.dMGiayEntity.ngayXoa.isNull());
         List<DanhMucDTO> content = jpaQueryFactory
                 .selectDistinct(
