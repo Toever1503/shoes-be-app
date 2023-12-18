@@ -21,6 +21,8 @@ public class DanhGiaDto {
     private Integer soSao;
     private LocalDateTime ngayTao;
     private UsermetaDto nguoiTao;
+
+    private Boolean isHide;
     @JsonIgnore
     private Long nguoiTaoId;
 
@@ -31,6 +33,7 @@ public class DanhGiaDto {
                 .binhLuan(danhGia.getBinhLuan())
                 .soSao(danhGia.getSoSao())
                 .ngayTao(danhGia.getNgayTao())
+                .isHide(danhGia.getIsHide())
                 .nguoiTaoId(danhGia.getNguoiTaoId())
                 .build();
     }

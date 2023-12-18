@@ -52,20 +52,20 @@ public class UserService {
         this.config = config;
         this.mailService = mailService;
         this.jwtTokenProvider = jwtTokenProvider;
-//        initRole();
-// nguoiDungEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
-//         nguoiDungEntity.builder()
-//                 .userName("admin")
-//                 .password(this.passwordEncoder.encode("123456"))
-//                 .name("admin")
-//                 .approved(true)
-//                 .email("admin@email.com")
-//                 .phone("0958572838")
-//                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
-//                 .del(false)
-//                 .build()
-// );
-// this.userRepository.saveAndFlush(adminUser);
+        initRole();
+        NguoiDungEntity adminUser =        this.userRepository.findByUserNameAndDel("admin", false).orElse(
+         NguoiDungEntity.builder()
+                 .userName("admin")
+                 .password(this.passwordEncoder.encode("123456"))
+                 .name("admin")
+                 .approved(true)
+                 .email("admin@email.com")
+                 .phone("0958572838")
+                 .role(this.roleRepository.findByRoleCd(RoleEnum.ROLE_ADMIN.getTitle()))
+                 .del(false)
+                 .build()
+ );
+ this.userRepository.saveAndFlush(adminUser);
     }
 
 //    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, UserQueryRepository userQueryRepository, RoleRepository roleRepository, CommonConfig config, MailService mailService) {

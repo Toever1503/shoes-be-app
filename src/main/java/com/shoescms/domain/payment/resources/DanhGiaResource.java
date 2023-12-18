@@ -51,9 +51,14 @@ public class DanhGiaResource {
         }
     }
 
-    @DeleteMapping("/xoa/{id}")
-    public void xoaDanhGia(@PathVariable Long id){
-        service.xoaDanhGia(id);
+//    @DeleteMapping("/xoa/{id}")
+//    public void xoaDanhGia(@PathVariable Long id){
+//        service.xoaDanhGia(id);
+//    }
+
+    @PatchMapping("/an/{id}")
+    public void anDanhGia(@PathVariable Long id){
+        service.anDanhGia(id);
     }
     @GetMapping("public/lay-danh-gia/{id}")
     public Page<DanhGiaDto> layDanhGiaChoSp(@PathVariable Long id, @RequestParam(required = false) String q, Pageable pageable){

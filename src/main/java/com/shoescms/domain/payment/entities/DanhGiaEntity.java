@@ -31,6 +31,9 @@ public class DanhGiaEntity {
     @Column(name = "so_sao")
     private Integer soSao;
 
+    @Column(name = "is_hide")
+    private Boolean isHide;
+
     @Column(name = "ngay_tao")
     private LocalDateTime ngayTao;
 }

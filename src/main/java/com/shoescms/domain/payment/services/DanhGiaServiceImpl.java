@@ -131,4 +131,12 @@ public class DanhGiaServiceImpl  {
     public Double findRatingBySanPham(Long idSanPham) {
         return repo.findRatingBySanPham(idSanPham);
     }
+
+    public void anDanhGia(Long id) {
+        DanhGiaEntity danhGia = repo.findById(id).orElse(null);
+        if(danhGia!= null) {
+            danhGia.setIsHide(true);
+            repo.saveAndFlush(danhGia);
+        }
+    }
 }
