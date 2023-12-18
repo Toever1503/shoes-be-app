@@ -53,6 +53,7 @@ public class DanhGiaServiceImpl  {
                 .ngayTao(danhGia.getNgayTao())
                 .nguoiTaoId(danhGia.getNguoiTaoId())
                 .soSao(danhGia.getSoSao())
+                .isHide(false)
                 .build();
         repo.save(entity);
 
